@@ -129,13 +129,13 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
 
         $translator = $this->getObject('translator');
         $options    = array();
-    
+
         $options[] = $this->option(array('label' => $translator->translate('Published'), 'value' => 1 ));
         $options[] = $this->option(array('label' => $translator->translate('Unpublished') , 'value' => 0 ));
-    
+
         //Add the options to the config object
         $config->options = $options;
-    
+
         return $this->optionlist($config);
     }
 
@@ -198,6 +198,9 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
         ))->append(array(
             'value'      => $config->name,
             'selected'   => $config->{$config->name},
+            'options'    => array(
+                'tags' => (bool) $config->attribs->tags
+            ),
             'identifier' => 'com://'.$this->getIdentifier()->domain.'/'.$this->getIdentifier()->package.'.model.'.$config->model
         ))->append(array(
             'label'      => $config->value,
@@ -265,7 +268,10 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
             'deselect' => true,
         ))->append(array(
             'element'    => '#'.$config->attribs->id,
-            'options'    => array('multiple' => (bool) $config->attribs->multiple),
+            'options'    => array(
+                'multiple' => (bool) $config->attribs->multiple,
+                'tags' => (bool) $config->attribs->tags,
+            ),
             'value'      => $config->name,
             'selected'   => $config->{$config->name},
             'identifier' => 'com://'.$this->getIdentifier()->domain.'/'.$this->getIdentifier()->package.'.model.'.$config->model
