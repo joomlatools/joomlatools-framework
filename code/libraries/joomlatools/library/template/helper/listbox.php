@@ -125,13 +125,13 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
 
         $translator = $this->getObject('translator');
         $options    = array();
-    
+
         $options[] = $this->option(array('label' => $translator->translate('Published'), 'value' => 1 ));
         $options[] = $this->option(array('label' => $translator->translate('Unpublished') , 'value' => 0 ));
-    
+
         //Add the options to the config object
         $config->options = $options;
-    
+
         return $this->optionlist($config);
     }
 
@@ -194,17 +194,27 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
         ))->append(array(
             'value'      => $config->name,
             'selected'   => $config->{$config->name},
-            'identifier' => 'com://'.$this->getIdentifier()->domain.'/'.$this->getIdentifier()->package.'.model.'.$config->model
         ))->append(array(
             'label'      => $config->value,
         ))->append(array(
             'filter'     => array('sort' => $config->label),
         ));
 
-        $list       = $this->getObject($config->identifier)->setState(KObjectConfig::unbox($config->filter))->fetch();
+        //Get the model object
+        if(!$config->model instanceof KModelInterface)
+        {
+            $config->append(array(
+                'identifier' => 'com://'.$this->getIdentifier()->domain.'/'.$this->getIdentifier()->package.'.model.'.$config->model
+            ));
+
+            $model = $this->getObject($config->identifier);
+        }
+        else $model = $config->model;
 
         //Get the list of items
         $items = array();
+
+        $list = $model->setState(KObjectConfig::unbox($config->filter))->fetch();
         foreach($list as $key => $item) {
             $items[$key] = $item->getProperty($config->value);
         }
@@ -264,7 +274,6 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
             'options'    => array('multiple' => (bool) $config->attribs->multiple),
             'value'      => $config->name,
             'selected'   => $config->{$config->name},
-            'identifier' => 'com://'.$this->getIdentifier()->domain.'/'.$this->getIdentifier()->package.'.model.'.$config->model
         ))->append(array(
             'label'      => $config->value,
         ))->append(array(
@@ -272,9 +281,24 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
             'filter'     => array('sort' => $config->label),
         ));
 
+        //Add name to attribs
+        $config->attribs->name = $config->name;
+
+        //Get the model object
+        if(!$config->model instanceof KModelInterface)
+        {
+            $config->append(array(
+                'identifier' => 'com://'.$this->getIdentifier()->domain.'/'.$this->getIdentifier()->package.'.model.'.$config->model
+            ));
+
+            $model = $this->getObject($config->identifier);
+        }
+        else $model = $config->model;
+
+        //Get the autocomplete url
         if (!$config->url)
         {
-            $identifier = $this->getIdentifier($config->identifier);
+            $identifier = $this->getIdentifier($model);
             $parts      = array(
                 'component' => $identifier->package,
                 'view'      => $identifier->name,
@@ -289,23 +313,19 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
         }
 
         $html = '';
-
         $html .= $this->getTemplate()->createHelper('behavior')->autocomplete($config);
 
-        $config->attribs->name = $config->name;
-
+        //Get the selected items
         $options = array();
-
-        $has_selected = is_scalar($config->selected) ? !empty($config->selected) : count($config->selected);
-
-        if ($has_selected)
+        if (is_scalar($config->selected) ? !empty($config->selected) : count($config->selected))
         {
             $selected = $config->selected;
 
             if(!$selected instanceof KModelEntityInterface)
             {
-                $model     = $this->getObject($config->identifier)->setState(KObjectConfig::unbox($config->filter));
-                $selected  = $model->setState(array($config->value => KObjectConfig::unbox($selected)))->fetch();
+                $selected = $model->setState(KObjectConfig::unbox($config->filter))
+                                  ->setState(array($config->value => KObjectConfig::unbox($selected)))
+                                  ->fetch();
             }
 
             foreach($selected as $entity)
@@ -318,7 +338,7 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
             }
         }
 
-         $html .= $this->optionlist(array(
+        $html .= $this->optionlist(array(
             'name'     => $config->name,
             'id'       => $config->id,
             'options' => $options,
