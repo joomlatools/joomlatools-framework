@@ -232,15 +232,34 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
             $offset += $limit;
         }
 
-        //Compose the selected array
-        if($config->selected instanceof KModelEntityInterface)
+        if(is_scalar($config->selected) ? !empty($config->selected) : count($config->selected))
         {
             $selected = array();
-            foreach($config->selected as $entity) {
-                $selected[] = $entity->{$config->value};
-            }
 
-            $config->selected = $selected;
+            //Compose the selected array
+            if($config->selected instanceof KModelEntityInterface)
+            {
+                foreach($config->selected as $entity) {
+                    $selected[] = $entity->{$config->value};
+                }
+
+                $config->selected = $selected;
+            }
+            else
+            {
+                  $selected = $model->setState(KObjectConfig::unbox($config->filter))
+                                    ->setState(array($config->value => KObjectConfig::unbox($config->selected)))
+                                    ->fetch();
+
+                  foreach($selected as $entity)
+                  {
+                      $options[]  = $this->option(array(
+                          'value' => $entity->{$config->value},
+                          'label' => $entity->{$config->label},
+                          'attribs' => array('selected' => true)
+                      ));
+                  }
+            }
         }
 
         //Add the options to the config object
