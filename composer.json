@@ -1,6 +1,6 @@
 {
     "name": "joomlatools/framework",
-    "type": "nooku-framework",
+    "type": "joomlatools-extension",
     "license": "GPLv3",
     "description": "Joomlatools Framework is an open-source extension framework for Joomla",
     "keywords": [
@@ -25,7 +25,7 @@
     "require": {
         "php": ">=5.4",
         "ext-mbstring": "*",
-        "nooku/installer": "~1.0",
+        "joomlatools/composer": "*",
         "symfony/yaml": "~2.6"
     },
     "suggest": {
@@ -33,7 +33,7 @@
         "mustache/mustache": "Allows building logic less templates using the Mustache syntax",
         "erusev/parsedown-extra" : "Allows using Markddown in templates"
     },
-    "autoload": {
-      "files": ["autoload.php"]
+    "extra": {
+        "manifest": "code/plugins/system/joomlatools/joomlatools.xml"
     }
 }
