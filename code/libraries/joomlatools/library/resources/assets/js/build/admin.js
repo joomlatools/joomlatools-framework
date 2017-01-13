@@ -9122,7 +9122,7 @@ $.magnificPopup.registerModule(RETINA_NS, {
     }
 })(jQuery, window);
 
-// @preserve jQuery.floatThead 1.4.2 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
+// @preserve jQuery.floatThead 1.4.5 - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
 // @license MIT
 
 /* @author Misha Koryak
@@ -9163,7 +9163,6 @@ $.magnificPopup.registerModule(RETINA_NS, {
     floatWrapperClass: 'floatThead-wrapper',
     floatContainerClass: 'floatThead-container',
     copyTableClass: true, //copy 'class' attribute from table into the floated table so that the styles match.
-    enableAria: false, //will copy header text from the floated header back into the table for screen readers. Might cause the css styling to be off. beware!
     autoReflow: false, //(undocumented) - use MutationObserver api to reflow automatically when internal table DOM changes
     debug: false, //print possible issues (that don't prevent script loading) to console, if console exists.
     support: { //should we bind events that expect these frameworks to be present and/or check for them?
@@ -9191,7 +9190,15 @@ $.magnificPopup.registerModule(RETINA_NS, {
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
   var isTableWidthBug = function(){
     if(isWebkit) {
-      var $test = $('<div style="width:0px"><table style="max-width:100%"><tr><th><div style="min-width:100px;">X</div></th></tr></table></div>');
+      var $test = $('<div>').css('width', 0).append(
+        $('<table>').css('max-width', '100%').append(
+          $('<tr>').append(
+            $('<th>').append(
+              $('<div>').css('min-width', 100).text('X')
+            )
+          )
+        )
+      );
       $("body").append($test);
       var ret = ($test.find("table").width() == 0);
       $test.remove();
@@ -9205,7 +9212,6 @@ $.magnificPopup.registerModule(RETINA_NS, {
   var $window = $(window);
 
   if(!window.matchMedia) {
-    //these will be used by the plugin to go into print mode (destroy and remake itself)
     var _beforePrint = window.onbeforeprint;
     var _afterPrint = window.onafterprint;
     window.onbeforeprint = function () {
@@ -9273,10 +9279,18 @@ $.magnificPopup.registerModule(RETINA_NS, {
    * @return {Number}
    */
   function scrollbarWidth() {
-    var $div = $( //borrowed from anti-scroll
-                  '<div style="width:50px;height:50px;overflow-y:scroll;'
-                  + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%">'
-                  + '</div>'
+    var $div = $('<div>').css({ //borrowed from anti-scroll
+      'width': 50,
+      'height': 50,
+      'overflow-y': 'scroll',
+      'position': 'absolute',
+      'top': -200,
+      'left': -200
+    }).append(
+      $('<div>').css({
+        'height': 100,
+        'width': '100%'
+      })
     );
     $('body').append($div);
     var w1 = $div.innerWidth();
@@ -9447,7 +9461,13 @@ $.magnificPopup.registerModule(RETINA_NS, {
         var captionAlignTop = ($caption.css("caption-side") || $caption.attr("align") || "top") === "top";
       }
 
-      var $fthGrp = $('<fthfoot style="display:table-footer-group;border-spacing:0;height:0;border-collapse:collapse;visibility:hidden"/>');
+      var $fthGrp = $('<fthfoot>').css({
+        'display': 'table-footer-group',
+        'border-spacing': 0,
+        'height': 0,
+        'border-collapse': 'collapse',
+        'visibility': 'hidden'
+      });
 
       var wrappedContainer = false; //used with absolute positioning enabled. did we need to wrap the scrollContainer/table with a relative div?
       var $wrapper = $([]); //used when absolute positioning enabled - wraps the table and the float container
@@ -9460,11 +9480,16 @@ $.magnificPopup.registerModule(RETINA_NS, {
         $tableColGroup = $("<colgroup/>");
         existingColGroup = false;
       }
-      var $fthRow = $('<fthtr style="display:table-row;border-spacing:0;height:0;border-collapse:collapse"/>'); //created unstyled elements (used for sizing the table because chrome can't read <col> width)
-      var $floatContainer = $('<div style="overflow: hidden;" aria-hidden="true"></div>');
+      var $fthRow = $('<fthtr>').css({ //created unstyled elements (used for sizing the table because chrome can't read <col> width)
+        'display': 'table-row',
+        'border-spacing': 0,
+        'height': 0,
+        'border-collapse': 'collapse'
+      });
+      var $floatContainer = $('<div>').css('overflow', 'hidden').attr('aria-hidden', 'true');
       var floatTableHidden = false; //this happens when the table is hidden and we do magic when making it visible
       var $newHeader = $("<thead/>");
-      var $sizerRow = $('<tr class="size-row"/>');
+      var $sizerRow = $('<tr class="size-row" aria-hidden="true"/>');
       var $sizerCells = $([]);
       var $tableCells = $([]); //used for sizing - either $sizerCells or $tableColGroup cols. $tableColGroup cols are only created in chrome for borderCollapse:collapse because of a chrome bug.
       var $headerCells = $([]);
@@ -9510,7 +9535,12 @@ $.magnificPopup.registerModule(RETINA_NS, {
           if(!relativeToScrollContainer || alwaysWrap){
             var css = {"paddingLeft": $container.css('paddingLeft'), "paddingRight": $container.css('paddingRight')};
             $floatContainer.css(css);
-            $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap("<div class='"+opts.floatWrapperClass+"' style='position: relative; clear:both;'></div>").parent();
+            $containerWrap = $container.data('floatThead-containerWrap') || $container.wrap(
+              $('<div>').addClass(opts.floatWrapperClass).css({
+                'position': 'relative',
+                'clear': 'both'
+              })
+            ).parent();
             $container.data('floatThead-containerWrap', $containerWrap); //multiple tables inside one scrolling container - #242
             wrappedContainer = true;
           }
@@ -9532,7 +9562,8 @@ $.magnificPopup.registerModule(RETINA_NS, {
                             position: useAbsolutePositioning ? 'absolute' : 'fixed',
                             marginTop: 0,
                             top:  useAbsolutePositioning ? 0 : 'auto',
-                            zIndex: opts.zIndex
+                            zIndex: opts.zIndex,
+                            willChange: 'transform'
                           });
       $floatContainer.addClass(opts.floatContainerClass);
       updateScrollingOffsets();
@@ -9600,21 +9631,24 @@ $.magnificPopup.registerModule(RETINA_NS, {
           lastColumnCount = count;
           var cells = [], cols = [], psuedo = [], content;
           for(var x = 0; x < count; x++){
-            if (opts.enableAria && (content = $headerColumns.eq(x).text()) ) {
-              cells.push('<th scope="col" class="floatThead-col">' + content + '</th>');
-            } else {
-              cells.push('<th class="floatThead-col"/>');
-            }
+            content = $headerColumns.eq(x).text();
+            cells.push('<th class="floatThead-col" aria-label="'+content+'"/>');
             cols.push('<col/>');
-            psuedo.push("<fthtd style='display:table-cell;height:0;width:auto;'/>");
+            psuedo.push(
+              $('<fthtd>').css({
+                'display': 'table-cell',
+                'height': 0,
+                'width': 'auto'
+              })
+            );
           }
 
           cols = cols.join('');
           cells = cells.join('');
 
           if(createElements){
-            psuedo = psuedo.join('');
-            $fthRow.html(psuedo);
+            $fthRow.empty();
+            $fthRow.append(psuedo);
             $fthCells = $fthRow.find('fthtd');
           }
 
@@ -9774,7 +9808,10 @@ $.magnificPopup.registerModule(RETINA_NS, {
         }
         var windowTop = $window.scrollTop();
         var windowLeft = $window.scrollLeft();
-        var scrollContainerLeft =  (isResponsiveContainerActive() ? $responsiveContainer : $scrollContainer).scrollLeft();
+        var scrollContainerLeft = (
+            isResponsiveContainerActive() ?  $responsiveContainer :
+            (locked ? $scrollContainer : $window)
+        ).scrollLeft();
 
         return function(eventType){
           responsive = isResponsiveContainerActive();
@@ -9886,7 +9923,7 @@ $.magnificPopup.registerModule(RETINA_NS, {
             }
             left = tableOffset.left + scrollContainerLeft - windowLeft;
           }
-          return {top: top, left: left};
+          return {top: Math.round(top), left: Math.round(left)};
         };
       }
       /**
@@ -9899,10 +9936,23 @@ $.magnificPopup.registerModule(RETINA_NS, {
         var oldScrollLeft = null;
         return function(pos, setWidth, setHeight){
           if(pos != null && (oldTop != pos.top || oldLeft != pos.left)){
-            $floatContainer.css({
-                                  top: pos.top,
-                                  left: pos.left
-                                });
+            if(ieVersion === 8){
+              $floatContainer.css({
+                top: pos.top,
+                left: pos.left
+              });
+            } else {
+              var transform = 'translateX(' + pos.left + 'px) translateY(' + pos.top + 'px)';
+              $floatContainer.css({
+                '-webkit-transform' : transform,
+                '-moz-transform'    : transform,
+                '-ms-transform'     : transform,
+                '-o-transform'      : transform,
+                'transform'         : transform,
+                'top': 0,
+                'left': 0
+              });
+            }
             oldTop = pos.top;
             oldLeft = pos.left;
           }
@@ -10001,10 +10051,10 @@ $.magnificPopup.registerModule(RETINA_NS, {
 
       /////// printing stuff
       var beforePrint = function(){
-        $table.floatThead('destroy', true);
+        unfloat();
       };
       var afterPrint = function(){
-        $table.floatThead(opts);
+        refloat();
       };
       var printEvent = function(mql){
         //make printing the table work properly on IE10+
@@ -10014,8 +10064,11 @@ $.magnificPopup.registerModule(RETINA_NS, {
           afterPrint();
         }
       };
-      if(window.matchMedia){
-        window.matchMedia("print").addListener(printEvent);
+
+      var matchMediaPrint;
+      if(window.matchMedia && window.matchMedia('print').addListener){
+        matchMediaPrint = window.matchMedia("print");
+        matchMediaPrint.addListener(printEvent);
       } else {
         $window.on('beforeprint', beforePrint);
         $window.on('afterprint', afterPrint);
@@ -10081,7 +10134,7 @@ $.magnificPopup.registerModule(RETINA_NS, {
 
       //attach some useful functions to the table.
       $table.data('floatThead-attached', {
-        destroy: function(isPrintEvent){
+        destroy: function(){
           var ns = '.fth-'+floatTheadId;
           unfloat();
           $table.css(layoutAuto);
@@ -10115,10 +10168,13 @@ $.magnificPopup.registerModule(RETINA_NS, {
           $floatContainer.remove();
           $table.data('floatThead-attached', false);
           $window.off(ns);
-          if(!isPrintEvent){
-            //if we are in the middle of printing, we want this event to re-create the plugin
-            window.matchMedia && window.matchMedia("print").removeListener(printEvent);
-            beforePrint = afterPrint = function(){};
+          if (matchMediaPrint) {
+            matchMediaPrint.removeListener(printEvent);
+          }
+          beforePrint = afterPrint = function(){};
+
+          return function reinit(){
+            return $table.floatThead(opts);
           }
         },
         reflow: function(){
@@ -10141,7 +10197,14 @@ $.magnificPopup.registerModule(RETINA_NS, {
     });
     return this;
   };
-})(jQuery);
+})((function(){
+  var $ = window.jQuery;
+  if(typeof module !== 'undefined' && module.exports && !$) {
+    // only use cjs if they dont have a jquery for me to use, and we have commonjs
+    $ = require('jquery');
+  }
+  return $;
+})());
 
 /* jQuery.floatThead.utils - http://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2016 Misha Koryak
  * License: MIT
@@ -18193,33 +18256,34 @@ var Konami = function (callback) {
             }
         });
 
-        // Sticky table header and footer
-        function fixedTable() {
-            var result = false;
+        var reinittable;
 
-            if (navigator.userAgent.toLowerCase().indexOf('firefox') === -1) {
-                if ( $fixedtable.length ) {
+        // Sticky table header
+        function fixedTable() {
+            if ( $fixedtable.length ) {
+                setTimeout(function() {
                     $fixedtable.floatThead({
                         scrollContainer: function($table){
                             return $table.closest('.k-table');
                         },
-                        position: 'absolute'
+                        position: 'fixed',
+                        copyTableClass: false
                     });
-                }
-
-                $footable.bind('footable_resizing', function() {
-                    $fixedtable.floatThead('destroy');
-                }).bind('footable_resized', function() {
-                    $fixedtable.floatThead('reflow');
-                });
-
-                result = true;
+                }, 100);
             }
 
-            return result;
+            $footable.bind('footable_resizing', function() {
+                // These don't work simultaneously
+                reinittable = $fixedtable.floatThead('destroy'); // Works on Chrome but kills it on FF
+                // reinittable = $fixedtable.floatThead('reflow'); // Works on FF but kills it on Chrome (keeps all it table headings)
+            }).bind('footable_resized', function() {
+                setTimeout(function() {
+                    reinittable(); // Works on Chrome but kills it on FF
+                }, 200);
+            });
         }
 
-        var has_fixed_table = fixedTable();
+        fixedTable();
 
         // Add a class during resizing event so we can hide overflowing stuff
         var resizeTimer, resizeClass = 'k-is-resizing';
@@ -18231,11 +18295,7 @@ var Konami = function (callback) {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
                 $('body').removeClass(resizeClass);
-
-                if (has_fixed_table) {
-                    $fixedtable.floatThead('reflow');
-                }
-            }, 250);
+            }, 200);
         });
 
         // Filter and search toggle buttons in the scopebar
@@ -18340,7 +18400,6 @@ var Konami = function (callback) {
     });
 
 })(kQuery);
-
 
 window.jQuery = globalCacheForjQueryReplacement;
 globalCacheForjQueryReplacement = undefined;

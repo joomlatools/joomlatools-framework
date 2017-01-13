@@ -121,33 +121,34 @@
             }
         });
 
-        // Sticky table header and footer
-        function fixedTable() {
-            var result = false;
+        var reinittable;
 
-            if (navigator.userAgent.toLowerCase().indexOf('firefox') === -1) {
-                if ( $fixedtable.length ) {
+        // Sticky table header
+        function fixedTable() {
+            if ( $fixedtable.length ) {
+                setTimeout(function() {
                     $fixedtable.floatThead({
                         scrollContainer: function($table){
                             return $table.closest('.k-table');
                         },
-                        position: 'absolute'
+                        position: 'fixed',
+                        copyTableClass: false
                     });
-                }
-
-                $footable.bind('footable_resizing', function() {
-                    $fixedtable.floatThead('destroy');
-                }).bind('footable_resized', function() {
-                    $fixedtable.floatThead('reflow');
-                });
-
-                result = true;
+                }, 100);
             }
 
-            return result;
+            $footable.bind('footable_resizing', function() {
+                // These don't work simultaneously
+                reinittable = $fixedtable.floatThead('destroy'); // Works on Chrome but kills it on FF
+                // reinittable = $fixedtable.floatThead('reflow'); // Works on FF but kills it on Chrome (keeps all it table headings)
+            }).bind('footable_resized', function() {
+                setTimeout(function() {
+                    reinittable(); // Works on Chrome but kills it on FF
+                }, 200);
+            });
         }
 
-        var has_fixed_table = fixedTable();
+        fixedTable();
 
         // Add a class during resizing event so we can hide overflowing stuff
         var resizeTimer, resizeClass = 'k-is-resizing';
@@ -159,11 +160,7 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
                 $('body').removeClass(resizeClass);
-
-                if (has_fixed_table) {
-                    $fixedtable.floatThead('reflow');
-                }
-            }, 250);
+            }, 200);
         });
 
         // Filter and search toggle buttons in the scopebar
@@ -268,4 +265,3 @@
     });
 
 })(kQuery);
-
