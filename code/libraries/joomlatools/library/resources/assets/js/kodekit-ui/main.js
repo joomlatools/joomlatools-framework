@@ -3,10 +3,11 @@
     $(document).ready(function () {
 
         // Variables
-        var $fixedtable = $('.k-js-fixed-table-header'),
-            $footable = $('.k-js-responsive-table'),
+        var $footable = $('.k-js-responsive-table'),
             $sidebarToggle = $('.k-js-sidebar-toggle-item'),
-            $scopebar = $('.k-js-scopebar');
+            $scopebar = $('.k-js-scopebar'),
+            resizeTimer,
+            resizeClass = 'k-is-resizing';
 
         // Sidebar
         if ($('.k-js-title-bar, .k-js-toolbar').length && $('.k-js-wrapper').length && $('.k-js-content').length)
@@ -121,38 +122,7 @@
             }
         });
 
-        var reinittable;
-
-        // Sticky table header
-        function fixedTable() {
-            if ( $fixedtable.length ) {
-                setTimeout(function() {
-                    $fixedtable.floatThead({
-                        scrollContainer: function($table){
-                            return $table.closest('.k-table');
-                        },
-                        position: 'fixed',
-                        copyTableClass: false
-                    });
-                }, 100);
-            }
-
-            $footable.bind('footable_resizing', function() {
-                // These don't work simultaneously
-                reinittable = $fixedtable.floatThead('destroy'); // Works on Chrome but kills it on FF
-                // reinittable = $fixedtable.floatThead('reflow'); // Works on FF but kills it on Chrome (keeps all it table headings)
-            }).bind('footable_resized', function() {
-                setTimeout(function() {
-                    reinittable(); // Works on Chrome but kills it on FF
-                }, 200);
-            });
-        }
-
-        fixedTable();
-
-        // Add a class during resizing event so we can hide overflowing stuff
-        var resizeTimer, resizeClass = 'k-is-resizing';
-
+        // Add class to body when resizing so we can add styling to the page
         $(window).on('resize', function() {
             $('body').addClass(resizeClass);
 
