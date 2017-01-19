@@ -3,10 +3,11 @@
     $(document).ready(function () {
 
         // Variables
-        var $fixedtable = $('.k-js-fixed-table-header'),
-            $footable = $('.k-js-responsive-table'),
+        var $footable = $('.k-js-responsive-table'),
             $sidebarToggle = $('.k-js-sidebar-toggle-item'),
-            $scopebar = $('.k-js-scopebar');
+            $scopebar = $('.k-js-scopebar'),
+            resizeTimer,
+            resizeClass = 'k-is-resizing';
 
         // Sidebar
         if ($('.k-js-title-bar, .k-js-toolbar').length && $('.k-js-wrapper').length && $('.k-js-content').length)
@@ -121,37 +122,7 @@
             }
         });
 
-        // Sticky table header and footer
-        function fixedTable() {
-            var result = false;
-
-            if (navigator.userAgent.toLowerCase().indexOf('firefox') === -1) {
-                if ( $fixedtable.length ) {
-                    $fixedtable.floatThead({
-                        scrollContainer: function($table){
-                            return $table.closest('.k-table');
-                        },
-                        position: 'absolute'
-                    });
-                }
-
-                $footable.bind('footable_resizing', function() {
-                    $fixedtable.floatThead('destroy');
-                }).bind('footable_resized', function() {
-                    $fixedtable.floatThead('reflow');
-                });
-
-                result = true;
-            }
-
-            return result;
-        }
-
-        var has_fixed_table = fixedTable();
-
-        // Add a class during resizing event so we can hide overflowing stuff
-        var resizeTimer, resizeClass = 'k-is-resizing';
-
+        // Add class to body when resizing so we can add styling to the page
         $(window).on('resize', function() {
             $('body').addClass(resizeClass);
 
@@ -159,11 +130,7 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
                 $('body').removeClass(resizeClass);
-
-                if (has_fixed_table) {
-                    $fixedtable.floatThead('reflow');
-                }
-            }, 250);
+            }, 200);
         });
 
         // Filter and search toggle buttons in the scopebar
@@ -268,4 +235,3 @@
     });
 
 })(kQuery);
-
