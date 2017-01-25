@@ -31,6 +31,14 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             )
         ));
 
+        $app      = JFactory::getApplication();
+        $tmpl     = $this->getObject('request')->getQuery()->tmpl;
+        $layout   = $this->getObject('request')->getQuery()->layout;
+
+        if ($app->isSite() && $tmpl === 'koowa' && $layout === 'form') {
+            $config->domain = 'admin';
+        }
+
         $identifier = $this->getTemplate()->getIdentifier();
         $menu       = JFactory::getApplication()->getMenu()->getActive();
 
@@ -47,33 +55,6 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         $html = parent::load($config);
 
         return $html;
-    }
-
-    /**
-     * Loads admin.js in frontend forms
-     *
-     * @param array $config
-     * @return string
-     */
-    public function scripts($config = array())
-    {
-        $identifier = $this->getTemplate()->getIdentifier();
-
-        $config = new KObjectConfigJson($config);
-        $config->append(array(
-            'debug' => false,
-            'domain'  => $identifier->domain
-        ));
-
-        $app      = JFactory::getApplication();
-        $tmpl     = $this->getObject('request')->getQuery()->tmpl;
-        $layout   = $this->getObject('request')->getQuery()->layout;
-
-        if ($app->isSite() && $tmpl === 'koowa' && $layout === 'form') {
-            $config->domain = 'admin';
-        }
-
-        return parent::scripts($config);
     }
 
     /**
@@ -99,24 +80,6 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         $html = '';
 
-        $app      = JFactory::getApplication();
-        $template = $app->getTemplate();
-        $tmpl     = $this->getObject('request')->getQuery()->tmpl;
-        $layout   = $this->getObject('request')->getQuery()->layout;
-
-        if ($app->isSite())
-        {
-            // Load Bootstrap file if it's explicitly asked for
-            if ($tmpl !== 'koowa' && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
-                $html .= $this->getTemplate()->helper('behavior.bootstrap', array('javascript' => false, 'css' => true));
-            }
-
-            // Load the admin styles in frontend forms
-            if ($tmpl === 'koowa' && $layout === 'form') {
-                $config->file = 'admin';
-            }
-        }
-
         $path = sprintf('%s/%s/css/%s.css', $config->media_path, $config->folder, $config->file);
 
         if (!file_exists($path))
@@ -125,6 +88,18 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 $config->css_file = false;
             } else {
                 $config->folder = 'koowa';
+            }
+        }
+
+        $app      = JFactory::getApplication();
+        $template = $app->getTemplate();
+        $tmpl     = $this->getObject('request')->getQuery()->tmpl;
+
+        // Load Bootstrap file if it's explicitly asked for
+        if ($app->isSite() && $tmpl !== 'koowa')
+        {
+            if (file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
+                $html .= $this->getTemplate()->helper('behavior.bootstrap', ['javascript' => false, 'css' => true]);
             }
         }
 
