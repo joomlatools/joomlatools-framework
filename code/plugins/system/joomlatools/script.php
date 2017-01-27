@@ -290,7 +290,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
     protected function _runQueries()
     {
-        $results = glob(JPATH_LIBRARIES . '/joomlatools/component/*/resources/install/install.sql');
+        $results = glob(JPATH_LIBRARIES . '/joomlatools-components/*/resources/install/install.sql');
         $queries = array();
 
         $db = JFactory::getDbo();
