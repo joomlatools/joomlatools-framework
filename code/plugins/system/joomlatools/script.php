@@ -141,6 +141,34 @@ class PlgSystemJoomlatoolsInstallerScript
                 JFolder::create(JPATH_LIBRARIES.'/joomlatools-components');
             }
 
+            // Move reusable components
+            $components = JFolder::folders($source.'/libraries/joomlatools-components');
+
+            foreach ($components as $component)
+            {
+                $from = $source.'/libraries/joomlatools-components/'.$component;
+                $to   = JPATH_LIBRARIES.'/joomlatools-components/'.$component;
+
+                if (is_link($to)) {
+                    continue;
+                }
+
+                $this->_moveFolder($from, $to);
+            }
+
+            // Remove reusable components from the joomlatools folder as they have their own folder now
+            if ($type === 'update')
+            {
+                $components = ['activites', 'ckeditor', 'files', 'migrator', 'scheduler', 'tags'];
+                foreach ($components as $component) {
+                    $component_path = JPATH_LIBRARIES.'/joomlatools/component/'.$component;
+
+                    if (is_dir($component_path)) {
+                        JFolder::delete($component_path);
+                    }
+                }
+            }
+
             // Create media folder
             $media = JPATH_ROOT.'/media/koowa';
 
@@ -155,7 +183,7 @@ class PlgSystemJoomlatoolsInstallerScript
                 $this->_moveFolder($assets, $target);
             }
 
-            // Move component assets
+            // Move com_koowa assets
             $results = glob(JPATH_LIBRARIES . '/joomlatools/component/*/resources/assets', GLOB_ONLYDIR);
 
             foreach ($results as $result)
@@ -168,7 +196,21 @@ class PlgSystemJoomlatoolsInstallerScript
                 }
 
                 $this->_moveFolder($result, $target);
+            }
 
+            // Move component assets
+            $results = glob(JPATH_LIBRARIES . '/joomlatools-components/*/resources/assets', GLOB_ONLYDIR);
+
+            foreach ($results as $result)
+            {
+                $component = preg_replace('#^.*?joomlatools-components/([^/]+)/resources/assets#', '$1', $result);
+                $target    = $media.'/com_'.$component;
+
+                if (!$component || is_link($target)) {
+                    continue;
+                }
+
+                $this->_moveFolder($result, $target);
             }
         }
 

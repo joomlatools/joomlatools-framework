@@ -61,7 +61,7 @@
     </target>
 
     <target name="add_components" depends="clone">
-        <property name="component.folder" value="${project.basedir}/tmp/clone/code/libraries/joomlatools/component" />
+        <property name="component.folder" value="${project.basedir}/tmp/clone/code/libraries/joomlatools-components" />
         <delete file="${component.folder}/files" includeemptydirs="true" />
         <delete file="${component.folder}/activities" includeemptydirs="true" />
         <delete file="${component.folder}/scheduler" includeemptydirs="true" />
