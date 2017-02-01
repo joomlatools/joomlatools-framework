@@ -137,17 +137,20 @@ class PlgSystemJoomlatoolsInstallerScript
                 return false;
             }
 
-            if (!JFolder::exists(JPATH_LIBRARIES.'/joomlatools-components')) {
-                JFolder::create(JPATH_LIBRARIES.'/joomlatools-components');
+            $components_source = $source.'/libraries/joomlatools-components';
+            $components_target = JPATH_LIBRARIES.'/joomlatools-components';
+
+            if (!JFolder::exists($components_target)) {
+                JFolder::create($components_target);
             }
 
             // Move reusable components
-            $components = JFolder::folders($source.'/libraries/joomlatools-components');
+            $components = JFolder::folders($components_source);
 
             foreach ($components as $component)
             {
-                $from = $source.'/libraries/joomlatools-components/'.$component;
-                $to   = JPATH_LIBRARIES.'/joomlatools-components/'.$component;
+                $from = $components_source.'/'.$component;
+                $to   = $components_target.'/'.$component;
 
                 if (is_link($to)) {
                     continue;
@@ -199,7 +202,7 @@ class PlgSystemJoomlatoolsInstallerScript
             }
 
             // Move component assets
-            $results = glob(JPATH_LIBRARIES . '/joomlatools-components/*/resources/assets', GLOB_ONLYDIR);
+            $results = glob($components_target.'/*/resources/assets', GLOB_ONLYDIR);
 
             foreach ($results as $result)
             {
