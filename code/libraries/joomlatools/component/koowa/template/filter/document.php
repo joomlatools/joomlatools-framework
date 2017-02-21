@@ -58,8 +58,10 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             // Generate script file links
             foreach ($head['scripts'] as $path => $attributes)
             {
-                $attributes['type'] = $attributes['mime'];
-                unset($attributes['mime']);
+                if (isset($attributes['mime'])) {
+                    $attributes['type'] = $attributes['mime'];
+                    unset($attributes['mime']);
+                }
 
                 echo sprintf('<ktml:script src="%s" %s />', $path, $this->buildAttributes($attributes));
             }
