@@ -682,7 +682,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
                 $html .= "<script>
                     kQuery(function($){
-                        $('#".$config->id."').datepicker(".$options.");
+                        $('#".$config->id."').kdatepicker(".$options.");
                     });
                 </script>";
 
@@ -692,7 +692,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
                         kQuery(function($){
                             $('.k-js-form-controller').on('koowa:submit', function() {
                                 var element = kQuery('#".$config->id."'),
-                                    picker  = element.data('datepicker'),
+                                    picker  = element.data('kdatepicker'),
                                     offset  = $config->offset_seconds;
 
                                 if (picker && element.children('input').val()) {
@@ -757,7 +757,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
             $html .= '<script>
             (function($){
-                $.fn.datepicker.dates['.json_encode($config->options->language).'] = '.json_encode($locale).';
+                $.fn.kdatepicker.dates['.json_encode($config->options->language).'] = '.json_encode($locale).';
             }(kQuery));
             </script>';
 

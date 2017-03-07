@@ -340,7 +340,7 @@ window.jQuery = window.kQuery;
 			this._detachEvents();
 			this._detachSecondaryEvents();
 			this.picker.remove();
-			delete this.element.data().datepicker;
+			delete this.element.data().kdatepicker;
 			if (!this.isInput) {
 				delete this.element.data().date;
 			}
@@ -1021,10 +1021,10 @@ window.jQuery = window.kQuery;
 		delete options.inputs;
 
 		$(this.inputs)
-			.datepicker(options)
+			.kdatepicker(options)
 			.bind('changeDate', $.proxy(this.dateUpdated, this));
 
-		this.pickers = $.map(this.inputs, function(i){ return $(i).data('datepicker'); });
+		this.pickers = $.map(this.inputs, function(i){ return $(i).data('kdatepicker'); });
 		this.updateDates();
 	};
 	DateRangePicker.prototype = {
@@ -1039,7 +1039,7 @@ window.jQuery = window.kQuery;
 			});
 		},
 		dateUpdated: function(e){
-			var dp = $(e.target).data('datepicker'),
+			var dp = $(e.target).data('kdatepicker'),
 				new_date = dp.getUTCDate(),
 				i = $.inArray(e.target, this.inputs),
 				l = this.inputs.length;
@@ -1061,7 +1061,7 @@ window.jQuery = window.kQuery;
 		},
 		remove: function(){
 			$.map(this.pickers, function(p){ p.remove(); });
-			delete this.element.data().datepicker;
+			delete this.element.data().kdatepicker;
 		}
 	};
 
@@ -1097,15 +1097,15 @@ window.jQuery = window.kQuery;
 		return out;
 	}
 
-	var old = $.fn.datepicker;
-	$.fn.datepicker = function ( option ) {
+	var old = $.fn.kdatepicker;
+	$.fn.kdatepicker = function ( option ) {
 		var args = Array.apply(null, arguments);
 		args.shift();
 		var internal_return,
 			this_return;
 		this.each(function () {
 			var $this = $(this),
-				data = $this.data('datepicker'),
+				data = $this.data('kdatepicker'),
 				options = typeof option == 'object' && option;
 			if (!data) {
 				var elopts = opts_from_el(this, 'date'),
@@ -1118,10 +1118,10 @@ window.jQuery = window.kQuery;
 					var ropts = {
 						inputs: opts.inputs || $this.find('input').toArray()
 					};
-					$this.data('datepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
+					$this.data('kdatepicker', (data = new DateRangePicker(this, $.extend(opts, ropts))));
 				}
 				else{
-					$this.data('datepicker', (data = new Datepicker(this, opts)));
+					$this.data('kdatepicker', (data = new Datepicker(this, opts)));
 				}
 			}
 			if (typeof option == 'string' && typeof data[option] == 'function') {
@@ -1136,7 +1136,7 @@ window.jQuery = window.kQuery;
 			return this;
 	};
 
-	var defaults = $.fn.datepicker.defaults = {
+	var defaults = $.fn.kdatepicker.defaults = {
 		autoclose: false,
 		beforeShowDay: $.noop,
 		calendarWeeks: false,
@@ -1157,13 +1157,13 @@ window.jQuery = window.kQuery;
 		weekStart: 0,
 		parentEl: 'body'
 	};
-	var locale_opts = $.fn.datepicker.locale_opts = [
+	var locale_opts = $.fn.kdatepicker.locale_opts = [
 		'format',
 		'rtl',
 		'weekStart'
 	];
-	$.fn.datepicker.Constructor = Datepicker;
-	var dates = $.fn.datepicker.dates = {
+	$.fn.kdatepicker.Constructor = Datepicker;
+	var dates = $.fn.kdatepicker.dates = {
 		en: {
 			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -1388,14 +1388,14 @@ window.jQuery = window.kQuery;
 							'</div>'+
 						'</div>';
 
-	$.fn.datepicker.DPGlobal = DPGlobal;
+	$.fn.kdatepicker.DPGlobal = DPGlobal;
 
 
 	/* DATEPICKER NO CONFLICT
 	* =================== */
 
-	$.fn.datepicker.noConflict = function(){
-		$.fn.datepicker = old;
+	$.fn.kdatepicker.noConflict = function(){
+		$.fn.kdatepicker = old;
 		return this;
 	};
 
@@ -1408,14 +1408,14 @@ window.jQuery = window.kQuery;
 		'[data-provide="datepicker"]',
 		function(e){
 			var $this = $(this);
-			if ($this.data('datepicker')) return;
+			if ($this.data('kdatepicker')) return;
 			e.preventDefault();
 			// component click requires us to explicitly show it
-			$this.datepicker('show');
+			$this.kdatepicker('show');
 		}
 	);
 	$(function(){
-		$('[data-provide="datepicker-inline"]').datepicker();
+		$('[data-provide="datepicker-inline"]').kdatepicker();
 	});
 
 }( window.kQuery ));

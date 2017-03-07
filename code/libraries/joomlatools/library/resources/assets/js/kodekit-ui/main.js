@@ -187,7 +187,7 @@
         });
 
         // Datepicker
-        $('.k-js-datepicker').datepicker();
+        $('.k-js-datepicker').kdatepicker();
 
         // Magnific
         $('.k-js-image-modal').magnificPopup({type:'image'});

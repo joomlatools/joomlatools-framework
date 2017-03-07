@@ -27,6 +27,22 @@ module.exports = function(grunt) {
 
         // Copy Joomlatools UI files
         copy: {
+            adminjs: {
+                files: [
+                    {
+                        src: '<%= KUIPath %>/../dist/js/build/admin.js',
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/build/admin.js'
+                    },
+                    {
+                        src: '<%= KUIPath %>/../dist/js/min/admin.js',
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/admin.js'
+                    },
+                    {
+                        src: '<%= KUIPath %>/../dist/js/min/admin.js.map',
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/admin.js.map'
+                    }
+                ]
+            },
             JUItoJUIFramework: {
                 files: [
                     {
