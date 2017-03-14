@@ -38,8 +38,10 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             // Generate stylesheet links
             foreach ($head['styleSheets'] as $source => $attributes)
             {
-                $attributes['type'] = $attributes['mime'];
-                unset($attributes['mime']);
+                if (isset($attributes['mime'])) {
+                    $attributes['type'] = $attributes['mime'];
+                    unset($attributes['mime']);
+                }
 
                 echo sprintf('<ktml:style src="%s" %s />', $source, $this->buildAttributes($attributes));
             }
