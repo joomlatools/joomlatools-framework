@@ -139,6 +139,11 @@ class PlgSystemJoomlatools extends JPlugin
                 }
 
                 $bootstrapper->bootstrap();
+
+                //Check if it's Joomlatools Platform
+                if (!defined('JOOMLATOOLS_PLATFORM')) {
+                    define('JOOMLATOOLS_PLATFORM', $this->isPlatform());
+                }
             }
 
             $manager = KObjectManager::getInstance();
@@ -162,7 +167,7 @@ class PlgSystemJoomlatools extends JPlugin
              */
             $loader->registerLocator(new ComKoowaClassLocatorPlugin(array(
                 'namespaces' => array(
-                    '\\'     => JPATH_ROOT.'/plugins',
+                    '\\'     => JOOMLATOOLS_PLATFORM ? JPATH_PLUGINS : JPATH_ROOT.'/plugins',
                     'Koowa'  => JPATH_LIBRARIES.'/joomlatools/plugin',
                 )
             )));
@@ -322,5 +327,27 @@ class PlgSystemJoomlatools extends JPlugin
     {
         KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
         return true;
+    }
+
+    /**
+     * Checks if we are dealing with joomlatools/platform or not
+     *
+     * @return boolean
+     */
+    public function isPlatform()
+    {
+        $manifest = realpath(JPATH_ROOT . '/composer.json');
+
+        if (file_exists($manifest))
+        {
+            $contents = file_get_contents($manifest);
+            $package  = json_decode($contents);
+
+            if ($package->name == 'joomlatools/platform') {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
