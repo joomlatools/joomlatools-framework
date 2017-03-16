@@ -85,9 +85,9 @@ class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
         $request = $context->request;
         $user    = $context->user;
 
-        //Check referrer
-        if(!$request->getReferrer()) {
-            throw new KControllerExceptionRequestInvalid('Request Referrer Not Found');
+        //Check referrer or origin
+        if (!$request->getReferrer() && !$request->getOrigin()) {
+            throw new KControllerExceptionRequestInvalid('Request referrer or origin not found');
         }
 
         //Check csrf token
