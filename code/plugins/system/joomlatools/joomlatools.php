@@ -162,7 +162,7 @@ class PlgSystemJoomlatools extends JPlugin
              */
             $loader->registerLocator(new ComKoowaClassLocatorPlugin(array(
                 'namespaces' => array(
-                    '\\'     => defined('JOOMLATOOLS_PLATFORM') ? JPATH_PLUGINS : JPATH_ROOT.'/plugins',
+                    '\\'     => JPATH_PLUGINS,
                     'Koowa'  => JPATH_LIBRARIES.'/joomlatools/plugin',
                 )
             )));
