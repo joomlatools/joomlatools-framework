@@ -174,7 +174,7 @@ class KDispatcherResponseTransportStream extends KDispatcherResponseTransportHtt
      */
     public function sendContent(KDispatcherResponseInterface $response)
     {
-        if ($response->isSuccess())
+        if ($response->isSuccess() && $response->isStreamable())
         {
             //For a certain unmentionable browser
             if(ini_get('zlib.output_compression')) {
