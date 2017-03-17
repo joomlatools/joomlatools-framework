@@ -629,7 +629,9 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         if ($this->_headers->has('Origin'))
         {
             try {
-                $origin = $this->getObject('lib:http.url', array('url' => $this->_headers->get('Origin')));
+                $origin = $this->getObject('lib:http.url', [
+                    'url' => $this->getObject('lib:filter.url')->sanitize($this->_headers->get('Origin'))
+                ]);
 
                 if($isInternal)
                 {
