@@ -82,29 +82,32 @@ class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
-        $request = $context->request;
-        $user    = $context->user;
-
-        //Check referrer
-        if(!$request->getReferrer()) {
-            throw new KControllerExceptionRequestInvalid('Request Referrer Not Found');
-        }
-
-        //Check csrf token
-        if(!$this->getCsrfToken()) {
-            throw new KControllerExceptionRequestNotAuthenticated('Csrf Token Not Found');
-        }
-
-        //Check cookie token
-        if($this->getCsrfToken() !== $request->cookies->get('csrf_token', 'sha1')) {
-            throw new KControllerExceptionRequestNotAuthenticated('Invalid Cookie Token');
-        }
-
-        if($user->isAuthentic())
+        if (!$context->user->isAuthentic(true))
         {
-            //Check session token
-            if( $this->getCsrfToken() !== $user->getSession()->getToken()) {
-                throw new KControllerExceptionRequestForbidden('Invalid Session Token');
+            $request = $context->request;
+            $user    = $context->user;
+
+            //Check referrer
+            if(!$request->getReferrer()) {
+                throw new KControllerExceptionRequestInvalid('Request Referrer Not Found');
+            }
+
+            //Check csrf token
+            if(!$this->getCsrfToken()) {
+                throw new KControllerExceptionRequestNotAuthenticated('Csrf Token Not Found');
+            }
+
+            //Check cookie token
+            if($this->getCsrfToken() !== $request->cookies->get('csrf_token', 'sha1')) {
+                throw new KControllerExceptionRequestNotAuthenticated('Invalid Cookie Token');
+            }
+
+            if($user->isAuthentic())
+            {
+                //Check session token
+                if( $this->getCsrfToken() !== $user->getSession()->getToken()) {
+                    throw new KControllerExceptionRequestForbidden('Invalid Session Token');
+                }
             }
         }
 

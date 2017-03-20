@@ -203,6 +203,9 @@ class KDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorAbstract
 
         $this->getObject('user')->setData($data);
 
+        // Explicitly authenticate user
+        $this->getObject('user')->setAuthentic();
+
         return true;
     }
 }
