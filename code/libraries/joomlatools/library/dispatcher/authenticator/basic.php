@@ -2,7 +2,7 @@
 /**
  * Nooku Framework - http://nooku.org/framework
  *
- * @copyright   Copyright (C) 2015 Johan Janssens and Timble CVBA. (http://www.timble.net)
+ * @copyright   Copyright (C) 2017 Johan Janssens and Timble CVBA. (http://www.timble.net)
  * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link        https://github.com/nooku/nooku-framework for the canonical source repository
  */
@@ -17,7 +17,7 @@
  * RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
  *
  * @author  Johan Janssens <http://github.com/johanjanssens>
- * @package Nooku\Library\Dispatcher
+ * @package Koowa\Library\Dispatcher\Authenticator
  */
 class KDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorAbstract
 {
