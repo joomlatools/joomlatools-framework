@@ -23,6 +23,15 @@ class KDatabaseQueryInsert extends KDatabaseQueryAbstract
     public $table;
 
     /**
+     * Update type
+     *
+     * Possible values are INSERT|REPLACE|INSERT IGNORE
+     *
+     * @var string
+     */
+    public $type = 'INSERT';
+
+    /**
      * Array of column names.
      *
      * @var array
@@ -35,6 +44,72 @@ class KDatabaseQueryInsert extends KDatabaseQueryAbstract
      * @var array
      */
     public $values = array();
+
+    /**
+     * Array of values for the update statement coming after ON DUPLICATE KEY UPDATE
+     *
+     * @var array
+     */
+    public $duplicate_key_values = array();
+
+    /**
+     * Sets insert operation type
+     *
+     * Possible values are INSERT|REPLACE|INSERT IGNORE
+     *
+     * @param string $type
+     * @return $this
+     */
+    public function type($type)
+    {
+        $type = strtoupper($type);
+
+        if (!in_array($type, ['INSERT', 'INSERT IGNORE', 'REPLACE'])) {
+            throw new UnexpectedValueException('Invalid insert type');
+        }
+
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Runs the operation as a REPLACE
+     *
+     * @return $this
+     */
+    public function replace()
+    {
+        $this->type('REPLACE');
+
+        return $this;
+    }
+
+    /**
+     * Runs the operation as INSERT IGNORE
+     *
+     * @return $this
+     */
+    public function ignore()
+    {
+        $this->type('INSERT IGNORE');
+
+        return $this;
+    }
+
+    /**
+     * Adds an ON DUPLICATE KEY VALUES clause to the end of the query
+     *
+     * @link https://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html
+     * @param $values
+     * @return $this
+     */
+    public function onDuplicateKey($values)
+    {
+        $this->duplicate_key_values = array_merge($this->duplicate_key_values, (array) $values);
+
+        return $this;
+    }
 
     /**
      * Build the table clause 
@@ -92,7 +167,7 @@ class KDatabaseQueryInsert extends KDatabaseQueryAbstract
     {
         $adapter = $this->getAdapter();
         $prefix  = $adapter->getTablePrefix();
-        $query   = 'INSERT';
+        $query   = $this->type;
 
         if($this->table) {
             $query .= ' INTO '.$adapter->quoteIdentifier($prefix.$this->table);
@@ -122,6 +197,20 @@ class KDatabaseQueryInsert extends KDatabaseQueryAbstract
                 $query .= implode(', '.PHP_EOL, $values);
             }
             else $query .= ' '.$this->values;
+        }
+
+        if($this->duplicate_key_values && $this->type === 'INSERT')
+        {
+            $values = array();
+            foreach($this->duplicate_key_values as $value) {
+                $values[] = ' '. $adapter->quoteIdentifier($value);
+            }
+
+            $query .= ' ON DUPLICATE KEY UPDATE '.implode(', ', $values);
+        }
+
+        if($this->_parameters) {
+            $query = $this->_replaceParams($query);
         }
 
         return $query;
