@@ -11,21 +11,21 @@
 @import "site/utilities/mixins";
 
 /* Kodekit tools */
-@import "../../../../../../../../kodekit-ui/src/scss/core/tools";
+@import "../../../../../../../../kodekit-ui/src/scss/admin/core/tools";
 
 /* Outside of the k-ui-namespace scope */
 @import "site/modal";
-@import "../../../../../../../../kodekit-ui/src/scss/molecules/datepicker";
+@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/datepicker";
 
 @import "../../../../../../../node_modules/select2/src/scss/core";
 @import "../../../../../../../node_modules/select2-bootstrap-theme/src/select2-bootstrap";
 
 /* Icons */
-@import "../../../../../../../../kodekit-ui/src/scss/utilities/k-icons";
-@import "../../../../../../../../kodekit-ui/src/scss/molecules/icons";
+@import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/k-icons";
+@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/icons";
 
 /* Tooltips */
-@import "../../../../../../../../kodekit-ui/src/scss/molecules/tooltip";
+@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/tooltip";
 
 /* Inside k-ui-namespace scope */
 .k-ui-namespace {
@@ -37,17 +37,17 @@
   }
 
   /* Responsive tables */
-  @import "../../../../../../../../kodekit-ui/src/scss/molecules/responsive-table";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/responsive-table";
 
   /* Pagination */
-  @import "../../../../../../../../kodekit-ui/src/scss/molecules/pagination";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/pagination";
 
   /* File select input */
-  @import "../../../../../../../../kodekit-ui/src/scss/molecules/styled-file-input";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/styled-file-input";
 
   @import "site/anchor";
   @import "site/header";
-  @import "../../../../../../../../kodekit-ui/src/scss/molecules/tree";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/tree";
   @import "site/select2";
   @import "site/table";
   @import "site/toolbar";
@@ -59,7 +59,7 @@
    * Loading last so we have the biggest chance of 'winning' specificity wars without using !important
    */
 
-  @import "../../../../../../../../kodekit-ui/src/scss/utilities/utilities";
-  @import "../../../../../../../../kodekit-ui/src/scss/utilities/component-animations";
-  @import "../../../../../../../../kodekit-ui/src/scss/utilities/hamburger";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/utilities";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/component-animations";
+  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/hamburger";
 }
