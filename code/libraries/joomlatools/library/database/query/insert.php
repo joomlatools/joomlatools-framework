@@ -206,11 +206,13 @@ class KDatabaseQueryInsert extends KDatabaseQueryAbstract
                 $values[] = ' '. $adapter->quoteIdentifier($value);
             }
 
-            $query .= ' ON DUPLICATE KEY UPDATE '.implode(', ', $values);
-        }
+            $update_clause = implode(', ', $values);
 
-        if($this->_parameters) {
-            $query = $this->_replaceParams($query);
+            if($this->_parameters) {
+                $update_clause = $this->_replaceParams($update_clause);
+            }
+
+            $query .= ' ON DUPLICATE KEY UPDATE '.$update_clause;
         }
 
         return $query;
