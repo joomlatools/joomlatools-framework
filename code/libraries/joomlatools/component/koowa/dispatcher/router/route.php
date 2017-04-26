@@ -30,25 +30,6 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             unset($query['component']);
         }
 
-        if (isset($query['format']) && JFactory::getApplication()->getCfg('sef_suffix'))
-        {
-            // Convert format=rss to format=feed for compatibility with the Joomla router
-            if ($query['format'] === 'rss') {
-                $query['format'] = 'feed';
-            }
-            // Make sure .htaccess file can handle the format. Only a handful of formats are allowed before 3.3.1
-            else
-            {
-                $allowed = array('php', 'html', 'htm', 'feed', 'pdf', 'vcf', 'raw');
-
-                if (!in_array($query['format'], $allowed))
-                {
-                    $append_format = $query['format'];
-                    $query['format'] = 'raw';
-                }
-            }
-        }
-
         // Add the 'tmpl' information to the route if a 'tmpl' is set in the request
         if (!isset($query['tmpl']) && $tmpl = $this->getObject('request')->getQuery()->get('tmpl', 'cmd')) {
             $query['tmpl'] = $tmpl;
