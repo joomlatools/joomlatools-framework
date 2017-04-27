@@ -29,7 +29,8 @@ class ComKoowaDispatcherResponseTransportHttp extends KDispatcherResponseTranspo
 
         if(!$response->isDownloadable() && $request->getFormat() == 'html')
         {
-            if ($response->getHeaders()->has('X-Response-Send')) {
+            if ($response->getHeaders()->has('X-Response-Send'))
+            {
                 $layout = 'koowa';
 
                 $response->getHeaders()->remove('X-Response-Send');
