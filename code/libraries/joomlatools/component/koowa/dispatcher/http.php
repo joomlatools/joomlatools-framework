@@ -47,7 +47,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         {
             $app = JFactory::getApplication();
 
-            if ($app->isClient('site')) {
+            if ($app->isSite()) {
                 $app->setTemplate('system');
             }
         }
