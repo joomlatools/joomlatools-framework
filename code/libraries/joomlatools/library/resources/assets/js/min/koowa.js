@@ -27,7 +27,7 @@ var b=0,c=Array.prototype.slice;a.cleanData=function(b){return function(c){var d
 var klass=function(){function a(a){return e.call(b(a)?a:function(){},a,1)}function b(a){return typeof a===h}function c(a,b,c){return function(){var d=this.supr;this.supr=c[j][a];var e={}.fabricatedUndefined,f=e;try{f=b.apply(this,arguments)}finally{this.supr=d}return f}}function d(a,d,e){for(var f in d)d.hasOwnProperty(f)&&(a[f]=b(d[f])&&b(e[j][f])&&i.test(d[f])?c(f,d[f],e):d[f])}function e(a,c){function e(){}function f(){this.initialize?this.initialize.apply(this,arguments):(c||i&&g.apply(this,arguments),k.apply(this,arguments))}e[j]=this[j];var g=this,h=new e,i=b(a),k=i?a:this,l=i?{}:a;return f.methods=function(a){return d(h,a,g),f[j]=h,this},f.methods.call(f,l).prototype.constructor=f,f.extend=arguments.callee,f[j].implement=f.statics=function(a,b){return a="string"==typeof a?function(){var c={};return c[a]=b,c}():a,d(this,a,g),this},f}var f=this,g=f.klass,h="function",i=/xyz/.test(function(){xyz})?/\bsupr\b/:/.*/,j="prototype";return a.noConflict=function(){return f.klass=g,this},a}();/**
  * Nooku Framework - http://nooku.org/framework
  *
- * @copyright	Copyright (C) 2007 - 2014 Johan Janssens and Timble CVBA. (http://www.timble.net)
+ * @copyright	Copyright (C) 2007 Johan Janssens and Timble CVBA. (http://www.timble.net)
  * @license		GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
  * @link		https://github.com/nooku/nooku-framework for the canonical source repository
  */
