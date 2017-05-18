@@ -126,18 +126,6 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     }
 
     /**
-     * Keeps session alive
-     *
-     * @param array|KObjectConfig $config
-     * @return string
-     */
-    public function keepalive($config = array())
-    {
-        JHtml::_('behavior.keepalive');
-        return '';
-    }
-
-    /**
      * Loads the Forms.Validator class and connects it to Koowa.Controller.Form
      *
      * @param array|KObjectConfig $config

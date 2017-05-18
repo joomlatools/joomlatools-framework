@@ -216,6 +216,70 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
     }
 
     /**
+     * Keep session alive
+     *
+     * This will send an asynchronous request to the server via AJAX on an interval in secs
+     *
+     * @param   array   $config An optional array with configuration options
+     * @return string    The html output
+     */
+    public function keepalive($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append(array(
+            'refresh' => 15 * 60, //default refresh is 15min
+            'url'     => '',      //default to window.location.url
+        ));
+
+        $html = '';
+
+        // Only load once
+        if (!isset(static::$_loaded['keepalive']))
+        {
+            $session = $this->getObject('user')->getSession();
+            if($session->isActive())
+            {
+                //Get the config session lifetime (in seconds)
+                $lifetime = $session->getLifetime();
+
+                //Refresh time is 1 minute less than the lifetime
+                $refresh =  ($lifetime <= 60) ? 30 : $lifetime - 60;
+            }
+            else $refresh = (int) $config->refresh;
+
+            // Longest refresh period is one hour to prevent integer overflow.
+            if ($refresh > 3600 || $refresh <= 0) {
+                $refresh = 3600;
+            }
+
+            if(empty($config->url)) {
+                $url = 'window.location.href';
+            } else {
+                $url = "'.$config->url.'";
+            }
+
+            // Build the keep alive script.
+            $html  = $this->jquery();
+            $html .=
+                "<script>
+                (function($){
+                    var refresh = '" . $refresh . "';
+                    setInterval(function() {
+                        $.ajax({
+                            url: $url,
+                            method: 'HEAD',
+                            cache: false
+                        })
+                    }, refresh * 1000);
+                })(kQuery);</script>";
+
+            static::$_loaded['keepalive'] = true;
+        }
+        return $html;
+    }
+
+
+    /**
      * Loads the Forms.Validator class and connects it to Koowa.Controller.Form
      *
      * @param array|KObjectConfig $config
