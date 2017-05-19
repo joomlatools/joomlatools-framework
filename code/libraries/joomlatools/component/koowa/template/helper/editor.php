@@ -36,6 +36,9 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
             'options'   => array()
         ));
 
+        // Add editor styles and scripts in JDocument to page when rendering
+        $this->getIdentifier('com:koowa.view.page.html')->getConfig()->append(['template_filters' => ['document']]);
+
         $editor  = JFactory::getEditor($config->editor);
         $options = KObjectConfig::unbox($config->options);
 
