@@ -43,7 +43,11 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         $response = $context->getResponse();
         $request  = $context->getRequest();
 
-        if ($response->getHeaders()->has('X-Response-Send') || $request->getQuery()->tmpl === 'koowa')
+        if ($request->getQuery()->tmpl === 'koowa') {
+            $response->getHeaders()->set('X-Response-Send', 1);
+        }
+
+        if ($response->getHeaders()->has('X-Response-Send'))
         {
             $app = JFactory::getApplication();
 
