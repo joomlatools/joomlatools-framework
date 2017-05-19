@@ -182,7 +182,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                     ->render($exception);
 
                 //Do not pass response back to Joomla
-                $context->request->query->set('tmpl', 'koowa');
+                $context->response->getHeaders()->set('X-Response-Send', 1);
             }
         }
     }
