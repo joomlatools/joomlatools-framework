@@ -32,6 +32,22 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     }
 
     /**
+     * Loads Vue.js
+     *
+     * @param array|KObjectConfig $config
+     * @return string
+     */
+    public function vue($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append(array(
+            'debug' => JFactory::getApplication()->getCfg('debug')
+        ));
+
+        return parent::vue($config);
+    }
+
+    /**
      * Loads Modernizr
      *
      * @param array|KObjectConfig $config

@@ -139,6 +139,18 @@ module.exports = function(grunt) {
         concat: {
             js: {
                 files: {
+                    '<%= nookuFrameworkAssetsPath %>/js/build/vue.js': [
+                        'node_modules/vue/dist/vue.js',
+                    ],
+                    '<%= nookuFrameworkAssetsPath %>/js/build/vuex.js': [
+                        'node_modules/vuex/dist/vuex.js',
+                    ],
+                    '<%= nookuFrameworkAssetsPath %>/js/min/vue.js': [
+                        'node_modules/vue/dist/vue.min.js',
+                    ],
+                    '<%= nookuFrameworkAssetsPath %>/js/min/vuex.js': [
+                        'node_modules/vuex/dist/vuex.min.js',
+                    ],
                     '<%= nookuFrameworkAssetsPath %>/js/build/jquery.js': [
                         'node_modules/jquery/dist/jquery.js',
                         '<%= nookuFrameworkAssetsPath %>/js/kodekit-ui/koowa.noconflict.js'

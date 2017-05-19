@@ -69,6 +69,32 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         return $html;
     }
+    public function vue($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append([
+            'debug' => false,
+            'vuex' => true
+        ]);
+
+        $html = '';
+
+        if (!static::isLoaded('vue'))
+        {
+            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'vue.js" />';
+
+            static::setLoaded('vue');
+        }
+
+        if ($config->vuex && !static::isLoaded('vuex'))
+        {
+            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'vuex.js" />';
+
+            static::setLoaded('vuex');
+        }
+
+        return $html;
+    }
 
     /**
      * Loads Modernizr
