@@ -29,13 +29,21 @@ class ComKoowaDispatcherResponseTransportHttp extends KDispatcherResponseTranspo
 
         if(!$response->isDownloadable() && $request->getFormat() == 'html')
         {
+            if ($response->getHeaders()->has('X-Response-Send'))
+            {
+                $layout = 'koowa';
+
+                $response->getHeaders()->remove('X-Response-Send');
+            }
+            else $layout = $request->query->get('tmpl', 'cmd') == 'koowa' ? 'koowa' : 'joomla';
+
             //Render the page
             $this->getObject('com:koowa.controller.page',  array('response' => $response))
-                ->layout($request->query->get('tmpl', 'cmd') == 'koowa' ? 'koowa' : 'joomla')
+                ->layout($layout)
                 ->render();
 
             //Pass back to Joomla
-            if ($request->isGet() && $request->query->get('tmpl', 'cmd') != 'koowa')
+            if ($request->isGet() && $layout != 'koowa')
             {
                 //Mimetype
                 JFactory::getDocument()->setMimeEncoding($response->getContentType());
