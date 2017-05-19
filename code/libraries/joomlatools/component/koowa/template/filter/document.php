@@ -108,10 +108,9 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             }
 
             foreach ($head['custom'] as $custom) {
-                echo $custom."\n";
+                // Inject custom head scripts right before </head>
+                $text = str_replace('</head>', $custom."\n</head>", $text);
             }
-
-
 
             $head = ob_get_clean();
 
