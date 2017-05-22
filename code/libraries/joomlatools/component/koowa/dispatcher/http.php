@@ -40,14 +40,13 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
      */
     protected function _setResponse(KDispatcherContextInterface $context)
     {
-        $response = $context->getResponse();
         $request  = $context->getRequest();
 
         if ($request->getQuery()->tmpl === 'koowa') {
-            $response->getHeaders()->set('X-Response-Send', 1);
+            $request->getHeaders()->set('X-Flush-Response', 1);
         }
 
-        if ($response->getHeaders()->has('X-Response-Send'))
+        if ($request->getHeaders()->has('X-Flush-Response'))
         {
             $app = JFactory::getApplication();
 
@@ -182,7 +181,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                     ->render($exception);
 
                 //Do not pass response back to Joomla
-                $context->response->getHeaders()->set('X-Response-Send', 1);
+                $context->request->getHeaders()->set('X-Flush-Response', 1);
             }
         }
     }

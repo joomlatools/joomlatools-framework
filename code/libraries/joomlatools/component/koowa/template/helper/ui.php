@@ -34,7 +34,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         $app      = JFactory::getApplication();
         $layout   = $this->getObject('request')->getQuery()->layout;
 
-        if ($app->isSite() && $this->getObject('response')->getHeaders()->has('X-Response-Send') && $layout === 'form') {
+        if ($app->isSite() && $this->getObject('request')->getHeaders()->has('X-Flush-Response') && $layout === 'form') {
             $config->domain = 'admin';
         }
 
@@ -90,7 +90,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
-        if (!$this->getObject('response')->getHeaders()->has('X-Response-Send'))
+        if (!$this->getObject('request')->getHeaders()->has('X-Flush-Response'))
         {
             $app      = JFactory::getApplication();
             $template = $app->getTemplate();
