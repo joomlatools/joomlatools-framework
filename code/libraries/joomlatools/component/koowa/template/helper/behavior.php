@@ -32,6 +32,22 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     }
 
     /**
+     * Loads Vue.js
+     *
+     * @param array|KObjectConfig $config
+     * @return string
+     */
+    public function vue($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append(array(
+            'debug' => JFactory::getApplication()->getCfg('debug')
+        ));
+
+        return parent::vue($config);
+    }
+
+    /**
      * Loads Modernizr
      *
      * @param array|KObjectConfig $config
@@ -77,11 +93,15 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
 
         $html = '';
 
-        if (!static::isLoaded('jquery'))
+        if ($this->getObject('request')->getHeaders()->has('X-Flush-Response')) {
+            $html .= parent::jquery($config);
+        }
+        elseif (!static::isLoaded('jquery'))
         {
             JHtml::_('jquery.framework');
+
             // Can't use JHtml here as it makes a file_exists call on koowa.kquery.js?version
-            $path = JURI::root(true).'/media/koowa/framework/js/koowa.kquery.js?'.substr(md5(Koowa::VERSION), 0, 8);
+            $path = JUri::root(true).'/media/koowa/framework/js/koowa.kquery.js?'.substr(md5(Koowa::VERSION), 0, 8);
             JFactory::getDocument()->addScript($path);
 
             static::setLoaded('jquery');
@@ -98,43 +118,37 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
      */
     public function bootstrap($config = array())
     {
-        $template = JPATH_THEMES.'/'.JFactory::getApplication()->getTemplate();
-
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug'),
-            'javascript' => false,
-            'css' => file_exists($template.'/enable-koowa-bootstrap.txt')
+            'debug' => JFactory::getApplication()->getCfg('debug')
         ));
 
         $html = '';
 
-        if ($config->javascript && !static::isLoaded('bootstrap-javascript'))
+        if ($this->getObject('request')->getHeaders()->has('X-Flush-Response')) {
+            $html .= parent::bootstrap($config);
+        }
+        else
         {
-            $html .= $this->jquery($config);
+            $config->append([
+                'css' => file_exists(JPATH_THEMES.'/'.JFactory::getApplication()->getTemplate().'/enable-koowa-bootstrap.txt')
+            ]);
 
-            JHtml::_('bootstrap.framework');
+            if ($config->javascript && !static::isLoaded('bootstrap-javascript'))
+            {
+                $html .= $this->jquery($config);
 
-            static::setLoaded('bootstrap-javascript');
+                JHtml::_('bootstrap.framework');
 
-            $config->javascript = false;
+                static::setLoaded('bootstrap-javascript');
+
+                $config->javascript = false;
+            }
+
+            $html .= parent::bootstrap($config);
         }
 
-        $html .= parent::bootstrap($config);
-
         return $html;
-    }
-
-    /**
-     * Keeps session alive
-     *
-     * @param array|KObjectConfig $config
-     * @return string
-     */
-    public function keepalive($config = array())
-    {
-        JHtml::_('behavior.keepalive');
-        return '';
     }
 
     /**

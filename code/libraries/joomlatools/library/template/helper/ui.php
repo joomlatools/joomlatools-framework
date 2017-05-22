@@ -117,6 +117,10 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
         $html .= $this->getTemplate()->helper('behavior.modernizr', $config->toArray());
 
         if (($config->domain === 'admin' || $config->domain === '')  && !KTemplateHelperBehavior::isLoaded('admin.js')) {
+            // Make sure jQuery is always loaded right before admin.js, helps when wrapping components
+            KTemplateHelperBehavior::setLoaded('jquery', false);
+
+            $html .= $this->getTemplate()->helper('behavior.jquery', $config->toArray());
             $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'admin.js" />';
 
             KTemplateHelperBehavior::setLoaded('admin.js');

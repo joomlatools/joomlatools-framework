@@ -24,10 +24,36 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
     {
         parent::__construct($config);
 
+        $this->addCommandCallback('before.dispatch', '_setResponse');
         $this->addCommandCallback('before.dispatch', '_enableExceptionHandler');
 
         //Render an exception before sending the response
         $this->addCommandCallback('before.fail', '_renderError');
+    }
+
+    /**
+     * Set Joomla template to system if we are going to send the request ourselves
+     *
+     * This makes sure core JavaScript files are not overridden by the current Joomla template
+     *
+     * @param KDispatcherContextInterface $context
+     */
+    protected function _setResponse(KDispatcherContextInterface $context)
+    {
+        $request  = $context->getRequest();
+
+        if ($request->getQuery()->tmpl === 'koowa') {
+            $request->getHeaders()->set('X-Flush-Response', 1);
+        }
+
+        if ($request->getHeaders()->has('X-Flush-Response'))
+        {
+            $app = JFactory::getApplication();
+
+            if ($app->isSite()) {
+                $app->setTemplate('system');
+            }
+        }
     }
 
     /**
@@ -155,7 +181,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                     ->render($exception);
 
                 //Do not pass response back to Joomla
-                $context->request->query->set('tmpl', 'koowa');
+                $context->request->getHeaders()->set('X-Flush-Response', 1);
             }
         }
     }

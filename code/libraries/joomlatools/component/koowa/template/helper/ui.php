@@ -32,10 +32,9 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         ));
 
         $app      = JFactory::getApplication();
-        $tmpl     = $this->getObject('request')->getQuery()->tmpl;
         $layout   = $this->getObject('request')->getQuery()->layout;
 
-        if ($app->isSite() && $tmpl === 'koowa' && $layout === 'form') {
+        if ($app->isSite() && $this->getObject('request')->getHeaders()->has('X-Flush-Response') && $layout === 'form') {
             $config->domain = 'admin';
         }
 
@@ -91,22 +90,22 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
-        $app      = JFactory::getApplication();
-        $template = $app->getTemplate();
-        $tmpl     = $this->getObject('request')->getQuery()->tmpl;
-
-        // Load Bootstrap file if it's explicitly asked for
-        if ($app->isSite() && $tmpl !== 'koowa')
+        if (!$this->getObject('request')->getHeaders()->has('X-Flush-Response'))
         {
-            if (file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
+            $app      = JFactory::getApplication();
+            $template = $app->getTemplate();
+
+            // Load Bootstrap file if it's explicitly asked for
+            if ($app->isSite() && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
                 $html .= $this->getTemplate()->helper('behavior.bootstrap', ['javascript' => false, 'css' => true]);
             }
-        }
 
-        if ($app->isAdmin() && $config->file === 'admin' && (empty($tmpl) || $tmpl === 'index'))
-        {
-            if (file_exists(JPATH_ROOT.'/media/koowa/com_koowa/css/'.$template.'.css')) {
-                $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
+            // Load overrides for the current admin template
+            if ($app->isAdmin() && $config->file === 'admin')
+            {
+                if (file_exists(JPATH_ROOT.'/media/koowa/com_koowa/css/'.$template.'.css')) {
+                    $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
+                }
             }
         }
 

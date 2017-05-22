@@ -57,6 +57,34 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 echo sprintf('<style type="%s">%s</style>', $type, $content);
             }
 
+            if (version_compare(JVERSION, '3.7.0', '>=')) {
+                $document = JFactory::getDocument();
+                $options  = $document->getScriptOptions();
+
+                $buffer  = '<script type="application/json" class="joomla-script-options new">';
+                $buffer .= $options ? json_encode($options) : '{}';
+                $buffer .= '</script>';
+
+                echo $buffer;
+            } else {
+                // Generate script language declarations.
+                if (count(JText::script()))
+                {
+                    echo '<script type="text/javascript">';
+                    echo '(function() {';
+                    echo 'var strings = ' . json_encode(JText::script()) . ';';
+                    echo 'if (typeof Joomla == \'undefined\') {';
+                    echo 'Joomla = {};';
+                    echo 'Joomla.JText = strings;';
+                    echo '}';
+                    echo 'else {';
+                    echo 'Joomla.JText.load(strings);';
+                    echo '}';
+                    echo '})();';
+                    echo '</script>';
+                }
+            }
+
             // Generate script file links
             foreach ($head['scripts'] as $path => $attributes)
             {
@@ -80,25 +108,8 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             }
 
             foreach ($head['custom'] as $custom) {
-                echo $custom."\n";
-            }
-
-
-            // Generate script language declarations.
-            if (count(JText::script()))
-            {
-                echo '<script type="text/javascript">';
-                echo '(function() {';
-                echo 'var strings = ' . json_encode(JText::script()) . ';';
-                echo 'if (typeof Joomla == \'undefined\') {';
-                echo 'Joomla = {};';
-                echo 'Joomla.JText = strings;';
-                echo '}';
-                echo 'else {';
-                echo 'Joomla.JText.load(strings);';
-                echo '}';
-                echo '})();';
-                echo '</script>';
+                // Inject custom head scripts right before </head>
+                $text = str_replace('</head>', $custom."\n</head>", $text);
             }
 
             $head = ob_get_clean();
