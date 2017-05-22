@@ -29,11 +29,9 @@ class ComKoowaDispatcherResponseTransportHttp extends KDispatcherResponseTranspo
 
         if(!$response->isDownloadable() && $request->getFormat() == 'html')
         {
-            if ($response->getHeaders()->has('X-Response-Send'))
+            if ($request->getHeaders()->has('X-Flush-Response'))
             {
                 $layout = 'koowa';
-
-                $response->getHeaders()->remove('X-Response-Send');
             }
             else $layout = $request->query->get('tmpl', 'cmd') == 'koowa' ? 'koowa' : 'joomla';
 
