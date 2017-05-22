@@ -69,6 +69,12 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         return $html;
     }
+
+    /**
+     * Loads Vue.js and optionally Vuex
+     * @param array $config
+     * @return string
+     */
     public function vue($config = array())
     {
         $config = new KObjectConfigJson($config);
