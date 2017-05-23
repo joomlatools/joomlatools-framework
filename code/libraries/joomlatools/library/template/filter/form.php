@@ -74,7 +74,7 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
      */
     public function filter(&$text)
     {
-        $this->_addMetaTag($text);
+        $this->_addMetatag($text);
         $this->_addAction($text);
         $this->_addToken($text);
         $this->_addQueryParameters($text);
@@ -88,7 +88,7 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
      * @param string $text Template text
      * @return $this
      */
-    protected function _addMetaTag(&$text)
+    protected function _addMetatag(&$text)
     {
         if (!empty($this->_token_value))
         {
