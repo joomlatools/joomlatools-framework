@@ -44,7 +44,7 @@ class ComKoowaTemplateFilterTitle extends KTemplateFilterTitle
     {
         if($this->getTemplate()->getParameters()->layout !== 'koowa')
         {
-            if($this->_escape) {
+            if($this->getConfig()->escape) {
                 $content = $this->getTemplate()->escape($content);
             }
 
