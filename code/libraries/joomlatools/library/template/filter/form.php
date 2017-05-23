@@ -97,6 +97,8 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
                 $text = $string.$text;
             }
         }
+
+        return $this;
     }
 
     /**
