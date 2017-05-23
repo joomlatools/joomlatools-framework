@@ -74,11 +74,29 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
      */
     public function filter(&$text)
     {
+        $this->_addMetaTag($text);
         $this->_addAction($text);
         $this->_addToken($text);
         $this->_addQueryParameters($text);
 
         return $this;
+    }
+
+    /**
+     * Adds the CSRF token to a meta tag to be used in JavaScript
+     *
+     * @param string $text Template text
+     * @return $this
+     */
+    protected function _addMetaTag(&$text)
+    {
+        if (!empty($this->_token_value))
+        {
+            $string = '<meta content="'.$this->_token_value.'" name="csrf-token" />';
+            if (stripos($text, $string) === false) {
+                $text = $string.$text;
+            }
+        }
     }
 
     /**
