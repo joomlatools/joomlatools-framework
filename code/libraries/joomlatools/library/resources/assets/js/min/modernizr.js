@@ -152,4 +152,3 @@ u.addTest("flexwrap",r("flexWrap","wrap",!0));var G=t._config.usePrefixes?" -web
 }
 !*/
 u.addTest("touchevents",function(){var c;if("ontouchstart"in a||a.DocumentTouch&&b instanceof DocumentTouch)c=!0;else{var d=["@media (",G.join("touch-enabled),("),"heartz",")","{#modernizr{top:9px;position:absolute}}"].join("");F(d,function(a){c=9===a.offsetTop})}return c}),e(),f(v),delete t.addTest,delete t.addAsyncTest;for(var H=0;H<u._q.length;H++)u._q[H]();a.Modernizr=u}(window,document);
-//# sourceMappingURL=modernizr.js.map
