@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= JUIPath %>/css/min',
+                        cwd: '<%= JUIPath %>/css',
                         src: ['**'],
                         dest: '<%= joomlatoolsFrameworkAssetsPath %>/css'
                     },
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                     },
                     {
                         expand: true,
-                        cwd: '<%= KUIPath %>/css/min',
+                        cwd: '<%= KUIPath %>/css',
                         src: ['**'],
                         dest: '<%= nookuFrameworkAssetsPath %>/css'
                     },
