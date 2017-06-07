@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         // Compile sass files
         sass: {
             options: {
-                outputStyle: 'compressed',
+                outputStyle: 'minified',
                 includePaths: [
                     'bower_components',
                     'node_modules'
