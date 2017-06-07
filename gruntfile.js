@@ -40,12 +40,6 @@ module.exports = function(grunt) {
                         cwd: '<%= JUIPath %>/fonts',
                         src: ['**'],
                         dest: '<%= joomlatoolsFrameworkAssetsPath %>/fonts'
-                    },
-                    {
-                        expand: true,
-                        cwd: '<%= JUIPath %>/../src/scss',
-                        src: ['**'],
-                        dest: '<%= joomlatoolsFrameworkAssetsPath %>/scss'
                     }
                 ]
             },
@@ -68,12 +62,40 @@ module.exports = function(grunt) {
                         cwd: '<%= KUIPath %>/fonts',
                         src: ['**'],
                         dest: '<%= nookuFrameworkAssetsPath %>/fonts'
+                    }
+                ]
+            },
+            VUE: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vue/dist',
+                        src: ['vue.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/build/'
                     },
                     {
                         expand: true,
-                        cwd: '<%= KUIPath %>/../src/scss',
-                        src: ['**'],
-                        dest: '<%= nookuFrameworkAssetsPath %>/scss'
+                        cwd: 'node_modules/vuex/dist',
+                        src: ['vuex.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/build/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vue/dist',
+                        src: ['vue.min.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vuex/dist',
+                        src: ['vuex.min.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
                     }
                 ]
             }
@@ -95,29 +117,23 @@ module.exports = function(grunt) {
                     '<%= nookuFrameworkAssetsPath %>/css/bootstrap.css': '<%= nookuFrameworkAssetsPath %>/scss/bootstrap.scss',
                     '<%= nookuFrameworkAssetsPath %>/css/debugger.css': '<%= nookuFrameworkAssetsPath %>/scss/debugger.scss',
                     '<%= nookuFrameworkAssetsPath %>/css/dumper.css': '<%= nookuFrameworkAssetsPath %>/scss/dumper.scss',
-                    '<%= nookuFrameworkAssetsPath %>/css/site.css': '<%= nookuFrameworkAssetsPath %>/scss/site.scss',
+                    '<%= nookuFrameworkAssetsPath %>/css/site.css': '<%= nookuFrameworkAssetsPath %>/scss/site.scss'
                 }
             }
         },
 
 
-        // Concatenate files
-        concat: {
-            js: {
-                files: {
-                    '<%= nookuFrameworkAssetsPath %>/js/build/vue.js': [
-                        'node_modules/vue/dist/vue.js',
-                    ],
-                    '<%= nookuFrameworkAssetsPath %>/js/build/vuex.js': [
-                        'node_modules/vuex/dist/vuex.js',
-                    ],
-                    '<%= nookuFrameworkAssetsPath %>/js/min/vue.js': [
-                        'node_modules/vue/dist/vue.min.js',
-                    ],
-                    '<%= nookuFrameworkAssetsPath %>/js/min/vuex.js': [
-                        'node_modules/vuex/dist/vuex.min.js',
-                    ]
-                }
+        // Minify and clean CSS
+        cssmin: {
+            options: {
+                roundingPrecision: -1,
+                sourceMap: false
+            },
+            site: {
+                files: [{
+                    expand: true,
+                    src: ['<%= nookuFrameworkAssetsPath %>/css/*.css', '!*.css']
+                }]
             }
         },
 
@@ -125,7 +141,7 @@ module.exports = function(grunt) {
         // Autoprefixer
         autoprefixer: {
             options: {
-                browsers: ['> 5%', 'last 2 versions', 'ie 11']
+                browsers: ['> 5%', 'last 2 versions']
             },
             files: {
                 nooku: {
@@ -133,12 +149,6 @@ module.exports = function(grunt) {
                     flatten: true,
                     src: '<%= nookuFrameworkAssetsPath %>/css/*.css',
                     dest: '<%= nookuFrameworkAssetsPath %>/css/'
-                },
-                joomlatools: {
-                    expand: true,
-                    flatten: true,
-                    src: '<%= joomlatoolsFrameworkAssetsPath %>/css/*.css',
-                    dest: '<%= joomlatoolsFrameworkAssetsPath %>/css/'
                 }
             }
         },
@@ -150,25 +160,9 @@ module.exports = function(grunt) {
             sass: {
                 files: [
                     '<%= nookuFrameworkAssetsPath %>/scss/*.scss',
-                    '<%= nookuFrameworkAssetsPath %>/scss/**/*.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/scss/*.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/scss/**/*.scss',
-                    '<%= KUIPath %>/scss/*.scss',
-                    '<%= KUIPath %>/scss/**/*.scss'
+                    '<%= nookuFrameworkAssetsPath %>/scss/**/*.scss'
                 ],
                 tasks: ['sass', 'cssmin', 'autoprefixer'],
-                options: {
-                    interrupt: true,
-                    atBegin: true
-                }
-            },
-            javascript: {
-                files: [
-                    '<%= nookuFrameworkAssetsPath %>/scripts/*.js',
-                    '<%= nookuFrameworkAssetsPath %>/js/*.js',
-                    '!<%= nookuFrameworkAssetsPath %>/js/min/*.js'
-                ],
-                tasks: ['concat', 'uglify'],
                 options: {
                     interrupt: true,
                     atBegin: true
@@ -182,8 +176,4 @@ module.exports = function(grunt) {
     // The dev task will be used during development
     grunt.registerTask('default', ['shell', 'copy', 'watch']);
 
-    // Javascript only
-    grunt.registerTask('javascript', ['uglify', 'concat']);
-
-    grunt.registerTask('css', ['sass', 'autoprefixer']);
 };
