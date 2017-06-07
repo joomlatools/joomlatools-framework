@@ -123,21 +123,6 @@ module.exports = function(grunt) {
         },
 
 
-        // Minify and clean CSS
-        cssmin: {
-            options: {
-                roundingPrecision: -1,
-                sourceMap: false
-            },
-            site: {
-                files: [{
-                    expand: true,
-                    src: ['<%= nookuFrameworkAssetsPath %>/css/*.css', '!*.css']
-                }]
-            }
-        },
-
-
         // Autoprefixer
         autoprefixer: {
             options: {
@@ -162,7 +147,7 @@ module.exports = function(grunt) {
                     '<%= nookuFrameworkAssetsPath %>/scss/*.scss',
                     '<%= nookuFrameworkAssetsPath %>/scss/**/*.scss'
                 ],
-                tasks: ['sass', 'cssmin', 'autoprefixer'],
+                tasks: ['sass', 'autoprefixer'],
                 options: {
                     interrupt: true,
                     atBegin: true
