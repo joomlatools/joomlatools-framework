@@ -1,0 +1,318 @@
+/**
+ * Joomla Isis template specific styling / overrides
+ * =================================================
+ *
+ * Since we're using flexbox we need to override a couple of styles
+ * so all divs align perfectly
+ *
+ * 1. Set everything to box-sizing: border-box
+ *
+ * !!!!!!!!!!
+ * Warning: When making changes to this file make sure you test the following scenarios:
+ * - Test all views with the different Isis settings:
+ *   - Collapse Administrator Menu (yes/no) (especially on mobile)
+ *   - Display header (yes/no)
+ *   - Status module position (Top/Bottom)
+ *   - No need to test "pinned toolbar" since we don't use it anyway
+ * - Test all views with the (just described) different settings with both JS enabled and JS disabled
+ * - Test all views with the (just described) different settings both on mobile and desktop views
+ * !!!!!!!!!!
+ */
+/* ==========================================================================
+   Tools
+   ========================================================================== */
+/* These file do not produce any CSS code on their own */
+body {
+  box-sizing: border-box;
+  /**
+   * Basic setup
+   * -----------
+   * 1. Always remove the toolbar, empty div and header since we are showing this ourselves or don't need it
+   * 2. Remove ugly border from header
+   * 3. Hide empty div after header
+   * 4. Don't hide status bar when placed at top
+   * 5. Adding bottom-margin for the fixed bottom status bar
+   * 6. Remove bottom margin when status bar is on top
+   * 7. Don't display the unstyled title when header is set to hide in Isis settings
+   * 8. Don't display the footer. It's unstyled and only holds copyright info
+   */
+  /**
+   * Adding spacing to overview
+   */
+  /**
+   * Component only
+   * ==============
+   */
+  /**
+   * The main container
+   * ==================
+   * 1. Set negative margin for smaller screens
+   * 2. And remove on larger screens
+   * 3. Do not set with shorthand CSS since we set the bottom margin seprately for the status bar
+   * 4. always remove bottom margin when flexbox is enabled
+   */
+  /**
+   * Flexbox setup
+   * -------------
+   * Set Joomla containers to flex and adjust margins and paddings
+   * As soon as something in this chain of classnames changes we fall back to non-flexbox view
+   */
+  /**
+   * Remove margin from bootstrap grid item
+   */
+  /**
+   * Joomla removes default focus style, we bring it back
+   */
+  /**
+   * Make room for the statusbar in Joomla
+   */
+  /**
+   * Special debug styling
+   */
+}
+
+body .btn-subhead,
+body .subhead-collapse,
+body .navbar + .header {
+  display: none !important;
+}
+
+body header.header {
+  border-top: none;
+}
+
+body header.header + div {
+  display: none;
+}
+
+body header.header + #status {
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  body .container-main {
+    margin-bottom: 30px;
+  }
+}
+
+body .status-top ~ .container-main {
+  margin-bottom: 0;
+}
+
+body .content-title {
+  display: none;
+}
+
+body footer.footer {
+  display: none;
+}
+
+body .k-overview {
+  margin-top: 20px;
+}
+
+body.component {
+  padding: 0;
+}
+
+body.component .k-overview {
+  margin-top: 0;
+  border: none;
+}
+
+body .container-main {
+  margin-left: -20px;
+  margin-right: -20px;
+  padding: 0;
+}
+
+.k-flexbox body .container-main,
+.k-flexboxlegacy body .container-main {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  body .container-main {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+body .container-main #content .row-fluid .span12 .k-overview {
+  margin-top: 0;
+}
+
+@media (min-width: 300px) and (min-height: 391px) {
+  .k-flexbox body,
+  .k-flexboxlegacy body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    overflow: auto;
+    padding-top: 0;
+    /**
+     * Set navbar from fixed to static
+     */
+    /**
+     * Do not flex following items
+     */
+    /**
+     * The main container
+     */
+    /**
+     * Remove spacing and border-radius to align alerts to the side
+     */
+  }
+  .k-flexbox body nav.navbar,
+  .k-flexboxlegacy body nav.navbar {
+    position: static;
+  }
+  .k-flexbox body nav.navbar,
+  .k-flexbox body header.header,
+  .k-flexbox body .subhead-collapse,
+  .k-flexbox body #status,
+  .k-flexbox body #system-message-container,
+  .k-flexbox body #system-debug,
+  .k-flexboxlegacy body nav.navbar,
+  .k-flexboxlegacy body header.header,
+  .k-flexboxlegacy body .subhead-collapse,
+  .k-flexboxlegacy body #status,
+  .k-flexboxlegacy body #system-message-container,
+  .k-flexboxlegacy body #system-debug {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+  }
+  .k-flexbox body .container-main,
+  .k-flexboxlegacy body .container-main {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    overflow: auto;
+    /**
+       * Flex all children of main container
+       */
+    /**
+       * Remove clearfix psuedo elements
+       * Otherwise they'll be treated as 1 pixel flex items
+       */
+    /**
+       * No longer a fixed position for the statusbar
+       * since that doesn't play nice with flexbox
+       */
+    /**
+       * Remove the border on successful flexbox
+       */
+  }
+  .k-flexbox body .container-main #content,
+  .k-flexbox body .container-main #content .row-fluid,
+  .k-flexbox body .container-main #content .row-fluid .span12,
+  .k-flexboxlegacy body .container-main #content,
+  .k-flexboxlegacy body .container-main #content .row-fluid,
+  .k-flexboxlegacy body .container-main #content .row-fluid .span12 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    overflow: auto;
+  }
+  .k-flexbox body .container-main:before, .k-flexbox body .container-main:after,
+  .k-flexbox body .container-main #content:before,
+  .k-flexbox body .container-main #content:after,
+  .k-flexbox body .container-main #content .row-fluid:before,
+  .k-flexbox body .container-main #content .row-fluid:after,
+  .k-flexboxlegacy body .container-main:before,
+  .k-flexboxlegacy body .container-main:after,
+  .k-flexboxlegacy body .container-main #content:before,
+  .k-flexboxlegacy body .container-main #content:after,
+  .k-flexboxlegacy body .container-main #content .row-fluid:before,
+  .k-flexboxlegacy body .container-main #content .row-fluid:after {
+    display: none;
+  }
+  .k-flexbox body .container-main + #status,
+  .k-flexboxlegacy body .container-main + #status {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    box-shadow: none;
+  }
+  .k-flexbox body .container-main #content .row-fluid .span12 .k-overview,
+  .k-flexboxlegacy body .container-main #content .row-fluid .span12 .k-overview {
+    border: none;
+  }
+  .k-flexbox body #system-message-container,
+  .k-flexboxlegacy body #system-message-container {
+    padding: 0;
+  }
+  .k-flexbox body #system-message-container .alert,
+  .k-flexboxlegacy body #system-message-container .alert {
+    margin: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 10px 35px 10px 10px;
+  }
+  [dir="rtl"] .k-flexbox body #system-message-container .alert, .k-flexboxlegacy body #system-message-container .alert {
+    padding: 10px 10px 10px 35px;
+  }
+  .k-flexbox body #system-message-container .alert h4:last-child, .k-flexbox body #system-message-container .alert p:last-child, .k-flexbox body #system-message-container .alert div:last-child,
+  .k-flexboxlegacy body #system-message-container .alert h4:last-child,
+  .k-flexboxlegacy body #system-message-container .alert p:last-child,
+  .k-flexboxlegacy body #system-message-container .alert div:last-child {
+    margin-bottom: 0;
+  }
+}
+
+body .span10 {
+  margin: 0;
+}
+
+body a:focus {
+  outline: auto 5px -webkit-focus-ring-color;
+}
+
+@media screen and (min-width: 768px) {
+  .k-js-enabled body .k-ui-container {
+    padding-bottom: 29px;
+  }
+}
+
+@media (min-width: 300px) and (min-height: 391px) {
+  .k-flexbox body .k-ui-container,
+  .k-flexboxlegacy body .k-ui-container {
+    padding-bottom: 0;
+  }
+}
+
+body .status-top ~ .container-main .k-ui-container {
+  padding-bottom: 0;
+}
+
+body div#system-debug {
+  margin: 0;
+  padding: 0;
+  border: none;
+  max-height: 36px;
+  overflow: hidden;
+  -webkit-transition: all .2s ease;
+          transition: all .2s ease;
+}
+
+body div#system-debug:hover, body div#system-debug:focus {
+  max-height: 999px;
+  overflow: auto;
+}
