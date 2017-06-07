@@ -1,0 +1,109 @@
+/* List
+   ========================================================================== */
+
+/*
+List
+
+markup:
+<!-- List -->
+<ul class="k-list">
+    <li class="k-is-active">
+        <a href="javascript:void(0)">
+            <sg-insert>2.12-166</sg-insert>
+            My documents
+        </a>
+    </li>
+    <li>
+        <a href="javascript:void(0)">
+            <sg-insert>2.12-195</sg-insert>
+            Most popular
+        </a>
+    </li>
+</ul>
+
+Styleguide 2.13
+
+*/
+
+/**
+ * 1. Reset default <ul> styling
+ */
+
+.k-list {
+  @include reset($k-margin: false); /* 1 */
+  margin: $k-list-spacing 0;
+
+  @include rtl {
+    margin: $k-list-spacing 0;
+
+
+    /* Override for rtl ul-ol-li styling */
+
+    padding: 0;
+  }
+
+
+  /* Items */
+
+  li {
+    display: block;
+    line-height: $k-line-height;
+  }
+
+
+  /**
+   * Links
+   *
+   * 1. Make item fully clickable
+   * 2. removing underlines
+   */
+
+  a {
+    display: block; /* 1 */
+    padding-top: $k-list-spacing;
+    padding-bottom: $k-list-spacing;
+    padding-right: $k-spacing;
+    padding-left: $k-spacing;
+    color: $k-list-color;
+    text-decoration: none; /* 2 */
+
+
+    /* Hover & focus state */
+
+    &:hover,
+    &:focus {
+      background: $k-list-hover-background;
+      color: $k-list-hover-color;
+      text-decoration: none; /* 2 */
+    }
+  }
+
+
+  /* Active link */
+
+  .k-is-active {
+    a {
+      font-weight: $k-bold;
+      background: $k-list-active-background;
+      color: $k-list-active-color;
+
+      &:hover {
+        background: transparent;
+        cursor: default;
+      }
+    }
+  }
+
+
+  /* Icons */
+
+  [class^="k-icon"] {
+    display: inline-block;
+    margin-right: 0.75em;
+
+    @include rtl {
+      margin-right: auto;
+      margin-left: 0.75em;
+    }
+  }
+}

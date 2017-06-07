@@ -1,0 +1,150 @@
+/*
+Styled file input
+
+markup:
+<div class="k-file-input-container">
+    <div class="k-file-input">
+        <input class="k-js-file-input" type="file" id="input-[5.1]-2" data-multiple-caption="{count} files selected" multiple />
+        <label for="input-[5.1]-2">
+            <span class="k-file-input__button">
+                <sg-insert>2.12-62</sg-insert>
+                Choose a file&hellip;
+            </span>
+            <span class="k-file-input__files"></span>
+        </label>
+    </div>
+</div>
+
+Styleguide 2.9.9
+
+*/
+
+.k-file-input {
+  position: relative;
+  display: inline-block;
+
+
+  /* The original file input select */
+
+  input {
+
+    /**
+     * 1. Style only when JS is enabled / addEventlistener is available
+     *    We want to show it regularly when we don't have addEventListener for usability sake
+     * 2. Hide the label by default and only show it when addEventListener is available (e.g. when file input is hidden)
+     * 3. Display label when file input is hidden
+     */
+
+    @include modernizr('.k-eventlistener') {
+      @include coverall($k-left: false);
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+      font-size: 99px;
+      opacity: 0;
+      filter: alpha(opacity=0);
+    }
+
+    + label {
+      display: none; /* 2 */
+
+      @include modernizr('.k-eventlistener') {
+        display: inline-block; /* 3 */
+      }
+    }
+
+
+    /* Styling the label, holding both the button and the selected files container */
+
+    + label {
+      max-width: 100%;
+      font-size: $k-font-size;
+      line-height: $k-line-height;
+      font-weight: $k-regular;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+      overflow: hidden;
+      vertical-align: middle;
+      color: $k-color-accent;
+      padding: 0;
+      text-align: center;
+    }
+
+
+    /* Focus state */
+
+    &:focus,
+    &.has-focus {
+      outline: none;
+
+      & + label {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
+      }
+    }
+
+
+    /* Hover / focus state */
+
+    &:focus,
+    &.has-focus,
+    &.has-drop-focus,
+    &:hover{
+      cursor: pointer;
+
+      & + label {
+        .k-file-input__button {
+          &, &:hover, &:focus {
+            background-color: darken($k-color-accent, 10%);
+          }
+        }
+      }
+    }
+  }
+
+
+  /* The button */
+
+  .k-file-input__button {
+    display: block;
+    background-color: $k-color-accent;
+    color: $k-color-accent-type;
+    pointer-events: none;
+    vertical-align: middle;
+    font-weight: $k-regular;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none; /* 2 */
+    border: 1px solid transparent;
+    white-space: nowrap;
+    box-shadow: none;
+    text-shadow: none;
+    user-select: none;
+    margin-bottom: 0;
+    border-radius: $k-border-radius-large;
+    font-size: $k-font-size-large;
+    line-height: $k-line-height-large;
+    padding: $k-spacing-large-vertical $k-spacing-large-horizontal;
+  }
+
+
+  /* Selected files container */
+
+  .k-file-input__files {
+    width: 100%;
+    height: $k-line-height;
+    line-height: $k-line-height;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+    text-align: center;
+
+    &:empty {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+// Clearfix
+// Micro clearfix using display: table and a space for "content" to make it work on Opera
+// Also using ":before" to clear top-margins as well
+// Using single colon to make it work on older browsers
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    display: table;
+    content: " ";
+  }
+
+  &:after {
+    clear: both;
+  }
+}

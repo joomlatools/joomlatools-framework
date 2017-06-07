@@ -1,10 +1,35 @@
 /**
- * Joomla hathor template specific styling / overrides
+ * Joomla Hathor template specific styling / overrides
  * ===================================================
  */
 
-/**
- * Original files can be found in Joomlatools UI
- */
+@import "../../../kodekit-ui/src/scss/admin/core/tools";
 
-@import "../../../../../../../../../joomlatools-ui/src/scss/hathor";
+body.tmpl-hathor {
+  .subheader,
+  .toolbar-box {
+    display: none!important;
+  }
+
+  #content {
+    margin: 15px;
+
+    & > .k-heading {
+      display: none!important;
+    }
+  }
+
+  #element-box {
+    border: 1px solid #ccc;
+
+    @include flexbox {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  .k-ui-container {
+    width: 100%;
+    max-width: none;
+  }
+}

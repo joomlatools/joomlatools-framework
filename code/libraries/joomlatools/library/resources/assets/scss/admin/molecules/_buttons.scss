@@ -1,0 +1,381 @@
+/* Buttons
+   ========================================================================== */
+
+/*
+Buttons
+
+.k-button--default - Default style
+.k-button--primary - Primary color styling
+.k-button--success - Success color styling
+.k-button--info - Info color styling
+.k-button--warning - Warning color styling
+.k-button--danger - Danger color styling
+.k-button--link - Link styling (while keeping height)
+.k-button--block - Full width button
+
+markup:
+<button type="button" class="k-button {$modifiers}">
+    Button text
+</button>
+
+sg-wrapper:
+<div>
+    <sg-wrapper-content/>
+</div>
+
+Styleguide 2.3
+
+*/
+
+/*
+Button states
+
+Different button states
+
+.k-is-active - Active buttons
+.k-is-disabled - Disabled buttons
+
+markup:
+<button type="button" class="k-button k-button--default {$modifiers}">
+    Button text
+</button>
+
+sg-wrapper:
+<div>
+    <sg-wrapper-content/>
+</div>
+
+Styleguide 2.3.1
+
+*/
+
+/**
+ * 1. For input.k-button
+ * 2. Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+ */
+
+.k-button {
+  display: inline-block;
+  margin-bottom: 0; /* 1 */
+  font-weight: $k-regular;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none; /* 2 */
+  border: 1px solid transparent;
+  white-space: nowrap;
+  box-shadow: none;
+  text-shadow: none;
+  user-select: none;
+  border-radius: $k-border-radius;
+  margin-right: $k-spacing-tiny;
+  line-height: $k-line-height;
+  padding: $k-spacing-base-vertical $k-spacing-base-horizontal;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include rtl {
+    margin-right: 0;
+    margin-left: $k-spacing-tiny;
+
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+
+  &,
+  &:active,
+  &.k-is-active {
+    &:focus,
+    &.focus {
+      @include tab-focus;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    color: $k-btn-default-color;
+    text-decoration: none;
+  }
+
+  &:active,
+  &.k-is-active {
+    outline: 0;
+    background-image: none;
+  }
+
+  &[disabled],
+  &.k-is-disabled {
+    cursor: $k-cursor-disabled;
+    opacity: 0.65;
+  }
+}
+
+
+/**
+ * 1. Remove underline when button is an `<a>` element
+ * 2. Future-proof disabling of clicks on elements
+ */
+
+.k-button {
+  &, &:hover, &:focus, &:active {
+    text-decoration: none; /* 1 */
+  }
+}
+
+button.k-button.k-is-disabled {
+  pointer-events: none; /* 2 */
+}
+
+
+/* Alternate buttons */
+
+.k-button--default {
+  @include button-variant($k-btn-default-color, $k-btn-default-background, $k-btn-default-border);
+}
+
+.k-button--primary {
+  @include button-variant($k-btn-primary-color, $k-btn-primary-background, $k-btn-primary-border);
+}
+
+.k-button--success {
+  @include button-variant($k-btn-success-color, $k-btn-success-background, $k-btn-success-border);
+}
+
+.k-button--info {
+  @include button-variant($k-btn-info-color, $k-btn-info-background, $k-btn-info-border);
+}
+
+.k-button--warning {
+  @include button-variant($k-btn-warning-color, $k-btn-warning-background, $k-btn-warning-border);
+}
+
+.k-button--danger {
+  @include button-variant($k-btn-danger-color, $k-btn-danger-background, $k-btn-danger-border);
+}
+
+
+/* Link buttons */
+
+.k-button--link {
+  color: $k-color-type;
+  font-weight: normal;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+
+  &,
+  &:active,
+  &.k-is-active,
+  &[disabled],
+  &.k-is-disabled {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: transparent;
+  }
+
+  &:hover,
+  &:focus {
+    color: $k-color-type;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+
+  &[disabled],
+  &.k-is-disabled {
+    &:hover,
+    &:focus {
+      color: $k-btn-link-disabled-color;
+      text-decoration: none;
+    }
+  }
+}
+
+
+/* Block button */
+
+.k-button--block {
+  display: block;
+  width: 100%;
+}
+
+
+/*
+Button sizes
+
+default - Default
+.k-button--tiny - Tiny
+.k-button--small - Small
+.k-button--large - Large
+
+markup:
+<button type="button" class="k-button k-button--default {$modifiers}">
+    Button text
+</button>
+
+Styleguide 2.3.2
+
+*/
+
+.k-button--tiny {
+  border-radius: $k-border-radius-small;
+  font-size: $k-font-size-tiny;
+  line-height: $k-line-height-tiny;
+  padding: $k-spacing-tiny-vertical $k-spacing-tiny-horizontal;
+}
+
+.k-button--small {
+  border-radius: $k-border-radius-small;
+  font-size: $k-font-size-small;
+  line-height: $k-line-height-small;
+  padding: $k-spacing-small-vertical $k-spacing-small-horizontal;
+}
+
+.k-button--large {
+  border-radius: $k-border-radius-large;
+  font-size: $k-font-size-large;
+  line-height: $k-line-height-large;
+  padding: $k-spacing-large-vertical $k-spacing-large-horizontal;
+}
+
+
+/* Vertically space out multiple block buttons */
+
+.k-button--block + .k-button--block {
+  margin-top: 5px;
+}
+
+
+/* Specificity overrides */
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.k-button--block {
+    width: 100%;
+  }
+}
+
+
+/*
+Button groups
+
+markup:
+<div class="k-button-group">
+    <sg-insert>2.3.1-1</sg-insert>
+    <sg-insert>2.3-1</sg-insert>
+    <sg-insert>2.3-1</sg-insert>
+</div>
+
+Styleguide 2.3.3
+
+*/
+
+.k-button-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  & > .k-button {
+    position: relative;
+    float: left;
+    margin: 0;
+
+    @include rtl {
+      float: right;
+    }
+
+
+    /* Bring the "active" button to the front */
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.k-is-active {
+      z-index: 2;
+    }
+  }
+
+
+  /* Prevent double borders when buttons are next to each other */
+
+  .k-button + .k-button,
+  .k-button + .k-button-group,
+  .k-button-group + .k-button,
+  .k-button-group + .k-button-group {
+    margin-left: -1px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  @include rtl {
+    .k-button + .k-button,
+    .k-button + .k-button-group,
+    .k-button-group + .k-button,
+    .k-button-group + .k-button-group {
+      margin-left: 0;
+      margin-right: -1px;
+
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  & > .k-button:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
+  & > .k-button:first-child:not(:last-child) {
+    @include border-right-radius(0);
+
+    @include rtl {
+      @include border-right-radius($k-border-radius);
+      @include border-left-radius(0);
+
+      &.k-button--tiny {
+        @include border-right-radius($k-border-radius-small);
+      }
+
+      &.k-button--small {
+        @include border-right-radius($k-border-radius-small);
+      }
+
+      &.k-button--large {
+        @include border-right-radius($k-border-radius-large);
+      }
+    }
+  }
+
+  & > .k-button:last-child:not(:first-child) {
+    @include border-left-radius(0);
+
+    @include rtl {
+      @include border-left-radius($k-border-radius);
+      @include border-right-radius(0);
+
+      &.k-button--tiny {
+        @include border-left-radius($k-border-radius-small);
+      }
+
+      &.k-button--small {
+        @include border-left-radius($k-border-radius-small);
+      }
+
+      &.k-button--large {
+        @include border-left-radius($k-border-radius-large);
+      }
+    }
+  }
+}

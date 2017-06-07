@@ -1,0 +1,65 @@
+/* Koowa UI container
+   ========================================================================== */
+
+/*
+Koowa UI container
+
+This is the most outer container of each page.
+- A `.k-ui-container` may only live once on the page and should be handled as an `id`
+- Need to namespace something outside this container? Use the `.k-ui-namespace` class
+- The `k-ui-namespace` class should always be added to the `k-ui-container` element for namespacing purposes
+
+markup:
+<div class="k-ui-container k-ui-namespace">
+    ...
+</div><!-- .k-ui-container -->
+
+Styleguide 3.1
+
+*/
+
+/**
+ * 1. By using a max-width we essentially set a min-width when the contents are
+ *    to large for the k-ui-container container. The reason we don't use min-width is
+ *    because if the content is only 300px we don't need horizontal scrollbars
+ * 2. Reset the max-width when viewport is as large as minwidth
+ * 3. Default styling
+ */
+
+&.k-ui-container {
+  max-width: $k-minwidth; /* 1 */
+  margin: 0; /* 6 */
+  border: none; /* 6 */
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  padding: $k-koowa-padding;
+
+  background: $k-koowa-background; /* 3 */
+  color: $k-color-type; /* 3 */
+
+  -webkit-font-smoothing: $k-webkit-font-smoothing;
+  -moz-osx-font-smoothing: $k-firefox-font-smoothing;
+  -webkit-overflow-scrolling: touch;
+
+  @include breakpoint($k-minwidth) {
+    max-width: none; /* 2 */
+  }
+
+
+  /* When flexbox is enabled */
+
+  @include flexbox {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+
+  /* RTL */
+
+  @include rtl {
+    direction: rtl;
+  }
+}

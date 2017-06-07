@@ -1,0 +1,26 @@
+/* Anchor
+   ========================================================================== */
+
+/*
+Anchor
+
+markup:
+<a href="javascript:void(0)">Anchor text</a>
+
+sg-wrapper:
+<p>
+    <sg-wrapper-content/>
+</p>
+
+Styleguide 1.1
+
+*/
+
+a {
+  color: $k-link-color;
+
+  &:focus,
+  &:hover {
+    color: $k-link-color;
+  }
+}

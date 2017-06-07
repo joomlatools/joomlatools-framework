@@ -1,0 +1,27 @@
+/* Fieldset
+   ========================================================================== */
+
+/*
+Fieldset
+
+- Fieldsets have a bottom margin to separate them from each other
+- The last-child doesn't have this bottom margin so parent containers can have four-sided paddings
+
+markup:
+<fieldset>...</fieldset>
+
+Styleguide 1.3
+
+*/
+
+/**
+ * 1. Chrome and Firefox set a `min-width: min-content;` on fieldsets,
+ *    so we reset that to ensure it behaves more like a standard block element.
+ *    See https://github.com/twbs/bootstrap/issues/12359.
+ */
+
+fieldset {
+  @include reset;
+  @include content-block;
+  min-width: 0; /* 1 */
+}

@@ -1,0 +1,31 @@
+/* Body
+   ========================================================================== */
+
+/**
+ * 1. By using 100% we can work with full-height auto overflowing flexbox pages
+ * 2. Remove all spacing
+ * 3. Hide overflowing content on resizing to make sure we never get any weird jumping scrollbar issues
+ */
+
+body {
+  min-height: 100%; /* 1 */
+  height: 100%; /* 1 */
+  padding: 0; /* 2 */
+  margin: 0; /* 2 */
+
+
+  /* Setup flexbox */
+
+  @include flexbox {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+
+
+  /* When resizing */
+
+  &.k-is-resizing {
+    overflow: hidden; /* 3 */
+  }
+}

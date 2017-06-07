@@ -1,0 +1,52 @@
+/* Component wrapper
+   ========================================================================== */
+
+/*
+Component wrapper
+
+- Use as <b>child</b> of the `.k-content` container only
+- Can be preceded by a `.k-title-bar.k-title-bar--mobile` or a `.k-toolbar`
+- {unsureText}
+
+markup:
+<div class="k-component-wrapper">
+    ...
+</div><!-- .k-component-wrapper -->
+
+Styleguide 3.6
+
+*/
+
+.k-component-wrapper {
+  position: relative;
+  background: $k-component-background;
+
+  /* Faking flexbox on older browsers by using table styling */
+
+  display: table;
+  width: 100%;
+  min-height: 100%;
+
+
+  /**
+   * When flexbox is in use
+   *
+   * 1. Reset width needed for table
+   * 2. Set overflow for breadcrumbs to properly work
+   */
+
+  @include flexbox {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    overflow: auto;
+    min-height: 0;
+  }
+
+
+  /* Hide overtflow when resizing the window */
+
+  @include resizing {
+    overflow: hidden;
+  }
+}

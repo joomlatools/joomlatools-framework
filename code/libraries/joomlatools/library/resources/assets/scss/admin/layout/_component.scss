@@ -1,0 +1,98 @@
+/* Component
+   ========================================================================== */
+
+/*
+Component
+
+- Use as <b>child</b> of the `.k-component-wrapper` container only
+- Can have a `.k-sidebar-right` as next sibling
+- {unsureText}
+
+markup:
+<div class="k-component">
+    ...
+</div><!-- .k-component -->
+
+Styleguide 3.6
+
+*/
+
+/**
+ * 1. Needed for the off-canvas-overlay
+ * 2. Reset for when item is a form
+ * 3. Set transition for off canvas sidebar
+ */
+
+.k-component {
+  position: relative; /* 1 */
+  z-index: 2; /* 1 */
+  background: $k-component-background;
+  margin: 0; /* 2 */
+  padding: 0; /* 2 */
+  @include transition(transform); /* 3 */
+
+  @include flexbox {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: auto;
+  }
+
+  @include resizing {
+    overflow: hidden;
+  }
+}
+
+
+/**
+ * Container when toggled
+ *
+ * 1. Set left to the negative width of the sidebar so the sidebar will appear
+ * 2. Reset when screen is wide enough
+ */
+
+.k-show-right-menu {
+  .k-component {
+    transform: translate(-($k-sidebar-right-width), 0); /* 1 */
+
+    @include breakpoint($k-sidebar-right-querie-width) {
+      transform: translate(0, 0); /* 2 */
+    }
+  }
+
+  @include rtl {
+    .k-component {
+      transform: translate($k-sidebar-right-width, 0);
+
+      @include breakpoint($k-sidebar-right-querie-width) {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+
+  /**
+   * Set opacity
+   */
+
+  .k-component {
+    .k-off-canvas-overlay {
+      opacity: $k-off-canvas-overlay-opacity; /* 1 */
+    }
+  }
+}
+
+
+/**
+ * Overlay when toggled
+ *
+ * 1. Set z-index so it will become visible
+ */
+
+.k-is-opened-right {
+  .k-component {
+    .k-off-canvas-overlay {
+      z-index: 9; /* 1 */
+    }
+  }
+}

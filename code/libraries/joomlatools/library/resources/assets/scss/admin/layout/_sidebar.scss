@@ -1,0 +1,234 @@
+/* Sidebar
+   ========================================================================== */
+
+/*
+Sidebar
+
+Left and right sidebars
+- Use `.k-sidebar-left` as <b>first child</b> of the `.k-content-wrapper` container only
+- Use `.k-sidebar-right` as <b>last child</b> of the `.k-content-wrapper` container only
+- Make sure you <b>Always</b> have a `.k-content` container when a sidebar is used
+- {unsureText}
+
+.k-sidebar-left.k-js-sidebar-left - Left sidebar
+.k-sidebar-right.k-js-sidebar-right - Right sidebar
+
+markup:
+<div class="{$modifiers}">
+    ...
+</div><!-- .{$modifiers} -->
+
+Styleguide 3.4
+
+*/
+
+/* The left and right sidebar */
+
+.k-sidebar-left,
+.k-sidebar-right {
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+
+  /* When resizing */
+
+  @include resizing {
+    overflow: hidden;
+  }
+
+
+  /* Faking flexbox on older browsers by using table styling */
+
+  display: table-cell;
+  vertical-align: top;
+
+
+  /* When JavaScript is enabled */
+
+  @include js-enabled {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    height: 100%;
+    display: none;
+  }
+
+
+  /* When flexbox is in use */
+
+  @include flexbox {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+  }
+}
+
+.k-sidebar-left {
+
+  /* Faking flexbox on older browsers by using table styling */
+
+  @include breakpoint($k-sidebar-left-querie-width) {
+    @include allwidth($k-sidebar-left-width-small);
+  }
+
+
+  /* Larger sidebar when space is available */
+
+  @include breakpoint($k-delta) {
+    @include allwidth($k-sidebar-left-width);
+  }
+
+
+  /* When JavaScript is enabled */
+
+  @include js-enabled {
+    @include allwidth($k-sidebar-left-width);
+
+
+    /* On 'desktop' we 'open' the sidebar by default */
+
+    @include breakpoint($k-sidebar-left-querie-width) {
+      position: relative;
+      display: table-cell;
+      height: auto;
+      @include allwidth($k-sidebar-left-width-small);
+      z-index: 1;
+    }
+
+
+    /* And we make it even larger when there's enough space */
+
+    @include breakpoint($k-delta) {
+      @include allwidth($k-sidebar-left-width);
+    }
+  }
+
+
+  /* Override js-enabled beta styling with flexbox */
+
+  @include flexbox {
+    @include breakpoint($k-sidebar-left-querie-width) {
+      display: flex;
+    }
+  }
+}
+
+.k-sidebar-right {
+
+  /* Faking flexbox on older browsers by using table styling */
+
+  @include breakpoint($k-sidebar-right-querie-width) {
+    @include allwidth($k-sidebar-right-width-small);
+  }
+
+
+  /* Larger sidebar when space is available */
+
+  @include breakpoint($k-sidebar-right-querie-width) {
+    @include allwidth($k-sidebar-right-width);
+  }
+
+
+  /* When JavaScript is enabled */
+
+  @include js-enabled {
+    @include allwidth($k-sidebar-right-width);
+
+
+    /* On 'desktop' we 'open' the sidebar by default */
+
+    @include breakpoint($k-sidebar-right-querie-width) {
+      position: relative;
+      display: table-cell;
+      height: auto;
+      @include allwidth($k-sidebar-right-width-small);
+      z-index: 1;
+    }
+
+
+    /* And we make it even larger when there's enough space */
+
+    @include breakpoint($k-delta) {
+      @include allwidth($k-sidebar-right-width);
+    }
+  }
+
+  /* Override js-enabled beta styling with flexbox */
+
+  @include flexbox {
+    @include breakpoint($k-sidebar-left-querie-width) {
+      display: flex;
+    }
+  }
+}
+
+
+/* Left sidebar specific styling */
+
+.k-sidebar-left {
+  @include border(right, $k-sidebar-border);
+  background: $k-sidebar-background;
+  color: $k-sidebar-color;
+
+  @include rtl {
+    border-right: none;
+    @include border(left, $k-sidebar-border);
+  }
+
+  @include js-enabled {
+    left: 0;
+  }
+
+  @include js-enabled {
+    @include rtl {
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+
+/* When left sidebar is toggled */
+
+.k-is-opened-left {
+  .k-sidebar-left {
+    display: block;
+    z-index: 1;
+  }
+}
+
+
+/* Right sidebar specific styling */
+
+.k-sidebar-right {
+  @include border(left, $k-sidebar-border);
+  background: $k-sidebar-background;
+  color: $k-sidebar-color;
+
+  @include rtl {
+    border-left: none;
+    @include border(right, $k-sidebar-border);
+  }
+
+  @include js-enabled {
+    right: 0;
+  }
+
+  @include js-enabled {
+    @include rtl {
+      right: auto;
+      left: 0;
+    }
+  }
+}
+
+
+/* When right sidebar is toggled */
+
+.k-is-opened-right {
+  .k-sidebar-right {
+    display: block;
+    z-index: 1;
+  }
+}

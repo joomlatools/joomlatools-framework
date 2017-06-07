@@ -1,0 +1,261 @@
+/* Breadcrumbs
+   ========================================================================== */
+
+/*
+Breadcrumbs
+
+markup:
+<!-- Breadcrumbs -->
+<div class="k-breadcrumb">
+    <ul>
+        <li class="k-breadcrumb__home">
+            <a class="k-breadcrumb__content" href="javascript:void(0)">
+                <sg-insert>2.12-121</sg-insert>
+                <span class="k-visually-hidden">Home</span>
+            </a>
+        </li>
+        <li>
+            <a class="k-breadcrumb__content" href="javascript:void(0)">
+                Donec ullamcorper nulla non metus auctor fringilla.
+            </a>
+        </li>
+        <li>
+            <a class="k-breadcrumb__content" href="javascript:void(0)">
+                Risus Egestas Vulputate Fusce Ipsum.
+            </a>
+        </li>
+        <li class="k-breadcrumb__active">
+            <span class="k-breadcrumb__content">
+                Ligula Inceptos Commodo Sem Ornare.
+            </span>
+        </li>
+    </ul>
+</div><!-- .k-breadcrumb -->
+
+Styleguide 2.2
+
+*/
+
+/**
+ * 1. Scroll when items don't fit parent anymore
+ * 2. Hide scroll when resizing to avoid weird jumps on OSX
+ * 3. Don't flex in the layout structure
+ */
+
+.k-breadcrumb {
+  @include border(bottom, $k-breadcrumb-border);
+  overflow: auto; /* 1 */
+  background: $k-breadcrumb-background;
+  color: $k-breadcrumb-color;
+
+  @include resizing {
+    overflow: hidden; /* 2 */
+  }
+
+  @include flexbox(0, 0) {
+    flex: 0 0 auto; /* 3 */
+  }
+
+
+  /**
+   * List
+   *
+   * 1. Reset unordered list styling
+   * 2. Flexing items to get overflow ellipsis
+   */
+
+  ul {
+    @include reset; /* 1 */
+
+    @include flexbox(0, 0) {
+      display: flex; /* 2 */
+    }
+  }
+
+
+  /**
+   * Styling list items
+   *
+   * 1. Set z-index to 0 so the :after psuedo element will be on top
+   * 2. Make room for the psuedo element separator
+   * 3. Make each item at least one breadcrumb size wide
+   * 4. Hide by default so we can show only a few on mobile / flexbox
+   * 5. Hide overflowing content
+   * 6. Proper spacing for non-flexbox use
+   */
+
+  li {
+    position: relative; /* 1 */
+    z-index: 0; /* 1 */
+    padding-left: $k-breadcrumb-divider-size; /* 2 */
+    min-width: $k-breadcrumb-size; /* 3 */
+    display: none; /* 4 */
+    overflow: hidden; /* 5 */
+    vertical-align: middle; /* 6 */
+
+    @include rtl {
+      padding-left: 0;
+      padding-right: $k-breadcrumb-divider-size;
+    }
+
+
+    /* Flexing items to get overflow ellipsis */
+
+    @include flexbox(0, 0) {
+      flex: 0 1 auto;
+    }
+
+
+    /* Display on larger screens but only when flexbox is available */
+
+    @include flexbox($k-breadcrumb-query, 0) {
+      display: inline-block;
+    }
+
+
+    /* List item separator */
+
+    @include psuedo(before, $k-content: false) {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: $k-breadcrumb-divider-size;
+      padding-top: $k-breadcrumb-size / 4;
+      padding-bottom: $k-breadcrumb-size / 4;
+      text-align: center;
+      line-height: $k-breadcrumb-size / 2;
+      content: $k-breadcrumb-divider-content;
+
+      @include rtl {
+        left: auto;
+        right: 0;
+      }
+    }
+
+
+    /* No separator on first item */
+
+    &:first-child {
+      padding-left: 0;
+
+      @include rtl {
+        padding-right: 0;
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+
+
+    /**
+     * Hover
+     *
+     * 1. Reset flexbox so the whole item is visible
+          No :focus since <li> can't be focused
+     * 2. Wrap the active item when another item is being hovered
+     */
+
+    &:hover {
+      overflow: visible;
+
+      @include flexbox(0, 0) {
+        flex: 0 0 auto; /* 1 */
+      }
+
+      &:not(.k-breadcrumb__home) ~ li {
+        @include flexbox(0, 0) {
+          flex: 0 1 auto; /* 2 */
+        }
+      }
+    }
+  }
+
+
+  /**
+   * Links
+   *
+   * 1. Full background hover
+   */
+
+  a {
+    color: $k-breadcrumb-color;
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+      background: $k-breadcrumb-hover-background; /* 1 */
+    }
+  }
+
+
+  /**
+   * Home and active elements
+   *
+   * 1. Always display these items
+   * 2. No flexing for these items so they are fully readable
+   */
+
+  .k-breadcrumb__active,
+  .k-breadcrumb__home {
+    display: inline-block; /* 1 */
+    overflow: visible; /* 1 */
+
+    @include flexbox(0, 0) {
+      flex: 0 0 auto; /* 2 */
+    }
+  }
+
+
+  /**
+   * One but last item
+   *
+   * Show this item on mobile to get a sense of where you are
+   * Only do this when flexbox is available
+   *
+   * 1. Set 'missing' content
+   * 2. Reset to default content on wider screens
+   */
+
+  li:nth-last-child(2) {
+    @include flexbox(0, 0) {
+      display: inline-block;
+
+      &:before {
+        content: $k-breadcrumb-missing-content; /* 1 */
+
+        @include breakpoint($k-breadcrumb-query) {
+          content: $k-breadcrumb-divider-content; /* 2 */
+        }
+      }
+    }
+  }
+
+
+  /* Active item */
+
+  .k-breadcrumb__active {
+    .k-breadcrumb__content {
+      font-weight: $k-bold;
+    }
+  }
+
+}
+
+
+/* Single breadcrumb items */
+
+.k-breadcrumb__content {
+  position: relative;
+  z-index: 2;
+  display: block;
+  padding: round($k-breadcrumb-size / 4);
+  min-width: $k-breadcrumb-size;
+  min-height: $k-breadcrumb-size;
+  overflow: hidden;
+  text-align: center;
+  line-height: floor($k-breadcrumb-size / 2);
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,220 @@
+/* Sidebar item
+   ========================================================================== */
+
+/*
+Sidebar item
+
+- Adds bottom spacing when multiple sidebar items are being used
+- Adds flexbox styling
+- Hidden on small screens
+- Add `.k-sidebar-item--flex` to the sidebar items that need to <b>grow</b> with the layout
+- Use <b>only</b> inside a `.k-sidebar`
+- {unsureText}
+
+default - Default
+.k-sidebar-item--flex - Flexing container that will grow (and not shrink)
+.k-sidebar-item--toggle.k-js-sidebar-toggle-item - Adds a toggle button on certain screen sizes
+
+markup:
+<div class="k-sidebar-item {$modifiers}">
+    ...
+</div><!-- .k-sidebar-item -->
+
+Styleguide 2.20
+
+*/
+
+.k-sidebar-item {
+  & + & {
+    margin-top: $k-spacing;
+  }
+
+  @mixin item--flex {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    overflow: hidden;
+    min-height: 100px;
+
+    div {
+      flex: 1 1 auto;
+      overflow: auto;
+    }
+
+    .k-sidebar-item__header {
+      flex: 0 0 auto;
+    }
+  }
+
+  @include flexbox($k-sidebar-left-querie-width, $k-flexbox-vertical) {
+    flex: 0 0 auto;
+
+    &--flex {
+      &:only-child {
+        @include item--flex;
+      }
+    }
+  }
+
+  @include flexbox($k-sidebar-left-querie-width, 599px) {
+    &--flex {
+      &:nth-child(n) {
+        @include item--flex;
+      }
+    }
+  }
+
+
+  /**
+   * Overflowing items
+   *
+   * 1. Set container to overflow it's items
+   */
+
+  &--overflow {
+    overflow: auto; /* 1 */
+    width: 100%;
+
+    @include flexbox($k-vertical: 550px) {
+      flex: 0 1 auto;
+    }
+
+    @include resizing {
+      overflow: hidden;
+    }
+  }
+}
+
+
+/**
+ * Toggle item
+ *
+ * 1. Same as width but minus 2px border width
+ */
+
+.k-sidebar-item--toggle {
+  padding-bottom: $k-spacing-small;
+
+  .k-sidebar-item__header {
+    position: relative;
+  }
+
+  .k-sidebar-item__toggle {
+    position: absolute;
+    top: $k-spacing;
+    right: $k-spacing;
+
+    @include icon-after(chevron-top, true) {
+      display: block;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 20px;
+      line-height: 18px; /* 1 */
+      text-align: center;
+      vertical-align: middle;
+      font-size: $k-font-size-tiny;
+      cursor: pointer;
+      @include transition;
+    }
+
+    &.k-is-active:after {
+      transform: rotate(180deg);
+    }
+
+    @include rtl {
+      right: auto;
+      left: $k-spacing;
+    }
+  }
+}
+
+
+/*
+Sidebar item header
+
+- Use <b>only</b> inside a `.k-sidebar-item`
+
+markup:
+<div class="k-sidebar-item__header">
+    {Title}
+</div><!-- .k-sidebar-item__header -->
+
+sg-wrapper:
+<div class="k-sidebar-item">
+    <sg-wrapper-content/>
+</div><!-- .k-sidebar-item -->
+
+Styleguide 2.20.1
+
+*/
+
+.k-sidebar-item__header {
+  padding: $k-spacing $k-spacing 0;
+  font-weight: $k-bold;
+  text-transform: uppercase;
+  font-size: $k-font-size-small;
+  line-height: $k-line-height-small;
+}
+
+
+/*
+Sidebar item content
+
+- Adds spacing
+- Use <b>only</b> inside a `.k-sidebar-item`
+
+default - Default
+.k-sidebar-item__content--small - Smaller padding
+
+markup:
+<div class="k-sidebar-item__content {$modifiers}">
+    <sg-wrapper-content/>
+</div><!-- .k-sidebar-item__content -->
+
+sg-wrapper:
+<div class="k-sidebar-item">
+    <sg-wrapper-content/>
+</div><!-- .k-sidebar-item -->
+
+Styleguide 2.20.2
+
+*/
+
+.k-sidebar-item__content {
+  padding: $k-spacing;
+}
+
+.k-sidebar-item__content--small {
+  padding: $k-spacing-small $k-spacing;
+}
+
+.k-sidebar-item__content--horizontal {
+  padding: 0 $k-spacing;
+}
+
+
+/*
+Complete sidebar item
+
+A complete sidebar item may look like this
+- Hidden on small screens
+
+markup:
+<div class="k-sidebar-item">
+    <div class="k-sidebar-item__header">
+        Title
+    </div><!-- .k-sidebar-item__header -->
+    <div class="k-sidebar-item__content">
+        Content
+    </div><!-- .k-sidebar-item__content -->
+</div><!-- .k-sidebar-item -->
+
+sg-wrapper:
+<div class="k-sidebar-left">
+    <sg-wrapper-content/>
+</div><!-- .k-sidebar -->
+
+Styleguide 2.20.3
+
+*/

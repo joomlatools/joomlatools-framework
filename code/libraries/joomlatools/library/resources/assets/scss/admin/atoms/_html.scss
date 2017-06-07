@@ -1,0 +1,24 @@
+/* HTML
+   ========================================================================== */
+
+/**
+ * 1. By using 100% we can work with full-height auto overflowing flexbox pages
+ * 2. Remove all spacing
+ * 3. Set basic font here. Other systems could set font on `<body>` element to override this.
+ *    We're just making sure there's alwas a default font available
+ */
+
+html {
+  min-height: 100%; /* 1 */
+  height: 100%; /* 1 */
+  padding: 0; /* 2 */
+  margin: 0; /* 2 */
+  font-family: $k-font-family; /* 3 */
+  font-size: $k-font-size; /* 3 */
+  line-height: $k-line-height; /* 3 */
+  font-weight: $k-regular; /* 3 */
+  color: $k-color-type;
+
+  -webkit-font-smoothing: $k-webkit-font-smoothing;
+  -moz-osx-font-smoothing: $k-firefox-font-smoothing;
+}

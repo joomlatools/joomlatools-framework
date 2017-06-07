@@ -1,0 +1,28 @@
+/* Label
+   ========================================================================== */
+
+/*
+Label
+
+markup:
+<label>Label</label>
+
+Styleguide 1.5
+
+*/
+
+/**
+ * 1. Force IE8 to wrap long content
+ */
+
+label {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%; /* 1 */
+  margin-bottom: $k-spacing-tiny;
+  font-weight: $k-bold;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

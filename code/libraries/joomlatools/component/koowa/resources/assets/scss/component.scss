@@ -6,16 +6,23 @@
 
 
 /**
- * Joomla variables
- * ----------------
- * Load first to win over "!default" variables defined in core/_tools.scss
+ * Global tools
+ * ------------
+ * Containing different libraries, variables, mixins and functions
  */
 
-@import "variables";
+@import "../../../kodekit-ui/src/scss/admin/core/tools";
+
 
 
 /**
- * Original files can be found in Joomlatools UI
+ * Needed styling
+ * --------------
+ * Load needed styling in here
  */
 
-@import "../../../../../../../../../joomlatools-ui/src/scss/component";
+@import "../../../kodekit-ui/node_modules/select2/src/scss/core";
+@import "../../../kodekit-ui/src/scss/admin/molecules/dropdowns"; /* We need the dropdowns for the datepicker until we found a better datepicker */
+@import "../../../kodekit-ui/src/scss/admin/molecules/modal";
+@import "../../../kodekit-ui/src/scss/admin/molecules/select2";
+

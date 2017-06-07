@@ -1,0 +1,80 @@
+/* Wrapper
+   ========================================================================== */
+
+/*
+Wrapper
+
+- Use as <b>child</b> of the `.k-ui-container` container only
+- Can be preceded by a `.k-menubar`
+- {unsureText}
+
+markup:
+<div class="k-wrapper k-js-wrapper">
+    ...
+</div><!-- .k-wrapper -->
+
+Styleguide 3.2
+
+*/
+
+
+.k-wrapper {
+  position: relative;
+  min-height: 100%;
+
+  /* When flexbox is in use */
+
+  @include flexbox {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: hidden;
+    min-height: 0;
+  }
+}
+
+
+/**
+ * Wrapper when toggled
+ *
+ * 1. Hide overflowing when menu is toggled
+ * 2. Set back to auto when screen is wide enough
+ * 3. Hide all overflow when resizing to avoid jumpy layout
+ */
+
+.k-is-opened-left,
+.k-is-opened-right {
+  overflow: hidden; /* 1 */
+
+  @include breakpoint($k-sidebar-left-querie-width) {
+    overflow: auto; /* 2 */
+  }
+
+  @include breakpoint($k-sidebar-right-querie-width) {
+    overflow: auto; /* 2 */
+  }
+
+  @include resizing {
+    overflow: hidden; /* 3 */
+  }
+}
+
+
+/**
+ * The overlay
+ *
+ * 1. Cover the entire container
+ * 2. Hide by setting z-index to -1 because item can't transition if display is set from none to block
+ * 3. Set opacity to 0 by default
+ * 4. Hide overlay when screen is wide enough
+ */
+
+.k-off-canvas-overlay {
+  @include coverall; /* 1 */
+  z-index: -1; /* 2 */
+  display: block;
+  opacity: 0; /* 3 */
+  content: " ";
+  background: $k-off-canvas-overlay-background;
+  @include transition(opacity);
+}

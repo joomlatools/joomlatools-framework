@@ -1,0 +1,24 @@
+/* Paragraph
+   ========================================================================== */
+
+/*
+Paragraph
+
+- Paragraphs have a bottom margin to separate them from each other
+- The last-child doesn't have this bottom margin so parent containers can have four-sided paddings
+
+markup:
+<p>...</p>
+
+Styleguide 1.7
+
+*/
+
+/**
+ * 1. Remove default top-margin
+ */
+
+p {
+  margin-top: 0; /* 1 */
+  @include content-block;
+}

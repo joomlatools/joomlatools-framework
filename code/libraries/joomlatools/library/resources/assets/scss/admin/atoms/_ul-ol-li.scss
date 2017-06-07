@@ -1,0 +1,36 @@
+/* Lists
+   ========================================================================== */
+
+/*
+Lists
+
+- Lists have a bottom margin to separate them from each other
+- The last-child doesn't have this bottom margin so parent containers can have four-sided paddings
+
+markup:
+<ul>
+    <li>List item</li>
+    <li>List item</li>
+</ul>
+<ol>
+    <li>List item</li>
+    <li>List item</li>
+</ol>
+
+Styleguide 1.8
+
+*/
+
+ul, ol {
+  @include content-block;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1.5em;
+}
+
+@include rtl {
+  ul, ol {
+    padding-left: 0;
+    padding-right: 1.5em;
+  }
+}

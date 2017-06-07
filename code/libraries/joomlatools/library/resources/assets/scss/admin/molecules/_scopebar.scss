@@ -1,0 +1,951 @@
+/* Scopebar
+   ========================================================================== */
+
+/*
+Scopebar
+
+The default scopebar is displayed with filters and a search field
+
+markup:
+<!-- Scopebar -->
+<div class="k-scopebar k-js-scopebar">
+    <sg-insert>2.18.3</sg-insert>
+    <sg-insert>2.18.6</sg-insert>
+</div><!-- .k-scopebar -->
+
+Styleguide 2.18
+
+*/
+
+/*
+Scopebar - breadcrumbs
+
+When you don't need any filters, but do need breadcrumbs, it's possible to combine the two like so:
+
+markup:
+<!-- Scopebar -->
+<div class="k-scopebar k-js-scopebar k-scopebar--breadcrumbs">
+    <sg-insert>2.18.4</sg-insert>
+    <sg-insert>2.18.6</sg-insert>
+</div><!-- .k-scopebar -->
+
+Styleguide 2.18.1
+
+*/
+
+/*
+Scopebar - adding buttons
+
+Need some extra buttons? For example to switch a list layout to a grid layout? Place them like so:
+
+markup:
+<!-- Scopebar -->
+<div class="k-scopebar k-js-scopebar">
+    <sg-insert>2.18.3</sg-insert>
+    <sg-insert>2.18.5</sg-insert>
+    <sg-insert>2.18.6</sg-insert>
+</div><!-- .k-scopebar -->
+
+Styleguide 2.18.2
+
+*/
+
+/**
+ * 1. Faking a border for when items are not stretching
+ */
+
+.k-scopebar {
+  @include clearfix;
+  background: $k-scopebar-background;
+  color: $k-scopebar-color;
+  min-width: 100%;
+  box-shadow: inset 0 -1px 0 $k-scopebar-border; /* 1 */
+
+
+  /* Faking flexbox */
+
+  @include breakpoint($k-delta) {
+    display: table;
+    width: 100%;
+  }
+
+
+  /* Flexbox */
+
+  @include flexbox(0, 0) {
+    display: flex;
+    width: auto;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+  }
+
+  @include flexbox($k-delta, 0) {
+    flex-wrap: nowrap;
+  }
+}
+
+
+/**
+ * Scopebar items
+ *
+ * 1. For wrapping text in combination with flexbox
+ */
+
+.k-scopebar__item {
+  @include clearfix;
+  @include border(bottom, $k-scopebar-border);
+  min-width: 0; /* 1 */
+  box-shadow: 0 -1px 0 $k-scopebar-border;
+
+
+  /* Floating nicely */
+
+  @include breakpoint($k-alpha) {
+    float: left;
+  }
+
+
+  /* Faking flexbox */
+
+  @include breakpoint($k-delta) {
+    display: table-cell;
+    width: 100%;
+    float: none;
+  }
+
+
+  /* Flexbox */
+
+  @include flexbox(0, 0) {
+    flex: 1 1 auto;
+    width: auto;
+  }
+}
+
+
+/**
+ * Static scopebar items
+ */
+
+.k-scopebar__item--static {
+
+
+  /* Faking flexbox */
+
+  @include breakpoint($k-delta) {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+
+  /* Flexbox */
+
+  @include flexbox(0, 0) {
+    display: block;
+    flex: 0 0 auto;
+  }
+}
+
+
+
+/**
+ * Toggle buttons
+ *
+ * 1. Clearing for floating buttons
+ * 2. Move first button away form edge
+ */
+
+.k-scopebar__item--toggle-buttons {
+  @include clearfix; /* 1 */
+  padding-left: 4px; /* 2 */
+
+  @include breakpoint($k-alpha) {
+    float: left;
+  }
+
+  @include breakpoint($k-beta) {
+    float: right;
+  }
+
+
+  /* Hide on larger screens */
+
+  @include breakpoint($k-delta) {
+    display: none;
+  }
+
+
+  /* Flexbox */
+
+  @include flexbox(0, 0) {
+    flex: 1 1 auto;
+    order: 15;
+    width: auto;
+  }
+
+  @include flexbox($k-beta, 0) {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+
+  /* RTL */
+
+  @include rtl {
+    padding-left: 0;
+    padding-right: 4px;
+  }
+
+
+  /* Buttons */
+
+  .k-toggle-scopebar-filters,
+  .k-toggle-scopebar-breadcrumbs {
+    display: block;
+    float: left;
+
+    @include breakpoint($k-beta) {
+      display: none;
+    }
+  }
+
+  .k-toggle-scopebar-search {
+    display: block;
+    float: right;
+
+    @include breakpoint($k-delta) {
+      display: none;
+    }
+  }
+}
+
+.k-scopebar--breadcrumbs {
+  .k-scopebar__item--toggle-buttons {
+    @include flexbox(0, 0) {
+      flex: 0 0 auto;
+    }
+  }
+}
+
+
+/*
+Scopebar Filters
+
+- Hidden on small screens
+
+markup:
+<!-- Filters -->
+<div class="k-dynamic-content-holder">
+    <div class="k-js-filters">
+        <div data-filter data-title="Status" data-count="0">
+            <select class="k-js-select2" name="enabled" data-placeholder="- Select -">
+                <option value="" class="level1">- Select -</option>
+                <option value="1" class="level1">Published</option>
+                <option value="0" class="level1">Unpublished</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="k-scopebar__item k-scopebar__item--filters">
+    <div class="k-scopebar__filters-content">
+        <div class="k-scopebar__filters k-js-filter-container">
+            <div style="display: none;" class="k-scopebar__item--filter k-scopebar-dropdown k-js-filter-prototype k-js-dropdown">
+                <button type="button" class="k-scopebar-dropdown__button k-js-dropdown-button">
+                    <span class="k-scopebar__item--filter__title k-js-dropdown-title"></span>
+                    <span class="k-scopebar__item--filter__icon k-icon-chevron-bottom" aria-hidden="true"></span>
+                    <div class="k-scopebar__item__label k-js-dropdown-label"></div>
+                </button>
+                <div class="k-scopebar-dropdown__body k-js-dropdown-body">
+                    <div class="k-scopebar-dropdown__body__buttons">
+                        <button type="button" class="k-button k-button--default k-js-clear-filter">Clear</button>
+                        <button type="button" class="k-button k-button--primary k-js-apply-filter">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .k-scopebar__filters -->
+    </div><!-- .k-scopebar__filters-content -->
+</div><!-- .k-scopebar__item -->
+
+Styleguide 2.18.3
+
+*/
+
+.k-scopebar__item--filters {
+
+
+  /* Hide when JS is enabled */
+
+  @include js-enabled {
+    display: none;
+
+
+    /* Show on larger screens */
+
+    @include breakpoint($k-alpha) {
+      width: 100%;
+    }
+
+    @include breakpoint($k-beta) {
+      width: auto;
+      display: block !important;
+    }
+
+
+    /* Faking flexbox */
+
+    @include breakpoint($k-delta) {
+      display: table-cell !important;
+      width: 100%;
+    }
+  }
+
+
+  /**
+   * Flexbox
+   *
+   * 1. Reset order
+   */
+
+  @include flexbox(0, 0) {
+    width: 100%;
+    flex: 1 1 auto;
+    order: 10;
+  }
+
+  @include flexbox($k-beta, 0) {
+    width: auto;
+    order: 0; /* 1 */
+  }
+
+  @include flexbox($k-delta, 0) {
+    display: block !important;
+  }
+}
+
+
+/**
+ * 1. Clearfix so we can float individual filters
+ * 2. For positioning dropdowns on smaller screens
+ */
+
+.k-scopebar__filters {
+  @include clearfix; /* 1 */
+  position: relative; /* 2 */
+  z-index: 2; /* 2 */
+}
+
+
+/* Individual filter */
+
+.k-scopebar__item--filter {
+  display: block;
+  float: left;
+  width: auto;
+  @include border(right, $k-color-primary-min-2);
+  @include border(bottom, $k-color-primary-min-2);
+  margin-bottom: -1px;
+
+  @include breakpoint($k-beta) {
+    position: relative;
+  }
+
+  @include rtl {
+    border-right: none;
+    @include border(left, #ccc);
+    float: right;
+  }
+}
+
+
+/* Filter title and icon */
+
+.k-scopebar__item--filter__title,
+.k-scopebar__item--filter__icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.k-scopebar__item--filter__icon {
+  margin-left: 2px;
+
+  @include rtl {
+    margin-left: 0;
+    margin-right: 2px;
+  }
+
+  @include breakpoint($k-beta) {
+    margin-left: 4px;
+
+    @include rtl {
+      margin-left: 0;
+      margin-right: 4px;
+    }
+  }
+}
+
+
+/* Scopebar label showing how many active filters you have below a filter button */
+
+.k-scopebar__item-label {
+  position: absolute;
+  z-index: 2;
+  top: 2px;
+  right: 2px;
+  min-width: $k-scopebar-filter-label-size;
+  height: $k-scopebar-filter-label-size;
+  border-radius: 50%;
+  background: $k-scopebar-filter-label-background;
+  color: $k-scopebar-filter-label-color;
+  font-size: $k-scopebar-filter-label-font-size;
+  line-height: $k-scopebar-filter-label-size;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: $k-bold;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+
+  @include rtl {
+    right: auto;
+    left: 2px;
+  }
+
+  @include breakpoint($k-beta) {
+    top: 6px;
+    right: 4px;
+
+    @include rtl {
+      right: auto;
+      left: 4px;
+    }
+  }
+
+  &--numberless {
+    &:after {
+      display: block;
+      content: " ";
+      width: 5px;
+      height: 5px;
+      background: white;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      border-radius: 50%;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.k-scopebar-dropdown {
+  overflow: hidden;
+
+  @include breakpoint($k-beta) {
+    position: relative;
+    z-index: 2;
+  }
+
+  &.k-is-active {
+    overflow: visible;
+    z-index: 3;
+
+    .k-scopebar-dropdown__body {
+      visibility: visible;
+    }
+
+    .k-scopebar__item--filter__title {
+      text-decoration: underline;
+    }
+  }
+
+  &.k-is-active {
+    .k-scopebar-dropdown__button {
+      background: $k-scopebar-buttons-hover-background;
+    }
+  }
+}
+
+.k-scopebar-dropdown__button {
+  position: relative;
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0 6px;
+  line-height: $k-scopebar-size;
+  height: $k-scopebar-size;
+  font-size: $k-scopebar-filter-font-size;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: $k-scopebar-buttons-hover-background;
+  }
+
+  @include breakpoint($k-beta) {
+    padding: 0 12px;
+  }
+}
+
+.k-scopebar-dropdown__body {
+  position: absolute;
+  visibility: hidden;
+  background: $k-dropdown-background;
+  @include border(all, $k-dropdown-border);
+  color: $k-dropdown-color;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  min-width: 200px;
+  left: 0;
+  right: 0;
+  top: 100%;
+
+  @include breakpoint($k-beta) {
+    min-width: 300px;
+    right: auto;
+    left: -1px;
+
+    @include rtl {
+      left: auto;
+      right: -1px;
+    }
+  }
+
+  .select2 {
+    min-width: 100%;
+  }
+}
+
+.k-scopebar-dropdown__body__content {
+  padding: 5px;
+}
+
+.k-scopebar-dropdown__body__buttons {
+  line-height: 14px;
+  @include border(top, $k-dropdown-buttons-border);
+  background: $k-dropdown-buttons-background;
+  color: $k-dropdown-buttons-color;
+  padding: 8px 5px;
+  text-align: center;
+  border-radius: 0 0 5px 5px;
+
+  .btn {
+    padding: 4px 30px;
+    line-height: 16px;
+  }
+}
+
+
+/*
+Scopebar breadcrumbs
+
+When space is tight and you don't need filters you could add the breadcrumbs bar to the scopebar
+- Never add breadcrumbs and filter in the scopebar together
+- Hidden on small screens
+
+markup:
+<div class="k-scopebar__item k-scopebar__item--breadcrumbs">
+    <sg-insert>2.2</sg-insert>
+</div>
+
+Styleguide 2.18.4
+
+*/
+
+.k-scopebar__item--breadcrumbs {
+
+
+  /* Hide when JS is enabled */
+
+  @include js-enabled {
+    display: none;
+
+
+    /* Show on larger screens */
+
+    @include breakpoint($k-alpha) {
+      width: 100%;
+    }
+
+
+    /* Show on larger screens */
+
+    @include breakpoint($k-beta) {
+      display: block !important;
+    }
+
+
+    /* Faking flexbox */
+
+    @include breakpoint($k-delta) {
+      display: table-cell !important;
+      overflow: auto;
+      max-width: 0;
+    }
+  }
+
+
+  /**
+   * Flexbox
+   *
+   * 1. Reset order
+   */
+
+  @include flexbox(0, 0) {
+    width: auto;
+    flex: 1 1 auto;
+    order: -1;
+    display: block;
+  }
+
+  @include flexbox($k-beta, 0) {
+    width: auto;
+    order: 0; /* 1 */
+  }
+
+  @include flexbox($k-delta, 0) {
+    display: flex !important;
+    flex: 1 1 auto;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+
+  /* Adjusted styling to display nicely inside the scopebar */
+
+  .k-breadcrumb {
+    position: static;
+    top: auto;
+    bottom: auto;
+    visibility: visible;
+    border-bottom: none;
+    overflow: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include flexbox(0, 0) {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+
+/*
+Scopebar buttons
+
+markup:
+<div class="k-scopebar__item k-scopebar__item--buttons">
+    <button class="k-scopebar__button">
+        <sg-insert>2.12-115</sg-insert>
+        <span class="k-visually-hidden">Grid icon</span>
+    </button>
+</div>
+
+Styleguide 2.18.5
+
+*/
+
+.k-scopebar__item--buttons {
+
+
+  /* Floating nicely */
+
+  @include breakpoint($k-alpha) {
+    float: right;
+  }
+
+
+  /* Stop floating on larger screens for faking flexbox */
+
+  @include breakpoint($k-delta) {
+    float: none;
+  }
+
+
+  /* Flexbox */
+
+  @include flexbox(0, 0) {
+    display: block;
+    flex: 0 0 auto;
+  }
+}
+
+.k-scopebar__button {
+  @include reset;
+  position: relative;
+  display: block;
+  float: left;
+  height: round($k-scopebar-size * 0.8);
+  margin: round($k-scopebar-size * 0.1);
+  margin-left: 0;
+  padding-left: round((($k-scopebar-size * 0.8) - (2px + 16px)) / 2);
+  padding-right: round((($k-scopebar-size * 0.8) - (2px + 16px)) / 2);
+  border-radius: 2px;
+  text-align: center;
+  line-height: round($k-scopebar-size * 0.8);
+  cursor: pointer;
+  @include transition;
+  @include border(all, transparent);
+
+  @include rtl {
+    float: right;
+    margin-left: round($k-scopebar-size * 0.1);
+    margin-right: 0;
+  }
+
+  &:hover {
+    border-color: $k-scopebar-border;
+    background: lighter($k-scopebar-background);
+  }
+
+  &.k-is-active {
+    border-color: $k-scopebar-border;
+    background: lighter($k-scopebar-background);
+  }
+
+
+  /**
+   * 1. Absolute center
+   */
+
+  [class^="k-icon"] {
+    display: block;
+    margin-top: round((($k-scopebar-size * 0.8) - (2px + 16px)) / 2); /* 1 */
+    margin-bottom: round((($k-scopebar-size * 0.8) - (2px + 16px)) / 2); /* 1 */
+    width: 16px;
+    height: 16px;
+    line-height: 0;
+    font-size: 0;
+    vertical-align: middle;
+
+    &:before {
+      font-size: $k-icon-size;
+      line-height: $k-icon-size;
+    }
+  }
+}
+
+
+/*
+Scopebar search
+
+- Hidden on small screens
+
+markup:
+<!-- Search -->
+<div class="k-scopebar__item k-scopebar__item--search">
+    <div class="k-search k-search--has-both-buttons">
+        <label for="input-[2.18.6]-1">Search</label>
+        <input type="search" class="k-search__field" placeholder="Search…" id="input-[2.18.6]-1" />
+        <button type="submit" class="k-search__submit">
+            <sg-insert>2.12-144</sg-insert>
+            <span class="k-visually-hidden">Search icon</span>
+        </button>
+        <button type="button" class="k-search__empty ">
+            <span class="k-search__empty-area">
+                <sg-insert>2.12.1-2</sg-insert>
+                <span class="k-visually-hidden">Clear search</span>
+            </span>
+        </button>
+    </div>
+</div>
+
+Styleguide 2.18.6
+
+*/
+
+.k-scopebar__item--search {
+  position: relative;
+
+
+  /* Hide when JS is enabled */
+
+  @include js-enabled {
+    display: none;
+    width: 100%;
+
+
+    /* Show on larger screens and faking flexbox */
+
+    @include breakpoint($k-delta) {
+      display: table-cell !important;
+      float: none;
+    }
+  }
+
+
+  /* Flexbox */
+
+  @include flexbox(0, 0) {
+    flex: 1 1 auto;
+    order: 20;
+  }
+
+
+  /**
+   * 1. Reset order
+   * 2. Set proper widths
+   */
+
+  @include flexbox($k-delta, 0) {
+    display: block !important;
+    flex: 0 0 auto;
+    order: 0; /* 1 */
+  }
+
+  @include breakpoint($k-delta) {
+    @include allwidth($k-scopebar-search-size-delta); /* 2 */
+  }
+
+  @include breakpoint($k-echo) {
+    @include allwidth($k-scopebar-search-size-echo); /* 2 */
+  }
+
+  .k-search {
+    width: 100%;
+    position: relative;
+  }
+
+  .k-search--has-search-button .k-search__field {
+    padding-left: $k-scopebar-submit-button-spacing;
+
+    @include rtl {
+      padding-left: 0;
+      padding-right: $k-scopebar-submit-button-spacing;
+    }
+  }
+
+  .k-search--has-empty-button .k-search__field {
+    padding-right: $k-scopebar-empty-button-spacing;
+
+    @include rtl {
+      padding-right: 0;
+      padding-left: $k-scopebar-empty-button-spacing;
+    }
+  }
+
+  .k-search--has-both-buttons .k-search__field {
+    padding-left: $k-scopebar-submit-button-spacing;
+    padding-right: $k-scopebar-empty-button-spacing;
+
+    @include rtl {
+      padding-left: $k-scopebar-empty-button-spacing;
+      padding-right: $k-scopebar-submit-button-spacing;
+    }
+  }
+
+
+  /* Label */
+
+  label {
+    @extend .k-visually-hidden;
+  }
+
+
+  /* The search field */
+
+  .k-search__field {
+    @include reset;
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: $k-scopebar-size;
+    border-radius: 0;
+    padding: $k-spacing-tiny;
+    padding-right: $k-scopebar-size;
+    background: $k-scopebar-search-background;
+    color: $k-scopebar-search-color;
+    box-shadow: none;
+    -webkit-appearance: none;
+
+    @include rtl {
+      padding-right: 0;
+      padding-left: $k-scopebar-size;
+    }
+
+    @include breakpoint($k-delta) {
+      @include border(left, $k-scopebar-border);
+      @include border(bottom, $k-scopebar-border);
+      height: $k-scopebar-size + 1px;
+      margin-bottom: -1px;
+
+      @include rtl {
+        border-left: none;
+        @include border(right, $k-scopebar-border);
+      }
+    }
+  }
+
+
+  /* Search buttons */
+
+  .k-search__submit,
+  .k-search__empty {
+    @include reset;
+    position: absolute;
+    top: 50%;
+    width: round($k-scopebar-size / 2);
+    height: round($k-scopebar-size / 2);
+    margin-top: -(round($k-scopebar-size / 4));
+    vertical-align: middle;
+    line-height: 1;
+    cursor: pointer;
+    color: $k-color-primary-min-5;
+
+    [class*="k-icon-"] {
+      vertical-align: middle;
+    }
+
+    &:focus,
+    &:hover {
+      color: $k-color-primary-min-7;
+    }
+
+    &.k-is-visible {
+      display: inline-block;
+    }
+  }
+
+
+  /* The search submit button */
+
+  .k-search__submit {
+    left: (($k-scopebar-submit-button-spacing - round($k-scopebar-size / 2)) / 2);
+    font-size: $k-scopebar-submit-button-size;
+
+    @include rtl {
+      left: auto;
+      right: (($k-scopebar-submit-button-spacing - round($k-scopebar-size / 2)) / 2);
+    }
+  }
+
+
+  /* The search empty / reset button */
+
+  .k-search__empty {
+    display: none;
+    right: (($k-scopebar-empty-button-spacing - round($k-scopebar-size / 2)) / 2);
+    font-size: $k-scopebar-empty-button-size;
+
+    @include rtl {
+      right: auto;
+      left: (($k-scopebar-empty-button-spacing - round($k-scopebar-size / 2)) / 2);
+    }
+
+    &.k-is-visible {
+      display: inline-block;
+    }
+  }
+
+
+  /*  The active search label */
+
+  .k-scopebar__item-label--numberless {
+    position: absolute;
+    right: auto;
+    left: 13px;
+    top: 5px;
+
+    @include rtl {
+      left: auto;
+      right: 13px;
+    }
+  }
+}
