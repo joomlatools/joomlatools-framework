@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         // Grunt variables
         nookuFrameworkAssetsPath: 'code/libraries/joomlatools/library/resources/assets',
         joomlatoolsFrameworkAssetsPath: 'code/libraries/joomlatools/component/koowa/resources/assets',
-        KUIPath: '../kodekit-ui/src',
+        KUIPath: '../kodekit-ui/dist',
         JUIPath: '../joomlatools-ui/dist',
 
 
@@ -27,41 +27,102 @@ module.exports = function(grunt) {
 
         // Copy Joomlatools UI files
         copy: {
-            JUItoJUIFramework: {
+            JUI: {
                 files: [
                     {
                         expand: true,
-                        src: ['<%= JUIPath %>/css/*.*'],
-                        dest: '<%= joomlatoolsFrameworkAssetsPath %>/css',
-                        flatten: true
+                        cwd: '<%= JUIPath %>/css',
+                        src: ['*.css', '!*.min.css'],
+                        dest: '<%= joomlatoolsFrameworkAssetsPath %>/css/build/'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= JUIPath %>/css',
+                        src: ['*.min.css'],
+                        dest: '<%= joomlatoolsFrameworkAssetsPath %>/css/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
                     },
                     {
                         expand: true,
                         cwd: '<%= JUIPath %>/fonts',
                         src: ['**'],
-                        dest: '<%= joomlatoolsFrameworkAssetsPath %>/fonts'
+                        dest: '<%= joomlatoolsFrameworkAssetsPath %>/fonts/'
                     }
                 ]
             },
-            JUItoKUIFramework: {
+            KUI: {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= KUIPath %>/../dist/js',
-                        src: ['**'],
-                        dest: '<%= nookuFrameworkAssetsPath %>/js'
+                        cwd: '<%= KUIPath %>/css',
+                        src: ['*.css', '!*.min.css'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/css/build/'
                     },
                     {
                         expand: true,
-                        src: ['<%= JUIPath %>/css/admin.*'],
-                        dest: '<%= nookuFrameworkAssetsPath %>/css',
-                        flatten: true
+                        cwd: '<%= KUIPath %>/css',
+                        src: ['*.min.css'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/css/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
                     },
                     {
                         expand: true,
-                        cwd: '<%= JUIPath %>/fonts',
+                        cwd: '<%= KUIPath %>/fonts',
                         src: ['**'],
-                        dest: '<%= nookuFrameworkAssetsPath %>/fonts'
+                        dest: '<%= nookuFrameworkAssetsPath %>/fonts/'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= KUIPath %>/js',
+                        src: ['*.js', '!*.min.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/build/'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= KUIPath %>/js',
+                        src: ['*.min.css'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
+                    }
+                ]
+            },
+            VUE: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vue/dist',
+                        src: ['vue.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/build/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vuex/dist',
+                        src: ['vuex.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/build/'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vue/dist',
+                        src: ['vue.min.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/vuex/dist',
+                        src: ['vuex.min.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/',
+                        rename: function(dest, src) {
+                            return dest + src.replace(/\.min/, "");
+                        }
                     }
                 ]
             }
@@ -71,7 +132,7 @@ module.exports = function(grunt) {
         // Compile sass files
         sass: {
             options: {
-                outputStyle: 'compact',
+                outputStyle: 'minified',
                 includePaths: [
                     'bower_components',
                     'node_modules'
@@ -79,56 +140,11 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-
                     // Nooku Framework
-                    '<%= nookuFrameworkAssetsPath %>/css/admin.css': '<%= nookuFrameworkAssetsPath %>/scss/admin.scss',
                     '<%= nookuFrameworkAssetsPath %>/css/bootstrap.css': '<%= nookuFrameworkAssetsPath %>/scss/bootstrap.scss',
                     '<%= nookuFrameworkAssetsPath %>/css/debugger.css': '<%= nookuFrameworkAssetsPath %>/scss/debugger.scss',
                     '<%= nookuFrameworkAssetsPath %>/css/dumper.css': '<%= nookuFrameworkAssetsPath %>/scss/dumper.scss',
-                    '<%= nookuFrameworkAssetsPath %>/css/site.css': '<%= nookuFrameworkAssetsPath %>/scss/site.scss',
-
-                    // Joomlatools Framework
-                    '<%= joomlatoolsFrameworkAssetsPath %>/css/admin.css': '<%= joomlatoolsFrameworkAssetsPath %>/scss/admin.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/css/component.css': '<%= joomlatoolsFrameworkAssetsPath %>/scss/component.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/css/isis.css': '<%= joomlatoolsFrameworkAssetsPath %>/scss/isis.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/css/hathor.css': '<%= joomlatoolsFrameworkAssetsPath %>/scss/hathor.scss'
-                }
-            }
-        },
-
-
-        // Minify and clean CSS
-        cssmin: {
-            options: {
-                roundingPrecision: -1,
-                sourceMap: true
-            },
-            site: {
-                files: [{
-                    expand: true,
-                    src: ['<%= nookuFrameworkAssetsPath %>/css/*.css', '<%= joomlatoolsFrameworkAssetsPath %>/css/*.css', '!*.css']
-                }]
-            }
-        },
-
-
-        // Concatenate files
-
-        concat: {
-            js: {
-                files: {
-                    '<%= nookuFrameworkAssetsPath %>/js/build/vue.js': [
-                        'node_modules/vue/dist/vue.js',
-                    ],
-                    '<%= nookuFrameworkAssetsPath %>/js/build/vuex.js': [
-                        'node_modules/vuex/dist/vuex.js',
-                    ],
-                    '<%= nookuFrameworkAssetsPath %>/js/min/vue.js': [
-                        'node_modules/vue/dist/vue.min.js',
-                    ],
-                    '<%= nookuFrameworkAssetsPath %>/js/min/vuex.js': [
-                        'node_modules/vuex/dist/vuex.min.js',
-                    ]
+                    '<%= nookuFrameworkAssetsPath %>/css/site.css': '<%= nookuFrameworkAssetsPath %>/scss/site.scss'
                 }
             }
         },
@@ -137,7 +153,7 @@ module.exports = function(grunt) {
         // Autoprefixer
         autoprefixer: {
             options: {
-                browsers: ['> 5%', 'last 2 versions', 'ie 11']
+                browsers: ['> 5%', 'last 2 versions']
             },
             files: {
                 nooku: {
@@ -145,12 +161,6 @@ module.exports = function(grunt) {
                     flatten: true,
                     src: '<%= nookuFrameworkAssetsPath %>/css/*.css',
                     dest: '<%= nookuFrameworkAssetsPath %>/css/'
-                },
-                joomlatools: {
-                    expand: true,
-                    flatten: true,
-                    src: '<%= joomlatoolsFrameworkAssetsPath %>/css/*.css',
-                    dest: '<%= joomlatoolsFrameworkAssetsPath %>/css/'
                 }
             }
         },
@@ -159,42 +169,16 @@ module.exports = function(grunt) {
 
         // Watch files
         watch: {
-            fontcustom: {
-                files: [
-                    '<%= nookuFrameworkAssetsPath %>/icons/svg/*.svg'
-                ],
-                tasks: ['sass', 'cssmin', 'autoprefixer'],
-                options: {
-                    interrupt: true,
-                    atBegin: false
-                }
-            },
             sass: {
                 files: [
                     '<%= nookuFrameworkAssetsPath %>/scss/*.scss',
-                    '<%= nookuFrameworkAssetsPath %>/scss/**/*.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/scss/*.scss',
-                    '<%= joomlatoolsFrameworkAssetsPath %>/scss/**/*.scss',
-                    '<%= KUIPath %>/scss/*.scss',
-                    '<%= KUIPath %>/scss/**/*.scss'
+                    '<%= nookuFrameworkAssetsPath %>/scss/**/*.scss'
                 ],
-                tasks: ['sass', 'cssmin', 'autoprefixer'],
+                tasks: ['sass', 'autoprefixer'],
                 options: {
                     interrupt: true,
                     atBegin: true
                 }
-            },
-            javascript: {
-               files: [
-                   '<%= nookuFrameworkAssetsPath %>/scripts/*.js',
-                   '<%= nookuFrameworkAssetsPath %>/js/*.js',
-                   '!<%= nookuFrameworkAssetsPath %>/js/min/*.js'
-               ],
-               tasks: ['concat', 'uglify'],
-               options: {
-                   interrupt: true,
-                   atBegin: true
-               }
             }
         }
 
@@ -204,8 +188,4 @@ module.exports = function(grunt) {
     // The dev task will be used during development
     grunt.registerTask('default', ['shell', 'copy', 'watch']);
 
-    // Javascript only
-    grunt.registerTask('javascript', ['uglify', 'concat']);
-
-    grunt.registerTask('css', ['sass', 'cssmin', 'autoprefixer']);
 };

@@ -1,0 +1,39 @@
+/**
+ * Joomla Hathor template specific styling / overrides
+ * ===================================================
+ */
+/* ==========================================================================
+   Tools
+   ========================================================================== */
+/* These file do not produce any CSS code on their own */
+body.tmpl-hathor .subheader,
+body.tmpl-hathor .toolbar-box {
+  display: none !important;
+}
+
+body.tmpl-hathor #content {
+  margin: 15px;
+}
+
+body.tmpl-hathor #content > .k-heading {
+  display: none !important;
+}
+
+body.tmpl-hathor #element-box {
+  border: 1px solid #ccc;
+}
+
+@media (min-width: 300px) and (min-height: 391px) {
+  .k-flexbox body.tmpl-hathor #element-box,
+  .k-flexboxlegacy body.tmpl-hathor #element-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+  }
+}
+
+body.tmpl-hathor .k-ui-container {
+  width: 100%;
+  max-width: none;
+}
