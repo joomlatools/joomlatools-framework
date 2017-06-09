@@ -981,10 +981,11 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     public function isSecure()
     {
-        if ($this->_headers->has('X-Forwarded-Proto')) {
-            $scheme  = $this->_headers->get('X-Forwarded-Proto');
+        // Some servers are configured to return as X-Forwarded-Proto but they are missing X-Forwarded-By.
+        if (/*$this->isProxied() && */$this->_headers->has('X-Forwarded-Proto')) {
+            $scheme = $this->_headers->get('X-Forwarded-Proto');
         } else {
-           $scheme  = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) : 'http';
+            $scheme = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) : 'http';
         }
 
         return in_array(strtolower($scheme), array('https', 'on', '1'));
