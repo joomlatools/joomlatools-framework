@@ -80,7 +80,8 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         $config = new KObjectConfigJson($config);
         $config->append([
             'debug' => false,
-            'vuex' => true
+            'vuex' => true,
+            'entity' => null
         ]);
 
         $html = '';
@@ -97,6 +98,31 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
             $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'vuex.js" />';
 
             static::setLoaded('vuex');
+        }
+
+        if ($config->entity instanceof KModelEntityInterface)
+        {
+            $entity = $config->entity->toArray();
+            $entity = is_numeric(key($entity)) ? current($entity) : $entity;
+            $entity['_isNew'] = $config->entity->isNew();
+            $entity['_name']  = KStringInflector::singularize($config->entity->getIdentifier()->name);
+
+            $html .= $this->koowa($config);
+            $html .= "
+            <ktml:script src=\"assets://js/koowa.vue.js\" />
+            <script>
+                kQuery(function($) {
+                    var form = $('.k-js-form-controller');
+                    
+                    if (form.length) {
+                        form.data('controller').store = Koowa.EntityStore.create({
+                            form: form,
+                            entity: ".json_encode($entity)."
+                        });
+                    }
+                });
+            </script>
+";
         }
 
         return $html;
