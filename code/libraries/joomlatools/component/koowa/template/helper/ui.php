@@ -74,7 +74,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         ))->append(array(
             'folder' => 'com_'.$config->package,
             'file'   => ($identifier->type === 'mod' ? 'module' : $config->domain) ?: 'admin',
-            'media_path' => JPATH_ROOT.'/media'
+            'media_path' => (defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media'
         ));
 
         $html = '';
@@ -103,7 +103,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             // Load overrides for the current admin template
             if ($app->isAdmin() && $config->file === 'admin')
             {
-                if (file_exists(JPATH_ROOT.'/media/koowa/com_koowa/css/'.$template.'.css')) {
+                if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
             }
