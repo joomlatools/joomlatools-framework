@@ -84,8 +84,8 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: '<%= KUIPath %>/js',
-                        src: ['*.min.css'],
-                        dest: '<%= nookuFrameworkAssetsPath %>/js/',
+                        src: ['*.min.js'],
+                        dest: '<%= nookuFrameworkAssetsPath %>/js/min/',
                         rename: function(dest, src) {
                             return dest + src.replace(/\.min/, "");
                         }
