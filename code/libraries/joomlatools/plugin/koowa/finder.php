@@ -93,6 +93,7 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         ))->append(array(
             'layout'     => $config->entity,
             'model'      => KStringInflector::pluralize($config->entity),
+            'table'      => '#__'.$config->package.'_'.KStringInflector::pluralize($config->entity),
             'context'    => $config->package,
             'extension'  => 'com_'.$config->package,
             'type_title' => ucfirst($config->entity),
