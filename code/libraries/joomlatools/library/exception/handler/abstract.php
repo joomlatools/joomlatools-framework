@@ -192,15 +192,8 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      * @throws \InvalidArgumentException If the callback is not a callable
      * @return KExceptionHandlerAbstract
      */
-    public function addExceptionCallback($callback, $prepend = false )
+    public function addExceptionCallback(callable $callback, $prepend = false )
     {
-        if (!is_callable($callback))
-        {
-            throw new \InvalidArgumentException(
-                'The callback must be a callable, "'.gettype($callback).'" given.'
-            );
-        }
-
         if($prepend) {
             array_unshift($this->__exception_callbacks, $callback);
         } else {
@@ -217,7 +210,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      * @throws \InvalidArgumentException If the callback is not a callable
      * @return KExceptionHandlerAbstract
      */
-    public function removeExceptionCallback($callback)
+    public function removeExceptionCallback(callable $callback)
     {
         if (!is_callable($callback))
         {
@@ -226,8 +219,13 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
             );
         }
 
-        if($key = array_search($callback, $this->__exception_callbacks)) {
-            unset($this->__exception_callbacks[$key]);
+        foreach ($this->__exception_callbacks as $key => $exception_callback)
+        {
+            if ($exception_callback === $callback)
+            {
+                unset($this->__exception_callbacks[$key]);
+                break;
+            }
         }
 
         return $this;

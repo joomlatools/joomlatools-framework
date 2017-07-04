@@ -52,7 +52,7 @@ interface KExceptionHandlerInterface
      * @throws \InvalidArgumentException If the callback is not a callable
      * @return KExceptionHandlerInterface
      */
-    public function addExceptionCallback($callback, $prepend = false );
+    public function addExceptionCallback(callable $callback, $prepend = false );
 
     /**
      * Remove an exception callback
@@ -61,7 +61,7 @@ interface KExceptionHandlerInterface
      * @throws \InvalidArgumentException If the callback is not a callable
      * @return KExceptionHandlerInterface
      */
-    public function removeExceptionCallback($callback);
+    public function removeExceptionCallback(callable $callback);
 
     /**
      * Get the registered exception callbacks
