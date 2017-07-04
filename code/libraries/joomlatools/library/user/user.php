@@ -193,13 +193,13 @@ class KUser extends KUserAbstract implements KObjectSingleton
     /**
      * Get an user attribute
      *
-     * @param   string  $identifier Attribute identifier, eg .foo.bar
+     * @param   string  $identifier Attribute identifier, eg foo.bar
      * @param   mixed   $default    Default value when the attribute doesn't exist
      * @return  mixed   The value
      */
     public function get($identifier, $default = null)
     {
-        return $this->getSession()->get('user.attributes'.$identifier, $default);
+        return $this->getSession()->get('user.attributes.'.$identifier, $default);
     }
 
     /**
@@ -211,7 +211,7 @@ class KUser extends KUserAbstract implements KObjectSingleton
      */
     public function set($identifier, $value)
     {
-        $this->getSession()->set('user.attributes'.$identifier, $value);
+        $this->getSession()->set('user.attributes.'.$identifier, $value);
         return $this;
     }
 
@@ -223,7 +223,7 @@ class KUser extends KUserAbstract implements KObjectSingleton
      */
     public function has($identifier)
     {
-        return $this->getSession()->has('user.attributes'.$identifier);
+        return $this->getSession()->has('user.attributes.'.$identifier);
     }
 
     /**
@@ -234,7 +234,7 @@ class KUser extends KUserAbstract implements KObjectSingleton
      */
     public function remove($identifier)
     {
-        $this->getSession()->remove('user.attributes'.$identifier);
+        $this->getSession()->remove('user.attributes.'.$identifier);
         return $this;
     }
 
