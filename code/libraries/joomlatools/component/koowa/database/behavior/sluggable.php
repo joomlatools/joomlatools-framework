@@ -23,9 +23,11 @@ class ComKoowaDatabaseBehaviorSluggable extends KDatabaseBehaviorSluggable
      */
     protected function _initialize(KObjectConfig $config)
     {
-        parent::_initialize($config);
+        $config->append([
+            'filter' => ['string', 'trim', 'alias']
+        ]);
 
-        $config->filter = ['string', 'trim', 'alias'];
+        parent::_initialize($config);
     }
     
     /**

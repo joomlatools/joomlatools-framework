@@ -82,7 +82,7 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
         $this->_updatable = $config->updatable;
         $this->_length    = $config->length;
         $this->_unique    = $config->unique;
-        $this->_filter    = $config->filter;
+        $this->_filter    = KObjectConfig::unbox($config->filter);
     }
 
     /**
@@ -101,7 +101,7 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
             'updatable' => true,
             'length'    => null,
             'unique'    => null,
-            'filter'    => ['string', 'trim', 'slug']
+            'filter'    => 'slug'
         ));
 
         parent::_initialize($config);
