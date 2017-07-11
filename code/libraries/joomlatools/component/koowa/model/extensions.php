@@ -63,7 +63,5 @@ class ComKoowaModelExtensions extends KModelDatabase
         }
 
         parent::_buildQueryWhere($query);
-
-        echo $query;
     }
 }
