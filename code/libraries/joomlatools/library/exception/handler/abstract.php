@@ -212,13 +212,6 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      */
     public function removeExceptionCallback(callable $callback)
     {
-        if (!is_callable($callback))
-        {
-            throw new \InvalidArgumentException(
-                'The callback must be a callable, "'.gettype($callback).'" given.'
-            );
-        }
-
         foreach ($this->__exception_callbacks as $key => $exception_callback)
         {
             if ($exception_callback === $callback)
