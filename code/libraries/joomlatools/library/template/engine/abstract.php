@@ -137,7 +137,7 @@ abstract class KTemplateEngineAbstract extends KTemplateAbstract implements KTem
                 }
             }
 
-            $hash = crc32($name);
+            $hash = crc32($name.PHP_VERSION);
             $file = $path.'/template_'.$hash.'.php';
 
             if(@file_put_contents($file, $source) === false)
@@ -227,7 +227,7 @@ abstract class KTemplateEngineAbstract extends KTemplateAbstract implements KTem
 
         if($this->_cache)
         {
-            $hash   = crc32($file);
+            $hash   = crc32($file.PHP_VERSION);
             $cache  = $this->_cache_path.'/template_'.$hash.'.php';
             $result = is_file($cache) ? $cache : false;
 
