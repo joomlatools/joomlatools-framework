@@ -62,6 +62,13 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
     protected $_unique;
 
     /**
+     * A string or an array of filter identifiers
+     *
+     * @var string|array
+     */
+    protected $_filter;
+
+    /**
      * Constructor.
      *
      * @param   KObjectConfig $config Configuration options
@@ -75,6 +82,7 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
         $this->_updatable = $config->updatable;
         $this->_length    = $config->length;
         $this->_unique    = $config->unique;
+        $this->_filter    = KObjectConfig::unbox($config->filter);
     }
 
     /**
@@ -92,10 +100,25 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
             'separator' => '-',
             'updatable' => true,
             'length'    => null,
-            'unique'    => null
+            'unique'    => null,
+            'filter'    => 'slug'
         ));
 
         parent::_initialize($config);
+    }
+
+    /**
+     * @param KObjectMixable $mixer
+     */
+    public function onMixin(KObjectMixable $mixer)
+    {
+        parent::onMixin($mixer);
+
+        $table = $this->getMixer();
+
+        if ($table instanceof KDatabaseTableInterface) {
+            $table->getColumn('slug', true)->filter = (array) KObjectConfig::unbox($this->_filter);
+        }
     }
 
     /**
@@ -157,7 +180,7 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
     /**
      * Create a sluggable filter
      *
-     * @return KFilterSlug
+     * @return KFilterInterface
      */
     protected function _createFilter()
     {
@@ -170,9 +193,7 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
             $config['length'] = $this->_length;
         }
 
-        //Create the filter
-        $filter = $this->getObject('lib:filter.slug', $config);
-        return $filter;
+        return $this->getObject('filter.factory')->createChain($this->_filter, $config);
     }
 
     /**

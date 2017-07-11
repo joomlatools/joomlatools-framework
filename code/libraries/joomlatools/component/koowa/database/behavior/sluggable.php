@@ -16,27 +16,18 @@
 class ComKoowaDatabaseBehaviorSluggable extends KDatabaseBehaviorSluggable
 {
     /**
-     * Create a sluggable filter
+     * Push the application specific alias filter to the chain
      *
-     * Uses ComKoowaFilterAlias to create aliases based on Joomla settings
-     *
-     * @return KFilterInterface
+     * @param   KObjectConfig $config Configuration options
+     * @return  void
      */
-    protected function _createFilter()
+    protected function _initialize(KObjectConfig $config)
     {
-        $config = array();
-        $config['separator'] = $this->_separator;
+        $config->append([
+            'filter' => ['string', 'trim', 'alias']
+        ]);
 
-        if(!isset($this->_length)) {
-            $config['length'] = $this->getTable()->getColumn('slug')->length;
-        } else {
-            $config['length'] = $this->_length;
-        }
-
-        //Create the filter
-        $filter = $this->getObject('com:koowa.filter.alias', $config);
-
-        return $filter;
+        parent::_initialize($config);
     }
     
     /**
