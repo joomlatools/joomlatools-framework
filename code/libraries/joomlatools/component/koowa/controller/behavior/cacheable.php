@@ -67,7 +67,6 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
      */
     protected function _beforeRender(KControllerContextInterface $context)
     {
-        $view   = $this->getView();
         $cache  = $this->_getCache($this->_getGroup(), 'output');
         $key    = $this->_getKey();
 
@@ -76,13 +75,7 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
             $data = unserialize($data);
 
             //Render the view output
-            if($view instanceof KViewTemplate)
-            {
-                $context->result = $view->getTemplate()
-                    ->loadString($data['component'])
-                    ->render();
-            }
-            else $context->result = $data['component'];
+            $context->result = $data['component'];
 
             //Render the modules
             if(isset($data['modules']))
@@ -115,7 +108,7 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
             //Store the unrendered view output
             if($view instanceof KViewTemplate)
             {
-                $data['component'] = (string) $view->getTemplate();
+                $data['component'] = (string) $view->getTemplate()->render();
 
                 $buffer = JFactory::getDocument()->getBuffer();
                 if(isset($buffer['modules'])) {
@@ -221,7 +214,7 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
      * @param string $group
      * @param string $handler
      * @param null   $storage
-     * @return JCache
+     * @return JCacheController
      */
     protected function _getCache($group = '', $handler = 'callback', $storage = null)
     {
@@ -237,10 +230,15 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
      */
     protected function _getKey()
     {
-        $view  = $this->getView();
-        $state = $this->getModel()->getState()->toArray();
+        $view = $this->getView();
+        $key  = $view->getIdentifier().'-'.$view->getLayout();
 
-        $key = $view->getLayout().'-'.$view->getFormat().':'.md5(http_build_query($state, '', '&'));
+        if ($this->getMixer() instanceof KControllerModellable)
+        {
+            $state = $this->getModel()->getState()->getValues();
+            $key  .= ':'.md5(http_build_query($state, '', '&'));
+        }
+
         return $key;
     }
 
