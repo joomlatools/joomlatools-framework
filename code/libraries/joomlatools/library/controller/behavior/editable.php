@@ -407,7 +407,10 @@ class KControllerBehaviorEditable extends KControllerBehaviorAbstract
         //Create the redirect
         $context->response->setRedirect($this->getReferrer($context));
 
-        $entity = $context->getSubject()->execute('read', $context);
+        if ($context->result instanceof KModelEntityInterface) {
+            $entity = $context->result;
+        }
+        else $entity = $this->getModel()->fetch();
 
         return $entity;
 	}
