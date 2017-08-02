@@ -378,7 +378,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
             $html .= "<script>
             kQuery(function($){
                 $('$config->selector').on('koowa:validate', function(event){
-                    if(!$(this).valid()) {
+                    if(!$(this).valid() || $(this).validate().pendingRequest !== 0) {
                         event.preventDefault();
                     }
                 }).validate($options);
