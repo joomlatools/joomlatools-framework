@@ -96,7 +96,6 @@ class KTemplateHelperActionbar extends KTemplateHelperToolbar
 
         $command->attribs->class->append(array('k-button', 'k-button--default', 'k-button-'.$command->id));
 
-        $icon = $this-> _getIconClass($command->icon);
         if ($command->id === 'new' || $command->id === 'apply') {
             $command->attribs->class->append(array('k-button--success'));
         }
@@ -106,10 +105,7 @@ class KTemplateHelperActionbar extends KTemplateHelperToolbar
 
         $html = '<a '.$this->buildAttributes($attribs).'>';
 
-        if ($this->_useIcons()) {
-            $html .= '<span class="'.$icon.'" aria-hidden="true"></span> ';
-        }
-
+        $html .= '<span class="'.$command->icon.'" aria-hidden="true"></span> ';
         $html .= $translator->translate($command->label);
         $html .= '</a>';
 
@@ -148,26 +144,5 @@ class KTemplateHelperActionbar extends KTemplateHelperToolbar
         $html = $this->command($config);
 
         return $html;
-    }
-
-    /**
-     * Decides if Bootstrap buttons should use icons
-     *
-     * @return bool
-     */
-    protected function _useIcons()
-    {
-        return true;
-    }
-
-    /**
-     * Allows to map the icon classes to different ones
-     *
-     * @param  string $icon Action bar icon
-     * @return string Icon class
-     */
-    protected function _getIconClass($icon)
-    {
-        return $icon;
     }
 }
