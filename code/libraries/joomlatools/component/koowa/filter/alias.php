@@ -15,6 +15,24 @@
  */
 class ComKoowaFilterAlias extends KFilterSlug implements KFilterTraversable
 {
+
+    /**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param   KObjectConfig $config Configuration options
+     * @return void
+     */
+    protected function _initialize(KObjectConfig $config)
+    {
+        $config->append(array(
+            'length'    => 512
+        ));
+
+        parent::_initialize($config);
+    }
+
     /**
      * Validate a value
      *
