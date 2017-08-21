@@ -834,7 +834,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
                 $config->format
             );
 
-            $html .= '<div class="k-input-group k-js-datepicker     date     " data-date-format="'.$format.'" id="'.$config->id.'">';
+            $html .= '<div class="k-input-group     date     " data-date-format="'.$format.'" id="'.$config->id.'">';
             $html .= '<input class="k-form-control" type="text" name="'.$config->name.'" value="'.$value.'"  '.$attribs.' />';
             $html .= '<span class="k-input-group__button input-group-btn">';
             $html .= '<button type="button" class="k-button k-button--default     btn     ">';
