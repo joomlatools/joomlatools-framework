@@ -8,7 +8,7 @@
 
     <property name="file.compress" value="true" />
 
-    <property name="files.branch" value="master" />
+    <property name="files.branch" value="v3.1.1" />
     <property name="activities.branch" value="v3.1.0" />
     <property name="scheduler.branch" value="v1.1.0" />
     <property name="migrator.branch" value="v1.1.0" />
