@@ -95,6 +95,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if ($config->vuex && !static::isLoaded('vuex'))
         {
+            $html .= '<ktml:script src="assets://js/polyfill.promise.js" />';
             $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'vuex.js" />';
 
             static::setLoaded('vuex');
