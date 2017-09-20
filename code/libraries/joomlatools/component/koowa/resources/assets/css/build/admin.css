@@ -16166,6 +16166,7 @@ Styleguide 2.5
   background: none;
   color: #343434;
   cursor: default;
+  opacity: 0.5;
 }
 
 .datepicker table tr td.today, .datepicker table tr td.today:hover, .datepicker table tr td.today.disabled, .datepicker table tr td.today.disabled:hover {
