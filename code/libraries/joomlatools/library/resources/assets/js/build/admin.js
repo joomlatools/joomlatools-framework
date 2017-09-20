@@ -17313,6 +17313,44 @@ var Konami = function (callback) {
             tabsScrollAmount = 0.8,
             tabsAnimationSpeed = 400;
 
+        // Calculate wether there is a scrollable area and apply classes accordingly
+        function tabsCalculateScroll() {
+
+            if (!$tabsScroller.length) return;
+
+            // Variables
+            var tabsWidth = $tabs.outerWidth(),
+                scrollerWidth = $tabsScroller.innerWidth(),
+                scrollLeft = $tabsScroller.scrollLeft();
+
+            // Show / hide buttons
+            if (tabsWidth > scrollerWidth) {
+                $tabsWrapper.addClass(tabsOverflowClass);
+            } else {
+                $tabsWrapper.removeClass(tabsOverflowClass);
+            }
+
+            // "Activate" left button
+            if ((tabsWidth > scrollerWidth) && (scrollLeft > 0)) {
+                $tabsWrapper.addClass(tabsOverflowLeftClass);
+            }
+
+            // "Activate" right button
+            if ((tabsWidth > scrollerWidth)) {
+                $tabsWrapper.addClass(tabsOverflowRightClass);
+            }
+
+            // "Deactivate" left button
+            if ((tabsWidth <= scrollerWidth) || (scrollLeft <= 0)) {
+                $tabsWrapper.removeClass(tabsOverflowLeftClass);
+            }
+
+            // "Deactivate" right button
+            if ((tabsWidth <= scrollerWidth) || (scrollLeft >= (tabsWidth - scrollerWidth))) {
+                $tabsWrapper.removeClass(tabsOverflowRightClass);
+            }
+        }
+
         // Only run if scroller exists
         if ( $tabsScroller.length ) {
 
@@ -17323,44 +17361,6 @@ var Konami = function (callback) {
             // Append buttons
             $tabsWrapper.prepend('<button type="button" class="k-tabs-scroller-prev"><span class="k-icon-chevron-left"></span><span class="k-visually-hidden">Scroll left</span></button>');
             $tabsWrapper.append('<button type="button" class="k-tabs-scroller-next"><span class="k-icon-chevron-right"></span><span class="k-visually-hidden">Scroll right</span></button>');
-
-            // Calculate wether there is a scrollable area and apply classes accordingly
-            function tabsCalculateScroll() {
-
-                if (!$tabsScroller.length) return;
-
-                // Variables
-                var tabsWidth = $tabs.outerWidth(),
-                    scrollerWidth = $tabsScroller.innerWidth(),
-                    scrollLeft = $tabsScroller.scrollLeft();
-
-                // Show / hide buttons
-                if (tabsWidth > scrollerWidth) {
-                    $tabsWrapper.addClass(tabsOverflowClass);
-                } else {
-                    $tabsWrapper.removeClass(tabsOverflowClass);
-                }
-
-                // "Activate" left button
-                if ((tabsWidth > scrollerWidth) && (scrollLeft > 0)) {
-                    $tabsWrapper.addClass(tabsOverflowLeftClass);
-                }
-
-                // "Activate" right button
-                if ((tabsWidth > scrollerWidth)) {
-                    $tabsWrapper.addClass(tabsOverflowRightClass);
-                }
-
-                // "Deactivate" left button
-                if ((tabsWidth <= scrollerWidth) || (scrollLeft <= 0)) {
-                    $tabsWrapper.removeClass(tabsOverflowLeftClass);
-                }
-
-                // "Deactivate" right button
-                if ((tabsWidth <= scrollerWidth) || (scrollLeft >= (tabsWidth - scrollerWidth))) {
-                    $tabsWrapper.removeClass(tabsOverflowRightClass);
-                }
-            }
 
             // Clicking left and right buttons
             function tabsScrollButtonClick() {
