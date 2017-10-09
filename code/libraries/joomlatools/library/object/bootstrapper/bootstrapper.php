@@ -192,7 +192,17 @@ final class KObjectBootstrapper extends KObject implements KObjectBootstrapperIn
                             $identifiers[$priority] = array();
                         }
 
-                        $identifiers[$priority] = array_replace_recursive($identifiers[$priority], $array['identifiers']);;
+                        foreach ($array['identifiers'] as $identifier => $config)
+                        {
+                            if (array_key_exists($identifier, $identifiers[$priority]))
+                            {
+                                $existing = new KObjectConfig($identifiers[$priority][$identifier]);
+                                $existing->append($config);
+
+                                $identifiers[$priority][$identifier] = $existing->toArray();
+                            }
+                            else $identifiers[$priority][$identifier] = $config;
+                        }
                     }
                 }
 
