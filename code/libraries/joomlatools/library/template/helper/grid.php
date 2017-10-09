@@ -174,11 +174,6 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract implements KTemplateHe
         $html .= '<span class="k-visually-hidden">' . $this->getObject('translator')->translate('Clear search') . '</span>';
         $html .= '</span>';
         $html .= '</button>';
-
-        if ($config->search) {
-            $html .= '<div class="k-scopebar__item-label k-scopebar__item-label--numberless"></div>';
-        }
-
         $html .= '</div>';
 
 
