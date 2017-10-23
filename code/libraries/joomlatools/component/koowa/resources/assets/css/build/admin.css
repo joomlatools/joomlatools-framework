@@ -5092,9 +5092,21 @@ markup:
   /* 1 */
 }
 
+@media screen and (min-width: 600px) {
+  .k-ui-namespace .k-show-right-menu .k-component .k-off-canvas-overlay {
+    opacity: 0;
+  }
+}
+
 .k-ui-namespace .k-is-opened-right .k-component .k-off-canvas-overlay {
   z-index: 9;
   /* 1 */
+}
+
+@media screen and (min-width: 600px) {
+  .k-ui-namespace .k-is-opened-right .k-component .k-off-canvas-overlay {
+    z-index: -1;
+  }
 }
 
 .k-ui-namespace .k-component-wrapper {
@@ -5213,6 +5225,12 @@ markup:
   opacity: 0.75;
 }
 
+@media screen and (min-width: 768px) {
+  .k-ui-namespace .k-show-left-menu .k-content > .k-off-canvas-overlay {
+    opacity: 0;
+  }
+}
+
 .k-ui-namespace .k-is-opened-left .k-content {
   overflow: hidden;
   /* 2. Set z-index so it will become visible */
@@ -5236,6 +5254,12 @@ markup:
 
 .k-ui-namespace .k-is-opened-left .k-content > .k-off-canvas-overlay {
   z-index: 9;
+}
+
+@media screen and (min-width: 768px) {
+  .k-ui-namespace .k-is-opened-left .k-content > .k-off-canvas-overlay {
+    z-index: -1;
+  }
 }
 
 .k-ui-namespace .k-content-wrapper {
@@ -5662,6 +5686,15 @@ markup:
   z-index: 1;
 }
 
+@media (min-width: 0) and (min-height: 0) {
+  .k-flexbox .k-ui-namespace .k-is-opened-left .k-sidebar-left,
+  .k-flexboxlegacy .k-ui-namespace .k-is-opened-left .k-sidebar-left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
 .k-ui-namespace .k-sidebar-right {
   border-left: 1px solid #cfcfcf;
   background: #eeeeee;
@@ -5685,6 +5718,15 @@ markup:
 .k-ui-namespace .k-is-opened-right .k-sidebar-right {
   display: block;
   z-index: 1;
+}
+
+@media (min-width: 0) and (min-height: 0) {
+  .k-flexbox .k-ui-namespace .k-is-opened-right .k-sidebar-right,
+  .k-flexboxlegacy .k-ui-namespace .k-is-opened-right .k-sidebar-right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 
 .k-ui-namespace .k-wrapper {
@@ -8801,6 +8843,12 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
   z-index: 10;
 }
 
+@media screen and (min-width: 600px) {
+  .k-ui-namespace.k-is-opened-right .k-wrapper > .k-off-canvas-overlay {
+    z-index: -1;
+  }
+}
+
 .k-ui-namespace .k-wrapper {
   -webkit-transition: -webkit-transform 200ms ease-in-out;
           transition: transform 200ms ease-in-out;
@@ -8820,6 +8868,12 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
 
 .k-ui-namespace.k-show-right-menu .k-wrapper > .k-off-canvas-overlay {
   opacity: 0.75;
+}
+
+@media screen and (min-width: 600px) {
+  .k-ui-namespace.k-show-right-menu .k-wrapper > .k-off-canvas-overlay {
+    opacity: 0;
+  }
 }
 
 .k-ui-namespace .menu-toggle {
@@ -10811,6 +10865,7 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
 }
 
 .k-ui-namespace .k-sidebar-item {
+  /* On mobile */
   /**
    * Overflowing items
    *
@@ -10843,6 +10898,7 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
             flex: 0 1 auto;
     overflow: hidden;
     min-height: 100px;
+    max-height: 100%;
   }
   .k-flexbox .k-ui-namespace .k-sidebar-item--flex:only-child div,
   .k-flexboxlegacy .k-ui-namespace .k-sidebar-item--flex:only-child div {
@@ -10874,6 +10930,7 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
             flex: 0 1 auto;
     overflow: hidden;
     min-height: 100px;
+    max-height: 100%;
   }
   .k-flexbox .k-ui-namespace .k-sidebar-item--flex:nth-child(n) div,
   .k-flexboxlegacy .k-ui-namespace .k-sidebar-item--flex:nth-child(n) div {
@@ -10888,6 +10945,17 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
   }
+}
+
+.k-ui-namespace .k-sidebar-item--flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: 100%;
 }
 
 .k-ui-namespace .k-sidebar-item--overflow {
