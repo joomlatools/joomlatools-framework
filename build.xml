@@ -10,12 +10,12 @@
 
     <property name="files.branch" value="master" />
     <property name="activities.branch" value="master" />
-    <property name="scheduler.branch" value="master" />
-    <property name="migrator.branch" value="master" />
-    <property name="tags.branch" value="master" />
+    <property name="scheduler.branch" value="v1.1.0" />
+    <property name="migrator.branch" value="v1.1.0" />
+    <property name="tags.branch" value="v1.1.0" />
 
 
-	<!-- Load the build configuration -->
+    <!-- Load the build configuration -->
 	<property file="build.properties" override="true" />
 
     <target name="clone">
