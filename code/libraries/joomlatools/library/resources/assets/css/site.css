@@ -3966,11 +3966,11 @@ markup:
     .k-ui-namespace .k-tree > .jqtree-tree {
       margin: 0;
       padding: 0; }
-      .k-ui-namespace .k-tree > .jqtree-tree > .jqtree_common .jqtree-element {
-        padding-left: 0; }
-        [dir="rtl"] .k-ui-namespace .k-tree > .jqtree-tree > .jqtree_common .jqtree-element {
+      .k-ui-namespace .k-tree > .jqtree-tree > .jqtree_common > .jqtree-element {
+        padding-left: 15px; }
+        [dir="rtl"] .k-ui-namespace .k-tree > .jqtree-tree > .jqtree_common > .jqtree-element {
           padding-left: 7px;
-          padding-right: 0; }
+          padding-right: 15px; }
     .k-ui-namespace .k-tree .jqtree-selected > .jqtree-element {
       background: #3071a9;
       color: white; }
