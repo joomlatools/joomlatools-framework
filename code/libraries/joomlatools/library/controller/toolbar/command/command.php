@@ -142,7 +142,7 @@ class KControllerToolbarCommand extends KObjectConfig implements KControllerTool
      *
      * @return  integer
      */
-    public function count()
+    public function count($mode = COUNT_NORMAL)
     {
         return count($this->_commands);
     }
