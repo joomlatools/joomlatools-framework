@@ -410,7 +410,11 @@ class KControllerBehaviorEditable extends KControllerBehaviorAbstract
         if ($context->result instanceof KModelEntityInterface) {
             $entity = $context->result;
         }
-        else $entity = $this->getModel()->fetch();
+        else
+        {
+            $model  = $this->getModel();
+            $entity = $model->getState()->isUnique() ? $model->fetch() : $model->create();
+        }
 
         return $entity;
 	}
