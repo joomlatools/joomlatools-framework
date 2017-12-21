@@ -70,9 +70,9 @@ class ComKoowaClassLocatorPlugin extends KClassLocatorAbstract
             $namespace = ucfirst($package);
 
             if(count($parts)) {
-                $path = implode('/', $parts);
+                $file = array_pop($parts);
             } else {
-                $path = $package;
+                $file = $package;
             }
 
             //Switch basepath
@@ -82,7 +82,15 @@ class ComKoowaClassLocatorPlugin extends KClassLocatorAbstract
                 $basepath = $this->getNamespace($namespace);
             }
 
-            return $basepath.'/'.$package.'/'.$path.'.php';
+            $path = implode('/', $parts);
+
+            $result = $basepath.'/'.$package.'/'.$path.'/'.$file.'.php';
+
+            if(!is_file($result)) {
+                $result = $basepath.'/'.$package.'/'.$path.'/'.$file.'/'.$file.'.php';
+            }
+
+            return $result;
         }
 
         return false;
