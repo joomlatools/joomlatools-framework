@@ -42,6 +42,8 @@ class ComKoowaTemplateHelperEvent extends KTemplateHelperAbstract
 
         $results = JDispatcher::getInstance()->trigger($config->name, $attributes);
         $result  = trim(implode("\n", $results));
+        // Leave third party JavaScript as-is
+        $result  = str_replace('<script', '<script data-inline', $result);
 
         return $result;
     }
