@@ -70,4 +70,19 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
 
         return $port;
     }
+
+    /**
+     * Checks whether the request is proxied or not.
+     *
+     * Joomla doesn't care if the X-Forwarded-By header is in a trusted list and proxies the request anyway.
+     * In return, some Joomla servers are configured to return as X-Forwarded-Proto but they are missing X-Forwarded-By.
+     *
+     * So we are turning off the checks here to run in sync with Joomla.
+     *
+     * @return bool
+     */
+    public function isProxied()
+    {
+        return true;
+    }
 }
