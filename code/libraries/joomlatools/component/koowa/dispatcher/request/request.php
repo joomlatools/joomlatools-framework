@@ -64,7 +64,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $port = parent::getPort();
 
-        if ($this->isSecure() && $port == '80') {
+        if ($this->isSecure() && in_array($port, ['80', '8080'])) {
             $port = '443';
         }
 
