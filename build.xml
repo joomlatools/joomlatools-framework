@@ -10,7 +10,7 @@
 
     <property name="files.branch" value="master" />
     <property name="activities.branch" value="v3.1.0" />
-    <property name="scheduler.branch" value="v1.1.0" />
+    <property name="scheduler.branch" value="master" />
     <property name="migrator.branch" value="v1.1.0" />
     <property name="tags.branch" value="v1.1.0" />
 
