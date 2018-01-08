@@ -82,12 +82,16 @@ class ComKoowaClassLocatorPlugin extends KClassLocatorAbstract
                 $basepath = $this->getNamespace($namespace);
             }
 
-            $path = implode('/', $parts);
+            $path = '';
 
-            $result = $basepath.'/'.$package.'/'.$path.'/'.$file.'.php';
+            if (!empty($parts)) {
+                $path = implode('/', $parts) . '/';
+            }
+
+            $result = $basepath.'/'.$package.'/'.$path . $file.'.php';
 
             if(!is_file($result)) {
-                $result = $basepath.'/'.$package.'/'.$path.'/'.$file.'/'.$file.'.php';
+                $result = $basepath.'/'.$package.'/'.$path . $file.'/'.$file.'.php';
             }
 
             return $result;
