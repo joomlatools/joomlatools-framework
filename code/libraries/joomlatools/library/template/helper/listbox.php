@@ -320,7 +320,7 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
 
         //Get the selected items
         $options = array();
-        if (is_scalar($config->selected) ? !empty($config->selected) : count($config->selected))
+        if ((is_scalar($config->selected) || is_null($config->selected)) ? !empty($config->selected) : count($config->selected))
         {
             $selected = $config->selected;
 
