@@ -21,8 +21,7 @@ class ComKoowaModelUsers extends KModelDatabase
 
         $this->getState()
             ->insert('email'   , 'email', null, true)
-            ->insert('username', 'alnum', null, true)
-            ->insert('sendEmail', 'int');
+            ->insert('username', 'alnum', null, true);
     }
 
     protected function _initialize(KObjectConfig $config)
@@ -33,16 +32,5 @@ class ComKoowaModelUsers extends KModelDatabase
         ));
 
         parent::_initialize($config);
-    }
-
-    protected function _buildQueryWhere(KDatabaseQueryInterface $query)
-    {
-        $state = $this->getState();
-
-        if (is_numeric($state->sendEmail)) {
-            $query->where('sendEmail = :sendEmail')->bind(array('sendEmail' => $state->sendEmail));
-        }
-
-        parent::_buildQueryWhere($query);
     }
 }
