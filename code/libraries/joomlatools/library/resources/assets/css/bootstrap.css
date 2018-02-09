@@ -220,7 +220,7 @@
     color: #999; }
   .k-ui-namespace a.muted:hover,
   .k-ui-namespace a.muted:focus {
-    color: gray; }
+    color: #807f7f; }
   .k-ui-namespace .text-warning {
     color: #c09853; }
   .k-ui-namespace a.text-warning:hover,
@@ -1906,21 +1906,21 @@
     color: #333;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
     background-color: whitesmoke;
-    background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
-    background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
-    background-image: -o-linear-gradient(top, #fff, #e6e6e6);
-    background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+    background-image: -moz-linear-gradient(top, #fff, #e6e5e5);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e5e5));
+    background-image: -webkit-linear-gradient(top, #fff, #e6e5e5);
+    background-image: -o-linear-gradient(top, #fff, #e6e5e5);
+    background-image: linear-gradient(to bottom, #fff, #e6e5e5);
     background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E6E6', GradientType=0);
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFE6E5E5', GradientType=0);
+    border-color: #e6e5e5 #e6e5e5 #bfbfbf;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    *background-color: #e6e6e6;
+    *background-color: #e6e5e5;
     /* Darken IE7 buttons by default so they stand out more given they won't have borders */
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     border: 1px solid #ccc;
     *border: 0;
-    border-bottom-color: #b3b3b3;
+    border-bottom-color: #b3b2b2;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -1930,7 +1930,7 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); }
     .k-ui-namespace .btn:hover, .k-ui-namespace .btn:focus, .k-ui-namespace .btn:active, .k-ui-namespace .btn.active, .k-ui-namespace .btn.disabled, .k-ui-namespace .btn[disabled] {
       color: #333;
-      background-color: #e6e6e6;
+      background-color: #e6e5e5;
       *background-color: #d9d9d9; }
     .k-ui-namespace .btn:active, .k-ui-namespace .btn.active {
       background-color: #cccccc \9; }
@@ -2141,7 +2141,7 @@
       background-color: #222;
       *background-color: #151515; }
     .k-ui-namespace .btn-inverse:active, .k-ui-namespace .btn-inverse.active {
-      background-color: #090909 \9; }
+      background-color: #090808 \9; }
   .k-ui-namespace button.btn,
   .k-ui-namespace input[type="submit"].btn {
     *padding-top: 3px;
@@ -2292,7 +2292,7 @@
     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); }
   .k-ui-namespace .btn-group.open .btn.dropdown-toggle {
-    background-color: #e6e6e6; }
+    background-color: #e6e5e5; }
   .k-ui-namespace .btn-group.open .btn-primary.dropdown-toggle {
     background-color: #0044cc; }
   .k-ui-namespace .btn-group.open .btn-warning.dropdown-toggle {
@@ -3005,7 +3005,7 @@
   .k-ui-namespace .label-inverse {
     background-color: #333; }
   .k-ui-namespace .label-inverse[href] {
-    background-color: #1a1a1a; }
+    background-color: #1a1919; }
   .k-ui-namespace .badge-important {
     background-color: #b94a48; }
   .k-ui-namespace .badge-important[href] {
@@ -3025,7 +3025,7 @@
   .k-ui-namespace .badge-inverse {
     background-color: #333; }
   .k-ui-namespace .badge-inverse[href] {
-    background-color: #1a1a1a; }
+    background-color: #1a1919; }
   .k-ui-namespace .btn .label,
   .k-ui-namespace .btn .badge {
     position: relative;
