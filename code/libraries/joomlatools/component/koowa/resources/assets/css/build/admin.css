@@ -6682,6 +6682,13 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
 
 .k-ui-namespace .k-gallery-container {
   margin-bottom: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -6693,6 +6700,9 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
 }
 
 .k-ui-namespace .k-gallery-container .k-gallery {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   overflow: auto;
   padding: 16px;
 }
@@ -7174,17 +7184,17 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
 }
 
 .k-ui-namespace .k-gallery .k-gallery__items {
-  content: "200px";
+  content: "192px";
 }
 
 @supports (display: grid) {
   .k-ui-namespace .k-gallery .k-gallery__items {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
   }
 }
 
 .k-ui-namespace .k-gallery .k-gallery__item {
-  width: 200px;
+  width: 192px;
 }
 
 @supports (display: grid) {
@@ -7329,7 +7339,7 @@ fieldset[disabled] .k-ui-namespace .k-form-control {
 
 .k-ui-namespace .k-gallery-pagination {
   padding: 8px 8px 7px;
-  background: white;
+  background: #fbfbfb;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
