@@ -17,8 +17,6 @@ body#minwidth-body #content > .k-heading {
 
 body#minwidth-body #element-box {
   border: 1px solid #ccc;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 100%;
 }
