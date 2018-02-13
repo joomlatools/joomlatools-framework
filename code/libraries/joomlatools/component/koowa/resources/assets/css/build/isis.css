@@ -26,8 +26,13 @@ body {
    * Set Joomla containers to flex and adjust margins and paddings
    * As soon as something in this chain of classnames changes we fall back to non-flexbox view
    */
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   overflow: auto;
   padding-top: 0 !important;
   /**
@@ -133,12 +138,18 @@ body .subhead-collapse,
 body #status,
 body #system-message-container,
 body #system-debug {
-  flex: 0 0 auto;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 
 body .container-main {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex: 1 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   overflow: auto;
   /**
      * Flex all children of main container
@@ -156,9 +167,16 @@ body .container-main {
 body .container-main #content,
 body .container-main #content .row-fluid,
 body .container-main #content .row-fluid .span12 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   overflow: auto;
 }
 
@@ -212,7 +230,8 @@ body div#system-debug {
   border: none;
   max-height: 36px;
   overflow: hidden;
-  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+          transition: all .2s ease;
 }
 
 body div#system-debug:hover, body div#system-debug:focus {
