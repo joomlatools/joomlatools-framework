@@ -1,6 +1,4 @@
 @charset "UTF-8";
-/* Kodekit UI
-   ========================================================================== */
 /* HTML
      ========================================================================== */
 /**
@@ -14582,8 +14580,11 @@ html .form-inline .select2-container--bootstrap {
   display: inline-block;
 }
 
-/* Joomla styling
-   ========================================================================== */
+/**
+ * Joomla Icomoon mapping
+ * 
+ * Make sure all Joomla! icons are available in views where the isis CSS file is not being loaded
+ */
 @font-face {
   font-family: 'IcoMoon';
   src: url("../../../jui/fonts/IcoMoon.eot");
