@@ -174,7 +174,7 @@ class KDispatcherResponseTransportStream extends KDispatcherResponseTransportHtt
      */
     public function sendContent(KDispatcherResponseInterface $response)
     {
-        if ($response->isSuccess())
+        if ($response->isSuccess() && $response->isStreamable())
         {
             //For a certain unmentionable browser
             if(ini_get('zlib.output_compression')) {
@@ -191,33 +191,31 @@ class KDispatcherResponseTransportStream extends KDispatcherResponseTransportHtt
                 @set_time_limit(0);
             }
 
-            if($response->isStreamable() && $response->getRequest()->isStreaming())
-            {
-                //Make sure the output buffers are cleared
-                $level = ob_get_level();
-                while($level > 0) {
-                    ob_end_clean();
-                    $level--;
-                }
-
-                $stream  = $response->getStream();
-                $offset = $this->getOffset($response);
-                $range  = $this->getRange($response);
-
-                if ($offset > 0) {
-                    $stream->seek($offset);
-                }
-
-                $output = fopen('php://output', 'w+');
-                $stream->flush($output, $range);
-                $stream->close();
-                fclose($output);
-
-                return $this;
+            //Make sure the output buffers are cleared
+            $level = ob_get_level();
+            while($level > 0) {
+                ob_end_clean();
+                $level--;
             }
-            else return parent::sendContent($response);
+
+            $stream  = $response->getStream();
+
+            $offset = $this->getOffset($response);
+            $range  = $this->getRange($response);
+
+            if ($offset > 0) {
+                $stream->seek($offset);
+            }
+
+            $output = fopen('php://output', 'w+');
+            $stream->flush($output, $range);
+            $stream->close();
+            fclose($output);
+
+            return $this;
         }
-        return parent::sendContent($response);
+
+        parent::sendContent($response);
     }
 
     /**
