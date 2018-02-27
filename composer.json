@@ -1,7 +1,7 @@
 {
     "name": "joomlatools/framework",
     "type": "joomlatools-extension",
-    "license": "GPLv3",
+    "license": "GPL-3.0-only",
     "description": "Joomlatools Framework is an open-source extension framework for Joomla",
     "keywords": [
         "joomla",
