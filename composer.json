@@ -1,7 +1,7 @@
 {
     "name": "nooku/nooku-framework",
     "type": "nooku-framework",
-    "license": "GPLv3",
+    "license": "GPL-3.0-only",
     "description": "Nooku Framework is an open-source extension framework for Joomla",
     "keywords": [
         "joomla",
