@@ -282,7 +282,7 @@ class KTemplateHelperGrid extends KTemplateHelperAbstract implements KTemplateHe
             data-original-title="'.$config->tooltip.'"';
         }
 
-        $html = '<spaan class="k-table__item--state '.$class.'" '.$tooltip.'>'.$config->alt.'</span>';
+        $html = '<span class="k-table__item--state '.$class.'" '.$tooltip.'>'.$config->alt.'</span>';
 
         return $html;
     }
