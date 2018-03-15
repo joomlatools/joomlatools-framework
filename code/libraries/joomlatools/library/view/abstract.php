@@ -448,6 +448,7 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
         {
             $route->scheme = $this->getUrl()->scheme;
             $route->host   = $this->getUrl()->host;
+            $route->port   = $this->getUrl()->port;
         }
 
         return $route;
