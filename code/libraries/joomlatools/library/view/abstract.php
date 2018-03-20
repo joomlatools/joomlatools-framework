@@ -443,11 +443,12 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
         $route = $this->getObject('lib:dispatcher.router.route', array('escape' =>  $escape))
                       ->setQuery($parts);
 
-        //Add the host and the schema
+        //Add host, schema and port for fully qualified routes
         if ($fqr === true)
         {
             $route->scheme = $this->getUrl()->scheme;
             $route->host   = $this->getUrl()->host;
+            $route->port   = $this->getUrl()->port;
         }
 
         return $route;
