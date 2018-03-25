@@ -64,7 +64,11 @@ class ComKoowaDispatcherResponseTransportHttp extends KDispatcherResponseTranspo
                         continue;
                     }
 
-                    JResponse::setHeader($parts[0], $parts[1]);
+                    if(version_compare(JVERSION, '3.6.5', '>=')) {
+                        JFactory::getApplication()->setHeader($parts[0], $parts[1]);
+                    } else {
+                        JResponse::setHeader($parts[0], $parts[1]);
+                    }
                 }
 
                 //Cookies
