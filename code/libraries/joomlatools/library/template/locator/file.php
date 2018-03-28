@@ -26,25 +26,15 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
      * Find a template path
      *
      * @param array  $info  The path information
-     * @throws RuntimeException If the no base path exists while trying to locate a partial.
      * @return string|false The real template path or FALSE if the template could not be found
      */
     public function find(array $info)
     {
-        //Qualify partial templates.
-        if(dirname($info['url']) === '.')
-        {
-            if(empty($info['base'])) {
-                throw new RuntimeException('Cannot qualify partial template path');
-            }
-
-            $path = dirname($info['base']);
-        }
-        else $path = dirname($info['url']);
-
         $file   = pathinfo($info['url'], PATHINFO_FILENAME);
         $format = pathinfo($info['url'], PATHINFO_EXTENSION);
-        $path   = str_replace(parse_url($path, PHP_URL_SCHEME).'://', '', $path);
+
+        $path = dirname($info['url']);
+        $path = str_replace(parse_url($path, PHP_URL_SCHEME).'://', '', $path);
 
         if(!$result = $this->realPath($path.'/'.$file.'.'.$format))
         {
@@ -61,9 +51,31 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
                     }
                 }
             }
-
         }
 
         return $result;
+    }
+
+    /**
+     * Find the template path
+     *
+     * @param  string $url   The template to qualify
+     * @param  string $base  A fully qualified template url used to qualify.
+     * @return string|false The qualified template path or FALSE if the path could not be qualified
+     */
+    public function qualify($url, $base)
+    {
+        if ($url[0] != '/')
+        {
+            //Relative path
+            $url = dirname($base) . '/' . $url;
+        }
+        else
+        {
+            //Absolute path
+            $url = parse_url($base, PHP_URL_SCHEME) . ':/' . $url;
+        }
+
+        return $url;
     }
 }
