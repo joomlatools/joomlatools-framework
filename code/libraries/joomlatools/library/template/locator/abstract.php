@@ -68,7 +68,7 @@ abstract class KTemplateLocatorAbstract extends KObject implements KTemplateLoca
      * @param  string $file The file path
      * @return string The real file path
      */
-    final public function realPath($file)
+    public function realPath($file)
     {
         $result = false;
         $path   = dirname($file);
