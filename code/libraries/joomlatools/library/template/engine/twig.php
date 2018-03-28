@@ -112,7 +112,7 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
     public function loadFile($url)
     {
         //Push the template on the stack
-        array_push($this->_stack, array('url' => $url));
+        array_push($this->_stack, $url);
 
         $this->_twig_template = $this->_twig->loadTemplate($url);
 
@@ -234,16 +234,22 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
      */
     protected function _import($url, array $data = array())
     {
-        //Qualify relative template url
         if (!parse_url($url, PHP_URL_SCHEME))
         {
-            if (!$template = end($this->_stack)) {
+            if (!$base = end($this->_stack)) {
                 throw new \RuntimeException('Cannot qualify partial template url');
             }
 
             $url = $this->getObject('template.locator.factory')
-                ->createLocator($template['url'])
-                ->qualify($url, $template['url']);
+                ->createLocator($base)
+                ->qualify($url, $base);
+
+            if(array_search($url, $this->_stack))
+            {
+                throw new \RuntimeException(sprintf(
+                    'Template recursion detected while importing "%s" in "%s"', $url, $base
+                ));
+            }
         }
 
         $type = pathinfo( $this->_locate($url), PATHINFO_EXTENSION);

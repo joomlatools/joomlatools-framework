@@ -377,6 +377,13 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
             $url = $this->getObject('template.locator.factory')
                 ->createLocator($base)
                 ->qualify($url, $base);
+
+            if(array_search($url, $this->_stack))
+            {
+                throw new \RuntimeException(sprintf(
+                    'Template recursion detected while importing "%s" in "%s"', $url, $base
+                ));
+            }
         }
 
         $type = pathinfo( $this->_locate($url), PATHINFO_EXTENSION);
