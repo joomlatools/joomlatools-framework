@@ -39,11 +39,11 @@ interface KTemplateLocatorInterface
     public function find(array $info);
 
     /**
-     * Find the template path
+     *  Qualify a template url
      *
      * @param  string $url   The template to qualify
      * @param  string $base  A fully qualified template url used to qualify.
-     * @return string|false The qualified template path or FALSE if the path could not be qualified
+     * @return string|false The qualified template url or FALSE if the path could not be qualified
      */
     public function qualify($url, $base);
 
