@@ -57,7 +57,7 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
     }
 
     /**
-     * Find the template path
+     * Qualify a template url
      *
      * @param  string $url   The template to qualify
      * @param  string $base  A fully qualified template url used to qualify.
@@ -65,16 +65,55 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
      */
     public function qualify($url, $base)
     {
-        if ($url[0] != '/')
+        if(!parse_url($url, PHP_URL_SCHEME))
         {
-            //Relative path
-            $url = dirname($base) . '/' . $url;
+            if ($url[0] != '/')
+            {
+                //Relative path
+                $url = dirname($base) . '/' . $url;
+            }
+            else
+            {
+                //Absolute path
+                $url = parse_url($base, PHP_URL_SCHEME) . ':/' . $url;
+            }
         }
-        else
+
+        return $this->normalise($url);
+    }
+
+    /**
+     * Normalise a template url
+     *
+     * Resolves references to /./, /../ and extra / characters in the input path and
+     * returns the canonicalize absolute url. Equivalent of realpath() method.
+     *
+     * @param  string $url   The template to normalise
+     * @return string|false  The normalised template url
+     */
+    public function normalise($url)
+    {
+        $scheme = parse_url($url, PHP_URL_SCHEME);
+        $path   = str_replace(array('/', '\\', $scheme.'://'), DIRECTORY_SEPARATOR, $url);
+
+        $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
+
+        $absolutes = array();
+        foreach ($parts as $part)
         {
-            //Absolute path
-            $url = parse_url($base, PHP_URL_SCHEME) . ':/' . $url;
+            if ('.' == $part) {
+                continue;
+            }
+
+            if ('..' == $part) {
+                array_pop($absolutes);
+            } else {
+                $absolutes[] = $part;
+            }
         }
+
+        $path = implode(DIRECTORY_SEPARATOR, $absolutes);
+        $url  = $scheme ? $scheme.'://'.$path : $path;
 
         return $url;
     }
