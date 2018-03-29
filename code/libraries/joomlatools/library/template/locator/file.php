@@ -23,6 +23,54 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
     protected static $_name = 'file';
 
     /**
+     * The root path
+     *
+     * @var string
+     */
+    protected $_base_path;
+
+    /**
+     * Constructor
+     *
+     * Prevent creating instances of this class by making the constructor private
+     *
+     * @param KObjectConfig $config   An optional ObjectConfig object with configuration options
+     */
+    public function __construct(KObjectConfig $config)
+    {
+        parent::__construct($config);
+
+        $this->_base_path = rtrim($config->base_path, '/');
+    }
+
+    /**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param  KObjectConfig $config  An optional ObjectConfig object with configuration options.
+     * @return void
+     */
+    protected function _initialize(KObjectConfig $config)
+    {
+        $config->append(array(
+            'base_path' =>  '',
+        ));
+
+        parent::_initialize($config);
+    }
+
+    /**
+     * Get the root path
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return $this->_base_path;
+    }
+
+    /**
      * Find a template path
      *
      * @param array  $info  The path information
@@ -30,15 +78,38 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
      */
     public function find(array $info)
     {
-        $file   = pathinfo($info['url'], PATHINFO_FILENAME);
-        $format = pathinfo($info['url'], PATHINFO_EXTENSION);
+        $path = str_replace(parse_url($info['url'], PHP_URL_SCHEME).'://', '', $info['url']);
 
-        $path = dirname($info['url']);
-        $path = str_replace(parse_url($path, PHP_URL_SCHEME).'://', '', $path);
+        $file   = pathinfo($path, PATHINFO_FILENAME);
+        $format = pathinfo($path, PATHINFO_EXTENSION);
+        $path   = ltrim(pathinfo($path, PATHINFO_DIRNAME), '.');
 
-        if(!$result = $this->realPath($path.'/'.$file.'.'.$format))
+        $parts = array();
+
+        //Add the base path
+        if($base = $this->getBasePath()) {
+            $parts[] = $base;
+        }
+
+        //Add the file path
+        if($path) {
+            $parts[] = $path;
+        }
+
+        //Add the file
+        $parts[] = $file;
+
+        //Create the path
+        $path = implode('/', $parts);
+
+        //Append the format
+        if($format) {
+            $path = $path.'.'.$format;
+        }
+
+        if(!$result = $this->realPath($path))
         {
-            $pattern = $path.'/'.$file.'.'.$format.'.*';
+            $pattern = $path.'.*';
             $results = glob($pattern);
 
             //Try to find the file
@@ -116,5 +187,25 @@ class KTemplateLocatorFile extends KTemplateLocatorAbstract
         $url  = $scheme ? $scheme.'://'.$path : $path;
 
         return $url;
+    }
+
+    /**
+     * Prevent directory traversal attempts outside of the base path
+     *
+     * @param  string $file The file path
+     * @return string The real file path
+     */
+    public function realPath($file)
+    {
+        $path = parent::realPath($file);
+
+        if($base = $this->getBasePath())
+        {
+            if(strpos($file, $base) !== 0) {
+                return false;
+            }
+        }
+
+        return $path;
     }
 }
