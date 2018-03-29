@@ -250,10 +250,8 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
     {
         if(!isset($this->_locations[$url]))
         {
-            $locator = $this->getObject('template.locator.factory')->createLocator($url);
-
             //Locate the template
-            if (!$file = $locator->locate($url)) {
+            if (!$file = $this->getObject('template.locator.factory')->locate($url)) {
                 throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
             }
 

@@ -75,10 +75,8 @@ class KTemplateEngineMarkdown extends KTemplateEngineAbstract
     {
         if(!$this->_source)
         {
-            $locator = $this->getObject('template.locator.factory')->createLocator($url);
-
             //Locate the template
-            if (!$file = $locator->locate($url)) {
+            if (!$file = $this->getObject('template.locator.factory')->locate($url)) {
                 throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
             }
 
@@ -123,7 +121,7 @@ class KTemplateEngineMarkdown extends KTemplateEngineAbstract
 
             $file = $this->cache($name, $source);
         }
-        
+
         $this->_source = file_get_contents($file);
 
         return $this;
