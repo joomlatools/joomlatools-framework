@@ -156,10 +156,9 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
      *
      * @param  string   $source  The template content
      * @param  integer  $type    The template type.
-     * @param  string   $url     The template url
      * @return KTemplate
      */
-    public function loadString($source, $type = null, $url = null)
+    public function loadString($source, $type = null)
     {
         if($type)
         {
@@ -171,7 +170,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
 
             $this->_source = $this->getObject('template.engine.factory')
                 ->createEngine($type, $config)
-                ->loadString($source, $url);
+                ->loadString($source);
         }
         else parent::loadString($source);
 
