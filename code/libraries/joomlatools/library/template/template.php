@@ -171,7 +171,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
 
             $this->_source = $this->getObject('template.engine.factory')
                 ->createEngine($type, $config)
-                ->loadString($source);
+                ->loadString($source,  $url);
         }
         else parent::loadString($source, $url);
 
