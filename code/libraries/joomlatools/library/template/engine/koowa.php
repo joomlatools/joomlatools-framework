@@ -147,7 +147,9 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
         array_push($this->_stack, $url);
 
         //Store the location
-        $this->_locations[$url] = $file;
+        if($url) {
+            $this->_locations[$url] = $file;
+        }
 
         return $this;
     }
