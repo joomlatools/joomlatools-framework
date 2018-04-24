@@ -44,15 +44,18 @@ class ComKoowaTemplateHelperEvent extends KTemplateHelperAbstract
             JPluginHelper::importPlugin($config->import_group);
         }
 
-        if($config->name != 'onContentPrepare')
+        $results = JEventDispatcher::getInstance()->trigger($config->name, $attributes);
+
+        if($config->name == 'onContentPrepare')
         {
-            $results = JEventDispatcher::getInstance()->trigger($config->name, $attributes);
-            $result = trim(implode("\n", $results));
+            if(isset($attributes[1]) && isset($attributes[1]->text)) {
+                $result = $attributes[1]->text;
+            }
         }
-        else $result = JHtml::_('content.prepare', $attributes[1]);
+        else $result = trim(implode("\n", $results));
 
         // Leave third party JavaScript as-is
-        $result  = str_replace('<script', '<script data-inline', $result);
+        $result = str_replace('<script', '<script data-inline', $result);
 
         return $result;
     }
