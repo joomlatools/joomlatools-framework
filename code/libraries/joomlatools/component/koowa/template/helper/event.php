@@ -36,6 +36,10 @@ class ComKoowaTemplateHelperEvent extends KTemplateHelperAbstract
             throw new InvalidArgumentException('Event name is required');
         }
 
+        if(!(count($attributes) > 1)) {
+            throw new InvalidArgumentException('Event requires at least 2 attributes');
+        }
+
         if ($config->import_group) {
             JPluginHelper::importPlugin($config->import_group);
         }
@@ -45,26 +49,11 @@ class ComKoowaTemplateHelperEvent extends KTemplateHelperAbstract
             $results = JEventDispatcher::getInstance()->trigger($config->name, $attributes);
             $result = trim(implode("\n", $results));
         }
-        else $result = $this->triggerContentPrepare($config);
+        else $result = JHtml::_('content.prepare', $attributes[1]);
 
         // Leave third party JavaScript as-is
         $result  = str_replace('<script', '<script data-inline', $result);
 
         return $result;
-    }
-
-    /**
-     * Trigger onContentPrepare
-     *
-     * @param array $config
-     * @return mixed
-     */
-    public function triggerContentPrepare($config = array())
-    {
-        // Can't put arguments through KObjectConfig as it loses referenced variables
-        $attributes = isset($config['attributes']) ? $config['attributes'] : array();
-        $config     = new KObjectConfig($config);
-
-        return JHtml::_('content.prepare', $config['attributes'][1]);
     }
 }
