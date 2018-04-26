@@ -67,7 +67,7 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
     {
         $matches = array();
 
-        if(preg_match_all('#<ktml:module([^>]*)>(.*)</ktml:module>#siU', $text, $matches))
+        if(preg_match_all('#<ktml:module\s+([^>]*)>(.*)</ktml:module>#siU', $text, $matches))
         {
             foreach($matches[0] as $key => $match)
             {
