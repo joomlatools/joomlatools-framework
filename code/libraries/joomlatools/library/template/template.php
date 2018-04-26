@@ -37,6 +37,13 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
     private $__filter_queue;
 
     /**
+     * Excluded types
+     *
+     * @var array
+     */
+    protected $_excluded_types;
+
+    /**
      * Constructor
      *
      * Prevent creating instances of this class by making the constructor private
@@ -64,6 +71,10 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
 
         //Set the parameters
         $this->setParameters($config->parameters);
+
+
+        //Set the excluded types
+        $this->_excluded_types = KObjectConfig::unbox($config->excluded_types);
     }
 
     /**
@@ -86,6 +97,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
             ),
             'cache'           => false,
             'cache_namespace' => 'koowa',
+            'excluded_types'  => array('html'),
         ));
 
         parent::_initialize($config);
@@ -134,15 +146,21 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
             throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
         }
 
-        //Create the template engine
-        $config = array(
-            'template'  => $this,
-            'functions' => $this->_functions
-        );
+        $type = pathinfo($file, PATHINFO_EXTENSION);
 
-        $this->_source = $this->getObject('template.engine.factory')
-            ->createEngine($file, $config)
-            ->loadFile($url);
+        if(!in_array($type, $this->_excluded_types))
+        {
+            //Create the template engine
+            $config = array(
+                'template' => $this,
+                'functions' => $this->_functions
+            );
+
+            $this->_source = $this->getObject('template.engine.factory')
+                ->createEngine($file, $config)
+                ->loadFile($url);
+        }
+        else parent::loadFile($url);
 
         return $this;
     }
@@ -161,7 +179,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
      */
     public function loadString($source, $type = null, $url = null)
     {
-        if($type)
+        if($type && !in_array($type, $this->_excluded_types))
         {
             //Create the template engine
             $config = array(
@@ -173,7 +191,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
                 ->createEngine($type, $config)
                 ->loadString($source,  $url);
         }
-        else parent::loadString($source, $url);
+        else parent::loadString($source);
 
         return $this;
     }
