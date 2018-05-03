@@ -228,7 +228,7 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
 
             JPluginHelper::importPlugin('system');
 
-            JDispatcher::getInstance()->trigger('onAfterInitialiase');
+            JEventDispatcher::getInstance()->trigger('onAfterInitialiase');
         }
 
         return class_exists('Koowa');
