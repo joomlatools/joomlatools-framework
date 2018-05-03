@@ -226,9 +226,9 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
                 if($exception instanceof ErrorException)
                 {
                     $class = get_class($exception);
-                    $file  = $this->_locate($template) ?: $this->_source;
+                    $file  = $this->getObject('template.locator.factory')->locate($template) ?: $this->_source;
 
-                    $exception = new $class(
+                    $exception = new KTemplateExceptionError(
                         $exception->getMessage(),
                         $exception->getCode(),
                         $exception->getSeverity(),
