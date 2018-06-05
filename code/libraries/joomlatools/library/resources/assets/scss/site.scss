@@ -1,65 +1,65 @@
-/* Bootstrap 2.3.2 variables and mixins used in files (Joomla uses old Bootstrap) */
-@import "../lib/sass-twitter-bootstrap/variables";
-@import "../lib/sass-twitter-bootstrap/mixins";
-
-/* Bootstrap 3.x variables and mixins (select2 bootstrap styling uses BS 3) */
-@import "../../../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "../../../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-
-/* Site variables and mixins */
-@import "site/utilities/variables";
-@import "site/utilities/mixins";
-
-/* Kodekit tools */
-@import "../../../../../../../../kodekit-ui/src/scss/admin/core/tools";
-
-/* Outside of the k-ui-namespace scope */
-@import "site/modal";
-@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/datepicker";
-
-@import "../../../../../../../../kodekit-ui/node_modules/select2/src/scss/core";
-@import "../../../../../../../../kodekit-ui/node_modules/select2-bootstrap-theme/src/select2-bootstrap";
-
-/* Icons */
-@import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/k-icons";
-@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/icons";
-
-/* Tooltips */
-@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/tooltip";
-
-/* Inside k-ui-namespace scope */
-.k-ui-namespace {
-
-  /* Border-box size everything */
-
-  &, *, *:before, *:after {
-    box-sizing: border-box;
-  }
-
-  /* Responsive tables */
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/responsive-table";
-
-  /* Pagination */
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/pagination";
-
-  /* File select input */
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/styled-file-input";
-
-  @import "site/anchor";
-  @import "site/header";
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/tree";
-  @import "site/select2";
-  @import "site/table";
-  @import "site/toolbar";
-  @import "site/wrapped-content";
-
-  /**
-   * Utilities
-   *
-   * Loading last so we have the biggest chance of 'winning' specificity wars without using !important
-   */
-
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/utilities";
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/component-animations";
-  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/hamburger";
-}
+///* Bootstrap 2.3.2 variables and mixins used in files (Joomla uses old Bootstrap) */
+//@import "../lib/sass-twitter-bootstrap/variables";
+//@import "../lib/sass-twitter-bootstrap/mixins";
+//
+///* Bootstrap 3.x variables and mixins (select2 bootstrap styling uses BS 3) */
+//@import "../../../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+//@import "../../../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+//
+///* Site variables and mixins */
+//@import "site/utilities/variables";
+//@import "site/utilities/mixins";
+//
+///* Kodekit tools */
+//@import "../../../../../../../../kodekit-ui/src/scss/admin/core/tools";
+//
+///* Outside of the k-ui-namespace scope */
+//@import "site/modal";
+//@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/datepicker";
+//
+//@import "../../../../../../../../kodekit-ui/node_modules/select2/src/scss/core";
+//@import "../../../../../../../../kodekit-ui/node_modules/select2-bootstrap-theme/src/select2-bootstrap";
+//
+///* Icons */
+//@import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/k-icons";
+//@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/icons";
+//
+///* Tooltips */
+//@import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/tooltip";
+//
+///* Inside k-ui-namespace scope */
+//.k-ui-namespace {
+//
+//  /* Border-box size everything */
+//
+//  &, *, *:before, *:after {
+//    box-sizing: border-box;
+//  }
+//
+//  /* Responsive tables */
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/responsive-table";
+//
+//  /* Pagination */
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/pagination";
+//
+//  /* File select input */
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/styled-file-input";
+//
+//  @import "site/anchor";
+//  @import "site/header";
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/molecules/tree";
+//  @import "site/select2";
+//  @import "site/table";
+//  @import "site/toolbar";
+//  @import "site/wrapped-content";
+//
+//  /**
+//   * Utilities
+//   *
+//   * Loading last so we have the biggest chance of 'winning' specificity wars without using !important
+//   */
+//
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/utilities";
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/component-animations";
+//  @import "../../../../../../../../kodekit-ui/src/scss/admin/utilities/hamburger";
+//}
