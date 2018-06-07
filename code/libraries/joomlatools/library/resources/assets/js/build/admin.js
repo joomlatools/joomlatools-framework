@@ -16464,39 +16464,46 @@ var Konami = function (callback) {
 	Available for use under the MIT License
 */
 
-( function ( document, window, index )
-{
-	var inputs = document.querySelectorAll('.k-js-file-input');
-	Array.prototype.forEach.call( inputs, function( input )
-	{
-		var label	 = input.nextElementSibling,
-			labelVal = label.innerHTML;
+(function($) {
 
-		input.addEventListener('change', function( e )
+    $(document).ready(function () {
+
+		var inputs = document.querySelectorAll('.k-js-file-input');
+
+		Array.prototype.forEach.call( inputs, function( input )
 		{
-			var fileName = '';
-			if( this.files && this.files.length > 1 )
-				fileName = ( this.getAttribute('data-multiple-caption') || '' ).replace( '{count}', this.files.length );
-			else
-				fileName = e.target.value.split( '\\' ).pop();
+			var label	 = input.nextElementSibling,
+				labelVal = label.innerHTML;
 
-			if( fileName )
-				label.querySelector('.k-file-input__files').innerHTML = fileName;
-			else
-				label.innerHTML = labelVal;
+			input.addEventListener('change', function( e )
+			{
+				var fileName = '';
+				if( this.files && this.files.length > 1 )
+					fileName = ( this.getAttribute('data-multiple-caption') || '' ).replace( '{count}', this.files.length );
+				else
+					fileName = e.target.value.split( '\\' ).pop();
+
+				if( fileName )
+					label.querySelector('.k-file-input__files').innerHTML = fileName;
+				else
+					label.innerHTML = labelVal;
+			});
+
+			// Add class for drop hover
+			input.ondragover = function(ev) { this.classList.add('k-has-drop-focus'); };
+			input.ondragleave = function(ev) { this.classList.remove('k-has-drop-focus'); };
+			input.ondragend = function(ev) { this.classList.remove('k-has-drop-focus'); };
+			input.ondrop = function(ev) { this.classList.remove('k-has-drop-focus'); };
+
+			// Firefox bug fix
+			input.addEventListener('focus', function(){ input.classList.add('k-has-focus'); });
+			input.addEventListener('blur', function(){ input.classList.remove('k-has-focus'); });
 		});
 
-		// Add class for drop hover
-		input.ondragover = function(ev) { this.classList.add('k-has-drop-focus'); };
-		input.ondragleave = function(ev) { this.classList.remove('k-has-drop-focus'); };
-		input.ondragend = function(ev) { this.classList.remove('k-has-drop-focus'); };
-		input.ondrop = function(ev) { this.classList.remove('k-has-drop-focus'); };
+    });
 
-		// Firefox bug fix
-		input.addEventListener('focus', function(){ input.classList.add('k-has-focus'); });
-		input.addEventListener('blur', function(){ input.classList.remove('k-has-focus'); });
-	});
-}( document, window, 0 ));
+})(kQuery);
+
 
 /*!
  * jQuery.tabbable 1.0 - Simple utility for selecting the next / previous ':tabbable' element.
@@ -16648,6 +16655,7 @@ var Konami = function (callback) {
                 position: 'left',
                 menuExpandedClass: 'k-show-left-menu',
                 openedClass: 'k-is-opened',
+                transitionClass: 'k-is-transitioning',
                 noTransitionClass: 'k-no-transition',
                 wrapper: $(element).parent(),
                 container: $('.container'),
@@ -16675,6 +16683,7 @@ var Konami = function (callback) {
                 position = plugin.settings.position,
                 menuExpandedClass = plugin.settings.menuExpandedClass,
                 openedClass = plugin.settings.openedClass,
+                transitionClass = plugin.settings.noTransitionClass,
                 noTransitionClass = plugin.settings.noTransitionClass,
                 wrapper = plugin.settings.wrapper,
                 container = plugin.settings.container,
@@ -16757,6 +16766,9 @@ var Konami = function (callback) {
                 // Clear the timeout when user clicks open menu
                 clearTimeout(timeout);
 
+                // Add class to body
+                $('body').addClass(plugin.settings.transitionClass);
+
                 // Function to run before toggling
                 plugin.settings.onBeforeToggleOpen();
 
@@ -16773,6 +16785,9 @@ var Konami = function (callback) {
                 timeout = setTimeout(function() {
                     tabToggle(menu);
 
+                    // Remove class from body
+                    $('body').removeClass(plugin.settings.transitionClass);
+
                     // Function to run after toggling
                     plugin.settings.onAfterToggleOpen();
                 }, transitionDuration);
@@ -16781,6 +16796,9 @@ var Konami = function (callback) {
             function closeMenu() {
                 // Clear the timeout when user clicks close menu
                 clearTimeout(timeout);
+
+                // Add class to body
+                $('body').addClass(plugin.settings.transitionClass);
 
                 // Function to run before toggling
                 plugin.settings.onBeforeToggleOpen();
@@ -16794,6 +16812,9 @@ var Konami = function (callback) {
                 // Remove style and class when transition has ended, so the menu stays visible on closing
                 timeout = setTimeout(function() {
                     wrapper.removeClass(openedClass);
+
+                    // Remove class from body
+                    $('body').removeClass(plugin.settings.transitionClass);
 
                     // Function to run after toggling
                     plugin.settings.onAfterToggleOpen();
@@ -16888,6 +16909,9 @@ var Konami = function (callback) {
                 // Set started to true (used by touchend)
                 started = true;
 
+                // Add class to body
+                $('body').addClass(plugin.settings.transitionClass);
+
                 // Get original starting point
                 pageX = e.originalEvent.touches[0].pageX;
 
@@ -16977,6 +17001,9 @@ var Konami = function (callback) {
                 if (!wrapper.hasClass(menuExpandedClass))
                     return;
 
+                // Remove class from body
+                $('body').removeClass(plugin.settings.transitionClass);
+
                 var newPos = position == 'left' ? start.startingX + deltaX
                     : deltaX - ($(window).width() - start.startingX);
 
@@ -16992,6 +17019,9 @@ var Konami = function (callback) {
                     });
                     $.each(offCanvasOverlay, function () {
                         $(this).removeAttr('style').removeClass(noTransitionClass);
+                        if (plugin.settings.transitionElements !== undefined) {
+                            plugin.settings.transitionElements.removeAttr('style').removeClass(noTransitionClass);
+                        }
                     });
 
                     if (( position == 'left' && ( absNewPos <= (expandedWidth * 0.66) || newPos <= 0 ) ) ||
