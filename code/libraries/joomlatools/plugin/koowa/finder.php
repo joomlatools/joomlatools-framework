@@ -12,7 +12,7 @@ defined('JPATH_BASE') or die;
 jimport('joomla.application.component.helper');
 
 // Load the base adapter.
-require_once JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php';
+JLoader::register('FinderIndexerAdapter', JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php');
 
 /**
  * Finder Plugin
@@ -191,11 +191,7 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         FinderIndexerHelper::getContentExtras($item);
 
         // Index the item.
-        if (method_exists('FinderIndexer', 'getInstance')) {
-            FinderIndexer::getInstance()->index($item);
-        } else {
-            FinderIndexer::index($item);
-        }
+        $this->indexer->index($item);
     }
 
     /**
