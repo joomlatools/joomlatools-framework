@@ -33,9 +33,11 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
             'type'    => $identifier->type,
             'styles' => array(),
         ))->append(array(
+            'k_ui_container' => ($config->domain === 'admin' || $config->domain === '') && $config->type === 'com'
+        ))->append(array(
             'wrapper_class' => array(
                 // Only add k-ui-container for top-level component templates
-                ($config->domain === 'admin' || $config->domain === '') && $config->type === 'com' ? 'k-ui-container' : '',
+                ($config->k_ui_container ? 'k-ui-container'.($config->debug ? '' : ' k-no-css-errors') : ''),
                 'k-ui-namespace',
                 $identifier->type.'_'.$identifier->package
             ),
