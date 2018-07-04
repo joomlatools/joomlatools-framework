@@ -10311,7 +10311,7 @@ html:not([dir="rtl"]) .k-input-group__button:first-child > .k-button-group:not(:
   position: relative;
 }
 
-.k-ui-namespace .k-positioner.k-is-selected {
+.k-ui-namespace .k-positioner.k-is-active {
   cursor: move;
 }
 

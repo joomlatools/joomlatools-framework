@@ -10189,7 +10189,7 @@ html:not([dir="rtl"]) .k-input-group .k-form-control:last-child, html:not([dir="
   position: relative;
 }
 
-.k-ui-namespace .k-positioner.k-is-selected {
+.k-ui-namespace .k-positioner.k-is-active {
   cursor: move;
 }
 
