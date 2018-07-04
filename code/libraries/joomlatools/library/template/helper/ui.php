@@ -25,8 +25,6 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
     {
         $identifier = $this->getTemplate()->getIdentifier();
 
-        $kui_container = ($config->domain === 'admin' || $config->domain === '') && $config->type === 'com';
-
         $config = new KObjectConfigJson($config);
         $config->append(array(
             'debug' => false,
@@ -35,9 +33,11 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
             'type'    => $identifier->type,
             'styles' => array(),
         ))->append(array(
+            'k_ui_container' => ($config->domain === 'admin' || $config->domain === '') && $config->type === 'com'
+        ))->append(array(
             'wrapper_class' => array(
                 // Only add k-ui-container for top-level component templates
-                ($kui_container ? 'k-ui-container'.($config->debug ? '' : ' k-no-css-errors') : ''),
+                ($config->k_ui_container ? 'k-ui-container'.($config->debug ? '' : ' k-no-css-errors') : ''),
                 'k-ui-namespace',
                 $identifier->type.'_'.$identifier->package
             ),
