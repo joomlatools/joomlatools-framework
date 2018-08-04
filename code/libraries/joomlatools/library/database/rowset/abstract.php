@@ -442,7 +442,7 @@ abstract class KDatabaseRowsetAbstract extends KObjectSet implements KDatabaseRo
     public function setStatus($status)
     {
         if($row = $this->getIterator()->current()) {
-            $row->setStatusMessage($status);
+            $row->setStatus($status);
         }
 
         return $this;

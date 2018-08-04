@@ -18,7 +18,7 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
     /**
      * Joomla event dispatcher
      *
-     * @var JDispatcher
+     * @var JEventDispatcher
      */
     protected static $_dispatcher;
 
@@ -127,14 +127,14 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
     /**
      * Gets the Joomla event dispatcher
      *
-     * @return JDispatcher
+     * @return JEventDispatcher
      */
     protected function _getDispatcher()
     {
         if (!self::$_dispatcher)
         {
             JPluginHelper::importPlugin('finder');
-            self::$_dispatcher = JDispatcher::getInstance();
+            self::$_dispatcher = JEventDispatcher::getInstance();
         }
 
         return self::$_dispatcher;

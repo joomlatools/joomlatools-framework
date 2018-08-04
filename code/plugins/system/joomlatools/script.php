@@ -8,14 +8,14 @@
  */
 
 
-class JoomlatoolsTemporaryDispatcher extends JDispatcher
+class JoomlatoolsTemporaryDispatcher extends JEventDispatcher
 {
     /**
      * Get rid of registered Logman plugins and disable it permanently afterwards if it's version 1 or 2
      */
     public static function disableLogman()
     {
-        $dispatcher = JDispatcher::getInstance();
+        $dispatcher = JEventDispatcher::getInstance();
 
         foreach ($dispatcher->_observers as $key => $observer)
         {
@@ -74,7 +74,7 @@ class PlgSystemJoomlatoolsInstallerScript
         }
 
         if (!$this->_uninstallExtman()) {
-            JFactory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman. 
+            JFactory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
             Please go to Extension Manager and remove EXTman first in order to upgrade to the latest version'), 'error');
 
             return false;
@@ -270,6 +270,11 @@ class PlgSystemJoomlatoolsInstallerScript
             apc_clear_cache();
             apc_clear_cache('user');
         }
+
+        // Clear OPcache
+        if (function_exists('opcache_reset')) {
+            @opcache_reset();
+        }
     }
 
     protected function _moveFolder($from, $to)
@@ -378,7 +383,7 @@ class PlgSystemJoomlatoolsInstallerScript
         if (file_exists($ohanah_manifest))
         {
             $errors[] = sprintf("You have the Ohanah event management extension installed.
-                    Ohanah works with an older version of the Joomlatools framework, so upgrading Joomlatools framework now would break your site. 
+                    Ohanah works with an older version of the Joomlatools framework, so upgrading Joomlatools framework now would break your site.
                     Installation is aborting. For more information please read our detailed explanation <a target=\"_blank\" href=\"%s\">here</a>.",
                 'http://www.joomlatools.com/framework-known-issues');
         }
@@ -388,7 +393,7 @@ class PlgSystemJoomlatoolsInstallerScript
             $errors[] = sprintf(JText::_("Your site has an older version of our library already installed. Installation
 			 is aborting to prevent creating conflicts with other extensions."));
         }
-        
+
         //Some hosts that specialize on Joomla are known to lock permissions to the libraries folder
         if(!is_writable(JPATH_LIBRARIES))
         {
@@ -419,7 +424,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
         require_once $path;
 
-        $dispatcher = JDispatcher::getInstance();
+        $dispatcher = JEventDispatcher::getInstance();
         $className  = 'PlgSystemJoomlatools';
 
         // Constructor does all the work in the plugin
