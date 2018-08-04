@@ -23,25 +23,9 @@ interface KTemplateLocatorInterface
     public static function getName();
 
     /**
-     * Sets the base path
-     *
-     * @param string $path  The path (used to resolved partials).
-     * @return KTemplateLocatorInterface
-     */
-    public function setBasePath($path);
-
-    /**
-     * Get the path
-     *
-     * @return string|null
-     */
-    public function getBasePath();
-
-    /**
      * Find the template path
      *
      * @param  string $url   The Template url
-     * @throws RuntimeException If the no base path exists while trying to locate a partial.
      * @return string|false The real template path or FALSE if the template could not be found
      */
     public function locate($url);
@@ -53,6 +37,15 @@ interface KTemplateLocatorInterface
      * @return string|false The real template path or FALSE if the template could not be found
      */
     public function find(array $info);
+
+    /**
+     *  Qualify a template url
+     *
+     * @param  string $url   The template to qualify
+     * @param  string $base  A fully qualified template url used to qualify.
+     * @return string|false The qualified template url or FALSE if the path could not be qualified
+     */
+    public function qualify($url, $base);
 
     /**
      * Get a path from an file

@@ -63,6 +63,20 @@ class KTemplateLocatorFactory extends KObject implements KObjectSingleton
     }
 
     /**
+     * Find the template path
+     *
+     * @param  array $config  An optional associative array of configuration options
+     * @throws InvalidArgumentException If the path is not valid
+     * @throws RuntimeException         If the locator isn't registered
+     * @throws UnexpectedValueException If the locator object doesn't implement the TemplateLocatorInterface
+     * @return string|false The real template path or FALSE if the template could not be found
+     */
+    public function locate($url)
+    {
+        return $this->createLocator($url)->locate($url);
+    }
+
+    /**
      * Create a locator
      *
      * Note that only URLs delimited by "://"" are supported. ":" and ":/" while technically valid URLs, are not. If no

@@ -30,45 +30,6 @@ abstract class KTemplateLocatorAbstract extends KObject implements KTemplateLoca
     protected $_locations;
 
     /**
-     * The base path
-     *
-     * @var string
-     */
-    protected $_base_path;
-
-    /**
-     * Constructor
-     *
-     * Prevent creating instances of this class by making the constructor private
-     *
-     * @param KObjectConfig $config   An optional ObjectConfig object with configuration options
-     */
-    public function __construct(KObjectConfig $config)
-    {
-        parent::__construct($config);
-
-        //Set the base path
-        $this->setBasePath($config->base_path);
-    }
-
-    /**
-     * Initializes the options for the object
-     *
-     * Called from {@link __construct()} as a first step of object instantiation.
-     *
-     * @param  KObjectConfig $config  An optional ObjectConfig object with configuration options.
-     * @return void
-     */
-    protected function _initialize(KObjectConfig $config)
-    {
-        $config->append(array(
-            'base_path' => null
-        ));
-
-        parent::_initialize($config);
-    }
-
-    /**
      * Get the locator name
      *
      * @return string The stream name
@@ -79,56 +40,24 @@ abstract class KTemplateLocatorAbstract extends KObject implements KTemplateLoca
     }
 
     /**
-     * Get the base path
-     *
-     * @return string The base path
-     */
-    public function getBasePath()
-    {
-        return $this->_base_path;
-    }
-
-    /**
-     * Set the base path
-     *
-     * @param string $path The base path
-     * @return KTemplateLocatorAbstract
-     */
-    public function setBasePath($path)
-    {
-        $this->_base_path = $path;
-        return $this;
-    }
-
-    /**
      * Find the template path
      *
      * @param  string $url   The Template url
-     * @throws  \RuntimeException If the no base path exists while trying to locate a partial.
      * @return string|false The real template path or FALSE if the template could not be found
      */
     public function locate($url)
     {
-        $base = $this->getBasePath();
-
-        if($base) {
-            $key = $base.'-'.$url;
-        } else {
-            $key = $url;
-        }
-
-        if(!isset($this->_locations[$key]))
+        if(!isset($this->_locations[$url]))
         {
             $info = array(
                 'url'   => $url,
-                'base'  => $base,
                 'path'  => '',
             );
 
-            $this->_locations[$key] = $this->find($info);
+            $this->_locations[$url] = $this->find($info);
         }
 
-        return $this->_locations[$key];
+        return $this->_locations[$url];
     }
 
     /**
@@ -139,7 +68,7 @@ abstract class KTemplateLocatorAbstract extends KObject implements KTemplateLoca
      * @param  string $file The file path
      * @return string The real file path
      */
-    final public function realPath($file)
+    public function realPath($file)
     {
         $result = false;
         $path   = dirname($file);

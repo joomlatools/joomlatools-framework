@@ -112,7 +112,7 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
     public function loadFile($url)
     {
         //Push the template on the stack
-        array_push($this->_stack, array('url' => $url));
+        array_push($this->_stack, $url);
 
         $this->_twig_template = $this->_twig->loadTemplate($url);
 
@@ -125,7 +125,7 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
      * @param  string  $content  The template content
      * @return KTemplateEngineTwig
      */
-    public function loadString($content)
+    public function loadString($content, $url = null)
     {
         parent::loadString($content);
 
@@ -133,7 +133,7 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
         $this->_twig_template = $this->_twig->loadTemplate($content);
 
         //Push the template on the stack
-        array_push($this->_stack, array('url' => ''));
+        array_push($this->_stack, $url);
         return $this;
     }
 
@@ -212,23 +212,8 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
      */
     protected function _locate($url)
     {
-        //Create the locator
-        if($template = end($this->_stack)) {
-            $base = $template['url'];
-        } else {
-            $base = null;
-        }
-
-        if(!$location = parse_url($url, PHP_URL_SCHEME)) {
-            $location = $base;
-        } else {
-            $location = $url;
-        }
-
-        $locator = $this->getObject('template.locator.factory')->createLocator($location);
-
         //Locate the template
-        if (!$file = $locator->setBasePath($base)->locate($url)) {
+        if (!$file = $this->getObject('template.locator.factory')->locate($url)) {
             throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
         }
 
@@ -247,16 +232,35 @@ class KTemplateEngineTwig extends KTemplateEngineAbstract
      */
     protected function _import($url, array $data = array())
     {
-        //Locate the template
-        $file = $this->_locate($url);
-        $type = pathinfo($file, PATHINFO_EXTENSION);
-
-        if(in_array($type, $this->getFileTypes()))
+        if (!parse_url($url, PHP_URL_SCHEME))
         {
-            $data   = array_merge((array) $this->getData(), $data);
-            $result = $this->_twig->render($file, $data);
+            if (!$base = end($this->_stack)) {
+                throw new \RuntimeException('Cannot qualify partial template url');
+            }
+
+            $url = $this->getObject('template.locator.factory')
+                ->createLocator($base)
+                ->qualify($url, $base);
+
+            if(array_search($url, $this->_stack))
+            {
+                throw new \RuntimeException(sprintf(
+                    'Template recursion detected while importing "%s" in "%s"', $url, $base
+                ));
+            }
         }
-        else  $result = $this->getTemplate()->loadFile($file)->render($data);
+
+        $type = pathinfo( $this->_locate($url), PATHINFO_EXTENSION);
+        $data = array_merge((array) $this->getData(), $data);
+
+        //If the partial requires a different engine create it and delegate
+        if(!in_array($type, $this->getFileTypes()))
+        {
+            $result = $this->getTemplate()
+                ->loadFile($url)
+                ->render($data);
+        }
+        else $result = $this->loadFile($url)->render($data);
 
         return $result;
     }
