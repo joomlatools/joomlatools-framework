@@ -287,6 +287,16 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
+     * Proxy onAfterRespond
+     *
+     * @return void
+     */
+    public function onAfterRespond()
+    {
+        $this->_proxyEvent('onAfterApplicationRespond');
+    }
+
+    /**
      * Proxy onBeforeApplicationTerminate
      *
      * @return void
