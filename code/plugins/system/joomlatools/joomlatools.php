@@ -52,29 +52,11 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
-     * Adds application response time and memory usage to Chrome Inspector with ChromeLogger extension
-     *
-     * See: https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
+     * Allow event listeners to perform cleanup operations before the application terminates
      */
     public function __destruct()
     {
-        if (JDEBUG && !headers_sent())
-        {
-            $buffer = JProfiler::getInstance('Application')->getBuffer();
-            if ($buffer)
-            {
-                $data = strip_tags(end($buffer));
-                $row = array(array($data), null, 'info');
-
-                $header = array(
-                    'version' => '4.1.0',
-                    'columns' => array('log', 'backtrace', 'type'),
-                    'rows'    => array($row)
-                );
-
-                header('X-ChromeLogger-Data: ' . base64_encode(utf8_encode(json_encode($header))));
-            }
-        }
+        $this->onBeforeApplicationTerminate();
     }
 
     /**
@@ -290,6 +272,16 @@ class PlgSystemJoomlatools extends JPlugin
     public function onAfterRender()
     {
         $this->_proxyEvent('onAfterApplicationRender');
+    }
+
+    /**
+     * Proxy onBeforeApplicationTerminate
+     *
+     * @return void
+     */
+    public function onBeforeApplicationTerminate()
+    {
+        $this->_proxyEvent('onBeforeApplicationTerminate');
     }
 
     /**

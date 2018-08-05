@@ -96,4 +96,30 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
             }
         }
     }
+
+    /**
+     * Adds application response time and memory usage to Chrome Inspector with ChromeLogger extension
+     *
+     * See: https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
+     */
+    public function onBeforeApplicationTerminate(KEventInterface $event)
+    {
+        if (JDEBUG && !headers_sent())
+        {
+            $buffer = JProfiler::getInstance('Application')->getBuffer();
+            if ($buffer)
+            {
+                $data = strip_tags(end($buffer));
+                $row = array(array($data), null, 'info');
+
+                $header = array(
+                    'version' => '4.1.0',
+                    'columns' => array('log', 'backtrace', 'type'),
+                    'rows'    => array($row)
+                );
+
+                header('X-ChromeLogger-Data: ' . base64_encode(utf8_encode(json_encode($header))));
+            }
+        }
+    }
 }
