@@ -48,6 +48,8 @@ class PlgSystemJoomlatools extends JPlugin
         //Bootstrap the Koowa Framework
         $this->bootstrap();
 
+        $this->onAfterKoowaBootstrap();
+
         parent::__construct($subject, $config);
     }
 
@@ -222,6 +224,16 @@ class PlgSystemJoomlatools extends JPlugin
     {
         KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
         return true;
+    }
+
+    /**
+     * Proxy onAfterKoowaBootstrap
+     *
+     * @return void
+     */
+    public function onAfterKoowaBootstrap()
+    {
+        $this->_proxyEvent('onAfterKoowaBootstrap');
     }
 
     /**
