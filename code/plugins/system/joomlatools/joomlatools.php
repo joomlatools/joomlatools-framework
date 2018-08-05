@@ -232,88 +232,6 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
-     * Log user in from the JWT token in the request if possible
-     *
-     * onAfterInitialise is used here to make sure that Joomla doesn't display error messages for menu items
-     * with registered and above access levels.
-     */
-    public function onAfterInitialise()
-    {
-        if (class_exists('Koowa'))
-        {
-            if(JFactory::getUser()->guest)
-            {
-                $authenticator = KObjectManager::getInstance()->getObject('com:koowa.dispatcher.authenticator.jwt');
-
-                if ($authenticator->getAuthToken())
-                {
-                    $dispatcher = KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http');
-                    $authenticator->authenticateRequest($dispatcher->getContext());
-                }
-            }
-        }
-    }
-
-    /*
-     * Joomla Compatibility
-     *
-     * For Joomla 3.x : Re-run the routing and add returned keys to the $_GET request. This is done because Joomla 3
-     * sets the results of the router in $_REQUEST and not in $_GET
-     */
-    public function onAfterRoute()
-    {
-        if (class_exists('Koowa'))
-        {
-            $request = KObjectManager::getInstance()->getObject('request');
-
-            $app = JFactory::getApplication();
-            if ($app->isSite())
-            {
-                $uri     = clone JURI::getInstance();
-
-                $router = JFactory::getApplication()->getRouter();
-                $result = $router->parse($uri);
-
-                foreach ($result as $key => $value)
-                {
-                    if (!$request->query->has($key)) {
-                        $request->query->set($key, $value);
-                    }
-                }
-            }
-
-            if ($request->query->has('limitstart')) {
-                $request->query->offset = $request->query->limitstart;
-            }
-        }
-    }
-
-    /*
-     * Joomla Compatibility
-     *
-     * For Joomla 2.5 and 3.x : Handle session messages if they have not been handled by Koowa for example after a
-     * redirect to a none Koowa component.
-     */
-    public function onAfterDispatch()
-    {
-        if (class_exists('Koowa'))
-        {
-            $messages = KObjectManager::getInstance()->getObject('user')->getSession()->getContainer('message')->all();
-
-            foreach($messages as $type => $group)
-            {
-                if ($type === 'success') {
-                    $type = 'message';
-                }
-
-                foreach($group as $message) {
-                    JFactory::getApplication()->enqueueMessage($message, $type);
-                }
-            }
-        }
-    }
-
-    /**
      * Exception event handler
      *
      * @param KEventException $event
@@ -322,5 +240,69 @@ class PlgSystemJoomlatools extends JPlugin
     {
         KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
         return true;
+    }
+
+    /**
+     * Proxy onAfterInitialise
+     *
+     * @return void
+     */
+    public function onAfterInitialise()
+    {
+        $this->_proxyEvent('onAfterApplicationInitialise');
+    }
+
+    /**
+     * Proxy onAfterRoute
+     *
+     * @return void
+     */
+    public function onAfterRoute()
+    {
+        $this->_proxyEvent('onAfterApplicationRoute');
+    }
+
+    /**
+     * Proxy onAfterDispatch
+     *
+     * @return void
+     */
+    public function onAfterDispatch()
+    {
+        $this->_proxyEvent('onAfterApplicationDispatch');
+    }
+
+    /**
+     * Proxy onBeforeRender
+     *
+     * @return void
+     */
+    public function onBeforeRender()
+    {
+        $this->_proxyEvent('onBeforeApplicationRender');
+    }
+
+    /**
+     * Proxy onAfterRender
+     *
+     * @return void
+     */
+    public function onAfterRender()
+    {
+        $this->_proxyEvent('onAfterApplicationRender');
+    }
+
+    /**
+     * Proxy all Joomla events
+     *
+     * @param   array  &$args  Arguments
+     * @return  mixed  Routine return value
+     */
+    protected function _proxyEvent($event, $args = array())
+    {
+        //Publish the event
+        if (class_exists('Koowa')) {
+            KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
+        }
     }
 }

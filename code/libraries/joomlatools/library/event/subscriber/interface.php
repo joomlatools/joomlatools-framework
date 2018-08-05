@@ -43,4 +43,11 @@ interface KEventSubscriberInterface
      * @return boolean TRUE if the subscriber is already subscribed to the dispatcher. FALSE otherwise.
      */
     public function isSubscribed(KEventPublisherInterface $publisher);
+
+    /**
+     * Get the event listeners
+     *
+     * @return array
+     */
+    public static function getEventListeners();
 }
