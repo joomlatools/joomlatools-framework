@@ -191,32 +191,9 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
-     * Handles 404 errors gracefully after log outs
+     * Low priority catch-all exception listener
      *
-     * If a user does not have access to the entity after logging out, they will be redirected to the homepage.
-     *
-     * @param KEventException $event
-     * @return bool
-     */
-    public function onErrorAfterLogout(KEventException $event)
-    {
-        if ($event->getException()->getCode() === KHttpResponse::NOT_FOUND && JFactory::getApplication()->isSite())
-        {
-            $hash = JApplicationHelper::getHash('PlgSystemLogout');
-
-            $app = JFactory::getApplication();
-            if ($app->input->cookie->getString($hash, null)) // just logged out
-            {
-                $app->enqueueMessage(JText::_('PLG_SYSTEM_LOGOUT_REDIRECT'));
-                $app->redirect('index.php');
-
-                return true;
-            }
-        }
-    }
-
-    /**
-     * Exception event handler
+     * Catch exceptions if no other event listener has handled them yet and direct them to the http dispatcher.
      *
      * @param KEventException $event
      */
