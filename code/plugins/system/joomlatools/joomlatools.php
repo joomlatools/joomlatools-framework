@@ -277,6 +277,16 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
+     * Proxy onBeforeRender
+     *
+     * @return void
+     */
+    public function onBeforeCompileHead()
+    {
+        $this->_proxyEvent('onBeforeApplicaitonCompileHead');
+    }
+
+    /**
      * Proxy onAfterRender
      *
      * @return void
