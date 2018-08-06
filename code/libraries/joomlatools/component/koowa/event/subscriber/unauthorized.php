@@ -28,6 +28,11 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
     {
         $exception = $event->getException();
 
+        /**
+         * Redirect user to login screen
+         *
+         * If a user does not have access to the entity and they are not logged in, they will be redirected to the login.
+         */
         if($exception instanceof KHttpExceptionUnauthorized)
         {
             $request     = $this->getObject('request');
@@ -45,6 +50,25 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
 
                 $response->setRedirect($url, $message, 'error');
                 $response->send();
+
+                $event->stopPropagation();
+            }
+        }
+
+        /**
+         * Handles 404 errors gracefully after log outs
+         *
+         * If a user does not have access to the entity after logging out, they will be redirected to the homepage.
+         */
+        if($exception instanceof KHttpExceptionNotFound && JFactory::getApplication()->isSite())
+        {
+            $hash = JApplicationHelper::getHash('PlgSystemLogout');
+
+            $app = JFactory::getApplication();
+            if ($app->input->cookie->getString($hash, null)) // just logged out
+            {
+                $app->enqueueMessage(JText::_('PLG_SYSTEM_LOGOUT_REDIRECT'));
+                $app->redirect('index.php');
 
                 $event->stopPropagation();
             }

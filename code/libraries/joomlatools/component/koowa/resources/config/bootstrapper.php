@@ -45,6 +45,13 @@ return array(
                 'com:koowa.translator.locator.plugin',
                 'com:koowa.translator.locator.module'
             )
+        ),
+
+        'event.subscriber.factory' => array(
+            'subscribers' => array(
+                'com:koowa.event.subscriber.application'
+            )
         )
+
     )
 );
