@@ -170,9 +170,6 @@ class PlgSystemJoomlatools extends JPlugin
                 $manager->getObject('event.publisher')->addListener('onException', array($this, 'onException'), KEvent::PRIORITY_LOW);
             }
 
-            // Handle 404 errors gracefully after log outs
-            $manager->getObject('event.publisher')->addListener('onException', array($this, 'onErrorAfterLogout'), KEvent::PRIORITY_HIGH);
-
             /**
              * Plugin Bootstrapping
              */
