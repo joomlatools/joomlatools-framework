@@ -260,7 +260,7 @@ class PlgSystemJoomlatools extends JPlugin
      */
     public function onBeforeCompileHead()
     {
-        $this->_proxyEvent('onBeforeApplicaitonCompileHead');
+        $this->_proxyEvent('onBeforeApplicationCompileHead');
     }
 
     /**
