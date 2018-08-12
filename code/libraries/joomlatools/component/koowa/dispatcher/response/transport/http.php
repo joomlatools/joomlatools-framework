@@ -8,32 +8,15 @@
  */
 
 /**
- * Page Dispatcher Response Transport
+ * Http Dispatcher Response Transport
  *
  * Pass all 'html' GET requests rendered outside of 'koowa' context on to Joomla.
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Dispatcher\Response\Transport
  */
-class ComKoowaDispatcherResponseTransportPage extends KDispatcherResponseTransportHttp
+class ComKoowaDispatcherResponseTransportHttp extends KDispatcherResponseTransportHttp
 {
-    /**
-     * Initializes the options for the object
-     *
-     * Called from {@link __construct()} as a first step of object instantiation.
-     *
-     * @param 	KObjectConfig $config 	An optional ObjectConfig object with configuration options.
-     * @return 	void
-     */
-    protected function _initialize(KObjectConfig $config)
-    {
-        $config->append(array(
-            'priority' => self::PRIORITY_NORMAL,
-        ));
-
-        parent::_initialize($config);
-    }
-
     /**
      * Send HTTP response
      *
@@ -46,25 +29,19 @@ class ComKoowaDispatcherResponseTransportPage extends KDispatcherResponseTranspo
 
         if(!$response->isDownloadable() && $request->getFormat() == 'html')
         {
-            $context = $response->getContext();
-
-            //Force to use system template
-            if($context == 'koowa')
+            if ($request->getHeaders()->has('X-Flush-Response'))
             {
-                $app = JFactory::getApplication();
-
-                if ($app->isSite()) {
-                    $app->setTemplate('system');
-                }
+                $layout = 'koowa';
             }
+            else $layout = $request->query->get('tmpl', 'cmd') == 'koowa' ? 'koowa' : 'joomla';
 
-                //Render the page
+            //Render the page
             $this->getObject('com:koowa.controller.page',  array('response' => $response))
-                ->layout($context)
+                ->layout($layout)
                 ->render();
 
             //Pass back to Joomla
-            if ($request->isGet() && $context != 'koowa')
+            if ($request->isGet() && $layout != 'koowa')
             {
                 //Mimetype
                 JFactory::getDocument()->setMimeEncoding($response->getContentType());

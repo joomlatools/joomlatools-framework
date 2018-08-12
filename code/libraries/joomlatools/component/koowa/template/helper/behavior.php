@@ -93,7 +93,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
 
         $html = '';
 
-        if ($this->getObject('response')->getContext() == 'koowa') {
+        if ($this->getObject('request')->getHeaders()->has('X-Flush-Response')) {
             $html .= parent::jquery($config);
         }
         elseif (!static::isLoaded('jquery'))
@@ -125,7 +125,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
 
         $html = '';
 
-        if ($this->getObject('response')->getContext() == 'koowa') {
+        if ($this->getObject('request')->getHeaders()->has('X-Flush-Response')) {
             $html .= parent::bootstrap($config);
         }
         else

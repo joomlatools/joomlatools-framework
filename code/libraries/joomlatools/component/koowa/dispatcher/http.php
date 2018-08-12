@@ -40,9 +40,20 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
      */
     protected function _setResponse(KDispatcherContextInterface $context)
     {
-        $context->getResponse()
-            ->setContext($context->getRequest()->query->get('tmpl', 'cmd') == 'koowa' ? 'koowa' : 'joomla')
-            ->attachTransport('page');
+        $request  = $context->getRequest();
+
+        if ($request->getQuery()->tmpl === 'koowa') {
+            $request->getHeaders()->set('X-Flush-Response', 1);
+        }
+
+        if ($request->getHeaders()->has('X-Flush-Response'))
+        {
+            $app = JFactory::getApplication();
+
+            if ($app->isSite()) {
+                $app->setTemplate('system');
+            }
+        }
     }
 
     /**
@@ -57,6 +68,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         if (!$handler->isEnabled(KExceptionHandlerInterface::TYPE_EXCEPTION))
         {
             $handler->enable(KExceptionHandlerInterface::TYPE_EXCEPTION);
+
             $this->addCommandCallback('after.send', '_revertExceptionHandler');
         }
     }
@@ -169,7 +181,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                     ->render($exception);
 
                 //Do not pass response back to Joomla
-                $context->response->setContext('koowa');
+                $context->request->getHeaders()->set('X-Flush-Response', 1);
             }
         }
     }
