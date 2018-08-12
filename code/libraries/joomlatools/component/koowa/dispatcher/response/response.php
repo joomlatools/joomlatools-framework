@@ -17,6 +17,7 @@ final class ComKoowaDispatcherResponse extends KDispatcherResponse
 {
     const CONTEXT_KOOWA  = 'koowa';
     const CONTEXT_JOOMLA = 'joomla';
+    const CONTEXT_NONE   = null;
 
     /**
      * The response context
@@ -48,7 +49,7 @@ final class ComKoowaDispatcherResponse extends KDispatcherResponse
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'context'  => self::CONTEXT_JOOMLA
+            'context'  => self::CONTEXT_NONE
         ));
 
         parent::_initialize($config);
