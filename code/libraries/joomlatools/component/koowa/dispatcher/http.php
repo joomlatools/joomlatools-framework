@@ -54,6 +54,8 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                 $app->setTemplate('system');
             }
         }
+
+        $context->getResponse()->attachTransport('page');
     }
 
     /**
