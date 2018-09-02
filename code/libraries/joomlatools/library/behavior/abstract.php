@@ -210,7 +210,7 @@ abstract class KBehaviorAbstract extends KCommandCallbackAbstract implements KBe
             $methods = parent::getMixableMethods($exclude);
         }
 
-        if(!isset($exclude['is' . ucfirst($this->getName())])) {
+        if(!isset($exclude['is' . ucfirst($this->getName())]) && !method_exists($this, 'is' . ucfirst($this->getName()))) {
             $methods['is' . ucfirst($this->getName())] = $this->isSupported();
         }
 
