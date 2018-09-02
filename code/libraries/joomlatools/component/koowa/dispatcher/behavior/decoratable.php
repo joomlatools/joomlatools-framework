@@ -117,6 +117,14 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
      */
     public function getDecorator()
     {
-        return $this->getController()->getView()->getDecorator();
+        $request = $this->getRequest();
+
+        if($request->getQuery()->tmpl === 'koowa' || $request->getHeaders()->has('X-Flush-Response')) {
+            $result = 'koowa';
+        } else {
+            $result = $this->getController()->getView()->getDecorator();
+        }
+
+        return $result;
     }
 }
