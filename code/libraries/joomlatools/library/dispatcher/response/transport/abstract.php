@@ -76,28 +76,6 @@ abstract class KDispatcherResponseTransportAbstract extends KObject implements K
      */
     public function send(KDispatcherResponseInterface $response)
     {
-        //Cleanup and flush output to client
-        if (!function_exists('fastcgi_finish_request'))
-        {
-            if (PHP_SAPI !== 'cli')
-            {
-                for ($i = 0; $i < ob_get_level(); $i++) {
-                    ob_end_flush();
-                }
-
-                flush();
-            }
-        }
-        else fastcgi_finish_request();
-
-        //Set the exit status based on the status code.
-        $status = 0;
-        if(!$response->isSuccess()) {
-            $status = (int) $response->getStatusCode();
-        }
-
-        exit($status);
-
         return true;
     }
 }

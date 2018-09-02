@@ -369,6 +369,41 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
      */
     protected function _actionSend(KDispatcherContextInterface $context)
     {
+        //Send the response
         $context->response->send();
+
+        //Flush the response
+        $this->flush($context);
+    }
+
+    /**
+     * Flush the output buffer
+     *
+     * @param KDispatcherResponseInterface $response
+     * @return void
+     */
+    public function _actionFlush(KDispatcherContextInterface $context)
+    {
+        //Cleanup and flush output to client
+        if (!function_exists('fastcgi_finish_request'))
+        {
+            if (PHP_SAPI !== 'cli')
+            {
+                for ($i = 0; $i < ob_get_level(); $i++) {
+                    ob_end_flush();
+                }
+
+                flush();
+            }
+        }
+        else fastcgi_finish_request();
+
+        //Set the exit status based on the status code.
+        $status = 0;
+        if(!$context->response->isSuccess()) {
+            $status = (int) $context->response->getStatusCode();
+        }
+
+        exit($status);
     }
 }
