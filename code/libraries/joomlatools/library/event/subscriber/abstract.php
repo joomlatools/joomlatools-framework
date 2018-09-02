@@ -19,7 +19,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Event\Subscriber
  */
-abstract class KEventSubscriberAbstract extends KObject implements KEventSubscriberInterface
+abstract class KEventSubscriberAbstract extends KObject implements KEventSubscriberInterface, KObjectMultiton
 {
     /**
      * List of subscribed publishers
