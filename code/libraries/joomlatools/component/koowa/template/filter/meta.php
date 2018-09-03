@@ -26,7 +26,7 @@ class ComKoowaTemplateFilterMeta extends KTemplateFilterMeta
     {
         $meta    = $this->_parseTags($text);
 
-        if($this->getTemplate()->decorator() == 'joomla') {
+        if($this->getTemplate()->decorator() == 'koowa') {
             $text = str_replace('<ktml:meta>', $meta, $text);
         } else  {
             $text = $meta.$text;

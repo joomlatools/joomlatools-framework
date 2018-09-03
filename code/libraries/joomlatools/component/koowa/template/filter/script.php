@@ -31,7 +31,7 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
     {
         $scripts = $this->_parseTags($text);
 
-        if($this->getTemplate()->decorator() == 'joomla') {
+        if($this->getTemplate()->decorator() == 'koowa') {
             $text = str_replace('<ktml:script>', $scripts, $text);
         } else  {
             $text = $scripts.$text;

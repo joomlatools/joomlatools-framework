@@ -26,7 +26,7 @@ class ComKoowaTemplateFilterTitle extends KTemplateFilterTitle
     {
         $links   = $this->_parseTags($text);
 
-        if($this->getTemplate()->decorator() == 'joomla') {
+        if($this->getTemplate()->decorator() == 'koowa') {
             $text = str_replace('<ktml:title>', $links, $text);
         } else  {
             $text = $links.$text;

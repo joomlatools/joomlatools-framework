@@ -31,7 +31,7 @@ class ComKoowaTemplateFilterStyle extends KTemplateFilterStyle
     {
         $styles = $this->_parseTags($text);
 
-        if($this->getTemplate()->decorator() == 'joomla') {
+        if($this->getTemplate()->decorator() == 'koowa') {
             $text = str_replace('<ktml:style>', $styles, $text);
         } else  {
             $text = $styles.$text;
