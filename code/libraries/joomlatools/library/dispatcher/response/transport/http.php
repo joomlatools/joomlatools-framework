@@ -66,13 +66,6 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
      */
     public function sendContent(KDispatcherResponseInterface $response)
     {
-        //Make sure the output buffers are cleared
-        $level = ob_get_level();
-        while($level > 0) {
-            ob_end_clean();
-            $level--;
-        }
-
         echo $response->getStream()->toString();
         return $this;
     }
@@ -118,10 +111,16 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             }
         }
 
-
         //Add file related information if we are serving a file
         if($response->isDownloadable())
         {
+            //Make sure the output buffers are cleared
+            $level = ob_get_level();
+            while($level > 0) {
+                ob_end_clean();
+                $level--;
+            }
+
             //Last-Modified header
             if($time = $response->getStream()->getTime(KFilesystemStreamInterface::TIME_MODIFIED)) {
                 $response->setLastModified($time);
