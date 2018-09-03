@@ -31,7 +31,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             )
         ));
 
-        if($this->getTemplate()->getDecorator() != 'koowa')
+        if($this->getTemplate()->decorator() != 'koowa')
         {
             $layout = $this->getTemplate()->getParameters()->layout;
 
