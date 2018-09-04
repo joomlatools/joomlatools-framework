@@ -101,7 +101,7 @@ class KTemplateEngineMustache extends KTemplateEngineAbstract implements Mustach
     public function loadFile($url)
     {
         //Push the template on the stack
-        array_push($this->_stack, array('url' => $url));
+        array_push($this->_stack, $url);
 
         $this->_mustache_template = $this->_mustache->loadTemplate($url);
 
@@ -115,7 +115,7 @@ class KTemplateEngineMustache extends KTemplateEngineAbstract implements Mustach
      * @param  string  $source  The template source
      * @return KTemplateEngineMustache
      */
-    public function loadString($source)
+    public function loadString($source, $url = null)
     {
         parent::loadString($source);
 
@@ -123,7 +123,7 @@ class KTemplateEngineMustache extends KTemplateEngineAbstract implements Mustach
         $this->_mustache_template = $this->_mustache->loadTemplate($source);
 
         //Push the template on the stack
-        array_push($this->_stack, array('url' => ''));
+        array_push($this->_stack, $url);
 
         return $this;
     }
@@ -167,7 +167,7 @@ class KTemplateEngineMustache extends KTemplateEngineAbstract implements Mustach
         if(in_array($type, $this->getFileTypes()))
         {
             //Push the template on the stack
-            array_push($this->_stack, array('url' => $url, 'file' => $file));
+            array_push($this->_stack, $url);
 
             if(!$this->_source = file_get_contents($file)) {
                 throw new RuntimeException(sprintf('The template "%s" cannot be loaded.', $file));
@@ -187,23 +187,8 @@ class KTemplateEngineMustache extends KTemplateEngineAbstract implements Mustach
      */
     protected function _locate($url)
     {
-        //Create the locator
-        if($template = end($this->_stack)) {
-            $base = $template['url'];
-        } else {
-            $base = null;
-        }
-
-        if(!$location = parse_url($url, PHP_URL_SCHEME)) {
-            $location = $base;
-        } else {
-            $location = $url;
-        }
-
-        $locator = $this->getObject('template.locator.factory')->createLocator($location);
-
         //Locate the template
-        if (!$file = $locator->setBasePath($base)->locate($url)) {
+        if (!$file = $this->getObject('template.locator.factory')->locate($url)) {
             throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
         }
 

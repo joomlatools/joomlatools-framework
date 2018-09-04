@@ -185,7 +185,7 @@ class KTemplateEngineFactory extends KObject implements KObjectSingleton
             foreach($types as $type)
             {
                 if($this->isRegistered($type)) {
-                    $this->__engines[$type] = $identifier;
+                    unset($this->__engines[$type]);
                 }
             }
         }

@@ -970,6 +970,29 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
+     * Gets the etags
+     *
+     * @link https://tools.ietf.org/html/rfc7232#page-14
+     *
+     * @return array The entity tags
+     */
+    public function getETags()
+    {
+        $result = array();
+        if($this->_headers->has('If-None-Match'))
+        {
+            $result = preg_split('/\s*,\s*/', $this->_headers->get('If-None-Match'), null, PREG_SPLIT_NO_EMPTY);
+
+            //Remove the encoding from the etag
+            //
+            //RFC-7232 explicitly states that ETags should be content-coding aware
+            $result = str_replace('-gzip', '', $result);
+        }
+
+        return $result;
+    }
+
+    /**
      * Checks whether the request is secure or not.
      *
      * This method can read the client scheme from the "X-Forwarded-Proto" header when the request is proxied and the

@@ -117,6 +117,9 @@ abstract class KEventPublisherAbstract extends KObject implements KEventPublishe
                 else $event = new KEvent($event, $attributes, $target);
             }
 
+            //Instantiate the subscribers
+            $this->getObject('event.subscriber.factory')->subscribeEvent($event->getName(), $this);
+
             //Notify the listeners
             $listeners = $this->getListeners($event->getName());
 

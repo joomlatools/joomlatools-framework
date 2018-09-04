@@ -242,17 +242,6 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
     }
 
     /**
-     * Is this a Flash request?
-     *
-     * @return boolean
-     */
-    public function isFlash()
-    {
-        $header = $this->_headers->get('User-Agent');
-        return $header !== false && stristr($header, ' flash') || $this->_headers->has('X-Flash-Version');
-    }
-
-    /**
      * Is this a safe request?
      *
      * @link http://tools.ietf.org/html/rfc2616#section-9.1.1
@@ -261,6 +250,17 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
     public function isSafe()
     {
         return $this->isGet() || $this->isHead() || $this->isOptions();
+    }
+
+    /**
+     * Is the request cacheable
+     *
+     * @link https://tools.ietf.org/html/rfc7231#section-4.2.3
+     * @return boolean
+     */
+    public function isCacheable()
+    {
+        return ($this->isGet() || $this->isHead()) && $this->_headers->get('Cache-Control') != 'no-cache';
     }
 
     /**
