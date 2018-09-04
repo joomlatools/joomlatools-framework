@@ -26,7 +26,7 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
     public function filter(&$text)
     {
-        if($this->getTemplate()->getParameters()->layout == 'koowa')
+        if($this->getTemplate()->decorator() == 'koowa')
         {
             $head = JFactory::getDocument()->getHeadData();
             $mime = JFactory::getDocument()->getMimeEncoding();

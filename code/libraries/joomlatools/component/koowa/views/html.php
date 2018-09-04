@@ -15,12 +15,40 @@
  */
 class ComKoowaViewHtml extends KViewHtml
 {
+    /**
+     * The view decorator
+     *
+     * @var string
+     */
+    private $_decorator;
+
+    /**
+     * Constructor
+     *
+     * @param   KObjectConfig $config Configuration options
+     */
+    public function __construct(KObjectConfig $config)
+    {
+        parent::__construct($config);
+
+        $this->_decorator = $config->decorator;
+    }
+
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'template_filters' => array('version')
+            'decorator'        => 'joomla',
+            'template_filters' => array('version'),
+            'template_functions' => array(
+                'decorator'   => array($this, 'getDecorator'),
+            ),
         ));
 
         parent::_initialize($config);
+    }
+
+    public function getDecorator()
+    {
+        return $this->_decorator;
     }
 }

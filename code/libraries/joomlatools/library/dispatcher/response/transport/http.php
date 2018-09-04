@@ -71,7 +71,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         if (!in_array($response->getStatusCode(), $codes)) {
             echo $response->getStream()->toString();
         }
-
+      
         return $this;
     }
 
@@ -109,7 +109,6 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                 $response->headers->remove('Location');
             }
         }
-
 
         //Add file related information if we are serving a file
         if($response->isDownloadable())
