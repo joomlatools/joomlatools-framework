@@ -117,7 +117,7 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
         if($this->__stream instanceof KFilesystemStreamInterface)
         {
             $this->__stream->truncate(0);
-            $this->__stream->write($content);
+            $this->__stream->write((string) $content);
         }
 
         return parent::setContent($content, $type);

@@ -152,7 +152,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
         }
 
         //Cast to a string
-        $this->_content = (string) $content;
+        $this->_content = $content;
 
         if(isset($type)) {
             $this->setContentType($type);

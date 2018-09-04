@@ -148,7 +148,12 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
     protected function _actionRender(KViewContext $context)
     {
         $contents = $this->getContent();
-        return trim($contents);
+
+        if(is_string($contents)) {
+            $contents = trim($contents);
+        }
+
+        return $contents;
     }
 
     /**
