@@ -94,16 +94,19 @@ class KViewJson extends KViewAbstract
      */
     protected function _actionRender(KViewContext $context)
     {
-        if (empty($this->_content))
+        $content = $this->getContent();
+
+        if (empty($content))
         {
-            $this->_content = $this->_renderData();
-            $this->_processLinks($this->_content);
+            $content = $this->_renderData();
+            $this->_processLinks($content);
         }
 
-        //Serialise
-        if (is_array($this->_content)) {
-            $this->_content = new KObjectConfigJson($this->_content);
+        if (is_array($content) || $content instanceof \Traversable) {
+            $content = new KObjectConfigJson($content);
         }
+
+        $this->setContent($content);
 
         return parent::_actionRender($context);
     }
