@@ -103,7 +103,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
             }
 
             //Set the cache state
-            //JFactory::getApplication()->allowCache($context->getRequest()->isCacheable());
+            JFactory::getApplication()->allowCache($context->getRequest()->isCacheable());
 
             //Do not flush the response
             return false;
