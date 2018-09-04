@@ -117,6 +117,8 @@ class KEventSubscriberFactory extends KObject implements KObjectSingleton
                     $this->__listeners[$listener][] = $identifier;
                 }
             }
+
+            $this->__subscribers[(string)$identifier] = true;
         }
 
         return $result;
@@ -135,8 +137,15 @@ class KEventSubscriberFactory extends KObject implements KObjectSingleton
      */
     public function subscribeEvent($event, $event_publisher)
     {
-        foreach( $this->getSubscribers($event) as $subscriber) {
-            $this->getObject($subscriber)->subscribe($event_publisher);
+        foreach($this->getSubscribers($event) as $identifier)
+        {
+            if(!$this->__subscribers[(string)$identifier] instanceof KEventSubscriberInterface)
+            {
+                $subscriber = $this->getObject($identifier);
+                $subscriber->subscribe($event_publisher);
+
+                $this->__subscribers[(string)$identifier] = $subscriber;
+            }
         }
 
         return $this;

@@ -50,7 +50,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             $headers = explode("\r\n", trim((string) $response->getHeaders()));
 
             foreach ($headers as $header) {
-                header($header, false);
+                header($header);
             }
         }
         else throw new \RuntimeException(sprintf('Headers already send (output started at %s:%s', $file, $line));
@@ -66,7 +66,12 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
      */
     public function sendContent(KDispatcherResponseInterface $response)
     {
-        echo $response->getStream()->toString();
+        //Make sure we do not have body content for 204, 205 and 305 status codes
+        $codes = array(KHttpResponse::NO_CONTENT, KHttpResponse::NOT_MODIFIED, KHttpResponse::RESET_CONTENT);
+        if (!in_array($response->getStatusCode(), $codes)) {
+            echo $response->getStream()->toString();
+        }
+      
         return $this;
     }
 
@@ -85,12 +90,6 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
     public function send(KDispatcherResponseInterface $response)
     {
         $request = $response->getRequest();
-
-        //Make sure we do not have body content for 204, 205 and 305 status codes
-        $codes = array(KHttpResponse::NO_CONTENT, KHttpResponse::NOT_MODIFIED, KHttpResponse::RESET_CONTENT);
-        if (in_array($response->getStatusCode(), $codes)) {
-            $response->setContent(null);
-        }
 
         //Remove location header if we are not redirecting and the status code is not 201
         if(!$response->isRedirect() && $response->getStatusCode() !== KHttpResponse::CREATED)
@@ -174,11 +173,6 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             }
         }
 
-        //Add Last-Modified header if not present
-        if(!$response->headers->has('Last-Modified')) {
-            $response->setLastModified(new DateTime('now'));
-        }
-
         //Add Content-Length if not present
         if(!$response->headers->has('Content-Length')) {
             $response->headers->set('Content-Length', $response->getStream()->getSize());
@@ -189,11 +183,15 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             $response->headers->remove('Content-Length');
         }
 
+        //set cache-control header to most conservative value.
+        $cache_control = (array) $response->headers->get('Cache-Control', null, false);
+        if (empty($cache_control) || !$request->isCacheable()) {
+            $response->headers->set('Cache-Control', array('private', 'no-cache', 'no-store'));
+        }
+
         //Modifies the response so that it conforms to the rules defined for a 304 status code.
         if($response->getStatusCode() == KHttpResponse::NOT_MODIFIED)
         {
-            $response->setContent(null);
-
             $headers = array(
                 'Allow',
                 'Content-Encoding',
@@ -207,18 +205,6 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             //Remove headers that MUST NOT be included with 304 Not Modified responses
             foreach ($headers as $header) {
                 $response->headers->remove($header);
-            }
-        }
-
-        //Calculates or modifies the cache-control header to a sensible, conservative value.
-        $cache_control = (array) $response->headers->get('Cache-Control', null, false);
-
-        if (empty($cache_control))
-        {
-            if(!$response->isCacheable()) {
-                $response->headers->set('Cache-Control', 'no-cache');
-            } else {
-                $response->headers->set('Cache-Control', array('private', 'must-revalidate'));
             }
         }
 

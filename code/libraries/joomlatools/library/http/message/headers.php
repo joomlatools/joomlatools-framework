@@ -139,18 +139,6 @@ class KHttpMessageHeaders extends KObjectArray
     }
 
     /**
-     * Returns true if the given HTTP header contains the given value.
-     *
-     * @param string $key   The HTTP header name
-     * @param string $value The HTTP value
-     * @return Boolean true if the value is contained in the header, false otherwise
-     */
-    public function contains($key, $value)
-    {
-        return in_array($value, $this->get($key, null, false));
-    }
-
-    /**
      * Removes a header nu name
      *
      * @param string $key The HTTP header name
@@ -194,14 +182,24 @@ class KHttpMessageHeaders extends KObjectArray
 
             foreach ($values as $key => $value)
             {
-                if(is_numeric($key)) {
-                    $results[] = $value;
-                } else {
-                    $results[] = $key.'='.$value;
-                }
+                if(!is_numeric($key))
+                {
+                    //Parameters
+                    if(is_array($value))
+                    {
+                        $modifiers = array();
+                        foreach($value as $k => $v) {
+                            $modifiers[] = $k.'='.$v;
+                        }
 
-                $value = implode($results, '; ');
+                        $results[] = $key.';'.implode($modifiers, ',');
+                    }
+                    else $results[] = $key.'='.$value;
+                }
+                else $results[] = $value;
             }
+
+            $value = implode($results, ', ');
 
             if ($value) {
                 $content .= sprintf("%s %s\r\n", $name.':', $value);
