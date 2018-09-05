@@ -108,10 +108,13 @@ abstract class KViewTemplate extends KViewAbstract
         $data = KObjectConfig::unbox($context->data);
 
         //Render the template
-        $this->_content = $this->getTemplate()
+        $content = $this->getTemplate()
             ->loadFile((string) $layout.'.'.$format)
             ->setParameters($context->parameters)
             ->render($data);
+
+        //Set the content
+        $this->setContent($content);
 
         return parent::_actionRender($context);
     }

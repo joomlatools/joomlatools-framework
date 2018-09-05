@@ -88,14 +88,15 @@ interface KViewInterface
     /**
      * Get the content
      *
-     * @return  string The content of the view
+     * @return  object|string The content of the view
      */
     public function getContent();
 
     /**
      * Get the content
      *
-     * @param  string $content The content of the view
+     * @param  object|string $content The content of the view
+     * @throws \UnexpectedValueException If the content is not a string are cannot be casted to a string.
      * @return KViewInterface
      */
     public function setContent($content);

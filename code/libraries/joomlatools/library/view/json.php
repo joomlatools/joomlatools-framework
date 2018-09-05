@@ -94,24 +94,19 @@ class KViewJson extends KViewAbstract
      */
     protected function _actionRender(KViewContext $context)
     {
-        if (empty($this->_content))
+        $content = $this->getContent();
+
+        if (empty($content))
         {
-            $this->_content = $this->_renderData();
-            $this->_processLinks($this->_content);
+            $content = $this->_renderData();
+            $this->_processLinks($content);
         }
 
-        //Serialise
-        if (!is_string($this->_content))
-        {
-            // Root should be JSON object, not array
-            if (is_array($this->_content) && count($this->_content) === 0) {
-                $this->_content = new ArrayObject();
-            }
-
-            // Encode <, >, ', &, and " for RFC4627-compliant JSON, which may also be embedded into HTML.
-            $this->_content = json_encode($this->_content, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+        if (is_array($content) || $content instanceof \Traversable) {
+            $content = new KObjectConfigJson($content);
         }
 
+        $this->setContent($content);
 
         return parent::_actionRender($context);
     }
