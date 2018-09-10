@@ -16,6 +16,13 @@
 class KObjectConfigIni extends KObjectConfigFormat
 {
     /**
+     * The format
+     *
+     * @var string
+     */
+    protected static $_media_type = 'text/plain';
+
+    /**
      * Read from a string and create an array
      *
      * @param  string $string

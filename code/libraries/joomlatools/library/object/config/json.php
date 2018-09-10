@@ -16,6 +16,13 @@
 class KObjectConfigJson extends KObjectConfigFormat
 {
     /**
+     * The format
+     *
+     * @var string
+     */
+    protected static $_media_type = 'application/json';
+
+    /**
      * Read from a string and create an array
      *
      * @param  string $string
