@@ -50,6 +50,10 @@ class KControllerResponse extends KHttpResponse implements KControllerResponseIn
 
         //Set the messages
         $this->_messages = array();
+
+        //Set the content type
+        $this->getRequest()->getFormat();
+
     }
 
     /**
