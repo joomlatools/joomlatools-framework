@@ -366,10 +366,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     /**
      * Send the response to the client
      *
-     * - Set the affected entities in the payload for none-SAFE requests that return a successful response. Make an
-     * exception for 204 No Content responses which should not return a response body.
-     *
-     * - Add an Allow header to the response if the status code is 405 METHOD NOT ALLOWED.
+     * Add an Allow header to the response if the status code is 405 METHOD NOT ALLOWED.
      *
      * {@inheritdoc}
      */
@@ -378,25 +375,12 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
         $request  = $this->getRequest();
         $response = $this->getResponse();
 
-        if (!$request->isSafe())
-        {
-            if ($response->isSuccess())
-            {
-                //Render the controller and set the result in the response body
-                if($response->getStatusCode() !== KHttpResponse::NO_CONTENT) {
-                    $context->result = $this->getController()->execute('render', $context);
-                }
+        //Add an Allow header to the response
+        if($response->getStatusCode() === KHttpResponse::METHOD_NOT_ALLOWED) {
+            try {
+                $this->_actionOptions($context);
             }
-            else
-            {
-                //Add an Allow header to the response
-                if($response->getStatusCode() === KHttpResponse::METHOD_NOT_ALLOWED) {
-                    try {
-                        $this->_actionOptions($context);
-                    }
-                    catch (Exception $e) {}
-                }
-            }
+            catch (Exception $e) {}
         }
 
         parent::_actionSend($context);
