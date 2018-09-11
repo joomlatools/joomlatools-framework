@@ -176,7 +176,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     {
         $config->append(array(
             'content'        => '',
-            'content_type'   => 'text/html',
+            'content_type'   => '',
             'status_code'    => '200',
             'status_message' => null,
             'headers'        => array()
@@ -259,8 +259,11 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function setContentType($type)
     {
-        $this->_content_type = $type;
-        $this->_headers->set('Content-Type', array($type => array('charset' => 'utf-8')));
+        if($type)
+        {
+            $this->_content_type = $type;
+            $this->_headers->set('Content-Type', array($type => array('charset' => 'utf-8')));
+        }
 
         return $this;
     }
