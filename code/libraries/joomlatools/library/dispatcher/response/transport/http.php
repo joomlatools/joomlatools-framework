@@ -71,7 +71,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         if (!in_array($response->getStatusCode(), $codes)) {
             echo $response->getStream()->toString();
         }
-      
+
         return $this;
     }
 
@@ -181,6 +181,11 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         //Remove Content-Length for transfer encoded responses that do not contain a content range
         if ($response->headers->has('Transfer-Encoding')) {
             $response->headers->remove('Content-Length');
+        }
+
+        //Set Content-Type if not present
+        if(!$response->headers->has('Content-Type')) {
+            $response->setContentType($request->getFormat(true));
         }
 
         //set cache-control header to most conservative value.
