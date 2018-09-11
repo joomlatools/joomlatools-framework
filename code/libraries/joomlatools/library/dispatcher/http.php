@@ -252,7 +252,16 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
                 throw new KControllerExceptionRequestInvalid('Action not found');
             }
 
+            //Execute the controller action
             $result = $controller->execute($action, $context);
+
+            //Return the new representation of the resource
+            if ($context->response->isSuccess())
+            {
+                if(!is_string($result)  && !is_callable(array($result, '__toString'))) {
+                    $result = $controller->execute('render', $context);
+                }
+            }
         }
         else throw new KDispatcherExceptionMethodNotAllowed('Method POST not allowed');
 
@@ -302,7 +311,16 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
                 throw new KControllerExceptionRequestInvalid('Resource not found');
             }
 
+            //Execute the controller action
             $result = $controller->execute($action, $context);
+
+            //Return the new representation of the resource
+            if ($context->response->isSuccess())
+            {
+                if(!is_string($result)  && !is_callable(array($result, '__toString'))) {
+                    $result = $controller->execute('render', $context);
+                }
+            }
         }
         else throw new KDispatcherExceptionMethodNotAllowed('Method PUT not allowed');
 
