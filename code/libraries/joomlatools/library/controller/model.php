@@ -165,7 +165,7 @@ abstract class KControllerModel extends KControllerView implements KControllerMo
     /**
      * Get action
      *
-     * This function translates a GET request into a read or browse action. If the view name is singular a read action
+     * This function translates the the request into a read or browse action. If the view name is singular a read action
      * will be executed, if plural a browse action will be executed.
      *
      * If the controller returns a string or a object that can be casted to a string the result will be returned, if not
