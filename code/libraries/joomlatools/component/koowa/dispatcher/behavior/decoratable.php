@@ -63,7 +63,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         $request  = $context->getRequest();
         $response = $context->getResponse();
 
-        if(!$response->isDownloadable())
+        if(!$response->isDownloadable() && !$response->isRedirect())
         {
             //Render the page
             $result = $this->getObject('com:koowa.controller.page',  array('response' => $response))
