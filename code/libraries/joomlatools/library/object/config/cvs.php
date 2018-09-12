@@ -48,8 +48,6 @@ class KObjectConfigCsv extends KObjectConfigFormat
      *
      * @param  string $string
      * @param  bool    $object  If TRUE return a ConfigObject, if FALSE return an array. Default TRUE.
-     * @throws DomainException
-     * @throws RuntimeException
      * @return KObjectConfigCsv|array
      */
     public function fromString($string, $object = true)
