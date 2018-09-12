@@ -290,7 +290,7 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
      */
     public function setContent($content)
     {
-        if (!is_null($content) && !is_string($content) && !is_numeric($content) && !is_callable(array($content, '__toString')))
+        if (!is_null($content) && !is_string($content) && !is_callable(array($content, '__toString')))
         {
             throw new UnexpectedValueException(
                 'The view content content must be a string or object implementing __toString(), "'.gettype($content).'" given.'

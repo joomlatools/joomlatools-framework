@@ -258,7 +258,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
             //Return the new representation of the resource
             if ($context->response->isSuccess())
             {
-                if(!is_string($result)  && !is_callable(array($result, '__toString'))) {
+                if(!is_string($result) && !(is_object($result) && method_exists($result, '__toString'))) {
                     $result = $controller->execute('render', $context);
                 }
             }
@@ -317,7 +317,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
             //Return the new representation of the resource
             if ($context->response->isSuccess())
             {
-                if(!is_string($result)  && !is_callable(array($result, '__toString'))) {
+                if(!is_string($result) && !(is_object($result) && method_exists($result, '__toString'))) {
                     $result = $controller->execute('render', $context);
                 }
             }

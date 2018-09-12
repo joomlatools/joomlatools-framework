@@ -139,7 +139,7 @@ class KControllerResponse extends KHttpResponse implements KControllerResponseIn
     {
         if (!empty($location))
         {
-            if (!is_string($location) && !is_numeric($location) && !is_callable(array($location, '__toString')))
+            if (!is_string($location) && !(is_object($location) && method_exists($location, '__toString')))
             {
                 throw new UnexpectedValueException(
                     'The Response location must be a string or object implementing __toString(), "'.gettype($location).'" given.'
@@ -177,7 +177,7 @@ class KControllerResponse extends KHttpResponse implements KControllerResponseIn
      */
     public function addMessage($message, $type = self::FLASH_SUCCESS)
     {
-        if (!is_string($message) && !is_callable(array($message, '__toString')))
+        if (!is_string($message) && !(is_object($message) && method_exists($message, '__toString')))
         {
             throw new UnexpectedValueException(
                 'The flash message must be a string or object implementing __toString(), "'.gettype($message).'" given.'

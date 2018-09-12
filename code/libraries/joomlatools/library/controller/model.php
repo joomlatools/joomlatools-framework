@@ -184,7 +184,7 @@ abstract class KControllerModel extends KControllerView implements KControllerMo
         //Execute the action
         if($result = $this->execute($action, $context) !== false)
         {
-            if(!is_string($result)  && !is_callable(array($result, '__toString'))) {
+            if(!is_string($result) && !(is_object($result) && method_exists($result, '__toString'))) {
                 $result = parent::_actionRender($context);
             }
         }
