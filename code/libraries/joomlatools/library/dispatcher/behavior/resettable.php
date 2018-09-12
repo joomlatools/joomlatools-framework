@@ -31,7 +31,7 @@ class KDispatcherBehaviorResettable extends KControllerBehaviorAbstract
         $mixer   = $this->getMixer();
         $request = $mixer->getRequest();
 
-        if(!$request->isSafe() && $request->getReferrer() && $request->getContentType() == 'application/x-www-form-urlencoded') {
+        if(!$request->isSafe() && !$request->isAjax() && $request->getContentType() == 'application/x-www-form-urlencoded') {
             return true;
         }
 
@@ -51,8 +51,8 @@ class KDispatcherBehaviorResettable extends KControllerBehaviorAbstract
         $response = $context->response;
         $request  = $context->request;
 
-        if($response->isSuccess()) {
-            $response->setRedirect($request->getReferrer());
+        if($response->isSuccess() && $referrer = $request->getReferrer()) {
+            $response->setRedirect($referrer);
         }
     }
 }
