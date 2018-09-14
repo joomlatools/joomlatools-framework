@@ -33,6 +33,13 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
     private $__authenticators;
 
     /**
+     * Has the dispatcher been forwarded
+     *
+     * @var boolean|KDispatcherInterface
+     */
+    protected $_forwarded;
+
+    /**
      * Constructor.
      *
      * @param   KObjectConfig $config Configuration options
@@ -40,6 +47,9 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
     public function __construct(KObjectConfig $config)
     {
         parent::__construct($config);
+
+        //Set the forwarded state
+        $this->_forwarded = $config->forwarded;
 
         //Set the controller
         $this->_controller = $config->controller;
@@ -71,10 +81,21 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
             'controller'     => $this->getIdentifier()->package,
             'request'        => 'lib:dispatcher.request',
             'response'       => 'lib:dispatcher.response',
+            'forwarded'	     => false,
             'authenticators' => array()
         ));
 
         parent::_initialize($config);
+    }
+
+    /**
+     * Has the controller been forwarded
+     *
+     * @return  boolean	Returns true if the dispatcher has been forwarded
+     */
+    public function isForwarded()
+    {
+        return $this->_forwarded;
     }
 
     /**
@@ -294,6 +315,7 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
             'request'    => $context->request,
             'response'   => $context->response,
             'user'       => $context->user,
+            'forwarded'  => $this
         );
 
         $dispatcher = $this->getObject($identifier, $config);
@@ -330,7 +352,9 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
         }
 
         //Send the response
-        $this->send($context);
+        if (!$this->isForwarded()) {
+            $this->send($context);
+        }
     }
 
     /**
