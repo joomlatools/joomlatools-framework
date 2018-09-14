@@ -44,13 +44,6 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
     protected $_data;
 
     /**
-     * The mimetype
-     *
-     * @var string
-     */
-    public $mimetype = '';
-
-    /**
      * Constructor
      *
      * @param   KObjectConfig $config Configuration options
@@ -64,7 +57,6 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
 
         $this->setUrl($config->url);
         $this->setContent($config->content);
-        $this->mimetype = $config->mimetype;
 
         $this->setModel($config->model);
 
@@ -97,7 +89,6 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
             'command_handlers'  => array('lib:command.handler.event'),
             'model'      => 'lib:model.empty',
             'content'	 => '',
-            'mimetype'	 => '',
             'url'        =>  $this->getObject('lib:http.url')
         ));
 
@@ -299,7 +290,7 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
      */
     public function setContent($content)
     {
-        if (!is_null($content) && !is_string($content) && !is_numeric($content) && !is_callable(array($content, '__toString')))
+        if (!is_null($content) && !is_string($content) && !is_callable(array($content, '__toString')))
         {
             throw new UnexpectedValueException(
                 'The view content content must be a string or object implementing __toString(), "'.gettype($content).'" given.'

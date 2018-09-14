@@ -227,7 +227,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
      */
     public function setUrl($url)
     {
-        if (!is_string($url) && !is_numeric($url) && !is_callable(array($url, '__toString')) && !is_array($url))
+        if (!is_string($url) && !is_array($url) && !(is_object($url) && method_exists($url, '__toString')))
         {
             throw new UnexpectedValueException(
                 'The url must be a array as returned by parse_url() a string or object implementing __toString(), "'.gettype($url).'" given.'
@@ -522,7 +522,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
      */
     public static function fromString($url)
     {
-        if (!is_string($url) && !is_numeric($url) && !is_callable(array($url, '__toString')))
+        if (!is_string($url) && !(is_object($url) && method_exists($url, '__toString')))
         {
             throw new UnexpectedValueException(
                 'The url must be a string or object implementing __toString(), "'.gettype($url).'" given.'

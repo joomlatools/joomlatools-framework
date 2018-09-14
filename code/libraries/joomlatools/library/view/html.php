@@ -26,7 +26,6 @@ class KViewHtml extends KViewTemplate
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'mimetype'          => 'text/html',
             'template_filters'  => array('form'),
         ));
 

@@ -63,12 +63,16 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         $request  = $context->getRequest();
         $response = $context->getResponse();
 
-        if(!$response->isDownloadable())
+        if(!$response->isDownloadable() && !$response->isRedirect())
         {
             //Render the page
-            $this->getObject('com:koowa.controller.page',  array('response' => $response))
+            $result = $this->getObject('com:koowa.controller.page',  array('response' => $response))
                 ->layout($this->getDecorator())
                 ->render();
+
+
+            //Set the result in the response
+            $response->setContent($result);
         }
     }
 
@@ -86,7 +90,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         //Pass back to Joomla
         if(!$response->isDownloadable() && $this->getDecorator() == 'joomla')
         {
-            //Mimetype
+            //Contenttype
             JFactory::getDocument()->setMimeEncoding($response->getContentType());
 
             //Set messages for any request method

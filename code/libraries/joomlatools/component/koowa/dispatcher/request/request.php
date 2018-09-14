@@ -41,15 +41,13 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      *
      * {@inheritdoc}
      */
-    public function getFormat()
+    public function setFormat($format)
     {
-        $format = parent::getFormat();
-
         if (JFactory::getApplication()->getCfg('sef_suffix') && $format === 'feed') {
             $format = 'rss';
         }
 
-        return $format;
+        return parent::setFormat($format);
     }
 
     /**

@@ -150,9 +150,11 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                     'response' => $response
                 );
 
-                $this->getObject('com:koowa.controller.error',  $config)
+                $result = $this->getObject('com:koowa.controller.error',  $config)
                     ->layout('default')
                     ->render($exception);
+
+                $response->setContent($result);
             }
         }
     }

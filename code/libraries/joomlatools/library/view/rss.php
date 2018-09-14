@@ -26,7 +26,6 @@ class KViewRss extends KViewTemplate
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'mimetype' => 'application/rss+xml',
             'data'     => array(
                 'update_period'    => 'hourly',
                 'update_frequency' => 1

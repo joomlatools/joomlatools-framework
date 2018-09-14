@@ -73,11 +73,8 @@ class KViewJson extends KViewAbstract
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'version'     => '1.0',
             'fields'      => array(),
             'text_fields' => array('description'), // Links are converted to absolute ones in these fields
-        ))->append(array(
-            'mimetype' => 'application/json; version=' . $config->version,
         ));
 
         parent::_initialize($config);
@@ -140,7 +137,7 @@ class KViewJson extends KViewAbstract
             'links' => array(
                 'self' => array(
                     'href' => (string) $this->_getPageUrl(),
-                    'type' => $this->mimetype
+                    'type' => 'application/json; version=1.0',
                 )
             ),
             'meta'     => array(),
@@ -164,7 +161,7 @@ class KViewJson extends KViewAbstract
             {
                 $output['links']['next'] = array(
                     'href' => $this->_getPageUrl(array('offset' => $limit+$offset)),
-                    'type' => $this->mimetype
+                    'type' => 'application/json; version=1.0',
                 );
             }
 
@@ -172,7 +169,7 @@ class KViewJson extends KViewAbstract
             {
                 $output['links']['previous'] = array(
                     'href' => $this->_getPageUrl(array('offset' => max($offset-$limit, 0))),
-                    'type' => $this->mimetype
+                    'type' => 'application/json; version=1.0',
                 );
             }
         }
@@ -225,7 +222,7 @@ class KViewJson extends KViewAbstract
         {
             $data['links']['self'] = array(
                 'href' => (string) $this->_getEntityRoute($entity),
-                'type' => $this->mimetype
+                'type' => 'application/json; version=1.0',
             );
         }
 

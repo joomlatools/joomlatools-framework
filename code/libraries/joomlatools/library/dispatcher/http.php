@@ -252,7 +252,16 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
                 throw new KControllerExceptionRequestInvalid('Action not found');
             }
 
+            //Execute the controller action
             $result = $controller->execute($action, $context);
+
+            //Return the new representation of the resource
+            if ($context->response->isSuccess())
+            {
+                if(!is_string($result) && !(is_object($result) && method_exists($result, '__toString'))) {
+                    $result = $controller->execute('render', $context);
+                }
+            }
         }
         else throw new KDispatcherExceptionMethodNotAllowed('Method POST not allowed');
 
@@ -302,7 +311,16 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
                 throw new KControllerExceptionRequestInvalid('Resource not found');
             }
 
+            //Execute the controller action
             $result = $controller->execute($action, $context);
+
+            //Return the new representation of the resource
+            if ($context->response->isSuccess())
+            {
+                if(!is_string($result) && !(is_object($result) && method_exists($result, '__toString'))) {
+                    $result = $controller->execute('render', $context);
+                }
+            }
         }
         else throw new KDispatcherExceptionMethodNotAllowed('Method PUT not allowed');
 
@@ -366,10 +384,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     /**
      * Send the response to the client
      *
-     * - Set the affected entities in the payload for none-SAFE requests that return a successful response. Make an
-     * exception for 204 No Content responses which should not return a response body.
-     *
-     * - Add an Allow header to the response if the status code is 405 METHOD NOT ALLOWED.
+     * Add an Allow header to the response if the status code is 405 METHOD NOT ALLOWED.
      *
      * {@inheritdoc}
      */
@@ -378,25 +393,13 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
         $request  = $this->getRequest();
         $response = $this->getResponse();
 
-        if (!$request->isSafe())
+        //Add an Allow header to the response
+        if($response->getStatusCode() === KHttpResponse::METHOD_NOT_ALLOWED)
         {
-            if ($response->isSuccess())
-            {
-                //Render the controller and set the result in the response body
-                if($response->getStatusCode() !== KHttpResponse::NO_CONTENT) {
-                    $context->result = $this->getController()->execute('render', $context);
-                }
+            try {
+                $this->_actionOptions($context);
             }
-            else
-            {
-                //Add an Allow header to the response
-                if($response->getStatusCode() === KHttpResponse::METHOD_NOT_ALLOWED) {
-                    try {
-                        $this->_actionOptions($context);
-                    }
-                    catch (Exception $e) {}
-                }
-            }
+            catch (Exception $e) {}
         }
 
         parent::_actionSend($context);
