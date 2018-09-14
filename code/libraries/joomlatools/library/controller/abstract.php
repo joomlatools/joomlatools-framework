@@ -48,7 +48,7 @@ abstract class KControllerAbstract extends KObject implements KControllerInterfa
     /**
      * Has the controller been dispatched
      *
-     * @var boolean
+     * @var boolean|KDispatcherInterface
      */
     protected $_dispatched;
 

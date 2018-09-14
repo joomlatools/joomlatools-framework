@@ -166,7 +166,7 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
                 'request'    => $this->getRequest(),
                 'response'   => $this->getResponse(),
                 'user'       => $this->getUser(),
-                'dispatched' => true
+                'dispatched' => $this
             );
 
             $this->_controller = $this->getObject($this->_controller, $config);
