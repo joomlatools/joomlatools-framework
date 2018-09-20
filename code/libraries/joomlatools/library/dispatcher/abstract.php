@@ -342,7 +342,7 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
     protected function _actionDispatch(KDispatcherContextInterface $context)
     {
         //Set the result in the response
-        if($context->result)
+        if($context->result && !$context->response->isRedirect())
         {
             if($context->result instanceof KObjectConfigFormat) {
                 $context->response->setContentType($context->result->getMediaType());
