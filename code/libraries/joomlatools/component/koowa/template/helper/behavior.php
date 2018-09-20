@@ -92,7 +92,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
         ));
 
         $html = '';
-        if ($this->getTemplate()->decorator() !== 'joomla')
+        if ($this->getTemplate()->decorator() === 'joomla')
         {
             if (!static::isLoaded('jquery'))
             {
@@ -125,7 +125,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
 
         $html = '';
 
-        if ($this->getTemplate()->decorator() !== 'joomla')
+        if ($this->getTemplate()->decorator() === 'joomla')
         {
             $config->append([
                 'css' => file_exists(JPATH_THEMES.'/'.JFactory::getApplication()->getTemplate().'/enable-koowa-bootstrap.txt')
