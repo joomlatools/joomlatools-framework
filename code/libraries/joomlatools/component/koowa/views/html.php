@@ -20,7 +20,7 @@ class ComKoowaViewHtml extends KViewHtml
      *
      * @var string
      */
-    private $_decorator;
+    private $__decorator;
 
     /**
      * Constructor
@@ -31,7 +31,7 @@ class ComKoowaViewHtml extends KViewHtml
     {
         parent::__construct($config);
 
-        $this->_decorator = $config->decorator;
+        $this->setDecorator($config->decorator);
     }
 
     protected function _initialize(KObjectConfig $config)
@@ -49,6 +49,13 @@ class ComKoowaViewHtml extends KViewHtml
 
     public function getDecorator()
     {
-        return $this->_decorator;
+        return $this->__decorator;
+    }
+
+    public function setDecorator($decorator)
+    {
+        $this->__decorator = $decorator;
+
+        return $this;
     }
 }
