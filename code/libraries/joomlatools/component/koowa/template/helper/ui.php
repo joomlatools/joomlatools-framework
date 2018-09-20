@@ -30,8 +30,8 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
             )
         ));
-
-        if($this->getTemplate()->decorator() != 'koowa')
+        
+        if($this->getTemplate()->decorator() === 'koowa')
         {
             $layout = $this->getTemplate()->getParameters()->layout;
 
