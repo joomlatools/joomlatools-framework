@@ -82,7 +82,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
      * @param   KDispatcherContextInterface $context A command context object
      * @return 	bool
      */
-    protected function _beforeFlush(KDispatcherContextInterface $context)
+    protected function _beforeTerminate(KDispatcherContextInterface $context)
     {
         $request  = $context->getRequest();
         $response = $context->getResponse();
