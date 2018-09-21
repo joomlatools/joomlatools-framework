@@ -145,7 +145,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                     $filename = str_replace('#', '_', $filename);
                 }
 
-                $disposition = array('filename' => '"'.$filename.'"');
+                $directives = array('filename' => '"'.$filename.'"');
 
                 // IE7 and 8 accepts percent encoded file names as the filename value
                 // Other browsers (except Safari) use filename* header starting with UTF-8''
@@ -154,17 +154,17 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                 if($encoded_name !== $filename)
                 {
                     if (preg_match('/(?i)MSIE [4-8]/i', $user_agent)) {
-                        $disposition['filename'] = '"'.$encoded_name.'"';
+                        $directives['filename'] = '"'.$encoded_name.'"';
                     }
                     elseif (!stripos($user_agent, 'AppleWebkit')) {
-                        $disposition['filename*'] = 'UTF-8\'\''.$encoded_name;
+                        $directives['filename*'] = 'UTF-8\'\''.$encoded_name;
                     }
                 }
 
-                //Disposition header
-                array_unshift($disposition, $response->isAttachable() ? 'attachment' : 'inline');
+                $disposition = $response->isAttachable() ? 'attachment' : 'inline';
 
-                $response->headers->set('Content-Disposition', $disposition);
+                //Disposition header
+                $response->headers->set('Content-Disposition', [$disposition => $directives]);
             }
 
             //Force a download by the browser by setting the disposition to 'attachment'.
