@@ -26,7 +26,7 @@
         "php": ">=5.4",
         "ext-mbstring": "*",
         "joomlatools/composer": "*",
-        "symfony/yaml": "~2.6"
+        "symfony/yaml": "^2.8|^3.0|^4.0"
     },
     "suggest": {
         "twig/twig": "Allows building templates using the Twig template engine",
