@@ -697,7 +697,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     {
         if($this->isProxied() && $this->_headers->has('X-Forwarded-For'))
         {
-            $addresses = $this->_headers->has('X-Forwarded-For');
+            $addresses = $this->_headers->get('X-Forwarded-For');
             $addresses = array_map('trim', explode(',', $addresses));
             $addresses = array_reverse($addresses);
 
