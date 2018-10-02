@@ -390,13 +390,12 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
         $data = array_merge((array) $this->getData(), $data);
 
         //If the partial requires a different engine create it and delegate
-        if(!in_array($type, $this->getFileTypes()))
+        if(in_array($type, $this->getFileTypes()))
         {
-            $result = $this->getTemplate()
-                ->loadFile($url)
-                ->render($data);
+            $template = clone $this;
+            $result = $template->loadFile($url)->render($data);
         }
-        else $result = $this->loadFile($url)->render($data);
+        else  $result = $this->getTemplate()->loadFile($url)->render($data);
 
         return $result;
     }
