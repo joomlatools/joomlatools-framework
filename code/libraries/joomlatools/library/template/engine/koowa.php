@@ -367,6 +367,9 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
      */
     protected function _import($url, array $data = array())
     {
+        //Store data for reset
+        $_data = $this->getData();
+
         //Qualify relative template url
         if (!parse_url($url, PHP_URL_SCHEME))
         {
@@ -390,12 +393,16 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
         $data = array_merge((array) $this->getData(), $data);
 
         //If the partial requires a different engine create it and delegate
-        if(in_array($type, $this->getFileTypes()))
+        if(!in_array($type, $this->getFileTypes()))
         {
-            $template = clone $this;
-            $result = $template->loadFile($url)->render($data);
+            $result = $this->getTemplate()
+                ->loadFile($url)
+                ->render($data);
         }
-        else  $result = $this->getTemplate()->loadFile($url)->render($data);
+        else $result = $this->loadFile($url)->render($data);
+
+        //Reset the data
+        $this->_data = $_data;
 
         return $result;
     }
