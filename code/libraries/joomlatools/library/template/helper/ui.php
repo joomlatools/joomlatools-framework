@@ -117,6 +117,7 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
         $html = '';
 
         $html .= $this->getTemplate()->helper('behavior.modernizr', $config->toArray());
+        $html .= $this->getTemplate()->helper('behavior.kuiinitialize', $config->toArray());
 
         if (($config->domain === 'admin' || $config->domain === '')  && !KTemplateHelperBehavior::isLoaded('admin.js')) {
             // Make sure jQuery is always loaded right before admin.js, helps when wrapping components
@@ -138,8 +139,6 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
 
         if (!KTemplateHelperBehavior::isLoaded('k-js-enabled'))
         {
-            $html .= '<script data-inline type="text/javascript" src="assets://js/'.($config->debug ? 'build/' : 'min/').'kui-initialize.js""></script>';
-
             KTemplateHelperBehavior::setLoaded('k-js-enabled');
         }
 
