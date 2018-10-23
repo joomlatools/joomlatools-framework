@@ -18398,3 +18398,8 @@ html .form-inline .select2-container--bootstrap {
 .editor:after {
   clear: both;
 }
+
+.select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+  margin-bottom: 0;
+  height: auto;
+}
