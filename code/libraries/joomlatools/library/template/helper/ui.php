@@ -138,7 +138,7 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
 
         if (!KTemplateHelperBehavior::isLoaded('k-js-enabled'))
         {
-            $html .= '<script data-inline type="text/javascript" src="assets://js/'.($config->debug ? 'build/' : 'min/').'kui-initialize.js""></script>';
+            $html .= '<script data-inline type="text/javascript" src="assets://js/'.($config->debug ? 'build/' : 'min/').'kui-initialize.js"></script>';
 
             KTemplateHelperBehavior::setLoaded('k-js-enabled');
         }
