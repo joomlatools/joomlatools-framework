@@ -1,4 +1,4 @@
-var kodekitUI = {}; // global variable
+var kodekitUI = typeof kodekitUI !== 'undefined' ? kodekitUI : {}; // global variable
 
 // Create cookie
 kodekitUI.createCookie = function(name, value, days) {

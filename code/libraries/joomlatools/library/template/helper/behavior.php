@@ -155,6 +155,31 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
     }
 
     /**
+     * Loads KUI initialize
+     *
+     * @param array|KObjectConfig $config
+     * @return string
+     */
+    public function kodekitui($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append(array(
+            'debug' => false
+        ));
+
+        $html = '';
+
+        if (!static::isLoaded('kodekitui'))
+        {
+            $html = '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'kui-initialize.js" />';
+
+            static::setLoaded('kodekitui');
+        }
+
+        return $html;
+    }
+
+    /**
      * Loads jQuery under a global variable called kQuery.
      *
      * If debug config property is set, an uncompressed version will be included.

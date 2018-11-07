@@ -54,7 +54,7 @@ class ComKoowaDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorJwt
     {
         $config->append(array(
             'secret'  => JFactory::getConfig()->get('secret'),
-            'max_age' => JFactory::getConfig()->get('lifetime'),
+            'max_age' => JFactory::getConfig()->get('lifetime') * 60,
             'options' => array(
                 'action'       => JFactory::getApplication()->isSite() ? 'core.login.site' : 'core.login.admin',
                 'autoregister' => false,
