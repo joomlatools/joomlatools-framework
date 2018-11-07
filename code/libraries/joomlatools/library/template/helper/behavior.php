@@ -160,7 +160,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
      * @param array|KObjectConfig $config
      * @return string
      */
-    public function kuiinitialize($config = array())
+    public function kodekitui($config = array())
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
@@ -169,11 +169,11 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         $html = '';
 
-        if (!static::isLoaded('kuiinitialize'))
+        if (!static::isLoaded('kodekitui'))
         {
             $html = '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'kui-initialize.js" />';
 
-            static::setLoaded('kuiinitialize');
+            static::setLoaded('kodekitui');
         }
 
         return $html;

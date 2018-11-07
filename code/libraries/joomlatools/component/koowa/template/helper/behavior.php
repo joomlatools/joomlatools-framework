@@ -69,14 +69,14 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
      * @param array|KObjectConfig $config
      * @return string
      */
-    public function kuiinitialize($config = array())
+    public function kodekitui($config = array())
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
             'debug' => JFactory::getApplication()->getCfg('debug')
         ));
 
-        return parent::kuiinitialize($config);
+        return parent::kodekitui($config);
     }
 
     public function modal($config = array())
