@@ -137,7 +137,6 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
 
         $html .= $this->getTemplate()->helper('behavior.koowa', $config->toArray());
 
-
         return $html;
     }
 

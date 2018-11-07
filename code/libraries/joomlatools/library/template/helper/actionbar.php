@@ -106,7 +106,9 @@ class KTemplateHelperActionbar extends KTemplateHelperToolbar
         $html = '<a '.$this->buildAttributes($attribs).'>';
 
         $html .= '<span class="'.$command->icon.'" aria-hidden="true"></span> ';
+        $html .= '<span class="k-button__text">';
         $html .= $translator->translate($command->label);
+        $html .= '</span>';
         $html .= '</a>';
 
         return $html;

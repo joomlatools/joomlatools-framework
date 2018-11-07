@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     // load time-grunt and all grunt plugins found in the package.json
     require('jit-grunt')(grunt);
 
+    const sass = require('node-sass');
 
     // grunt config
     grunt.initConfig({
@@ -132,6 +133,7 @@ module.exports = function(grunt) {
         // Compile sass files
         sass: {
             options: {
+                implementation: sass,
                 outputStyle: 'minified',
                 includePaths: [
                     'bower_components',
