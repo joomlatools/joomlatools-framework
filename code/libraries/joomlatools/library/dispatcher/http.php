@@ -235,7 +235,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
             {
                 $action = strtolower($context->request->data->get('_action', 'alnum'));
 
-                if(in_array($action, array('browse', 'read', 'render'))) {
+                if(in_array($action, array('browse', 'read', 'render', 'delete'))) {
                     throw new KDispatcherExceptionMethodNotAllowed('Action: '.$action.' not allowed');
                 }
             }
