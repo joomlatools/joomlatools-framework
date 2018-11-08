@@ -344,11 +344,15 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
         //Set the result in the response
         if($context->result && !$context->response->isRedirect())
         {
-            if($context->result instanceof KObjectConfigFormat) {
-                $context->response->setContentType($context->result->getMediaType());
+            $result = $context->result;
+
+            if ($result instanceof KObjectConfigFormat) {
+                $context->response->setContentType($result->getMediaType());
             }
 
-            $context->response->setContent($context->result);
+            if (is_string($result) || (is_object($result) && method_exists($result, '__toString'))) {
+                $context->response->setContent($result);
+            }
         }
 
         //Send the response
