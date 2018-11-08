@@ -18,9 +18,9 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
     /**
      * The override path
      *
-     * @var string
+     * @var array
      */
-    protected $_override_path;
+    protected $_override_paths = [];
 
     /**
      * Constructor.
@@ -31,7 +31,7 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
     {
         parent::__construct($config);
 
-        $this->_override_path = $config->override_path;
+        $this->_override_paths = $config->override_paths;
     }
 
     /**
@@ -53,7 +53,10 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
         $template = $this->getObject('lib:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
 
         $config->append(array(
-            'override_path' => JPATH_ROOT.'/templates/'.$template.'/html'
+            'override_paths' => [
+                JPATH_ROOT.'/templates/'.$template.'/html',
+                JPATH_ROOT.'/templates/system/html'
+            ]
         ));
 
         parent::_initialize($config);
@@ -83,8 +86,10 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
 
         $base_paths = array(JPATH_ROOT);
 
-        if (!empty($this->_override_path)) {
-            array_unshift($base_paths, $this->_override_path);
+        if (!empty($this->_override_paths)) {
+            foreach ($this->_override_paths as $override_path) {
+                array_unshift($base_paths, $override_path);
+            }
         }
 
         foreach ($base_paths as $base_path)
@@ -92,7 +97,7 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
             $path = $base_path.'/'.str_replace(parse_url($relative_path, PHP_URL_SCHEME).'://', '', $relative_path);
 
             // Remove /view from the end of the override path
-            if ($base_path == $this->_override_path && substr($path, strrpos($path, '/')) === '/view') {
+            if (in_array($base_path, KObjectConfig::unbox($this->_override_paths)) && substr($path, strrpos($path, '/')) === '/view') {
                 $path = substr($path, 0, -5);
             }
 
