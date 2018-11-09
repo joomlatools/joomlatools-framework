@@ -388,7 +388,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      *
      * @param string  $etag The ETag unique identifier
      * @param Boolean $weak Whether you want a weak ETag or not
-     * @return HttpResponse
+     * @return KHttpResponse
      */
     public function setEtag($etag = null, $weak = false)
     {
@@ -410,7 +410,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      *
      * @link http://tools.ietf.org/html/rfc2616#section-14.6
      * @param integer $age The age of the response in seconds
-     * @return HttpResponse
+     * @return KHttpResponse
      */
     public function setAge($age)
     {
@@ -442,7 +442,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      *
      * @link https://tools.ietf.org/html/rfc2616#section-14.9.3
      * @param integer $max_age The max age of the response in seconds
-     * @return HttpResponse
+     * @return KHttpResponse
      */
     public function setMaxAge($max_age)
     {

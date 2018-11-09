@@ -129,9 +129,9 @@ class KEventSubscriberFactory extends KObject implements KObjectSingleton
      *
      * The subscribers will be created if does not exist yet.
      *
-     * @param  mixed $subscriber An object that implements ObjectInterface, ObjectIdentifier object
+     * @param  mixed $event An object that implements ObjectInterface, ObjectIdentifier object
      *                          or valid identifier string
-     * @param  array  $config   An optional associative array of configuration settings
+     * @param  array  $event_publisher   An optional associative array of configuration settings
      * @throws UnexpectedValueException    If the subscriber is not implementing the EventSubscriberInterface
      * @return KEventSubscriberFactory
      */

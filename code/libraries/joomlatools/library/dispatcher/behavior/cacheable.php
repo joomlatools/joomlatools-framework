@@ -98,7 +98,6 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      * @link http://tools.ietf.org/html/rfc2616
      *
      * @param 	KDispatcherContextInterface $context The active command context
-     * @return boolean  Returns true if the response has been send, otherwise FALSE
      */
     protected function _beforeSend(KDispatcherContextInterface $context)
     {
