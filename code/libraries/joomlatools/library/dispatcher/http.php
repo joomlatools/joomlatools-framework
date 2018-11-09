@@ -242,9 +242,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
             else
             {
                 //Determine the action based on the model state
-                if($controller instanceof KControllerModellable) {
-                    $action = $controller->getModel()->getState()->isUnique() ? 'edit' : 'add';
-                }
+                $action = $controller->getModel()->getState()->isUnique() ? 'edit' : 'add';
             }
 
             //Throw exception if no action could be determined from the request
