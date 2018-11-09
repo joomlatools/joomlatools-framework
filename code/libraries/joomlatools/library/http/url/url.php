@@ -384,7 +384,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
         if (is_string($path))
         {
             if (!empty($path)) {
-                $path = explode('/', rtrim($path, '/\\'));
+                $path = explode('/', rtrim($path, '/\\');
             } else {
                 $path = array();
             }
