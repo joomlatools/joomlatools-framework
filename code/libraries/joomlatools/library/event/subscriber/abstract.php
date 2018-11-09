@@ -40,9 +40,10 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
      */
     public function subscribe(KEventPublisherInterface $publisher, $priority = KEvent::PRIORITY_NORMAL)
     {
-        $handle = $publisher->getHandle();
+        $handle    = $publisher->getHandle();
+        $listeners = [];
 
-        if(!$this->isSubscribed($publisher));
+        if(!$this->isSubscribed($publisher))
         {
             $listeners = $this->getEventListeners();
 
@@ -66,7 +67,7 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
     {
         $handle = $publisher->getHandle();
 
-        if($this->isSubscribed($publisher));
+        if($this->isSubscribed($publisher))
         {
             foreach ($this->__publishers[$handle] as $index => $listener)
             {
