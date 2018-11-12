@@ -162,7 +162,7 @@ class PlgSystemJoomlatools extends JPlugin
             if (JFactory::getApplication()->getCfg('live_site'))
             {
                 $request->setBasePath(rtrim(JURI::base(true), '/\\'));
-                $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => JURI::base())));
+                $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(JURI::base(), '/\\'))));
             }
 
             //Exception Handling
