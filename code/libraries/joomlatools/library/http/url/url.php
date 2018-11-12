@@ -383,6 +383,8 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
     {
         if (is_string($path))
         {
+            $path = trim($path, '/');
+
             if (!empty($path)) {
                 $path = explode('/', $path);
             } else {
@@ -577,7 +579,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
         // elements to allow for string-zero values.
         if (($parts & self::PATH) && !empty($this->_path))
         {
-            $url .= $this->getPath();
+            $url .= '/'.$this->getPath();
         }
 
         if (($parts & self::QUERY) && !empty($this->_query))
