@@ -383,7 +383,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
     {
         if (is_string($path))
         {
-            $path = trim($path, '/');
+            $path = ltrim($path, '/');
 
             if (!empty($path)) {
                 $path = explode('/', $path);
