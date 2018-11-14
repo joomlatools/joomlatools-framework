@@ -25,7 +25,8 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         $mixer   = $this->getMixer();
         $request = $mixer->getRequest();
 
-        if($request->isGet() && $request->getFormat() == 'html' && !$request->isAjax()) {
+        // Support HTML GET requests and also form submits (so we can render errors on POST)
+        if(($request->isFormSubmit() || $request->isGet()) && $request->getFormat() == 'html' && !$request->isAjax()) {
             return parent::isSupported();
         }
 
@@ -40,8 +41,6 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
      */
     protected function _beforeDispatch(KDispatcherContextInterface $context)
     {
-        $request = $context->getRequest();
-
         if ($this->getDecorator() != 'joomla')
         {
             $app = JFactory::getApplication();
@@ -84,7 +83,6 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
      */
     protected function _beforeTerminate(KDispatcherContextInterface $context)
     {
-        $request  = $context->getRequest();
         $response = $context->getResponse();
 
         //Pass back to Joomla
