@@ -118,6 +118,13 @@ interface KHttpRequestInterface extends KHttpMessageInterface
     public function isAjax();
 
     /**
+     * Is the request a submitted HTTP form?
+     *
+     * @return boolean
+     */
+    public function isFormSubmit();
+
+    /**
      * Is the request cacheable
      *
      * @return boolean
