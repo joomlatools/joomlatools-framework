@@ -22,7 +22,6 @@ class KUserSessionHandlerFile extends KUserSessionHandlerAbstract
      * Constructor
      *
      * @param KObjectConfig $config  An optional ObjectConfig object with configuration options
-     * @return KUserSessionHandlerFile
      */
     public function __construct(KObjectConfig $config)
     {
