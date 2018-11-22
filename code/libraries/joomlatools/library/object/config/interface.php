@@ -54,13 +54,12 @@ interface KObjectConfigInterface extends \IteratorAggregate, \ArrayAccess, \Coun
     public function has($name);
 
     /**
-     * Remove a configuration option by name
+     * Remove a configuration option by name(s)
      *
-     * @param   string $name The configuration option name.
-     * @throws  \RuntimeException If the config is read only
+     * @param   string|array $names The configuration option name or a list of option names.
      * @return  KObjectConfigInterface
      */
-    public function remove( $name );
+    public function remove($names);
 
     /**
      * Checks if a value exists
@@ -83,7 +82,6 @@ interface KObjectConfigInterface extends \IteratorAggregate, \ArrayAccess, \Coun
      * - Items in $options with STRING keys will overwrite current values.
      *
      * @param  array|\Traversable|KObjectConfigInterface  $options A ObjectConfig object an or array of options to be added
-     * @throws \RuntimeException If the config is read only
      * @return KObjectConfigInterface
      */
     public function merge($options);
@@ -94,7 +92,6 @@ interface KObjectConfigInterface extends \IteratorAggregate, \ArrayAccess, \Coun
      * This function only adds keys that don't exist and it filters out any duplicate values
      *
      * @param  array|\Traversable|KObjectConfigInterface  $options A ObjectConfigInterface instance an or array of options to be appended
-     * @throws \RuntimeException If the config is read only
      * @return KObjectConfigInterface
      */
     public function append($options);
