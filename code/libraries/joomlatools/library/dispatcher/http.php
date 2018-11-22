@@ -100,6 +100,21 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
         $this->getObject('translator')->load($identifier);
     }
 
+    protected function _beforeDispatch(KDispatcherContextInterface $context)
+    {
+        $view = $context->request->query->get('view', 'cmd');
+
+        //Redirect if no view information can be found in the request
+        if(empty($view))
+        {
+            $url = clone($context->request->getUrl());
+            $url->query['view'] = $this->getController()->getView()->getName();
+
+            $this->redirect($url);
+        }
+        else $this->setController($view, array('view' => $view));
+    }
+
     /**
      * Dispatch the request
      *
@@ -114,28 +129,17 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
 	{
         $view = $context->request->query->get('view', 'cmd');
 
-        //Redirect if no view information can be found in the request
-        if(empty($view))
-        {
-            $url = clone($context->request->getUrl());
-            $url->query['view'] = $this->getController()->getView()->getName();
+        $method = strtolower($context->request->getMethod());
 
-            $this->redirect($url);
+        if (!in_array($method, $this->getHttpMethods())) {
+            throw new KDispatcherExceptionMethodNotAllowed('Method not allowed');
         }
-        else
-        {
-            $method = strtolower($context->request->getMethod());
 
-            if (!in_array($method, $this->getHttpMethods())) {
-                throw new KDispatcherExceptionMethodNotAllowed('Method not allowed');
-            }
+        //Set the controller based on the view and pass the view
+        $this->setController($view, array('view' => $view));
 
-            //Set the controller based on the view and pass the view
-            $this->setController($view, array('view' => $view));
-
-            //Execute the component method
-            $this->execute($method, $context);
-        }
+        //Execute the component method
+        $this->execute($method, $context);
 
         return parent::_actionDispatch($context);
 	}
