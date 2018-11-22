@@ -96,14 +96,13 @@ class KObjectConfig implements KObjectConfigInterface
     /**
      * Remove a configuration option by name(s)
      *
-     * @param   string|array $name(s) The configuration option name of a list of option names.
+     * @param   string|array $names The configuration option name or a list of option names.
      * @return  KObjectConfig
      */
     public function remove($names)
     {
-        foreach((array) $names  as $name)
+        foreach((array) $names as $name)
         {
-            $key = false;
             if(!isset($this->__options[$name])) {
                 $key = array_search($name, $this->__options, true);
             } else {
