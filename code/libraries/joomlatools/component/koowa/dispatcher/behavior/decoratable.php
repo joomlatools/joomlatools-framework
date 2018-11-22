@@ -86,7 +86,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         $response = $context->getResponse();
 
         //Pass back to Joomla
-        if(!$response->isDownloadable() && $this->getDecorator() == 'joomla')
+        if(!$response->isRedirect() && !$response->isDownloadable() && $this->getDecorator() == 'joomla')
         {
             //Contenttype
             JFactory::getDocument()->setMimeEncoding($response->getContentType());
