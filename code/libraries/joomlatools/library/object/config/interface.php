@@ -56,10 +56,10 @@ interface KObjectConfigInterface extends \IteratorAggregate, \ArrayAccess, \Coun
     /**
      * Remove a configuration option by name(s)
      *
-     * @param   string|array $name(s) The configuration option name of a list of option names.
+     * @param   string|array $names The configuration option name or a list of option names.
      * @return  KObjectConfigInterface
      */
-    public function remove( $names );
+    public function remove($names);
 
     /**
      * Checks if a value exists
