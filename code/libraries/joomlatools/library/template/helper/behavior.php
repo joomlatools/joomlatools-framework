@@ -427,7 +427,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
             $html .= "<script>
             kQuery(function($){
-                $('$config->selector').on('koowa:validate', function(event){
+                $('$config->selector').on('k:validate', function(event){
                     if(!$(this).valid() || $(this).validate().pendingRequest !== 0) {
                         event.preventDefault();
                     }
@@ -862,7 +862,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
                 {
                     $html .= "<script>
                         kQuery(function($){
-                            $('.k-js-form-controller').on('koowa:submit', function() {
+                            $('.k-js-form-controller').on('k:submit', function() {
                                 var element = kQuery('#".$config->id."'),
                                     picker  = element.data('kdatepicker'),
                                     offset  = $config->offset_seconds;
