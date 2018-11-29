@@ -217,7 +217,7 @@ abstract class KUserSessionContainerAbstract extends KObjectArray implements KUs
         $result = $this->toArray();
         foreach($keys as $key)
         {
-            if(array_key_exists($key, $result)) {
+            if(is_array($result) && array_key_exists($key, $result)) {
                 $result = $result[$key];
             } else {
                 $result = null;
