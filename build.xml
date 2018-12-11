@@ -8,11 +8,11 @@
 
     <property name="file.compress" value="true" />
 
-    <property name="files.branch" value="feature/83-framework" />
+    <property name="files.branch" value="v3.2.0" />
     <property name="activities.branch" value="v3.1.4" />
     <property name="scheduler.branch" value="v1.2.0" />
-    <property name="migrator.branch" value="feature/8-framework" />
-    <property name="tags.branch" value="v1.1.0" />
+    <property name="migrator.branch" value="v1.2.0" />
+    <property name="tags.branch" value="v1.2.0" />
 
 
     <!-- Load the build configuration -->
