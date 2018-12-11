@@ -228,9 +228,6 @@ abstract class KControllerView extends KControllerAbstract implements KControlle
             }
 
             $content = $view->render($data);
-
-            //Set the data in the response
-            $context->response->setContent($content, $view->mimetype);
         }
         else throw new KControllerExceptionFormatNotSupported('Format: '.$format.' not supported');
 

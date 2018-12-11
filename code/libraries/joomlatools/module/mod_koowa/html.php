@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Module\Koowa\View
  */
-class ModKoowaHtml extends KViewHtml
+class ModKoowaHtml extends ComKoowaViewHtml
 {
     /**
      * Initializes the default configuration for the object

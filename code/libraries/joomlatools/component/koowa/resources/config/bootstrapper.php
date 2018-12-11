@@ -32,7 +32,7 @@ return array(
     'identifiers' => array(
 
         'template.engine.factory' => array(
-            'cache'        => true,
+            'cache'        => JDEBUG ? false : true,
             'cache_path'   => JPATH_ADMINISTRATOR.'/cache/koowa.templates'
         ),
 
@@ -45,6 +45,13 @@ return array(
                 'com:koowa.translator.locator.plugin',
                 'com:koowa.translator.locator.module'
             )
+        ),
+
+        'event.subscriber.factory' => array(
+            'subscribers' => array(
+                'com:koowa.event.subscriber.application'
+            )
         )
+
     )
 );

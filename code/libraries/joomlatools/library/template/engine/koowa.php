@@ -32,6 +32,13 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
     protected $_stack;
 
     /**
+     * Locations cache
+     *
+     * @var array
+     */
+    protected $_locations;
+
+    /**
      * The template buffer
      *
      * @var KFilesystemStreamBuffer
@@ -87,7 +94,7 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
         $file = $this->_locate($url);
 
         //Push the template on the stack
-        array_push($this->_stack, array('url' => $url, 'file' => $file));
+        array_push($this->_stack, $url);
 
         if(!$cache_file = $this->isCached($file))
         {
@@ -118,9 +125,9 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
      * @throws RuntimeException If the template could not be compiled
      * @return KTemplateEngineKoowa
      */
-    public function loadString($source)
+    public function loadString($source, $url = null)
     {
-        $name = crc32($source);
+        $name = crc32($url ?: $source);
 
         if(!$file = $this->isCached($name))
         {
@@ -137,7 +144,13 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
         $this->_source = $file;
 
         //Push the template on the stack
-        array_push($this->_stack, array('url' => '', 'file' => $file));
+        array_push($this->_stack, $url);
+
+        //Store the location
+        if($url) {
+            $this->_locations[$url] = $file;
+        }
+
         return $this;
     }
 
@@ -213,12 +226,13 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
                 if($exception instanceof ErrorException)
                 {
                     $class = get_class($exception);
+                    $file  = $this->getObject('template.locator.factory')->locate($template) ?: $this->_source;
 
-                    $exception = new $class(
+                    $exception = new KTemplateExceptionError(
                         $exception->getMessage(),
                         $exception->getCode(),
                         $exception->getSeverity(),
-                        $template['file'],
+                        $file,
                         $exception->getLine(),
                         $exception
                     );
@@ -236,27 +250,17 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
      */
     protected function _locate($url)
     {
-        //Create the locator
-        if($template = end($this->_stack)) {
-            $base = $template['url'];
-        } else {
-            $base = null;
+        if(!isset($this->_locations[$url]))
+        {
+            //Locate the template
+            if (!$file = $this->getObject('template.locator.factory')->locate($url)) {
+                throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
+            }
+
+            $this->_locations[$url] = $file;
         }
 
-        if(!$location = parse_url($url, PHP_URL_SCHEME)) {
-            $location = $base;
-        } else {
-            $location = $url;
-        }
-
-        $locator = $this->getObject('template.locator.factory')->createLocator($location);
-
-        //Locate the template
-        if (!$file = $locator->setBasePath($base)->locate($url)) {
-            throw new InvalidArgumentException(sprintf('The template "%s" cannot be located.', $url));
-        }
-
-        return $file;
+        return $this->_locations[$url];
     }
 
     /**
@@ -363,16 +367,42 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
      */
     protected function _import($url, array $data = array())
     {
-        //Locate the template
-        $file   = $this->_locate($url);
-        $type   = pathinfo($file, PATHINFO_EXTENSION);
+        //Store data for reset
+        $_data = $this->getData();
 
-        if(in_array($type, $this->getFileTypes()) && $this->loadFile($url))
+        //Qualify relative template url
+        if (!parse_url($url, PHP_URL_SCHEME))
         {
-            $data = array_merge((array) $this->getData(), $data);
-            $result = $this->render($data);
+            if (!$base = end($this->_stack)) {
+                throw new \RuntimeException('Cannot qualify partial template url');
+            }
+
+            $url = $this->getObject('template.locator.factory')
+                ->createLocator($base)
+                ->qualify($url, $base);
+
+            if(array_search($url, $this->_stack))
+            {
+                throw new \RuntimeException(sprintf(
+                    'Template recursion detected while importing "%s" in "%s"', $url, $base
+                ));
+            }
         }
-        else  $result = $this->getTemplate()->loadFile($file)->render($data);
+
+        $type = pathinfo( $this->_locate($url), PATHINFO_EXTENSION);
+        $data = array_merge((array) $this->getData(), $data);
+
+        //If the partial requires a different engine create it and delegate
+        if(!in_array($type, $this->getFileTypes()))
+        {
+            $result = $this->getTemplate()
+                ->loadFile($url)
+                ->render($data);
+        }
+        else $result = $this->loadFile($url)->render($data);
+
+        //Reset the data
+        $this->_data = $_data;
 
         return $result;
     }

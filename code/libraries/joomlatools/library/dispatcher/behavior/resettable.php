@@ -13,7 +13,8 @@
  * When a browser sends a POST request (e.g. after submitting a form), the browser will try to protect them from sending
  * the POST again, breaking the back button, causing browser warnings and pop-ups, and sometimes re-posting the form.
  *
- * Instead, when receiving a none AJAX POST request reset the browser by redirecting it through a GET request.
+ * Instead, when receiving a POST request with content type application/x-www-form-urlencoded and a valid referrer reset
+ * the browser by redirecting it through a GET request to the referrer.
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Dispatcher\Behavior
@@ -27,31 +28,24 @@ class KDispatcherBehaviorResettable extends KControllerBehaviorAbstract
      */
     public function isSupported()
     {
-        $mixer   = $this->getMixer();
-        $request = $mixer->getRequest();
-
-        if(!$request->isSafe() && !$request->isAjax() && $request->getFormat() == 'html') {
-            return true;
-        }
-
-        return false;
+        return $this->getMixer()->getRequest()->isFormSubmit();
     }
 
     /**
-	 * Force a GET after POST using the referrer
+     * Force a GET after POST using the referrer
      *
      * Redirect if the controller has a returned a 2xx status code.
-	 *
-	 * @param 	KDispatcherContextInterface $context The active command context
-	 * @return 	void
-	 */
-	protected function _beforeSend(KDispatcherContextInterface $context)
-	{
+     *
+     * @param 	KDispatcherContextInterface $context The active command context
+     * @return 	void
+     */
+    protected function _beforeSend(KDispatcherContextInterface $context)
+    {
         $response = $context->response;
         $request  = $context->request;
 
-        if($response->isSuccess()) {
-            $response->setRedirect($request->getReferrer());
-        } 
-	}
+        if($response->isSuccess() && $referrer = $request->getReferrer()) {
+            $response->setRedirect($referrer);
+        }
+    }
 }

@@ -61,6 +61,10 @@ class PlgSystemJoomlatoolsInstallerScript
 
     public function preflight($type, $installer)
     {
+        if (defined('JOOMLATOOLS_PLATFORM')) {
+            return;
+        }
+
         if ($errors = $this->getServerErrors())
         {
             ob_start();

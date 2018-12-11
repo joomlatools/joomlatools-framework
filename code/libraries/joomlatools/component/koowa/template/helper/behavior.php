@@ -108,20 +108,20 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
         ));
 
         $html = '';
-
-        if ($this->getObject('request')->getHeaders()->has('X-Flush-Response')) {
-            $html .= parent::jquery($config);
-        }
-        elseif (!static::isLoaded('jquery'))
+        if ($this->getTemplate()->decorator() === 'joomla')
         {
-            JHtml::_('jquery.framework');
+            if (!static::isLoaded('jquery'))
+            {
+                JHtml::_('jquery.framework');
 
-            // Can't use JHtml here as it makes a file_exists call on koowa.kquery.js?version
-            $path = JUri::root(true).'/media/koowa/framework/js/koowa.kquery.js?'.substr(md5(Koowa::VERSION), 0, 8);
-            JFactory::getDocument()->addScript($path);
+                // Can't use JHtml here as it makes a file_exists call on koowa.kquery.js?version
+                $path = JUri::root(true).'/media/koowa/framework/js/koowa.kquery.js?'.substr(md5(Koowa::VERSION), 0, 8);
+                JFactory::getDocument()->addScript($path);
 
-            static::setLoaded('jquery');
+                static::setLoaded('jquery');
+            }
         }
+        else $html .= parent::jquery($config);
 
         return $html;
     }
@@ -141,10 +141,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
 
         $html = '';
 
-        if ($this->getObject('request')->getHeaders()->has('X-Flush-Response')) {
-            $html .= parent::bootstrap($config);
-        }
-        else
+        if ($this->getTemplate()->decorator() === 'joomla')
         {
             $config->append([
                 'css' => file_exists(JPATH_THEMES.'/'.JFactory::getApplication()->getTemplate().'/enable-koowa-bootstrap.txt')
@@ -153,17 +150,15 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
             if ($config->javascript && !static::isLoaded('bootstrap-javascript'))
             {
                 $html .= $this->jquery($config);
-
                 JHtml::_('bootstrap.framework');
 
                 static::setLoaded('bootstrap-javascript');
 
                 $config->javascript = false;
             }
-
-            $html .= parent::bootstrap($config);
         }
 
+        $html .= parent::bootstrap($config);
         return $html;
     }
 

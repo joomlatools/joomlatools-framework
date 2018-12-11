@@ -44,13 +44,6 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
     protected $_data;
 
     /**
-     * The mimetype
-     *
-     * @var string
-     */
-    public $mimetype = '';
-
-    /**
      * Constructor
      *
      * @param   KObjectConfig $config Configuration options
@@ -64,7 +57,6 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
 
         $this->setUrl($config->url);
         $this->setContent($config->content);
-        $this->mimetype = $config->mimetype;
 
         $this->setModel($config->model);
 
@@ -97,7 +89,6 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
             'command_handlers'  => array('lib:command.handler.event'),
             'model'      => 'lib:model.empty',
             'content'	 => '',
-            'mimetype'	 => '',
             'url'        =>  $this->getObject('lib:http.url')
         ));
 
@@ -147,8 +138,13 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
      */
     protected function _actionRender(KViewContext $context)
     {
-        $contents = $this->getContent();
-        return trim($contents);
+        $content = $this->getContent();
+
+        if(is_string($content)) {
+            $content = trim($content);
+        }
+
+        return $content;
     }
 
     /**
@@ -288,11 +284,19 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
     /**
      * Get the contents
      *
-     * @param  string $content The contents of the view
+     * @param  object|string $content The contents of the view
+     * @throws \UnexpectedValueException If the content is not a string are cannot be casted to a string.
      * @return KViewAbstract
      */
     public function setContent($content)
     {
+        if (!is_null($content) && !is_string($content) && !is_callable(array($content, '__toString')))
+        {
+            throw new UnexpectedValueException(
+                'The view content must be a string or object implementing __toString(), "'.gettype($content).'" given.'
+            );
+        }
+
         $this->_content = $content;
         return $this;
     }

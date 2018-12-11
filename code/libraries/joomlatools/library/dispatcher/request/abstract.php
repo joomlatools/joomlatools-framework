@@ -86,7 +86,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     protected $_ranges;
 
     /**
-     * Mimetype to format mappings
+     * Mediatype to format mappings
      *
      * @var array
      */
@@ -117,8 +117,8 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         $this->setBasePath($config->base_path);
 
         //Set the formats
-        foreach(KObjectConfig::unbox($config->formats) as $format => $mimetypes) {
-            $this->addFormat($format, $mimetypes);
+        foreach(KObjectConfig::unbox($config->formats) as $format => $mediatype) {
+            $this->addFormat($format, $mediatype);
         }
 
         //Set document root for IIS
@@ -237,16 +237,18 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             'url'       => null,
             'method'   => null,
             'formats'  => array(
-                'html'     => array('text/html', 'application/xhtml+xml'),
-                'txt'      => array('text/plain'),
-                'js'       => array('application/javascript', 'application/x-javascript', 'text/javascript'),
-                'css'      => array('text/css'),
-                'json'     => array('application/json', 'application/x-json'),
-                'xml'      => array('text/xml', 'application/xml', 'application/x-xml'),
-                'rdf'      => array('application/rdf+xml'),
-                'atom'     => array('application/atom+xml'),
-                'rss'      => array('application/rss+xml'),
-                'stream'   => array('application/stream+json'),
+                'html'       => array('text/html', 'application/xhtml+xml'),
+                'txt'        => array('text/plain'),
+                'csv'        => array('text/csv'),
+                'js'         => array('application/javascript', 'application/x-javascript', 'text/javascript'),
+                'css'        => array('text/css'),
+                'json'       => array('application/json', 'application/x-json', 'application/vnd.api+json'),
+                'xml'        => array('text/xml', 'application/xml', 'application/x-xml'),
+                'rdf'        => array('application/rdf+xml'),
+                'atom'       => array('application/atom+xml'),
+                'rss'        => array('application/xml', 'application/rss+xml'),
+                'jsonstream' => array('application/stream+json'),
+                'binary'     => array('application/octet-stream'),
             ),
             'query'   => $_GET,
             'data'    => $_POST,
@@ -774,7 +776,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
-     * Return the request format
+     * Return the request format or mediatype
      *
      * Find the format by using following sequence :
      *
@@ -782,9 +784,10 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      * 2. Use the URL path extension
      * 3. Use the accept header with the highest quality apply the reverse format map to find the format.
      *
+     * @param   bool    $mediatype Get the media type
      * @return  string  The request format or NULL if no format could be found
      */
-    public function getFormat()
+    public function getFormat($mediatype = false)
     {
         if (!isset($this->_format))
         {
@@ -827,18 +830,27 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             $this->setFormat($format);
         }
 
-        return $this->_format;
+        return $mediatype ? static::$_formats[$this->_format][0] : $this->_format;
     }
 
     /**
      * Sets a format
      *
      * @param string $format The format
+     * @throws UnexpectedValueException If the format hasn't been registered.
      * @return $this
      */
     public function setFormat($format)
     {
-        $this->_format = $format;
+        if($format)
+        {
+            if(!isset(static::$_formats[$format])) {
+                throw new UnexpectedValueException('Unregistered format: "' . $format . '" given.');
+            }
+
+            $this->_format = $format;
+        }
+
         return $this;
     }
 
@@ -967,6 +979,29 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         }
 
         return $this->_ranges;
+    }
+
+    /**
+     * Gets the etags
+     *
+     * @link https://tools.ietf.org/html/rfc7232#page-14
+     *
+     * @return array The entity tags
+     */
+    public function getETags()
+    {
+        $result = array();
+        if($this->_headers->has('If-None-Match'))
+        {
+            $result = preg_split('/\s*,\s*/', $this->_headers->get('If-None-Match'), null, PREG_SPLIT_NO_EMPTY);
+
+            //Remove the encoding from the etag
+            //
+            //RFC-7232 explicitly states that ETags should be content-coding aware
+            $result = str_replace('-gzip', '', $result);
+        }
+
+        return $result;
     }
 
     /**

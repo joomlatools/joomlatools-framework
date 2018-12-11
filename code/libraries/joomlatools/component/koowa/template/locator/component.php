@@ -16,11 +16,11 @@
 class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
 {
     /**
-     * The override path
+     * The override paths
      *
-     * @var string
+     * @var array
      */
-    protected $_override_path;
+    protected $_override_paths = [];
 
     /**
      * Constructor.
@@ -31,7 +31,7 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
     {
         parent::__construct($config);
 
-        $this->_override_path = $config->override_path;
+        $this->_override_paths = $config->override_paths;
     }
 
     /**
@@ -44,11 +44,26 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $template  = JFactory::getApplication()->getTemplate();
+        if(!defined('JOOMLATOOLS_PLATFORM'))
+        {
+            $query = $this->getObject('lib:database.query.select')
+                ->table('template_styles')
+                ->columns('template')
+                ->where('client_id = :client_id AND home = :home')
+                ->bind(array(
+                    'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
+                ));
 
-        $config->append(array(
-            'override_path' => JPATH_THEMES.'/'.$template.'/html'
-        ));
+            $template = $this->getObject('lib:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+        }
+        else $template = JFactory::getApplication()->getTemplate();
+
+        $config->append([
+            'override_paths' => [
+                JPATH_THEMES.'/'.$template.'/html',
+                JPATH_THEMES.'/system/html'         // #117: For backwards compatibility purposes
+            ]
+        ]);
 
         parent::_initialize($config);
     }
@@ -72,7 +87,7 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
         /*
          * Theme path
          */
-        if(!empty($this->_override_path))
+        if(!empty($this->_override_paths))
         {
             //Remove the 'view' element from the path.
             $path = $info['path'];
@@ -87,7 +102,9 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
                 $filepath = 'com_'.$package.'/'.implode('/', $path).'/'.$info['file'].'.'.$info['format'].'.*';
             }
 
-            $paths[] = $this->_override_path.'/'.$filepath;
+            foreach ($this->_override_paths as $override_path) {
+                $paths[] = $override_path.'/'.$filepath;
+            }
         }
 
         /*

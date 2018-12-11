@@ -24,7 +24,6 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
     {
         parent::__construct($config);
 
-        $this->addCommandCallback('before.dispatch', '_setResponse');
         $this->addCommandCallback('before.dispatch', '_enableExceptionHandler');
 
         //Render an exception before sending the response
@@ -32,28 +31,28 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
     }
 
     /**
-     * Set Joomla template to system if we are going to send the request ourselves
+     * Initializes the options for the object
      *
-     * This makes sure core JavaScript files are not overridden by the current Joomla template
+     * Called from {@link __construct()} as a first step of object instantiation.
      *
-     * @param KDispatcherContextInterface $context
+     * @param   KObjectConfig $config Configuration options.
+     * @return  void
      */
-    protected function _setResponse(KDispatcherContextInterface $context)
+    protected function _initialize(KObjectConfig $config)
     {
-        $request  = $context->getRequest();
+        $config->append(array(
+            'behaviors'         => array('decoratable'),
+            'response'          => 'com:koowa.dispatcher.response',
+            'request'           => 'com:koowa.dispatcher.request',
+            'event_subscribers' => array('unauthorized'),
+            'user'              => 'com:koowa.user',
+            'limit'             => array(
+                'default' => JFactory::getApplication()->getCfg('list_limit'),
+                'max'     => 100
+            ),
+        ));
 
-        if ($request->getQuery()->tmpl === 'koowa') {
-            $request->getHeaders()->set('X-Flush-Response', 1);
-        }
-
-        if ($request->getHeaders()->has('X-Flush-Response'))
-        {
-            $app = JFactory::getApplication();
-
-            if ($app->isSite()) {
-                $app->setTemplate('system');
-            }
-        }
+        parent::_initialize($config);
     }
 
     /**
@@ -68,7 +67,6 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         if (!$handler->isEnabled(KExceptionHandlerInterface::TYPE_EXCEPTION))
         {
             $handler->enable(KExceptionHandlerInterface::TYPE_EXCEPTION);
-
             $this->addCommandCallback('after.send', '_revertExceptionHandler');
         }
     }
@@ -81,30 +79,6 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
     protected function _revertExceptionHandler(KDispatcherContextInterface $context)
     {
         $this->getObject('exception.handler')->disable(KExceptionHandlerInterface::TYPE_EXCEPTION);
-    }
-
-    /**
-     * Initializes the options for the object
-     *
-     * Called from {@link __construct()} as a first step of object instantiation.
-     *
-     * @param   KObjectConfig $config Configuration options.
-     * @return  void
-     */
-    protected function _initialize(KObjectConfig $config)
-    {
-        $config->append(array(
-            'response'          => 'com:koowa.dispatcher.response',
-            'request'           => 'com:koowa.dispatcher.request',
-            'event_subscribers' => array('unauthorized'),
-            'user'              => 'com:koowa.user',
-            'limit'             => array(
-                'default' => JFactory::getApplication()->getCfg('list_limit'),
-                'max'     => 100
-            ),
-        ));
-
-        parent::_initialize($config);
     }
 
     /**
@@ -176,12 +150,11 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                     'response' => $response
                 );
 
-                $this->getObject('com:koowa.controller.error',  $config)
+                $result = $this->getObject('com:koowa.controller.error',  $config)
                     ->layout('default')
                     ->render($exception);
 
-                //Do not pass response back to Joomla
-                $context->request->getHeaders()->set('X-Flush-Response', 1);
+                $response->setContent($result);
             }
         }
     }

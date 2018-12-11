@@ -25,9 +25,9 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
     /**
      * The override path
      *
-     * @var string
+     * @var array
      */
-    protected $_override_path;
+    protected $_override_paths = [];
 
     /**
      * Constructor.
@@ -38,7 +38,7 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
     {
         parent::__construct($config);
 
-        $this->_override_path = $config->override_path;
+        $this->_override_paths = $config->override_paths;
     }
 
     /**
@@ -51,11 +51,26 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $template  = JFactory::getApplication()->getTemplate();
+        if(!defined('JOOMLATOOLS_PLATFORM'))
+        {
+            $query = $this->getObject('lib:database.query.select')
+                ->table('template_styles')
+                ->columns('template')
+                ->where('client_id = :client_id AND home = :home')
+                ->bind(array(
+                    'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
+                ));
 
-        $config->append(array(
-            'override_path' => JPATH_THEMES.'/'.$template.'/html'
-        ));
+            $template = $this->getObject('lib:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+        }
+        else $template = JFactory::getApplication()->getTemplate();
+
+        $config->append([
+            'override_paths' => [
+                JPATH_THEMES.'/'.$template.'/html',
+                JPATH_THEMES.'/system/html'         // #117: For backwards compatibility purposes
+            ]
+        ]);
 
         parent::_initialize($config);
     }
@@ -76,7 +91,7 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
         /*
          * Theme path
          */
-        if(!empty($this->_override_path))
+        if(!empty($this->_override_paths))
         {
             //Remove the 'view' element from the path.
             $path = $info['path'];
@@ -86,13 +101,14 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
 
             $path = count($path) ? implode('/', $path).'/' : '';
 
-            //If no type exists create a glob pattern
-            if(!empty($info['type'])) {
-                $paths[] = $this->_override_path.'/mod_'.$package.'/'.$path.$info['file'].'.'.$info['format'].'.'.$info['type'];
-            } else {
-                $paths[] = $this->_override_path.'/mod_'.$package.'/'.$path.$info['file'].'.'.$info['format'].'.*';
+            foreach ($this->_override_paths as $override_path) {
+                //If no type exists create a glob pattern
+                if(!empty($info['type'])) {
+                    $paths[] = $override_path.'/mod_'.$package.'/'.$path.$info['file'].'.'.$info['format'].'.'.$info['type'];
+                } else {
+                    $paths[] = $override_path.'/mod_'.$package.'/'.$path.$info['file'].'.'.$info['format'].'.*';
+                }
             }
-
         }
 
         //Switch basepath

@@ -33,9 +33,7 @@ class ComKoowaTemplateFilterMessage extends KTemplateFilterAbstract
                 }
 
                 $output .= '<div class="k-alert k-alert--'.strtolower($type).'">';
-                foreach ($message as $line) {
-                    $output .= $line;
-                }
+                $output .= implode('<br>', $message);
                 $output .= '</div>';
             }
 

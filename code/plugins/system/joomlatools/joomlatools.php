@@ -48,33 +48,17 @@ class PlgSystemJoomlatools extends JPlugin
         //Bootstrap the Koowa Framework
         $this->bootstrap();
 
+        $this->onAfterKoowaBootstrap();
+
         parent::__construct($subject, $config);
     }
 
     /**
-     * Adds application response time and memory usage to Chrome Inspector with ChromeLogger extension
-     *
-     * See: https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
+     * Allow event listeners to perform cleanup operations before the application terminates
      */
     public function __destruct()
     {
-        if (JDEBUG && !headers_sent())
-        {
-            $buffer = JProfiler::getInstance('Application')->getBuffer();
-            if ($buffer)
-            {
-                $data = strip_tags(end($buffer));
-                $row = array(array($data), null, 'info');
-
-                $header = array(
-                    'version' => '4.1.0',
-                    'columns' => array('log', 'backtrace', 'type'),
-                    'rows'    => array($row)
-                );
-
-                header('X-ChromeLogger-Data: ' . base64_encode(utf8_encode(json_encode($header))));
-            }
-        }
+        $this->onBeforeApplicationTerminate();
     }
 
     /**
@@ -178,16 +162,13 @@ class PlgSystemJoomlatools extends JPlugin
             if (JFactory::getApplication()->getCfg('live_site'))
             {
                 $request->setBasePath(rtrim(JURI::base(true), '/\\'));
-                $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => JURI::base())));
+                $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(JURI::base(), '/\\'))));
             }
 
             //Exception Handling
             if (PHP_SAPI !== 'cli') {
                 $manager->getObject('event.publisher')->addListener('onException', array($this, 'onException'), KEvent::PRIORITY_LOW);
             }
-
-            // Handle 404 errors gracefully after log outs
-            $manager->getObject('event.publisher')->addListener('onException', array($this, 'onErrorAfterLogout'), KEvent::PRIORITY_HIGH);
 
             /**
              * Plugin Bootstrapping
@@ -207,114 +188,9 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
-     * Handles 404 errors gracefully after log outs
+     * Low priority catch-all exception listener
      *
-     * If a user does not have access to the entity after logging out, they will be redirected to the homepage.
-     *
-     * @param KEventException $event
-     * @return bool
-     */
-    public function onErrorAfterLogout(KEventException $event)
-    {
-        if ($event->getException()->getCode() === KHttpResponse::NOT_FOUND && JFactory::getApplication()->isSite())
-        {
-            $hash = JApplicationHelper::getHash('PlgSystemLogout');
-
-            $app = JFactory::getApplication();
-            if ($app->input->cookie->getString($hash, null)) // just logged out
-            {
-                $app->enqueueMessage(JText::_('PLG_SYSTEM_LOGOUT_REDIRECT'));
-                $app->redirect('index.php');
-
-                return true;
-            }
-        }
-    }
-
-    /**
-     * Log user in from the JWT token in the request if possible
-     *
-     * onAfterInitialise is used here to make sure that Joomla doesn't display error messages for menu items
-     * with registered and above access levels.
-     */
-    public function onAfterInitialise()
-    {
-        if (class_exists('Koowa'))
-        {
-            if(JFactory::getUser()->guest)
-            {
-                $authenticator = KObjectManager::getInstance()->getObject('com:koowa.dispatcher.authenticator.jwt');
-
-                if ($authenticator->getAuthToken())
-                {
-                    $dispatcher = KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http');
-                    $authenticator->authenticateRequest($dispatcher->getContext());
-                }
-            }
-        }
-    }
-
-    /*
-     * Joomla Compatibility
-     *
-     * For Joomla 3.x : Re-run the routing and add returned keys to the $_GET request. This is done because Joomla 3
-     * sets the results of the router in $_REQUEST and not in $_GET
-     */
-    public function onAfterRoute()
-    {
-        if (class_exists('Koowa'))
-        {
-            $request = KObjectManager::getInstance()->getObject('request');
-
-            $app = JFactory::getApplication();
-            if ($app->isSite())
-            {
-                $uri     = clone JURI::getInstance();
-
-                $router = JFactory::getApplication()->getRouter();
-                $result = $router->parse($uri);
-
-                foreach ($result as $key => $value)
-                {
-                    if (!$request->query->has($key)) {
-                        $request->query->set($key, $value);
-                    }
-                }
-            }
-
-            if ($request->query->has('limitstart')) {
-                $request->query->offset = $request->query->limitstart;
-            }
-        }
-    }
-
-    /*
-     * Joomla Compatibility
-     *
-     * For Joomla 2.5 and 3.x : Handle session messages if they have not been handled by Koowa for example after a
-     * redirect to a none Koowa component.
-     */
-    public function onAfterDispatch()
-    {
-        if (class_exists('Koowa'))
-        {
-            $messages = KObjectManager::getInstance()->getObject('user')->getSession()->getContainer('message')->all();
-
-            foreach($messages as $type => $group)
-            {
-                if ($type === 'success') {
-                    $type = 'message';
-                }
-
-                foreach($group as $message) {
-                    JFactory::getApplication()->enqueueMessage($message, $type);
-                }
-            }
-        }
-    }
-
-    /**
-     * Exception event handler
+     * Catch exceptions if no other event listener has handled them yet and direct them to the http dispatcher.
      *
      * @param KEventException $event
      */
@@ -322,5 +198,109 @@ class PlgSystemJoomlatools extends JPlugin
     {
         KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
         return true;
+    }
+
+    /**
+     * Proxy onAfterKoowaBootstrap
+     *
+     * @return void
+     */
+    public function onAfterKoowaBootstrap()
+    {
+        $this->_proxyEvent('onAfterKoowaBootstrap');
+    }
+
+    /**
+     * Proxy onAfterInitialise
+     *
+     * @return void
+     */
+    public function onAfterInitialise()
+    {
+        $this->_proxyEvent('onAfterApplicationInitialise');
+    }
+
+    /**
+     * Proxy onAfterRoute
+     *
+     * @return void
+     */
+    public function onAfterRoute()
+    {
+        $this->_proxyEvent('onAfterApplicationRoute');
+    }
+
+    /**
+     * Proxy onAfterDispatch
+     *
+     * @return void
+     */
+    public function onAfterDispatch()
+    {
+        $this->_proxyEvent('onAfterApplicationDispatch');
+    }
+
+    /**
+     * Proxy onBeforeRender
+     *
+     * @return void
+     */
+    public function onBeforeRender()
+    {
+        $this->_proxyEvent('onBeforeApplicationRender');
+    }
+
+    /**
+     * Proxy onBeforeRender
+     *
+     * @return void
+     */
+    public function onBeforeCompileHead()
+    {
+        $this->_proxyEvent('onBeforeApplicationCompileHead');
+    }
+
+    /**
+     * Proxy onAfterRender
+     *
+     * @return void
+     */
+    public function onAfterRender()
+    {
+        $this->_proxyEvent('onAfterApplicationRender');
+    }
+
+    /**
+     * Proxy onAfterRespond
+     *
+     * @return void
+     */
+    public function onAfterRespond()
+    {
+        $this->_proxyEvent('onAfterApplicationRespond');
+    }
+
+    /**
+     * Proxy onBeforeApplicationTerminate
+     *
+     * @return void
+     */
+    public function onBeforeApplicationTerminate()
+    {
+        $this->_proxyEvent('onBeforeApplicationTerminate');
+    }
+
+    /**
+     * Proxy all Joomla events
+     *
+     * @param   array  &$args  Arguments
+     * @return  mixed  Routine return value
+     */
+    protected function _proxyEvent($event, $args = array())
+    {
+        //Publish the event
+        if (class_exists('Koowa')) {
+            KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
+        }
     }
 }

@@ -57,6 +57,7 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
                 'ini'  => 'KObjectConfigIni',
                 'json' => 'KObjectConfigJson',
                 'xml'  => 'KObjectConfigXml',
+                'yml'  => 'KObjectConfigYaml',
                 'yaml' => 'KObjectConfigYaml'
             )
         ));

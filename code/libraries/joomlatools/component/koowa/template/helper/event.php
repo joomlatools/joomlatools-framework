@@ -36,14 +36,26 @@ class ComKoowaTemplateHelperEvent extends KTemplateHelperAbstract
             throw new InvalidArgumentException('Event name is required');
         }
 
+        if(!(count($attributes) > 1)) {
+            throw new InvalidArgumentException('Event requires at least 2 attributes');
+        }
+
         if ($config->import_group) {
             JPluginHelper::importPlugin($config->import_group);
         }
 
         $results = JEventDispatcher::getInstance()->trigger($config->name, $attributes);
-        $result  = trim(implode("\n", $results));
+
+        if($config->name == 'onContentPrepare')
+        {
+            if(isset($attributes[1]) && isset($attributes[1]->text)) {
+                $result = $attributes[1]->text;
+            }
+        }
+        else $result = trim(implode("\n", $results));
+
         // Leave third party JavaScript as-is
-        $result  = str_replace('<script', '<script data-inline', $result);
+        $result = str_replace('<script', '<script data-inline', $result);
 
         return $result;
     }

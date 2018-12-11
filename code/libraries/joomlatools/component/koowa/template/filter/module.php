@@ -19,8 +19,18 @@ jimport('joomla.application.module.helper');
  * Filter will parse elements of the form <ktml:module position="[position]">[content]</ktml:module> and prepend or
  * append the content to the module position.
  *
- * Filter will parse elements of the form <html:module position="[position]">[content]</module> and inject the
- * content into the module position.
+ * Filter will parse elements of the form <html:module position="[position]" name="[module]"> create the module on
+ * the fly and prepend or append the content to the module position.
+ *
+ * Filter will parse elements of the form <html:modules position="[position]" condition=[condition]>[content]</ktml:modules>
+ * and inject the content into the template.
+ *
+ * The modules will not be rendered if there are no position defined, an optional condition attribute can be defined to
+ * define a more advanced condition as to when the placeholder should be rendered. Only if the condition evaluates to
+ * TRUE the modules will be rendered.
+ *
+ * Example <khtml:modules position="sidebar" condition="sidebar >= 2"> In this case the sidebar will be rendered only
+ * if at least two modules have been injected.
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Template\Filter
@@ -59,7 +69,7 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
     }
 
     /**
-     * Parse <ktml:module position="..."></ktml:module> tags
+     * Parse <ktml:module position="..."></ktml:module> and <ktml:module name="..."> tags
      *
      * @param string $text Block of text to parse
      */
@@ -67,7 +77,7 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
     {
         $matches = array();
 
-        if(preg_match_all('#<ktml:module([^>]*)>(.*)</ktml:module>#siU', $text, $matches))
+        if(preg_match_all('#<ktml:module\s+([^>]*)>(.*)</ktml:module>#siU', $text, $matches))
         {
             foreach($matches[0] as $key => $match)
             {
@@ -77,40 +87,44 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
                     'params'    => '',
                     'title'     => '',
                     'class'     => '',
-                    'prepend'   => true
+                    'prepend'   => true,
                 );
 
                 $attributes = array_merge($attributes, $this->parseAttributes($matches[1][$key]));
                 $content    = trim($matches[2][$key]);
 
                 //Skip empty modules
-                if (empty($content)) {
-                    continue;
-                }
-
-                //Create module object
-                $module            = new stdClass();
-                $module->id        = uniqid();
-                $module->content   = $content;
-                $module->position  = $attributes['position'];
-                $module->params    = $attributes['params'];
-                $module->showtitle = !empty($attributes['title']);
-                $module->title     = $attributes['title'];
-                $module->attribs   = $attributes;
-                $module->user      = 0;
-                $module->module    = 'mod_koowa_injector';
-                $module->name      = 'mod_koowa_injector';
-
-                $modules = &ComKoowaModuleHelper::getModules(null);
-
-                if($module->attribs['prepend']) {
-                    array_push($modules, $module);
-                } else {
-                    array_unshift($modules, $module);
+                if (!empty($content)) {
+                    $this->_injectModule('koowa_injector', $attributes, $content);
                 }
             }
 
             //Remove the <khtml:module></khtml:module> tags
+            $text = str_replace($matches[0], '', $text);
+        }
+
+        if(preg_match_all('#<ktml:module\s+([^>]*)>#siU', $text, $matches))
+        {
+            foreach($matches[0] as $key => $match)
+            {
+                //Create attributes array
+                $attributes = array(
+                    'style'     => 'component',
+                    'params'    => '',
+                    'title'     => '',
+                    'class'     => '',
+                    'prepend'   => true,
+                );
+
+                $attributes = array_merge($attributes, $this->parseAttributes($matches[1][$key]));
+
+                //Skip unexisting modules
+                if(isset($attributes['name']) && ComKoowaModuleHelper::hasModule($attributes['name'])) {
+                    $this->_injectModule($attributes['name'], $attributes);
+                }
+            }
+
+            //Remove the <khtml:module> tags
             $text = str_replace($matches[0], '', $text);
         }
     }
@@ -126,17 +140,25 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
         $matches = array();
 
         // <ktml:modules position="[position]"></ktml:modules>
-        if(preg_match_all('#<ktml:modules\s+position="([^"]+)"(.*)>(.*)</ktml:modules>#siU', $text, $matches))
+        if(preg_match_all('#<ktml:modules\s+position="([^"]+)"(.*"[^"]*")?>(.*)</ktml:modules>#siU', $text, $matches))
         {
             $count = count($matches[1]);
 
             for($i = 0; $i < $count; $i++)
             {
-                $position    = $matches[1][$i];
-                $attribs     = $this->parseAttributes( $matches[2][$i] );
+                $position = $matches[1][$i];
+                $attribs  = $this->parseAttributes( $matches[2][$i] );
+                $modules  = &ComKoowaModuleHelper::getModules($position);
 
-                $modules = &ComKoowaModuleHelper::getModules($position);
-                $replace[$i] = $this->_renderModules($modules, $attribs);
+                if(isset($attribs['condition']))
+                {
+                    if($this->_countModules($attribs['condition']))
+                    {
+                        unset($attribs['condition']);
+                        $replace[$i] = $this->_renderModules($modules, $attribs);
+                    }
+                }
+                else  $replace[$i] = $this->_renderModules($modules, $attribs);
 
                 if(!empty($replace[$i])) {
                     $replace[$i] = str_replace('<ktml:modules:content>', $replace[$i], $matches[3][$i]);
@@ -147,17 +169,25 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
         }
 
         // <ktml:modules position="[position]">
-        if(preg_match_all('#<ktml:modules\s+position="([^"]+)"(.*)>#iU', $text, $matches))
+        if(preg_match_all('#<ktml:modules\s+position="([^"]+)"(.*"[^"]*")?>#iU', $text, $matches))
         {
             $count = count($matches[1]);
 
             for($i = 0; $i < $count; $i++)
             {
-                $position    = $matches[1][$i];
-                $attribs     = $this->parseAttributes( $matches[2][$i] );
+                $position = $matches[1][$i];
+                $attribs  = $this->parseAttributes( $matches[2][$i] );
+                $modules  = &ComKoowaModuleHelper::getModules($position);
 
-                $modules = &ComKoowaModuleHelper::getModules($position);
-                $replace[$i] = $this->_renderModules($modules, $attribs);
+                if(isset($attribs['condition']))
+                {
+                    if($this->_countModules($attribs['condition']))
+                    {
+                        unset($attribs['condition']);
+                        $replace[$i] = $this->_renderModules($modules, $attribs);
+                    }
+                }
+                else  $replace[$i] = $this->_renderModules($modules, $attribs);
             }
 
             $text = str_replace($matches[0], $replace, $text);
@@ -212,6 +242,69 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
 
         return $html;
     }
+
+    /**
+     * Count the modules based on a condition
+     *
+     * @param  string $condition
+     * @return integer Returns the result of the evaluated condition
+     */
+    protected function _countModules($condition)
+    {
+        $operators = '(\+|\-|\*|\/|==|\!=|\<\>|\<|\>|\<=|\>=|and|or|xor)';
+        $words = preg_split('# ' . $operators . ' #', $condition, null, PREG_SPLIT_DELIM_CAPTURE);
+
+        for ($i = 0, $n = count($words); $i < $n; $i += 2)
+        {
+            // Odd parts (blocks)
+            $name = strtolower($words[$i]);
+            if(!is_numeric($name)) {
+                $words[$i] = count(ComKoowaModuleHelper::getModules($name));
+            } else {
+                $words[$i] = $name;
+            }
+        }
+
+        //Use the stream buffer to evaluate the condition
+        $str = '<?php return ' . implode(' ', $words) .';';
+        $buffer = $this->getObject('filesystem.stream.factory')->createStream('koowa-buffer://temp', 'w+b');
+        $buffer->truncate(0);
+        $buffer->write($str);
+        $result = include $buffer->getPath();
+
+        return $result;
+    }
+
+    /**
+     * Inject the module
+     *
+     * @param  string $name
+     * @param  array  $attributes
+     * @param  string $content
+     */
+    protected function _injectModule($name, $attributes = array(), $content = null)
+    {
+        //Create module object
+        $module            = new stdClass();
+        $module->content   = $content;
+        $module->id        = uniqid();
+        $module->position  = $attributes['position'];
+        $module->params    = $attributes['params'];
+        $module->showtitle = !empty($attributes['title']);
+        $module->title     = $attributes['title'];
+        $module->attribs   = $attributes;
+        $module->user      = 0;
+        $module->name      = $name;
+        $module->module    = 'mod_'.$name;
+
+        $modules = &ComKoowaModuleHelper::getModules(null);
+
+        if($module->attribs['prepend']) {
+            array_push($modules, $module);
+        } else {
+            array_unshift($modules, $module);
+        }
+    }
 }
 
 /**
@@ -239,6 +332,18 @@ class ComKoowaModuleHelper extends JModuleHelper
         }
 
         return $modules;
+    }
+
+    /**
+     * Check if a module exists
+     *
+     * @param  string $name The module name
+     * @return bool
+     */
+    public static function hasModule($name)
+    {
+        $path = JModuleHelper::getLayoutPath('mod_'.strtolower($name));
+        return file_exists($path);
     }
 }
 

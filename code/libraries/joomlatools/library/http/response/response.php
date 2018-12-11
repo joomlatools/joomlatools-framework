@@ -28,16 +28,23 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     /**
      * The response status message
      *
-     * @var int Status code
+     * @var string Status message
      */
     protected $_status_message;
 
     /**
      * The response content type
      *
-     * @var int Status code
+     * @var string Content type
      */
     protected $_content_type;
+
+    /**
+     * The response max age
+     *
+     * @var int Max age in seconds
+     */
+    protected $_max_age;
 
     // [Successful 2xx]
     const OK                        = 200;
@@ -47,7 +54,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     const RESET_CONTENT             = 205;
     const PARTIAL_CONTENT           = 206;
 
-    // [Redirection 3xx]  
+    // [Redirection 3xx]
     const MOVED_PERMANENTLY         = 301;
     const FOUND                     = 302;
     const SEE_OTHER                 = 303;
@@ -55,7 +62,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     const USE_PROXY                 = 305;
     const TEMPORARY_REDIRECT        = 307;
 
-    // [Client Error 4xx]  
+    // [Client Error 4xx]
     const BAD_REQUEST                   = 400;
     const UNAUTHORIZED                  = 401;
     const FORBIDDEN                     = 403;
@@ -73,7 +80,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     const REQUESTED_RANGE_NOT_SATISFIED = 416;
     const EXPECTATION_FAILED            = 417;
 
-    // [Server Error 5xx]  
+    // [Server Error 5xx]
     const INTERNAL_SERVER_ERROR     = 500;
     const NOT_IMPLEMENTED           = 501;
     const BAD_GATEWAY               = 502;
@@ -102,7 +109,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         205 => 'Reset Content',
         206 => 'Partial Content',
 
-        // [Redirection 3xx]  
+        // [Redirection 3xx]
         300 => 'Multiple Choices',
         301 => 'Moved Permanently',
         302 => 'Found',
@@ -111,7 +118,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         305 => 'Use Proxy',
         307 => 'Temporary Redirect',
 
-        // [Client Error 4xx]  
+        // [Client Error 4xx]
         400 => 'Bad Request',
         401 => 'Unauthorized',
         403 => 'Forbidden',
@@ -129,7 +136,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         416 => 'Requested Range Not Satisfiable',
         417 => 'Expectation Failed',
 
-        // [Server Error 5xx]  
+        // [Server Error 5xx]
         500 => 'Internal Server Error',
         501 => 'Not Implemented',
         502 => 'Bad Gateway',
@@ -169,7 +176,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     {
         $config->append(array(
             'content'        => '',
-            'content_type'   => 'text/html',
+            'content_type'   => '',
             'status_code'    => '200',
             'status_message' => null,
             'headers'        => array()
@@ -252,8 +259,11 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function setContentType($type)
     {
-        $this->_content_type = $type;
-        $this->_headers->set('Content-Type', array($type, 'charset' => 'utf-8'));
+        if($type)
+        {
+            $this->_content_type = $type;
+            $this->_headers->set('Content-Type', array($type => array('charset' => 'utf-8')));
+        }
 
         return $this;
     }
@@ -288,7 +298,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
             $date  = new DateTime(date(DATE_RFC2822, strtotime($value)));
 
             if ($date === false) {
-                throw new RuntimeException(sprintf('The Last-Modified HTTP header is not parseable (%s).', $value));
+                throw new RuntimeException(sprintf('The Date HTTP header is not parseable (%s).', $value));
             }
         }
 
@@ -360,54 +370,6 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     }
 
     /**
-     * Returns the value of the Expires header as a DateTime instance.
-     *
-     * @link http://tools.ietf.org/html/rfc2616#section-14.21
-     *
-     * @throws RuntimeException If the Expires header could not be parsed
-     * @return DateTime|null A DateTime instance or NULL if no Expires header exists
-     */
-    public function getExpires()
-    {
-        $date = null;
-
-        if ($this->_headers->has('Expires'))
-        {
-            $value = $this->_headers->get('Expires');
-            $date  = new DateTime(date(DATE_RFC2822, strtotime($value)));
-
-            if ($date === false) {
-                throw new RuntimeException(sprintf('The Expires HTTP header is not parseable (%s).', $value));
-            }
-        }
-
-        return $date;
-    }
-
-    /**
-     * Sets the Expires HTTP header with a DateTime instance.
-     *
-     * If passed a null value, it removes the header.
-     *
-     * @link http://tools.ietf.org/html/rfc2616#section-14.21
-     *
-     * @param  DateTime $date A \DateTime instance
-     * @return HttpResponse
-     */
-    public function setExpires(DateTime $date = null)
-    {
-        if (null !== $date)
-        {
-            $date = clone $date;
-            $date->setTimezone(new DateTimeZone('UTC'));
-            $this->_headers->set('Expires', $date->format('D, d M Y H:i:s').' GMT');
-
-        } else $this->_headers->remove('Expires');
-
-        return $this;
-    }
-
-    /**
      * Returns the literal value of the ETag HTTP header.
      *
      * @link http://tools.ietf.org/html/rfc2616#section-14.19
@@ -426,7 +388,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      *
      * @param string  $etag The ETag unique identifier
      * @param Boolean $weak Whether you want a weak ETag or not
-     * @return HttpResponse
+     * @return KHttpResponse
      */
     public function setEtag($etag = null, $weak = false)
     {
@@ -444,6 +406,19 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     }
 
     /**
+     * Set the age of the response.
+     *
+     * @link http://tools.ietf.org/html/rfc2616#section-14.6
+     * @param integer $age The age of the response in seconds
+     * @return KHttpResponse
+     */
+    public function setAge($age)
+    {
+        $this->_headers->set('Age', $age);
+        return $this;
+    }
+
+    /**
      * Returns the age of the response.
      *
      * @link http://tools.ietf.org/html/rfc2616#section-14.6
@@ -451,28 +426,48 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function getAge()
     {
-        if ($age = $this->_headers->get('Age')) {
-            return $age;
+        if (!$age = $this->_headers->get('Age', 0)) {
+            $age = max(time() - $this->getDate()->format('U'), 0);
         }
 
-        return max(time() - $this->getDate()->format('U'), 0);
+        return $age;
     }
 
     /**
-     * Sets the number of seconds after the time specified in the response's Date header when the the response
-     * should no longer be considered fresh.
+     * Set the max age
      *
-     * Uses the expires header to calculate the maximum age. It returns null when no max age can be established.
+     * This directive specifies the maximum time in seconds that the fetched response is allowed to be reused from
+     * the time of the request. For example, "max-age=60" indicates that the response can be cached and reused for
+     * the next 60 seconds.
      *
-     * @return integer|null Number of seconds
+     * @link https://tools.ietf.org/html/rfc2616#section-14.9.3
+     * @param integer $max_age The max age of the response in seconds
+     * @return KHttpResponse
+     */
+    public function setMaxAge($max_age)
+    {
+        $this->_max_age = $max_age;
+        return $this;
+    }
+
+    /**
+     * Get the max age
+     *
+     * It returns 0 when no max age can be established.
+     *
+     * @link https://tools.ietf.org/html/rfc2616#section-14.9.3
+     * @return integer Number of seconds
      */
     public function getMaxAge()
     {
-        if ($this->getExpires() !== null) {
-            return $this->getExpires()->format('U') - $this->getDate()->format('U');
+        $cache_control = (array) $this->_headers->get('Cache-Control', null, false);
+        if (isset($cache_control['max-age'])) {
+            $result = $cache_control['max-age'];
+        } else {
+            $result = (int) $this->_max_age;
         }
 
-        return null;
+        return (int) $result;
     }
 
     /**
@@ -484,7 +479,6 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     {
         return $this->_status_code < 100 || $this->_status_code >= 600;
     }
-
 
     /**
      * Check if an http status code is an error
@@ -503,8 +497,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function isRedirect()
     {
-        $code = $this->getStatusCode();
-        return (300 <= $code && 400 > $code);
+        return in_array($this->getStatusCode(), array(301, 302, 303, 307, 308));
     }
 
     /**
@@ -519,6 +512,29 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     }
 
     /**
+     * Returns true if the response is worth caching under any circumstance.
+     *
+     * Responses that cannot be stored or are without cache validation (Last-Modified, ETag) heades are
+     * considered uncacheable.
+     *
+     * @link http://tools.ietf.org/html/rfc2616#section-14.9.1
+     * @return Boolean true if the response is worth caching, false otherwise
+     */
+    public function isCacheable()
+    {
+        if (!in_array($this->_status_code, array(200, 203, 300, 301, 302, 304, 404, 410))) {
+            return false;
+        }
+
+        $cache_control = (array) $this->_headers->get('Cache-Control', null, false);
+        if (isset($cache_control['no-store'])) {
+            return false;
+        }
+
+        return $this->isValidateable();
+    }
+
+    /**
      * Returns true if the response includes headers that can be used to validate the response with the origin
      * server using a conditional GET request.
      *
@@ -527,29 +543,6 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     public function isValidateable()
     {
         return $this->_headers->has('Last-Modified') || $this->_headers->has('ETag');
-    }
-
-    /**
-     * Returns true if the response is worth caching under any circumstance.
-     *
-     * Responses with that are stale (Expired) or without cache validation (Last-Modified, ETag) heades are
-     * considered uncacheable.
-     *
-     * @link http://tools.ietf.org/html/rfc2616#section-14.9.1
-     * @return Boolean true if the response is worth caching, false otherwise
-     */
-    public function isCacheable()
-    {
-        if (!in_array($this->_status_code, array(200, 203, 300, 301, 302, 404, 410))) {
-            return false;
-        }
-
-        $cache_control = (array) $this->_headers->get('Cache-Control', null, false);
-        if (isset($cache_control['no-store']) || isset($cache_control['no-cache'])) {
-            return false;
-        }
-
-        return $this->isValidateable() || !$this->isStale();
     }
 
     /**

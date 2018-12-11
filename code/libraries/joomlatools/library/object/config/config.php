@@ -69,7 +69,6 @@ class KObjectConfig implements KObjectConfigInterface
      *
      * @param  string $name
      * @param  mixed  $value
-     * @throws \RuntimeException If the config is read only
      * @return KObjectConfig
      */
     public function set($name, $value)
@@ -95,23 +94,24 @@ class KObjectConfig implements KObjectConfigInterface
     }
 
     /**
-     * Remove a configuration option  by name
+     * Remove a configuration option by name(s)
      *
-     * @param   string $name The configuration option name.
-     * @throws  \RuntimeException If the config is read only
+     * @param   string|array $names The configuration option name or a list of option names.
      * @return  KObjectConfig
      */
-    public function remove( $name )
+    public function remove($names)
     {
-        $key = false;
-        if(!isset($this->__options[$name])) {
-            $key = array_search($name, $this->__options, true);
-        } else {
-            $key = $name;
-        }
+        foreach((array) $names as $name)
+        {
+            if(!isset($this->__options[$name])) {
+                $key = array_search($name, $this->__options, true);
+            } else {
+                $key = $name;
+            }
 
-        if($key !== false) {
-            unset($this->__options[$key]);
+            if($key !== false) {
+                unset($this->__options[$key]);
+            }
         }
 
         return $this;
@@ -141,7 +141,6 @@ class KObjectConfig implements KObjectConfigInterface
      * - Items in $options with STRING keys will overwrite current values.
      *
      * @param  array|\Traversable|KObjectConfigInterface $options A ObjectConfigInterface instance an or array of options to be appended
-     * @throws \RuntimeException If the config is read only
      * @return KObjectConfig
      */
     public function merge($options)
@@ -164,7 +163,6 @@ class KObjectConfig implements KObjectConfigInterface
      * This method only adds keys that don't exist and it filters out any duplicate values
      *
      * @param  array|KObjectConfigInterface|\Traversable    $options A ObjectConfigInterface instance an or array of options to be appended
-     * @throws \RuntimeException If the config is read only
      * @return KObjectConfig
      */
     public function append($options)

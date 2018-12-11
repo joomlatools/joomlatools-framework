@@ -255,7 +255,7 @@ abstract class KModelAbstract extends KObject implements KModelInterface, KComma
         $identifier = $this->getIdentifier()->toArray();
         $identifier['path'] = array('model', 'entity');
 
-        if(!is_numeric(key($data))) {
+        if($data && !is_numeric(key($data))) {
             $identifier['name'] = KStringInflector::singularize($identifier['name']);
         } else {
             $identifier['name'] = KStringInflector::pluralize($identifier['name']);

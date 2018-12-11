@@ -30,12 +30,14 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
             )
         ));
+        
+        if($this->getTemplate()->decorator() === 'koowa')
+        {
+            $layout = $this->getTemplate()->getParameters()->layout;
 
-        $app      = JFactory::getApplication();
-        $layout   = $this->getObject('request')->getQuery()->layout;
-
-        if ($app->isSite() && $this->getObject('request')->getHeaders()->has('X-Flush-Response') && $layout === 'form') {
-            $config->domain = 'admin';
+            if (JFactory::getApplication()->isSite() && $layout === 'form') {
+                $config->domain = 'admin';
+            }
         }
 
         $identifier = $this->getTemplate()->getIdentifier();
@@ -90,7 +92,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
-        if (!$this->getObject('request')->getHeaders()->has('X-Flush-Response'))
+        if ($this->getTemplate()->decorator() == 'joomla')
         {
             $app      = JFactory::getApplication();
             $template = $app->getTemplate();

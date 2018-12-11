@@ -144,7 +144,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
      */
     public function setContent($content, $type = null)
     {
-        if (!is_null($content) && !is_string($content) && !is_numeric($content) && !is_callable(array($content, '__toString')))
+        if (!is_null($content) && !is_string($content) && !(is_object($content) && method_exists($content, '__toString')))
         {
             throw new UnexpectedValueException(
                 'The message content must be a string or object implementing __toString(), "'.gettype($content).'" given.'
@@ -152,7 +152,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
         }
 
         //Cast to a string
-        $this->_content = (string) $content;
+        $this->_content = $content;
 
         if(isset($type)) {
             $this->setContentType($type);

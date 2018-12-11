@@ -242,14 +242,15 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
     }
 
     /**
-     * Is this a Flash request?
+     * Is the request a submitted HTTP form?
      *
      * @return boolean
      */
-    public function isFlash()
+    public function isFormSubmit()
     {
-        $header = $this->_headers->get('User-Agent');
-        return $header !== false && stristr($header, ' flash') || $this->_headers->has('X-Flash-Version');
+        $form_submit = in_array($this->getContentType(), ['application/x-www-form-urlencoded', 'multipart/form-data']);
+
+        return ($form_submit && !$this->isSafe() && !$this->isAjax());
     }
 
     /**
@@ -261,6 +262,17 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
     public function isSafe()
     {
         return $this->isGet() || $this->isHead() || $this->isOptions();
+    }
+
+    /**
+     * Is the request cacheable
+     *
+     * @link https://tools.ietf.org/html/rfc7231#section-4.2.3
+     * @return boolean
+     */
+    public function isCacheable()
+    {
+        return ($this->isGet() || $this->isHead()) && $this->_headers->get('Cache-Control') != 'no-cache';
     }
 
     /**

@@ -16,6 +16,13 @@
 class KObjectConfigYaml extends KObjectConfigFormat
 {
     /**
+     * The format
+     *
+     * @var string
+     */
+    protected static $_format = 'application/x-yaml';
+
+    /**
      * YAML encoder callback
      *
      * @var callable
