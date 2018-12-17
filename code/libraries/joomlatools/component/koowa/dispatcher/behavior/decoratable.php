@@ -59,7 +59,6 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
      */
     protected function _beforeSend(KDispatcherContextInterface $context)
     {
-        $request  = $context->getRequest();
         $response = $context->getResponse();
 
         if(!$response->isDownloadable() && !$response->isRedirect())
@@ -88,6 +87,10 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         //Pass back to Joomla
         if(!$response->isRedirect() && !$response->isDownloadable() && $this->getDecorator() == 'joomla')
         {
+            // #237 - Since Joomla will wrap the page we do not know the actual content-length and should not send it
+            $response->getHeaders()->remove('Content-length');
+            header_remove('Content-Length');
+
             //Contenttype
             JFactory::getDocument()->setMimeEncoding($response->getContentType());
 
