@@ -12,7 +12,7 @@
     <property name="activities.branch" value="v3.1.4" />
     <property name="scheduler.branch" value="v1.2.0" />
     <property name="migrator.branch" value="v1.2.0" />
-    <property name="tags.branch" value="v1.2.0" />
+    <property name="tags.branch" value="feature/24-syntax" />
 
 
     <!-- Load the build configuration -->
