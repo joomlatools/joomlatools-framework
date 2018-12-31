@@ -73,15 +73,14 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      */
     public function isCacheable()
     {
-        $mixer   = $this->getMixer();
-        $request = $mixer->getRequest();
+        $request = $this->getRequest();
 
         $cacheable = false;
         if($request->isCacheable() && $this->getConfig()->cache)
         {
             $cacheable = true;
 
-            if(!$this->getConfig()->cache_private && $mixer->getUser()->isAuthentic()) {
+            if(!$this->getConfig()->cache_private && $this->getUser()->isAuthentic()) {
                 $cacheable = false;
             }
         }
@@ -95,7 +94,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      * Prepares the Response before it is sent to the client. This method set the cache control headers to ensure that
      * it is compliant with RFC 2616 and calculates an etag for the response
      *
-     * @link http://tools.ietf.org/html/rfc2616
+     * @link https://tools.ietf.org/html/rfc2616#page-63
      *
      * @param 	KDispatcherContextInterface $context The active command context
      */
@@ -109,15 +108,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             $response->headers->set('Cache-Control', $this->_getCacheControl());
 
             //Set Validator
-            $response->setEtag($this->_getEtag(), true);
-
-            //Determines if the response etag match a conditional value specified in the request.
-            if ($etags = $request->getEtags())
-            {
-                if(in_array($response->getEtag(), $etags) || in_array('*', $etags)) {
-                    $response->setStatus(KHttpResponse::NOT_MODIFIED);
-                }
-            }
+            $response->setEtag($this->_getEtag(), !$response->isDownloadable());
         }
     }
 
@@ -165,7 +156,14 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             $info = $response->getStream()->getInfo();
             $etag = sprintf('"%x-%x-%s"', $info['ino'], $info['size'],base_convert(str_pad($info['mtime'],16,"0"),10,16));
         }
-        else $etag = crc32($this->getUser()->getId().'/###'.$this->getResponse()->getContent());
+        else
+        {
+            $url    = $this->getRequest()->getUrl()->toString(KHttpUrl::HOST + KHttpUrl::PATH + KHttpUrl::QUERY);
+            $format = $this->getRequest()->getFormat();
+            $user   = $this->getUser()->getId();
+
+            $etag = crc32($url.$format.$user);
+        }
 
         return $etag;
     }
