@@ -460,9 +460,21 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function getMaxAge()
     {
-        $cache_control = (array) $this->_headers->get('Cache-Control', null, false);
-        if (isset($cache_control['max-age'])) {
-            $result = $cache_control['max-age'];
+        $values = explode(',', $this->_headers->get('Cache-Control', null));
+
+        foreach($values as $key => $value)
+        {
+            $parts = explode('=', $value);
+
+            if(count($parts) > 1)
+            {
+                unset($values[$key]);
+                $values[trim($parts[0])] = trim($parts[1]);
+            }
+        }
+
+        if (isset($values['max-age'])) {
+            $result = $values['max-age'];
         } else {
             $result = (int) $this->_max_age;
         }
@@ -526,8 +538,20 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
             return false;
         }
 
-        $cache_control = (array) $this->_headers->get('Cache-Control', null, false);
-        if (isset($cache_control['no-store'])) {
+        $values = explode(',', $this->_headers->get('Cache-Control', null));
+
+        foreach($values as $key => $value)
+        {
+            $parts = explode('=', $value);
+
+            if(count($parts) > 1)
+            {
+                unset($values[$key]);
+                $values[trim($parts[0])] = trim($parts[1]);
+            }
+        }
+
+        if (in_array('no-store', $values)) {
             return false;
         }
 
