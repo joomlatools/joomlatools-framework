@@ -188,7 +188,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             $response->setContentType($request->getFormat(true));
         }
 
-        //Sset cache-control header to most conservative value.
+        //Set cache-control header to most conservative value.
         $cache_control = (array) $response->headers->get('Cache-Control', null, false);
         if (empty($cache_control) || !$request->isCacheable()) {
             $response->headers->set('Cache-Control', array('private', 'no-cache', 'no-store'));
