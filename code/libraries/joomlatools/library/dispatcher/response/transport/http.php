@@ -194,11 +194,14 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             $response->headers->set('Cache-Control', array('private', 'no-cache', 'no-store'));
         }
 
-        //Validate the resquest etag if defined
-        if ($etags = $request->getEtags())
+        //Validate the response if it's cacheable and a request etag if defined
+        if($response->isCacheable() && !$response->isStale())
         {
-            if (in_array($response->getEtag(), $etags) || in_array('*', $etags)) {
-                $response->setStatus(KHttpResponse::NOT_MODIFIED);
+            if ($etags = $request->getEtags())
+            {
+                if(in_array($response->getEtag(), $etags) || in_array('*', $etags)) {
+                    $response->setStatus(KHttpResponse::NOT_MODIFIED);
+                }
             }
         }
 
