@@ -158,11 +158,12 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
         }
         else
         {
-            $url    = $this->getRequest()->getUrl()->toString(KHttpUrl::HOST + KHttpUrl::PATH + KHttpUrl::QUERY);
-            $format = $this->getRequest()->getFormat();
-            $user   = $this->getUser()->getId();
+            $url     = $this->getRequest()->getUrl()->toString(KHttpUrl::HOST + KHttpUrl::PATH + KHttpUrl::QUERY);
+            $format  = $this->getRequest()->getFormat();
+            $user    = $this->getUser()->getId();
+            $content = $this->getResponse()->getContent();
 
-            $etag = crc32($url.$format.$user);
+            $etag = crc32($url.$format.$user.$content);
         }
 
         return $etag;
