@@ -141,7 +141,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      * Generate a response etag
      *
      * For files returns a md5 hash of same format as Apache does. Eg "%ino-%size-%0mtime" using the file
-     * info, otherwise return a crc32 digest of the response content and the user identifier
+     * info, otherwise return a crc32 digest of the request, the user identifier and response date
      *
      * @link http://stackoverflow.com/questions/44937/how-do-you-make-an-etag-that-matches-apache
      *
