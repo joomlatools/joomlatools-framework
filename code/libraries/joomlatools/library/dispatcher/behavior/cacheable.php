@@ -156,15 +156,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             $info = $response->getStream()->getInfo();
             $etag = sprintf('"%x-%x-%s"', $info['ino'], $info['size'],base_convert(str_pad($info['mtime'],16,"0"),10,16));
         }
-        else
-        {
-            $url     = $this->getRequest()->getUrl()->toString(KHttpUrl::HOST + KHttpUrl::PATH + KHttpUrl::QUERY);
-            $format  = $this->getRequest()->getFormat();
-            $user    = $this->getUser()->getId();
-            $content = $this->getResponse()->getContent();
-
-            $etag = crc32($url.$format.$user.$content);
-        }
+        else $etag = crc32($this->getUser()->getId().'/###'.$this->getResponse()->getContent());
 
         return $etag;
     }
