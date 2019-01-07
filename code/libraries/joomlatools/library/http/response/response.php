@@ -479,7 +479,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function getCacheControl()
     {
-        $values = $this->_headers->get('Cache-Control', null);
+        $values = $this->_headers->get('Cache-Control', null, false);
 
         if (is_string($values)) {
             $values = explode(',', $values);
