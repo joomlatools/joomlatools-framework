@@ -481,19 +481,18 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     {
         $values = $this->_headers->get('Cache-Control', null);
 
-        if (is_string($values))
-        {
+        if (is_string($values)) {
             $values = explode(',', $values);
+        }
 
-            foreach ($values as $key => $value)
+        foreach ($values as $key => $value)
+        {
+            $parts = explode('=', $value);
+
+            if (count($parts) > 1)
             {
-                $parts = explode('=', $value);
-
-                if (count($parts) > 1)
-                {
-                    unset($values[$key]);
-                    $values[trim($parts[0])] = trim($parts[1]);
-                }
+                unset($values[$key]);
+                $values[trim($parts[0])] = trim($parts[1]);
             }
         }
 
