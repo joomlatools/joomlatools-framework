@@ -165,6 +165,14 @@ interface KHttpResponseInterface extends KHttpMessageInterface
     public function getMaxAge();
 
     /**
+     * Get the cache control
+     *
+     * @link https://tools.ietf.org/html/rfc2616#page-108
+     * @return array
+     */
+    public function getCacheControl();
+
+    /**
      * Is the response invalid
      *
      * @return bool
