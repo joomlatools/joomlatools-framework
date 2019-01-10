@@ -102,9 +102,9 @@ class KHttpMessageHeaders extends KObjectArray
         $key = strtr(strtolower($key), '_', '-');
 
         if ($replace === true || !isset($this[$key])) {
-            $this->_data[$key] = array($values);
+            $this->_data[$key] = (array) $values;
         } else {
-            $this->_data[$key] = array_merge($this->_data[$key], array($values));
+            $this->_data[$key] = array_merge($this->_data[$key], (array) $values);
         }
 
         return $this;
@@ -174,48 +174,34 @@ class KHttpMessageHeaders extends KObjectArray
 
         ksort($headers);
 
-        //Method to implode header parameters
-        $implode = function($parameters)
+        foreach ($headers as $name => $values)
         {
+            $value   = '';
+            $name    = implode('-', array_map('ucfirst', explode('-', $name)));
             $results = array();
-            foreach ($parameters as $key => $parameter)
+
+            foreach ($values as $key => $value)
             {
                 if(!is_numeric($key))
                 {
                     //Parameters
-                    if(is_array($parameter))
+                    if(is_array($value))
                     {
                         $modifiers = array();
-                        foreach($parameter as $k => $v) {
+                        foreach($value as $k => $v) {
                             $modifiers[] = $k.'='.$v;
                         }
 
                         $results[] = $key.';'.implode($modifiers, ',');
                     }
-                    else $results[] = $key.'='.$parameter;
+                    else $results[] = $key.'='.$value;
                 }
-                else $results[] = $parameter;
+                else $results[] = $value;
             }
 
-            return $value = implode($results, ', ');
-        };
+            $value = implode($results, ', ');
 
-        //Serialise the headers to a string
-        foreach ($headers as $name => $values)
-        {
-            $name    = implode('-', array_map('ucfirst', explode('-', $name)));
-            $results = array();
-
-            foreach($values as $value)
-            {
-                if(is_array($value)) {
-                    $results[] = $implode($value);
-                }  else {
-                    $results[] = $value;
-                }
-            }
-
-            if ($value = implode($results, ', ')) {
+            if ($value) {
                 $content .= sprintf("%s %s\r\n", $name.':', $value);
             }
         }

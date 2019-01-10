@@ -73,14 +73,15 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      */
     public function isCacheable()
     {
-        $request = $this->getRequest();
+        $mixer   = $this->getMixer();
+        $request = $mixer->getRequest();
 
         $cacheable = false;
         if($request->isCacheable() && $this->getConfig()->cache)
         {
             $cacheable = true;
 
-            if(!$this->getConfig()->cache_private && $this->getUser()->isAuthentic()) {
+            if(!$this->getConfig()->cache_private && $mixer->getUser()->isAuthentic()) {
                 $cacheable = false;
             }
         }
@@ -94,7 +95,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      * Prepares the Response before it is sent to the client. This method set the cache control headers to ensure that
      * it is compliant with RFC 2616 and calculates an etag for the response
      *
-     * @link https://tools.ietf.org/html/rfc2616#page-63
+     * @link http://tools.ietf.org/html/rfc2616
      *
      * @param 	KDispatcherContextInterface $context The active command context
      */
@@ -108,7 +109,15 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             $response->headers->set('Cache-Control', $this->_getCacheControl());
 
             //Set Validator
-            $response->setEtag($this->_getEtag(), !$response->isDownloadable());
+            $response->setEtag($this->_getEtag(), true);
+
+            //Determines if the response etag match a conditional value specified in the request.
+            if ($etags = $request->getEtags())
+            {
+                if(in_array($response->getEtag(), $etags) || in_array('*', $etags)) {
+                    $response->setStatus(KHttpResponse::NOT_MODIFIED);
+                }
+            }
         }
     }
 
@@ -141,7 +150,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      * Generate a response etag
      *
      * For files returns a md5 hash of same format as Apache does. Eg "%ino-%size-%0mtime" using the file
-     * info, otherwise return a crc32 digest the user identifier and response content
+     * info, otherwise return a crc32 digest of the response content and the user identifier
      *
      * @link http://stackoverflow.com/questions/44937/how-do-you-make-an-etag-that-matches-apache
      *
