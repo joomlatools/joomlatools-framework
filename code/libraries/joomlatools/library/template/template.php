@@ -424,4 +424,17 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
 
         return $result;
     }
+
+    /**
+     * Deep clone of this instance
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        parent::__clone();
+
+        $this->__parameters = clone $this->__parameters;
+        $this->__filter_queue = clone $this->__filter_queue;
+    }
 }
