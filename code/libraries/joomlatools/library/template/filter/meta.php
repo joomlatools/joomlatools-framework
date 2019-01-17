@@ -30,7 +30,7 @@ class KTemplateFilterMeta extends KTemplateFilterTag
         $matches = array();
         if(preg_match_all('#<meta\ content="([^"]+)"(.*)\/>#siU', $text, $matches))
         {
-            foreach(array_unique($matches[1]) as $key => $match)
+            foreach($matches[1] as $key => $match)
             {
                 //Set required attributes
                 $attribs = array(
