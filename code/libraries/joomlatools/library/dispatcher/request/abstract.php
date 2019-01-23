@@ -760,7 +760,10 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             $this->_base_path = rtrim(dirname($path), '/\\');
         }
 
-        return $fqp ? $_SERVER['DOCUMENT_ROOT'].$this->_base_path : $this->_base_path;
+        $path = $fqp ? $_SERVER['DOCUMENT_ROOT'].$this->_base_path : $this->_base_path;
+
+        // Sanitize the path since we can't trust the server var
+        return $this->getObject('lib:filter.path')->sanitize($path);
     }
 
     /**
