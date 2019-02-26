@@ -140,15 +140,17 @@ abstract class KViewTemplate extends KViewAbstract
             $entity = $model->fetch();
             $context->data->$name = $entity;
 
+
             //Set the parameters
             if($this->isCollection())
             {
                 $context->parameters = $model->getState()->getValues();
                 $context->parameters->total = $model->count();
             }
-            else {
+            else
+            {
                 $context->parameters = $entity->getProperties();
-                $context->parameters->total = 1;
+                $context->parameters->total = 0;
             }
         }
         else $context->parameters = $model->getState()->getValues();
