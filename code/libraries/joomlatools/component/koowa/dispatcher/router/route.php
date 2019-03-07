@@ -77,7 +77,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 
             unset($query['component']);
         }
-        
+
         //Push option and view to the beginning of the array for easy to read URLs
         $query = array_merge(array('option' => null, 'view'   => null), $query);
 
