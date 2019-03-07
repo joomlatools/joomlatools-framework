@@ -77,12 +77,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 
             unset($query['component']);
         }
-
-        // Add the 'tmpl' information to the route if a 'tmpl' is set in the request
-        if (!isset($query['tmpl']) && $tmpl = $this->getObject('request')->getQuery()->get('tmpl', 'cmd')) {
-            $query['tmpl'] = $tmpl;
-        }
-
+        
         //Push option and view to the beginning of the array for easy to read URLs
         $query = array_merge(array('option' => null, 'view'   => null), $query);
 
