@@ -39,8 +39,16 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 
     protected function _initialize(KObjectConfig $config)
     {
+        $clients = JApplicationHelper::getClientInfo();
+
+        $applications = array();
+
+        foreach ($clients as $client) {
+            $applications[] = $client->name;
+        }
+
         $config->append(array(
-            'applications' => array('site', 'administrator'),
+            'applications' => $applications,
             'application'  => JFactory::getApplication()->getName()
         ));
 
