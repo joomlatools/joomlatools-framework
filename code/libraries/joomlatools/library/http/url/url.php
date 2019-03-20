@@ -498,6 +498,25 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
     }
 
     /**
+     * Build the url from a template
+     *
+     * @link http://tools.ietf.org/html/rfc6570
+     *
+     * @param string $template  URI template
+     * @param array  $variables Template variables
+     */
+    public static function fromTemplate($template, array $variables)
+    {
+        if (strpos($template, '{') !== false) {
+            $url = uri_template($template, $variables);
+        } else {
+            $url = $template;
+        }
+
+        return self::fromString($url);
+    }
+
+    /**
      * Build the url from an array
      *
      * @param   array  $parts Associative array like parse_url() returns.
