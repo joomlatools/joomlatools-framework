@@ -116,11 +116,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         //Set the base path
         $this->setBasePath($config->base_path);
 
-        //Set the formats
-        foreach(KObjectConfig::unbox($config->formats) as $format => $mediatype) {
-            $this->addFormat($format, $mediatype);
-        }
-
         //Set document root for IIS
         if(!isset($_SERVER['DOCUMENT_ROOT']))
         {
@@ -233,23 +228,8 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         $config->append(array(
             'base_url'  => '/',
             'base_path' => null,
-            'format'    => null,
             'url'       => null,
             'method'   => null,
-            'formats'  => array(
-                'html'       => array('text/html', 'application/xhtml+xml'),
-                'txt'        => array('text/plain'),
-                'csv'        => array('text/csv'),
-                'js'         => array('application/javascript', 'application/x-javascript', 'text/javascript'),
-                'css'        => array('text/css'),
-                'json'       => array('application/json', 'application/x-json', 'application/vnd.api+json'),
-                'xml'        => array('text/xml', 'application/xml', 'application/x-xml'),
-                'rdf'        => array('application/rdf+xml'),
-                'atom'       => array('application/atom+xml'),
-                'rss'        => array('application/xml', 'application/rss+xml'),
-                'jsonstream' => array('application/stream+json'),
-                'binary'     => array('application/octet-stream'),
-            ),
             'query'   => $_GET,
             'data'    => $_POST,
             'cookies' => $_COOKIE,
@@ -390,31 +370,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         }
 
         return $this->_content;
-    }
-
-    /**
-     * Get the POST or PUT content type
-     *
-     * @return  string   The content type
-     */
-    public function getContentType()
-    {
-        if (empty($this->_content_type) && $this->_headers->has('Content-Type'))
-        {
-            $type = $this->_headers->get('Content-Type');
-
-            //Strip parameters from content-type like "; charset=UTF-8"
-            if (is_string($type))
-            {
-                if (preg_match('/^([^,\;]*)/', $type, $matches)) {
-                    $type = $matches[1];
-                }
-            }
-
-            $this->_content_type = $type;
-        }
-
-        return $this->_content_type;
     }
 
     /**
@@ -566,7 +521,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      * Set the url for this request
      *
      * @param string|array  $url Part(s) of an URL in form of a string or associative array like parse_url() returns
-     * @return HttpRequest
+     * @return KHttpRequest
      */
     public function setUrl($url)
     {
@@ -732,7 +687,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      * Set the base URL for which the request is executed.
      *
      * @param string $url
-     * @return KDispatcherRequest
+     * @return KDispatcherRequestAbstract
      */
     public function setBaseUrl($url)
     {
@@ -770,7 +725,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      * Set the base path for which the request is executed.
      *
      * @param string $path
-     * @return KDispatcherRequest
+     * @return KDispatcherRequestAbstract
      */
     public function setBasePath($path)
     {
@@ -834,41 +789,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         }
 
         return $mediatype ? static::$_formats[$this->_format][0] : $this->_format;
-    }
-
-    /**
-     * Sets a format
-     *
-     * @param string $format The format
-     * @throws UnexpectedValueException If the format hasn't been registered.
-     * @return $this
-     */
-    public function setFormat($format)
-    {
-        if($format)
-        {
-            if(!isset(static::$_formats[$format])) {
-                throw new UnexpectedValueException('Unregistered format: "' . $format . '" given.');
-            }
-
-            $this->_format = $format;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Associates a format with mime types.
-     *
-     * @param string       $format     The format
-     * @param string|array $mime_types The associated mime types (the preferred one must be the first as it will be used
-     *                                as the content type)
-     * @return KDispatcherRequest
-     */
-    public function addFormat($format, $mime_types)
-    {
-        static::$_formats[$format] = is_array($mime_types) ? $mime_types : array($mime_types);
-        return $this;
     }
 
     /**
