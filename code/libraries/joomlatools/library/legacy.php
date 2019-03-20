@@ -176,7 +176,7 @@ if (!function_exists('mb_substr'))
  *
  * Based on https://github.com/seebz/uri-template/blob/master/src/functions.php
  */
-if(!extension_loaded('uri_template'))
+if(!function_exists('uri_template'))
 {
     function uri_template($template, array $variables = array())
     {
