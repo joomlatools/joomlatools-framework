@@ -516,8 +516,11 @@ class KHttpToken extends KObject implements KHttpTokenInterface
     {
         $json = json_encode($input);
 
-        if($json === false) {
-            throw new DomainException('Error encoding JSON data');
+        if (JSON_ERROR_NONE !== json_last_error())
+        {
+            throw new InvalidArgumentException(
+                'Error encoding JSON data: ' . json_last_error_msg()
+            );
         }
 
         return $json;
@@ -534,8 +537,11 @@ class KHttpToken extends KObject implements KHttpTokenInterface
     {
         $obj = json_decode($input, true);
 
-        if($obj === false) {
-            throw new DomainException('Error decoding JSON data');
+        if (JSON_ERROR_NONE !== json_last_error())
+        {
+            throw new InvalidArgumentException(
+                'Error decoding JSON data: ' . json_last_error_msg()
+            );
         }
 
         return $obj;
