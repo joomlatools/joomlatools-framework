@@ -150,7 +150,7 @@ interface KHttpResponseInterface extends KHttpMessageInterface
      *
      * @link https://tools.ietf.org/html/rfc2616#section-14.9.3
      * @param integer $max_age The max age of the response in seconds
-     * @return HttpResponse
+     * @return KHttpResponseInterface
      */
     public function setMaxAge($max_age);
 

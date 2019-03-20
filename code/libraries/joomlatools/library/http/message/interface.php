@@ -53,7 +53,7 @@ interface KHttpMessageInterface
      * @param mixed  $content   The content
      * @param string $type      The content type
      * @throws UnexpectedValueException If the content is not a string are cannot be casted to a string.
-     * @return HttpMessage
+     * @return KHttpMessage
      */
     public function setContent($content, $type = null);
 
@@ -78,6 +78,22 @@ interface KHttpMessageInterface
      * @return string Character set
      */
     public function getContentType();
+
+    /**
+     * Return the message format
+     *
+     * @return  string  The message format NULL if no format could be found
+     */
+    public function getFormat();
+
+    /**
+     * Sets a format
+     *
+     * @param string $format The format
+     * @throws UnexpectedValueException If the format hasn't been registered.
+     * @return KHttpMessage
+     */
+    public function setFormat($format);
 
     /**
      * Render the message as a string

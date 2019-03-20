@@ -81,7 +81,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
      * Set the header parameters
      *
      * @param  array $headers
-     * @return HttpRequest
+     * @return KHttpRequest
      */
     public function setHeaders($headers)
     {
@@ -94,7 +94,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
      *
      * @param  string $method
      * @throws InvalidArgumentException
-     * @return HttpRequest
+     * @return KHttpRequest
      */
     public function setMethod($method)
     {
@@ -122,7 +122,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
      * Set the url for this request
      *
      * @param string|array  $url Part(s) of an URL in form of a string or associative array like parse_url() returns
-     * @return HttpRequest
+     * @return KHttpRequest
      */
     public function setUrl($url)
     {
