@@ -145,7 +145,7 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
      * @param mixed  $content   The content
      * @param string $type      The content type
      * @throws \UnexpectedValueException If the content is not a string are cannot be casted to a string.
-     * @return HttpMessage
+     * @return KHttpMessage
      */
     public function setContent($content, $type = null)
     {

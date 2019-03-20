@@ -46,6 +46,13 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
     protected $_content_type;
 
     /**
+     * Mediatype to format mappings
+     *
+     * @var array
+     */
+    protected static $_formats;
+
+    /**
      * Constructor
      *
      * @param KObjectConfig $config  An optional ObjectConfig object with configuration options
@@ -54,6 +61,9 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
     public function __construct(KObjectConfig $config)
     {
         parent::__construct($config);
+
+        //Define the message formats
+        self::$_formats = KObjectConfig::unbox($config->formats);
 
         //Set Headers
         $this->setHeaders($config->headers);
@@ -78,6 +88,20 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
             'content'      => '',
             'content_type' => '',
             'headers'      => array(),
+            'formats'  => array(
+                'html'       => array('text/html', 'application/xhtml+xml'),
+                'txt'        => array('text/plain'),
+                'csv'        => array('text/csv'),
+                'js'         => array('application/javascript', 'application/x-javascript', 'text/javascript'),
+                'css'        => array('text/css'),
+                'json'       => array('application/json', 'application/x-json', 'application/vnd.api+json'),
+                'xml'        => array('text/xml', 'application/xml', 'application/x-xml'),
+                'rdf'        => array('application/rdf+xml'),
+                'atom'       => array('application/atom+xml'),
+                'rss'        => array('application/xml', 'application/rss+xml'),
+                'jsonstream' => array('application/stream+json'),
+                'binary'     => array('application/octet-stream'),
+            ),
         ));
 
         parent::_initialize($config);
@@ -110,7 +134,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
      *
      * @param string $version The HTTP protocol version
      * @throws InvalidArgumentException
-     * @return KHttpResponse
+     * @return KHttpMessage
      */
     public function setVersion($version)
     {
@@ -140,7 +164,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
      * @param mixed  $content   The content
      * @param string $type      The content type
      * @throws \UnexpectedValueException If the content is not a string are cannot be casted to a string.
-     * @return HttpMessage
+     * @return KHttpMessage
      */
     public function setContent($content, $type = null)
     {
@@ -172,25 +196,93 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
     }
 
     /**
-     * Sets the message content type
+     * Sets the response content type
+     *
+     * @see http://tools.ietf.org/html/rfc2616#section-14.17
      *
      * @param string $type Content type
-     * @return HttpMessage
+     * @return KHttpMessage
      */
     public function setContentType($type)
     {
-        $this->_content_type = $type;
+        if($type)
+        {
+            $this->_content_type = $type;
+            $this->_headers->set('Content-Type', array($type => array('charset' => 'utf-8')));
+        }
+
         return $this;
     }
 
     /**
      * Retrieves the message content type
      *
-     * @return string Character set
+     * @link http://tools.ietf.org/html/rfc2616#section-14.17
+     *
+     * @return string The content type
      */
     public function getContentType()
     {
+        if (empty($this->_content_type) && $this->_headers->has('Content-Type'))
+        {
+            $type = $this->_headers->get('Content-Type');
+
+            //Strip parameters from content-type like "; charset=UTF-8"
+            if (is_string($type))
+            {
+                if (preg_match('/^([^,\;]*)/', $type, $matches)) {
+                    $type = $matches[1];
+                }
+            }
+
+            $this->_content_type = $type;
+        }
+
         return $this->_content_type;
+    }
+
+    /**
+     * Return the message format
+     *
+     * @return  string  The message format NULL if no format could be found
+     */
+    public function getFormat()
+    {
+        $result = null;
+
+        foreach (static::$_formats as $value => $media_types)
+        {
+            $media_type = $this->getContentType();
+
+            if (in_array($media_type, (array)$media_types))
+            {
+                $result = $value;
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Sets a format
+     *
+     * @param string $format The format
+     * @throws UnexpectedValueException If the format hasn't been registered.
+     * @return KHttpMessage
+     */
+    public function setFormat($format)
+    {
+        if($format)
+        {
+            if(!isset(static::$_formats[$format])) {
+                throw new UnexpectedValueException('Unregistered format: "' . $format . '" given.');
+            }
+
+            $this->setContentType(static::$_formats[$format][0]);
+        }
+
+        return $this;
     }
 
     /**

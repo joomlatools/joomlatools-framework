@@ -170,28 +170,6 @@ interface KDispatcherRequestInterface extends KControllerRequestInterface
     public function setBasePath($path);
 
     /**
-     * Return the request format
-     *
-     * Find the format by using following sequence :
-     *
-     * 1. Use the the 'format' request parameter
-     * 2. Use the accept header with the highest quality apply the reverse format map to find the format.
-     *
-     * @return  string  The request format or NULL if no format could be found
-     */
-    public function getFormat();
-
-    /**
-     * Associates a format with mime types.
-     *
-     * @param string       $format     The format
-     * @param string|array $mime_types The associated mime types (the preferred one must be the first as it will be used
-     *                                as the content type)
-     * @return KDispatcherRequestInterface
-     */
-    public function addFormat($format, $mime_types);
-
-    /**
      * Gets a list of languages acceptable by the client browser.
      *
      * @return array Languages ordered in the user browser preferences
