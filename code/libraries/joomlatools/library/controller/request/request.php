@@ -30,13 +30,6 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
     protected $_data;
 
     /**
-     * The request format
-     *
-     * @var string
-     */
-    protected $_format;
-
-    /**
      * Constructor
      *
      * @param KObjectConfig|null $config  An optional ObjectConfig object with configuration options
@@ -131,28 +124,6 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
     public function getData()
     {
         return $this->_data;
-    }
-
-    /**
-     * Return the request format
-     *
-     * @return  string  The request format
-     */
-    public function getFormat()
-    {
-        return $this->_format;
-    }
-
-    /**
-     * Set the request format
-     *
-     * @param $format
-     * @return KControllerRequest
-     */
-    public function setFormat($format)
-    {
-        $this->_format = $format;
-        return $this;
     }
 
     /**

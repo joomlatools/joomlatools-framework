@@ -85,12 +85,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     protected $_ranges;
 
-    /**
-     * Mediatype to format mappings
-     *
-     * @var array
-     */
-    protected static $_formats;
 
     /**
      * Constructor
@@ -234,7 +228,8 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             'data'    => $_POST,
             'cookies' => $_COOKIE,
             'files'   => $_FILES,
-            'proxies' => array()
+            'proxies' => array(),
+            'format'  => null,
         ));
 
         parent::_initialize($config);
@@ -785,6 +780,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             }
             else $format = $this->query->get('format', 'word');
 
+            $this->_format = $format;
             $this->setFormat($format);
         }
 
