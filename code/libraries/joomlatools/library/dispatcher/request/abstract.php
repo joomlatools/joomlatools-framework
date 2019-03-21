@@ -85,12 +85,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     protected $_ranges;
 
-    /**
-     * The request format
-     *
-     * @var string
-     */
-    protected $_format;
 
     /**
      * Constructor
@@ -785,7 +779,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
                 }
             }
             else $format = $this->query->get('format', 'word');
-
 
             $this->_format = $format;
             $this->setFormat($format);
