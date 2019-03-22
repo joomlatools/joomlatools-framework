@@ -81,16 +81,19 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
     {
         $model = $context->getSubject();
 
-        if ($model instanceof KModelDatabase && !$context->state->isUnique()) {
+        if ($model instanceof KModelDatabase && !$context->state->isUnique())
+        {
             $state  = $context->state;
             $search = $state->search;
 
-            if ($search) {
+            if ($search)
+            {
                 $search_column = null;
                 $columns       = array_keys($this->getTable()->getColumns());
 
                 // Parse $state->search for possible column prefix
-                if (preg_match('#^([a-z0-9\-_]+)\s*:\s*(.+)\s*$#i', $search, $matches)) {
+                if (preg_match('#^([a-z0-9\-_]+)\s*:\s*(.+)\s*$#i', $search, $matches))
+                {
                     if (in_array($matches[1], $this->_columns) || $matches[1] === 'id') {
                         $search_column = $matches[1];
                         $search        = $matches[2];
@@ -98,7 +101,8 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
                 }
 
                 // Search in the form of id:NUM
-                if ($search_column === 'id') {
+                if ($search_column === 'id')
+                {
                     $context->query->where('(tbl.' . $this->getTable()->getIdentityColumn() . ' = :search)')
                         ->bind(array('search' => $search));
                 }
@@ -106,13 +110,15 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
                 {
                     $conditions = array();
 
-                    foreach ($this->_columns as $column) {
+                    foreach ($this->_columns as $column)
+                    {
                         if (in_array($column, $columns) && (!$search_column || $column === $search_column)) {
                             $conditions[] = 'tbl.' . $column . ' LIKE :search';
                         }
                     }
 
-                    if ($conditions) {
+                    if ($conditions)
+                    {
                         $context->query->where('(' . implode(' OR ', $conditions) . ')')
                             ->bind(array('search' => '%' . $search . '%'));
                     }
