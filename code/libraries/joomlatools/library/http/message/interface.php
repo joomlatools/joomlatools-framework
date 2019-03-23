@@ -96,6 +96,13 @@ interface KHttpMessageInterface
     public function setFormat($format);
 
     /**
+     * Returns the headers as an array
+     *
+     * @return array An associative array
+     */
+    public function toArray();
+
+    /**
      * Render the message as a string
      *
      * @return string
