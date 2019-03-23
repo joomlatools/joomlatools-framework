@@ -34,7 +34,8 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             'priority' => self::PRIORITY_LOW,
             'cache'         => true,
             'cache_private' => false,
-            'cache_time'    => 0, //must revalidate
+            'cache_time'         => 0, //must revalidate
+            'cache_time_shared'  => 0, //must revalidate proxy
         ));
 
         parent::_initialize($config);
@@ -53,7 +54,9 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
         parent::onMixin($mixer);
 
         //Set max age default
-        $this->getMixer()->getResponse()->setMaxAge($this->getConfig()->cache_time);
+        if($this->isCacheable()) {
+            $this->getMixer()->getResponse()->setMaxAge($this->getConfig()->cache_time, $this->getConfig()->cache_time_shared);
+        }
     }
 
     /**
@@ -121,18 +124,14 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      */
     protected function _getCacheControl()
     {
-        $cache = array();
         $response = $this->getResponse();
+        $cache    = $response->getCacheControl();
 
         if($response->getUser()->isAuthentic()) {
-            $cache = array('private');
+            $cache[] = 'private';
         } else {
-            $cache = array('public');
+            $cache[] = 'public';
         }
-
-        if(0 == $cache['max-age'] = $response->getMaxAge()) {
-            $cache[] = 'no-cache';
-        };
 
         return $cache;
     }
