@@ -344,6 +344,17 @@ abstract class KControllerModel extends KControllerView implements KControllerMo
     }
 
     /**
+     * Generic count function, counts the total amount of entities
+     *
+     * @param    KControllerContextInterface $context A controller context object
+     * @return   integer
+     */
+    protected function _actionCount(KControllerContextInterface $context)
+    {
+        return $this->getModel()->count();
+    }
+
+    /**
      * Supports a simple form Fluent Interfaces. Allows you to set the request properties by using the request property
      * name as the method name.
      *
