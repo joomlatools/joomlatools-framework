@@ -50,6 +50,18 @@ abstract class KControllerPermissionAbstract extends KObjectMixinAbstract implem
     }
 
     /**
+     * Permission handler for count actions
+     *
+     * Method returns the results of canBrowse()
+     *
+     * @return  boolean  Return TRUE if action is permitted. FALSE otherwise.
+     */
+    public function canCount()
+    {
+        return $this->canBrowse();
+    }
+
+    /**
      * Permission handler for add actions
      *
      * Method returns TRUE iff the controller implements the KControllerModellable interface and the user is authentic
