@@ -51,10 +51,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     }
 
     /**
-     * If PHP is on a secure connection always return 443 instead of 80
-     *
-     * When PHP is behind a reverse proxy port information might not be forwarded correctly.
-     * Also, $_SERVER['SERVER_PORT'] is not configured correctly on some hosts and always returns 80.
+     * If the current Joomla URI is on https or PHP is on a secure connection always return 443 instead of 80
      *
      * {@inheritdoc}
      */
@@ -62,11 +59,21 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $port = parent::getPort();
 
-        if ($this->isSecure() && in_array($port, ['80', '8080'])) {
+        if (Joomla\CMS\Uri\Uri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
             $port = '443';
         }
 
         return $port;
+    }
+
+    /**
+     * If the current Joomla URI is on https always return true
+     *
+     * {@inheritdoc}
+     */
+    public function isSecure()
+    {
+        return Joomla\CMS\Uri\Uri::getInstance()->isSsl() ? true : parent::isSecure();
     }
 
     /**
