@@ -62,11 +62,26 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $port = parent::getPort();
 
-        if ($this->isSecure() && in_array($port, ['80', '8080'])) {
+        if (Joomla\CMS\Uri\Uri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
             $port = '443';
         }
 
         return $port;
+    }
+
+    /**
+     * Checks whether the request is secure or not.
+     *
+     * This method can read the client scheme from the "X-Forwarded-Proto" header when the request is proxied and the
+     * proxy is trusted. The "X-Forwarded-Proto" header must contain the protocol: "https" or "http".
+     *
+     * @link http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#section-5.4
+     *
+     * @return  boolean
+     */
+    public function isSecure()
+    {
+        return Joomla\CMS\Uri\Uri::getInstance()->isSsl() ? true : parent::isSecure();
     }
 
     /**
