@@ -51,10 +51,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     }
 
     /**
-     * If PHP is on a secure connection always return 443 instead of 80
-     *
-     * When PHP is behind a reverse proxy port information might not be forwarded correctly.
-     * Also, $_SERVER['SERVER_PORT'] is not configured correctly on some hosts and always returns 80.
+     * If the current Joomla URI is on https or PHP is on a secure connection always return 443 instead of 80
      *
      * {@inheritdoc}
      */
@@ -70,14 +67,9 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     }
 
     /**
-     * Checks whether the request is secure or not.
+     * If the current Joomla URI is on https always return true
      *
-     * This method can read the client scheme from the "X-Forwarded-Proto" header when the request is proxied and the
-     * proxy is trusted. The "X-Forwarded-Proto" header must contain the protocol: "https" or "http".
-     *
-     * @link http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#section-5.4
-     *
-     * @return  boolean
+     * {@inheritdoc}
      */
     public function isSecure()
     {
