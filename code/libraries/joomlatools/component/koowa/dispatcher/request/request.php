@@ -59,7 +59,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $port = parent::getPort();
 
-        if (Joomla\CMS\Uri\Uri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
+        if (JUri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
             $port = '443';
         }
 
@@ -73,7 +73,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function isSecure()
     {
-        return Joomla\CMS\Uri\Uri::getInstance()->isSsl() ? true : parent::isSecure();
+        return JUri::getInstance()->isSsl() ? true : parent::isSecure();
     }
 
     /**
