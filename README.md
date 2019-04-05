@@ -20,7 +20,6 @@ and includes everything needed to create Joomla extensions according to the [Hie
 
 Joomlatools Framework is built to help developers create **custom** Joomla extensions and tries to solve following problems:
 
-* Abstract differences between Joomla versions 2.x and 3.x.
 * Provide a solid modern and lean architecture for building extensions.
 * Allow extensions to be more flexible and extended easily.
 
@@ -39,7 +38,7 @@ compatibility is not guaranteed.
 
 ## Requirements
 
-* Joomla 3.x
+* Joomla 3.6 or newer
 * PHP 5.4 or newer
 * MySQL 5.x
 
