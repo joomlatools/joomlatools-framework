@@ -312,6 +312,6 @@ class PlgSystemJoomlatools extends JPlugin
      */
     public function onUserAfterLogin($data)
     {
-        $this->_proxyEvent('onUserAfterLogin', $data);
+        $this->_proxyEvent('onAfterUserLogin', $data);
     }
 }

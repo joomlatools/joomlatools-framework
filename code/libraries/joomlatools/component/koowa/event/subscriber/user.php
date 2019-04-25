@@ -18,7 +18,7 @@ class ComKoowaEventSubscriberUser extends KEventSubscriberAbstract
     /**
      * Makes sure both Koowa and Joomla users are in sync after user login
      */
-    public function onUserAfterLogin(KEventInterface $event)
+    public function onAfterUserLogin(KEventInterface $event)
     {
         $user = $this->getObject('user');
 
