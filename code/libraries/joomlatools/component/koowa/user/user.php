@@ -26,14 +26,28 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
         parent::_initialize($config);
     }
 
-    public function sync($user)
+    /**
+     * User setter
+     *
+     * @param JUser $user A joomla user object
+     *
+     * @return $this
+     */
+    public function setUser(JUser $user)
     {
         $this->setData($this->_mapData($user));
 
         return $this;
     }
 
-    protected function _mapData($user)
+    /**
+     * Joomla user to Koowa user data mapper
+     *
+     * @param JUser $user
+     *
+     * @return array Koowa user data
+     */
+    protected function _mapData(JUser $user)
     {
         return array(
             'id'         => $user->id,

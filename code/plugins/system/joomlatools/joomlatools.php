@@ -304,6 +304,12 @@ class PlgSystemJoomlatools extends JPlugin
         }
     }
 
+    /**
+     * Update user object on login
+     *
+     * @param   array  login event data
+     * @return  mixed  Routine return value
+     */
     public function onUserAfterLogin($data)
     {
         $manager =  KObjectManager::getInstance();
@@ -311,7 +317,7 @@ class PlgSystemJoomlatools extends JPlugin
         $user = $manager->getObject('user');
 
         if (!$user->isAuthentic()) {
-            $user->sync($data['user']);
+            $user->setUser($data['user']);
         }
     }
 }
