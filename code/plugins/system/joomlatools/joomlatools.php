@@ -312,12 +312,6 @@ class PlgSystemJoomlatools extends JPlugin
      */
     public function onUserAfterLogin($data)
     {
-        $manager =  KObjectManager::getInstance();
-
-        $user = $manager->getObject('user');
-
-        if (!$user->isAuthentic()) {
-            $user->setUser($data['user']);
-        }
+        $this->_proxyEvent('onUserAfterLogin', $data);
     }
 }
