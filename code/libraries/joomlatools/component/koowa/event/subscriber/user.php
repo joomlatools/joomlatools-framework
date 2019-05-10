@@ -26,7 +26,7 @@ class ComKoowaEventSubscriberUser extends KEventSubscriberAbstract
             $user->setUser($event->user);
         }
 
-        $menu = JMenu::getInstance(JFactory::getApplication()->getName());
+        $menu = JFactory::getApplication()->getMenu();
 
         // Hack for syncing the authenticated user object on the Joomla menu instance
         $set_user = Closure::bind(function($user)
