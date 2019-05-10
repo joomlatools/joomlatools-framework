@@ -26,27 +26,16 @@ class ComKoowaEventSubscriberUser extends KEventSubscriberAbstract
             $user->setUser($event->user);
         }
 
+        $menu = JMenu::getInstance(JFactory::getApplication()->getName());
+
         // Hack for syncing the authenticated user object on the Joomla menu instance
-        ComKoowaJMenu::setUser($event->user);
-    }
-}
+        $set_user = Closure::bind(function($user)
+        {
+            if (!$this->user->id) {
+                $this->user = $user;
+            }
+        }, $menu, $menu);
 
-/**
- * Koowa Joomla Menu
- *
- * @author  Arunas Mazeika <https://github.com/amazeika>
- * @package Koowa\Component\Koowa\Event\Subscriber
- */
-class ComKoowaJMenu extends JMenu
-{
-    public static function setUser($user)
-    {
-        $client = JFactory::getApplication()->getName();
-
-        $menu = self::getInstance($client);
-
-        if (!$menu->user->id) {
-            $menu->user = $user;
-        }
+        $set_user($event->user);
     }
 }
