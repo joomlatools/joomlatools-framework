@@ -20,21 +20,47 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
         $user = JFactory::getUser();
 
         $config->append(array(
-            'data' => array(
-                'id'         => $user->id,
-                'email'      => $user->email,
-                'name'       => $user->name,
-                'username'   => $user->username,
-                'password'   => $user->password,
-                'salt'       => '',
-                'authentic'  => !$user->guest,
-                'enabled'    => !$user->block,
-                'expired'    => !$user->activation,
-                'attributes' => $user->getParameters()->toArray()
-            )
+            'data' => $this->_mapData($user)
         ));
 
         parent::_initialize($config);
+    }
+
+    /**
+     * User setter
+     *
+     * @param JUser $user A joomla user object
+     *
+     * @return $this
+     */
+    public function setUser(JUser $user)
+    {
+        $this->setData($this->_mapData($user));
+
+        return $this;
+    }
+
+    /**
+     * Joomla user to Koowa user data mapper
+     *
+     * @param JUser $user
+     *
+     * @return array Koowa user data
+     */
+    protected function _mapData(JUser $user)
+    {
+        return array(
+            'id'         => $user->id,
+            'email'      => $user->email,
+            'name'       => $user->name,
+            'username'   => $user->username,
+            'password'   => $user->password,
+            'salt'       => '',
+            'authentic'  => !$user->guest,
+            'enabled'    => !$user->block,
+            'expired'    => !$user->activation,
+            'attributes' => $user->getParameters()->toArray()
+        );
     }
 
     /**

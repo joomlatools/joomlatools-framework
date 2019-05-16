@@ -303,4 +303,15 @@ class PlgSystemJoomlatools extends JPlugin
             KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
         }
     }
+
+    /**
+     * Update user object on login
+     *
+     * @param   array  login event data
+     * @return  mixed  Routine return value
+     */
+    public function onUserAfterLogin($data)
+    {
+        $this->_proxyEvent('onAfterUserLogin', $data);
+    }
 }
