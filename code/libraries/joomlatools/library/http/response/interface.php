@@ -150,7 +150,7 @@ interface KHttpResponseInterface extends KHttpMessageInterface
      *
      * @link https://tools.ietf.org/html/rfc2616#section-14.9.3
      * @param integer $max_age       The number of seconds after which the response should no longer be considered fresh.
-     * @param integer $share_max_age The number of seconds after which the response should no longer be considered fresh by shared caches.
+     * @param integer $shared_max_age The number of seconds after which the response should no longer be considered fresh by shared caches.
      * @return KHttpResponse
      */
     public function setMaxAge($max_age, $shared_max_age = null);
