@@ -130,7 +130,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
     }
 
     /**
-     * Sets the HTTP protocol version (1.0 or 1.1).
+     * Sets the HTTP protocol version (1.0, 1.1 or 2.0).
      *
      * @param string $version The HTTP protocol version
      * @throws InvalidArgumentException
@@ -138,7 +138,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
      */
     public function setVersion($version)
     {
-        if ($version != '1.1' && $version != '1.0') {
+        if ($version != '2.0' && $version != '1.1' && $version != '1.0') {
             throw new InvalidArgumentException('Not valid or not supported HTTP version: ' . $version);
         }
 

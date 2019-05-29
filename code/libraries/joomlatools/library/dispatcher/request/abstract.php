@@ -85,7 +85,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     protected $_ranges;
 
-
     /**
      * Constructor
      *
@@ -109,6 +108,16 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
         //Set the base path
         $this->setBasePath($config->base_path);
+
+        //Set the http version
+        if(isset($_SERVER['SERVER_PROTOCOL']))
+        {
+            $parts = explode('/', $_SERVER['SERVER_PROTOCOL']);
+
+            if(isset($parts[1])) {
+                $this->setVersion($parts[1]);
+            }
+        }
 
         //Set document root for IIS
         if(!isset($_SERVER['DOCUMENT_ROOT']))
@@ -179,10 +188,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
         $this->_headers->add($headers);
 
-        //Set the version
-        if (isset($_SERVER['SERVER_PROTOCOL']) && strpos($_SERVER['SERVER_PROTOCOL'], '1.0') !== false) {
-            $this->setVersion('1.0');
-        }
 
         //Set request data
         if($this->getContentType() == 'application/x-www-form-urlencoded')
