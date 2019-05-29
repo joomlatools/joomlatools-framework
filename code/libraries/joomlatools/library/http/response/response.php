@@ -173,7 +173,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     }
 
     /**
-     * Return the message format
+     * Return the message format from the content type
      *
      * @return  string  The message format NULL if no format could be found
      */
@@ -197,6 +197,22 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         }
 
         return $this->_format;
+    }
+
+    /**
+     * Sets a format and set the content type
+     *
+     * @param string $format The format
+     * @throws UnexpectedValueException If the format hasn't been registered.
+     * @return KHttpMessage
+     */
+    public function setFormat($format)
+    {
+        parent::setFormat($format);
+
+        $this->setContentType(static::$_formats[$format][0]);
+
+        return $this;
     }
 
     /**
