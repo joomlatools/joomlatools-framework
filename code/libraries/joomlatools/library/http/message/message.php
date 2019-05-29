@@ -46,6 +46,13 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
     protected $_content_type;
 
     /**
+     * The message format
+     *
+     * @var string
+     */
+    protected $_format;
+
+    /**
      * Mediatype to format mappings
      *
      * @var array
@@ -250,18 +257,22 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
     {
         $result = null;
 
-        foreach (static::$_formats as $value => $media_types)
+        if(!$this->_format)
         {
-            $media_type = $this->getContentType();
-
-            if (in_array($media_type, (array)$media_types))
+            foreach (static::$_formats as $value => $media_types)
             {
-                $result = $value;
-                break;
+                if($media_type = $this->getContentType())
+                {
+                    if (in_array($media_type, (array)$media_types))
+                    {
+                        $this->_format = $value;
+                        break;
+                    }
+                }
             }
         }
 
-        return $result;
+        return $this->_format;
     }
 
     /**
@@ -279,7 +290,7 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
                 throw new UnexpectedValueException('Unregistered format: "' . $format . '" given.');
             }
 
-            $this->setContentType(static::$_formats[$format][0]);
+            $this->_format = $format;
         }
 
         return $this;

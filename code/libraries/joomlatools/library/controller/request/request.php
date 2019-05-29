@@ -61,7 +61,6 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
         $config->append(array(
             'query'  => array(),
             'data'   => array(),
-            'format' => 'html',
         ));
 
         parent::_initialize($config);
