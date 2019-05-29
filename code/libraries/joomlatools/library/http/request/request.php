@@ -95,6 +95,8 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
 
             if(empty($format) || !isset(static::$_formats[$format]))
             {
+                $format = null; //reset
+
                 if ($this->_headers->has('Accept'))
                 {
                     $accept = $this->_headers->get('Accept');
@@ -118,7 +120,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
                             }
                         }
                     }
-                    else $format = 'html';
+                    else $format = 'html'; //html requested
                 }
             }
 
