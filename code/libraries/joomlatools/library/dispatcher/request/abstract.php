@@ -743,11 +743,15 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     {
         if (!isset($this->_format))
         {
-            if(!$this->query->has('format')) {
-                $format = parent::getFormat() ?: 'html';
-            } else {
-                $format = $this->query->get('format', 'word');
+            if($this->isSafe())
+            {
+                if(!$this->query->has('format')) {
+                    $format = parent::getFormat() ?: 'html';
+                } else {
+                    $format = $this->query->get('format', 'word');
+                }
             }
+            else $format = parent::getFormat();
 
             $this->_format = $format;
         }

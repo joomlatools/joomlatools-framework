@@ -91,35 +91,41 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
     {
         if (!isset($this->_format))
         {
-            $format = pathinfo($this->getUrl()->getPath(), PATHINFO_EXTENSION);
-
-            if(empty($format) || !isset(static::$_formats[$format]))
+            //GET request
+            if($this->isSafe())
             {
-                if ($this->_headers->has('Accept'))
+                $format = pathinfo($this->getUrl()->getPath(), PATHINFO_EXTENSION);
+
+                if(empty($format) || !isset(static::$_formats[$format]))
                 {
-                    $accept  = $this->_headers->get('Accept');
-                    $formats = $this->_parseAccept($accept);
-
-                    /**
-                     * If the browser is requested text/html serve it at all times
-                     *
-                     * @hotfix #409 : Android 2.3 requesting application/xml
-                     */
-                    if (!isset($formats['text/html']))
+                    if ($this->_headers->has('Accept'))
                     {
-                        //Get the highest quality format
-                        $mime_type = key($formats);
+                        $accept  = $this->_headers->get('Accept');
+                        $formats = $this->_parseAccept($accept);
 
-                        foreach (static::$_formats as $value => $mime_types)
+                        /**
+                         * If the browser is requested text/html serve it at all times
+                         *
+                         * @hotfix #409 : Android 2.3 requesting application/xml
+                         */
+                        if (!isset($formats['text/html']))
                         {
-                            if (in_array($mime_type, (array)$mime_types)) {
-                                $format = $value;
-                                break;
+                            //Get the highest quality format
+                            $mime_type = key($formats);
+
+                            foreach (static::$_formats as $value => $mime_types)
+                            {
+                                if (in_array($mime_type, (array)$mime_types)) {
+                                    $format = $value;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
+            //POST/PUT request
+            else $format = parent::getFormat();
 
             $this->_format = $format;
         }
