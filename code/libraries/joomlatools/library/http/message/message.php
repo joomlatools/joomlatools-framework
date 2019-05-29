@@ -255,23 +255,6 @@ abstract class KHttpMessage extends KObject implements KHttpMessageInterface
      */
     public function getFormat()
     {
-        $result = null;
-
-        if(!$this->_format)
-        {
-            foreach (static::$_formats as $value => $media_types)
-            {
-                if($media_type = $this->getContentType())
-                {
-                    if (in_array($media_type, (array)$media_types))
-                    {
-                        $this->_format = $value;
-                        break;
-                    }
-                }
-            }
-        }
-
         return $this->_format;
     }
 
