@@ -118,6 +118,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
                             }
                         }
                     }
+                    else $format = 'html';
                 }
             }
 
