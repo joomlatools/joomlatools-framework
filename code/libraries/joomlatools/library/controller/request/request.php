@@ -43,9 +43,6 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
 
         //Set data parameters
         $this->setData($config->data);
-
-        //Set the format
-        $this->setFormat($config->format);
     }
 
     /**
