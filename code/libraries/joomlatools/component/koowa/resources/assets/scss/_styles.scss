@@ -1,0 +1,53 @@
+/**
+ * Default select is not styled outside Joomla scope (for example in koowa template)
+ */
+
+select {
+  @extend .form-control;
+}
+
+
+
+/**
+ * Joomla utilities
+ * ----------------
+ * these are not available outside Joomla scope (for example in koowa template)
+ */
+
+.btn-toolbar {
+  margin: 1em 0 0;
+}
+
+.pull-left {
+  float: left;
+
+  @include rtl {
+    float: right;
+  }
+}
+
+.pull-right {
+  float: right;
+
+  @include rtl {
+    float: left;
+  }
+}
+
+.btn {
+  @extend .k-button;
+  @extend .k-button--default;
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+.editor {
+  @include clearfix;
+}
+
+.select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+  margin-bottom: 0;
+  height: auto;
+}

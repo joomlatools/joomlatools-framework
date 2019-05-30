@@ -1,0 +1,103 @@
+// ==========================================================================
+// Modal overrides, we need bigger modals
+// ==========================================================================
+
+
+// Global tools
+// ==========================================================================
+//
+// Containing different libraries, variables, mixins and functions
+
+@import "../../../../../../../../../kodekit-ui/src/scss/admin/core/tools";
+
+
+// Variables
+
+$modal-width: 1280px;
+$modal-height: 900px;
+
+
+/**
+ * Style the new Joomla modals
+ * ===========================
+ * By default we only get a very small modal window
+ * Overriding styles make sure we get the most space out of it (at least on our views)
+ */
+
+.k-joomla-modal-override {
+  opacity: 1;
+  width: $modal-width !important;
+  max-width: 90% !important;
+  height: $modal-height !important;
+  max-height: 90% !important;
+  left: 50%!important;
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  transition: none !important;
+  @include transition;
+
+  &.mce-in {
+    padding: 0 !important;
+  }
+
+  & + #mce-modal-block.mce-in.mce-in {
+    opacity: .8;
+  }
+
+  .mce-reset,
+  .mce-window-body.mce-window-body {
+    width: 100%!important;
+    height: 100%!important;
+    @include transition;
+  }
+
+  .mce-reset {
+    display: table;
+    width: 100%;
+    height: 100%;
+    @include transition;
+
+    .mce-window-head.mce-window-head {
+      display: table-row;
+      padding: 0;
+      white-space: nowrap;
+      height: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .mce-close {
+        width: 46px;
+        height: 46px;
+      }
+    }
+
+    .mce-title {
+      padding: 13px !important;
+      font-weight: $k-normal-font-weight !important;
+      background: #f0f0f0 !important;
+      color: #222222 !important;
+      font-size: 21px !important;
+      border-bottom: 1px solid #d2d2d2 !important;
+    }
+
+    .mce-window-body.mce-window-body {
+      display: table-row;
+      padding-top: 0;
+      padding-left: 0;
+    }
+
+    .mce-foot.mce-foot {
+      display: none;
+    }
+  }
+
+  .mce-dragh {
+    display: none!important;
+  }
+
+  & > #sbox-content > iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

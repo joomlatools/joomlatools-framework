@@ -1,0 +1,34 @@
+// ==========================================================================
+// Joomla Hathor template specific styling / overrides
+// ==========================================================================
+//
+// Used in Joomla views that are not controlled by us, such as menu and module views
+
+@import "../../../../../../../../../kodekit-ui/src/scss/admin/core/tools";
+
+body#minwidth-body {
+  .subheader,
+  .toolbar-box {
+    display: none!important;
+  }
+
+  #content {
+    margin: 15px;
+
+    & > .k-heading {
+      display: none!important;
+    }
+  }
+
+  #element-box {
+    border: 1px solid #ccc;
+    display: flex;
+    width: 100%;
+  }
+
+  .k-ui-container {
+    width: 100%;
+    max-width: none;
+    font-size: 13px;
+  }
+}
