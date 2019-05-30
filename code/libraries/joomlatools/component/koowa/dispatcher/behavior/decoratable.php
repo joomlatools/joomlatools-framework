@@ -60,12 +60,11 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
     protected function _beforeSend(KDispatcherContextInterface $context)
     {
         $response = $context->getResponse();
-        $request  = $context->getRequest();
 
         if(!$response->isDownloadable() && !$response->isRedirect())
         {
             //Render the page
-            $result = $this->getObject('com:koowa.controller.page',  array('response' => $response, 'request' => $request))
+            $result = $this->getObject('com:koowa.controller.page',  array('response' => $response))
                 ->layout($this->getDecorator())
                 ->render();
 

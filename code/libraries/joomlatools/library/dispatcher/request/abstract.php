@@ -728,34 +728,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
-     * Return the request format or mediatype
-     *
-     * Find the format by using following sequence :
-     *
-     * 1. Use the the 'format' request parameter
-     * 2. Use the URL path extension
-     * 3. Use the accept header with the highest quality apply the reverse format map to find the format.
-     *
-     * @param   bool    $mediatype Get the media type
-     * @return  string  The request format or NULL if no format could be found
-     */
-    public function getFormat($mediatype = false)
-    {
-        if (!isset($this->_format))
-        {
-            if(!$this->query->has('format')) {
-                $format = parent::getFormat() ?: 'html';
-            } else {
-                $format = $this->query->get('format', 'word');
-            }
-
-            $this->_format = $format;
-        }
-
-        return $mediatype ? static::$_formats[$this->_format][0] : $this->_format;
-    }
-
-    /**
      * Gets a list of languages acceptable by the client browser.
      *
      * @return array Languages ordered in the user browser preferences
