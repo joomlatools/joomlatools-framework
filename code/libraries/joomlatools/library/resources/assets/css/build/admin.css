@@ -12815,6 +12815,15 @@ img.mfp-img {
   max-width: 100% !important;
 }
 
+.select2.select2-container.select2-container--bootstrap .select2-search__field {
+  height: 34px;
+  margin: 0;
+}
+
+.select2.select2-container.select2-container--bootstrap input[type]:focus {
+  box-shadow: none;
+}
+
 /* Datepicker
      ========================================================================== */
 .datepicker {
