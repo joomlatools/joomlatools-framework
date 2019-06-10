@@ -15,6 +15,14 @@
  */
 class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
 {
+    protected function _initialize(KObjectConfig $config)
+    {
+        $config->append([
+            'priority' => KDatabaseBehaviorAbstract::PRIORITY_LOW
+        ]);
+        parent::_initialize($config);
+    }
+
     /**
      * Check if the behavior is supported
      *
