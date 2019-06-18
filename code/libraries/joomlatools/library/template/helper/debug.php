@@ -495,7 +495,7 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
                     $collapsed = $level ? count($var) >= 7 : false;
 
                     $result .= '<span class="koowa-toggle' . ($collapsed ? ' koowa-collapsed' : '') . '">'  . count($var) . ')</span>';
-                    $result .= '<div' . ($collapsed ? ' class="koowa-collapsed"' : '') . '>';
+                    $result .= '<span' . ($collapsed ? ' class="koowa-collapsed"' : '') . '>';
 
                     $var[$marker] = true;
 
@@ -510,7 +510,7 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
                     }
 
                     unset($var[$marker]);
-                    $result .= '</div>';
+                    $result .= '</span>';
                 }
                 else $result .= count($var) . ") [ ... ]\n";
             }
@@ -596,7 +596,7 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
                     $collapsed = false;//$level ? count($var) >= 7 : false;
 
                     $result  = '<span class="koowa-toggle' . ($collapsed ? ' koowa-collapsed' : '') . '">' . $result . '</span>';
-                    $result .= '<div' . ($collapsed ? ' class="koowa-collapsed"' : '') . '>';
+                    $result .= '<span' . ($collapsed ? ' class="koowa-collapsed"' : '') . '>';
 
                     $list[] = $var;
 
@@ -615,7 +615,7 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
                     }
 
                     array_pop($list);
-                    $result .= '</div>';
+                    $result .= '</span>';
                 }
                 else $result .= ' { ... }'."\n";
             }
@@ -643,7 +643,7 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
         if (isset($config->resources[$type]))
         {
             $result  = '<span class="koowa-toggle koowa-collapsed">'.$result.'</span>';
-            $result .= '<div class="koowa-collapsed">';
+            $result .= '<span class="koowa-collapsed">';
 
             foreach (call_user_func($config->resources[$type], $var) as $key => $value)
             {
@@ -651,7 +651,7 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
                 $result .= '<span class="koowa-dump-key">' . $this->getTemplate()->escape($key) . "</span> => " . $this->_dumpVar($value, $config, $level + 1);
             }
 
-            $result .= '</div>';
+            $result .= '</span>';
 
             return $result;
         }
