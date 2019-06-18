@@ -14,7 +14,7 @@ function toggle_trace() {
 
     // Iterate through them
     for( var i = 0; i < dumpees.length; i++ ) {
-        var next = dumpees[i].nextSibling;
+        var next = dumpees[i].nextElementSibling;
         apollo.addClass(dumpees[i], 'koowa-collapsed');
         apollo.addClass(next, 'koowa-collapsed');
 
@@ -25,7 +25,7 @@ function toggle_trace() {
 
     // The fuction for the link
     function useItem(el){
-        var next = el.nextSibling;
+        var next = el.nextElementSibling;
         if ( apollo.hasClass(next, 'koowa-collapsed') ) {
             apollo.removeClass(el, 'koowa-collapsed');
             apollo.removeClass(next, 'koowa-collapsed');
