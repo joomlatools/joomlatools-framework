@@ -300,9 +300,9 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
         $modules = &ComKoowaModuleHelper::getModules(null);
 
         if($module->attribs['prepend']) {
-            array_push($modules, $module);
-        } else {
             array_unshift($modules, $module);
+        } else {
+            array_push($modules, $module);
         }
     }
 }
