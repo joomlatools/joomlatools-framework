@@ -33,6 +33,7 @@ return array(
 
         'template.engine.factory' => array(
             'cache'        => JDEBUG ? false : true,
+            'debug'        => JDEBUG ? true  : false,
             'cache_path'   => JPATH_ADMINISTRATOR.'/cache/koowa.templates'
         ),
 
