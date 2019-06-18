@@ -94,6 +94,7 @@ abstract class KTemplateEngineAbstract extends KTemplateAbstract implements KTem
                 'json'      => 'json_encode',
                 'format'    => 'sprintf',
                 'replace'   => 'strtr',
+                'debug'     => array($this, 'isDebug'),
             ),
         ));
 
