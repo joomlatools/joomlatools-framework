@@ -75,7 +75,7 @@ class KTemplateFilterStyle extends KTemplateFilterTag
         {
             $attribs = $this->buildAttributes($attribs);
 
-            $html  = '<style type="text/css" '.$attribs.'>'."\n";
+            $html  = '<style'.$attribs.'>'."\n";
             $html .= trim($content);
             $html .= '</style>'."\n";
         }
@@ -88,10 +88,10 @@ class KTemplateFilterStyle extends KTemplateFilterTag
             if($condition)
             {
                 $html  = '<!--['.$condition.']>';
-                $html .= '<link type="text/css" rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
+                $html .= '<link rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
                 $html .= '<![endif]-->';
             }
-            else $html  = '<link type="text/css" rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
+            else $html  = '<link rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
         }
 
         return $html;
