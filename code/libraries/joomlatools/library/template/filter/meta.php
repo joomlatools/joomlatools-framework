@@ -28,7 +28,7 @@ class KTemplateFilterMeta extends KTemplateFilterTag
         $tags = '';
 
         $matches = array();
-        if(preg_match_all('#<meta(.*)\/>#siU', $text, $matches))
+        if(preg_match_all('#<meta(?!\s+itemprop\s*)\s+(.*)\/>#siU', $text, $matches))
         {
             foreach($matches[1] as $key => $match)
             {
