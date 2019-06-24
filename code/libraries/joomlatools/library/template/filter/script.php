@@ -42,11 +42,6 @@ class KTemplateFilterScript extends KTemplateFilterTag
                 );
 
                 $attribs = array_merge($this->parseAttributes( $matches[2][$key]), $attribs);
-
-                if(!isset($attribs['type'])) {
-                    $attribs['type'] = 'text/javascript';
-                };
-
                 $tags .= $this->_renderTag($attribs);
             }
 
@@ -60,11 +55,6 @@ class KTemplateFilterScript extends KTemplateFilterTag
             foreach($matches[2] as $key => $match)
             {
                 $attribs = $this->parseAttributes( $matches[1][$key]);
-
-                if(!isset($attribs['type'])) {
-                    $attribs['type'] = 'text/javascript';
-                };
-
                 $tags .= $this->_renderTag($attribs, $match);
             }
 
@@ -90,7 +80,7 @@ class KTemplateFilterScript extends KTemplateFilterTag
         {
             $attribs = $this->buildAttributes($attribs);
 
-            $html  = '<script '.$attribs.'>'."\n";
+            $html  = '<script'.$attribs.'>'."\n";
             $html .= trim($content);
             $html .= '</script>'."\n";
         }

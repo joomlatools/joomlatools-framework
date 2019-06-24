@@ -157,6 +157,6 @@ abstract class KTemplateFilterAbstract extends KObject implements KTemplateFilte
             }
         }
 
-        return implode(' ', $output);
+        return !empty($output) ? ' '.implode(' ', $output) : '';
     }
 }

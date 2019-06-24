@@ -28,7 +28,7 @@ class KTemplateFilterLink extends KTemplateFilterTag
         $tags = '';
 
         $matches = array();
-        if(preg_match_all('#<link\ href="([^"]+)"(.*)\/>#siU', $text, $matches))
+        if(preg_match_all('#<link\s+href="([^"]+)"(.*)\/>#siU', $text, $matches))
         {
             foreach(array_unique($matches[1]) as $key => $match)
             {
@@ -59,7 +59,7 @@ class KTemplateFilterLink extends KTemplateFilterTag
     {
         $attribs = $this->buildAttributes($attribs);
 
-        $html = '<link '.$attribs.'/>'."\n";
+        $html = '<link'.$attribs.'/>'."\n";
         return $html;
     }
 }

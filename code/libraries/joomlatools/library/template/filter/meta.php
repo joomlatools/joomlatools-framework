@@ -28,16 +28,11 @@ class KTemplateFilterMeta extends KTemplateFilterTag
         $tags = '';
 
         $matches = array();
-        if(preg_match_all('#<meta\ content="([^"]+)"(.*)\/>#siU', $text, $matches))
+        if(preg_match_all('#<meta(?!\s+itemprop\s*)\s+(.*)\/>#siU', $text, $matches))
         {
             foreach($matches[1] as $key => $match)
             {
-                //Set required attributes
-                $attribs = array(
-                    'content' => $match
-                );
-
-                $attribs = array_merge($this->parseAttributes( $matches[2][$key]), $attribs);
+                $attribs = $this->parseAttributes( $match);
                 $tags .= $this->_renderTag($attribs);
             }
 
@@ -58,7 +53,7 @@ class KTemplateFilterMeta extends KTemplateFilterTag
     {
         $attribs = $this->buildAttributes($attribs);
 
-        $html = '<meta '.$attribs.' />'."\n";
+        $html = '<meta'.$attribs.' />'."\n";
         return $html;
     }
 }
