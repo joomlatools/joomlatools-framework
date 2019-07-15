@@ -38,6 +38,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
         parent::__construct($config);
 
         $this->addCommandCallback('before.post', 'authenticateRequest');
+        $this->addCommandCallback('after.get'  , 'signResponse');
     }
 
     /**
@@ -101,5 +102,19 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
         }
 
         return true;
+    }
+
+    /**
+     * Sign the response with a session token
+     *
+     * @param KDispatcherContextInterface $context	A dispatcher context object
+     */
+    public function signResponse(KDispatcherContextInterface $context)
+    {
+        if(!$context->response->isError() && $context->user->getSession()->isActive())
+        {
+            $token = $context->user->getSession()->getToken();
+            $context->response->headers->set('X-CSRF-Token', $token);
+        }
     }
 }
