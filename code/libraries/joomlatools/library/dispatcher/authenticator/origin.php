@@ -61,12 +61,8 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
             $source = KHttpUrl::fromString($origin)->getHost();
 
             // Check if the source matches the target
-            if($target !== $source)
-            {
-                // Special case - check if the source is a subdomain of the target origin
-                if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
-                    throw new KControllerExceptionRequestInvalid('Origin or referer target not valid');
-                }
+            if($target !== $source) {
+                throw new KControllerExceptionRequestInvalid('Origin or referer target not valid');
             }
         }
 
