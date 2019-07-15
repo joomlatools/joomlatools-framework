@@ -78,6 +78,14 @@ class KHttpCookie extends KObject implements KHttpCookieInterface
     public $http_only;
 
     /**
+     * Allows servers to assert that a cookie ought not to be sent along with cross-site requests, which provides some
+     * protection against cross-site request forgery attacks (CSRF).
+     *
+     * @var string[Strict, Lax, None]
+     */
+    public $same_site;
+
+    /**
      * Constructor
      *
      * @param KObjectConfig|null $config  An optional ObjectConfig object with configuration options
@@ -110,7 +118,8 @@ class KHttpCookie extends KObject implements KHttpCookieInterface
             'expire'    => 0,
             'path'      => '/',
             'secure'    => false,
-            'http_only' => true,
+            'http_only' => false,
+            'same_site' => null,
         ));
 
         parent::_initialize($config);
@@ -200,7 +209,7 @@ class KHttpCookie extends KObject implements KHttpCookieInterface
      */
     public function isHttpOnly()
     {
-        return (bool)$this->_http_only;
+        return (bool)$this->http_only;
     }
 
     /**
@@ -246,6 +255,10 @@ class KHttpCookie extends KObject implements KHttpCookieInterface
 
         if ($this->isHttpOnly() === true) {
             $str .= '; httponly';
+        }
+
+        if ($this->same_site !== null) {
+            $str .= '; samesite='.$this->same_site;
         }
 
         return $str;
