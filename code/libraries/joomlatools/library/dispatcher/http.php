@@ -51,7 +51,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
         $config->append(array(
             'methods'        => array('get', 'head', 'post', 'put', 'delete', 'options'),
             'behaviors'      => array('resettable'),
-            'authenticators' => array('csrf'),
+            'authenticators' => array('token', 'origin'),
             'limit'          => array('default' => 100)
          ));
 
