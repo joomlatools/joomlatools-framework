@@ -65,10 +65,11 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
             {
                 // Special case - check if the source is a subdomain of the target origin
                 if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
-                    throw new KControllerExceptionRequestInvalid('Origin or referer target not valid');
+                    throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
                 }
             }
         }
+        else throw new KControllerExceptionRequestInvalid('Origin or referer required');
 
         return true;
     }
