@@ -53,21 +53,16 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
             $token   = false;
             $request = $this->getObject('request');
 
-            if($request->isAjax())
-            {
-                if($request->headers->has('X-XSRF-Token')) {
-                    $token = $request->headers->get('X-XSRF-Token');
-                }
-
-                if($request->headers->has('X-CSRF-Token')) {
-                    $token = $request->headers->get('X-CSRF-Token');
-                }
+            if($request->headers->has('X-XSRF-Token')) {
+                $token = $request->headers->get('X-XSRF-Token');
             }
-            else
-            {
-                if($request->data->has('csrf_token')) {
-                    $token = $request->data->get('csrf_token', 'sha1');
-                }
+
+            if($request->headers->has('X-CSRF-Token')) {
+                $token = $request->headers->get('X-CSRF-Token');
+            }
+
+            if($request->data->has('csrf_token')) {
+                $token = $request->data->get('csrf_token', 'sha1');
             }
 
             $this->__token = $token;
