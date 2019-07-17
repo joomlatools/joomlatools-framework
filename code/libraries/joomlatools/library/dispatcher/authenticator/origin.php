@@ -29,7 +29,7 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
     {
         parent::__construct($config);
 
-        $this->addCommandCallback('before.post', 'authenticateRequest');
+        $this->addCommandCallback('before.dispatch', 'authenticateRequest');
     }
 
     /**
@@ -44,32 +44,36 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
-        $origin  = false;
-        $request = $context->request;
-
-        //No Origin, fallback to Referer
-        if(!$origin = $request->headers->get('Origin')) {
-            $origin = $request->headers->get('Referer');
-        }
-
-        //Don't not allow origin to be empty or null (possible in some cases)
-        if(!empty($origin))
+        //Check the raw request method to bypass method overrides
+        if(strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
-            $origin = $this->getObject('lib:filter.url')->sanitize($origin);
+            $origin  = false;
+            $request = $context->request;
 
-            $target = $request->getUrl()->getHost();
-            $source = KHttpUrl::fromString($origin)->getHost();
+            //No Origin, fallback to Referer
+            if(!$origin = $request->headers->get('Origin')) {
+                $origin = $request->headers->get('Referer');
+            }
 
-            // Check if the source matches the target
-            if($target !== $source)
+            //Don't not allow origin to be empty or null (possible in some cases)
+            if(!empty($origin))
             {
-                // Special case - check if the source is a subdomain of the target origin
-                if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
-                    throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
+                $origin = $this->getObject('lib:filter.url')->sanitize($origin);
+
+                $target = $request->getUrl()->getHost();
+                $source = KHttpUrl::fromString($origin)->getHost();
+
+                // Check if the source matches the target
+                if($target !== $source)
+                {
+                    // Special case - check if the source is a subdomain of the target origin
+                    if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
+                        throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
+                    }
                 }
             }
+            else throw new KControllerExceptionRequestInvalid('Origin or referer required');
         }
-        else throw new KControllerExceptionRequestInvalid('Origin or referer required');
 
         return true;
     }
