@@ -322,18 +322,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
-     * Sets the request method.
-     *
-     * @param string $method
-     * @return KDispatcherRequest
-     */
-    public function setMethod($method)
-    {
-        $_SERVER['REQUEST_METHOD'] = $method;
-        return parent::setMethod($method);
-    }
-
-    /**
      * Get the POST or PUT raw content information
      *
      * The raw post data is not available with enctype="multipart/form-data".

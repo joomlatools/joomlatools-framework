@@ -37,7 +37,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
     {
         parent::__construct($config);
 
-        $this->addCommandCallback('before.post', 'authenticateRequest');
+        $this->addCommandCallback('before.dispatch', 'authenticateRequest');
         $this->addCommandCallback('after.get'  , 'signResponse');
     }
 
@@ -88,7 +88,8 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
-        if($context->user->getSession()->isActive())
+        //Check the raw request method to bypass method overrides
+        if(strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && $context->user->getSession()->isActive())
         {
             //Check csrf token
             if(!$this->getCsrfToken()) {
