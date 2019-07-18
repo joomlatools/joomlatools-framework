@@ -296,7 +296,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     /**
      * Returns current request method.
      *
-     * @return  string
+     * @return  string|null Will return null if a overridde tries to set an unknown method
      */
     public function getMethod()
     {
@@ -312,6 +312,10 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
                 if($this->data->has('_method')) {
                     $method = strtoupper($this->data->get('_method', 'alpha'));
+                }
+
+                if(!in_array($method, array('POST', 'PUT', 'PATCH', 'DELETE'))) {
+                    $method = null;
                 }
             }
 
