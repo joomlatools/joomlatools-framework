@@ -94,7 +94,7 @@ class KHttpMessageHeaders extends KObjectArray
      *
      * @param string       $key     The key
      * @param string|array $values  The value or an array of values
-     * @param boolean      $replace Whether to replace the actual value of not (true by default)
+     * @param boolean $replace If TRUE eplace the actual value, if FALSE merge values if the header already exists. Default TRUE
      * @return KHttpMessageHeaders
      */
     public function set($key, $values, $replace = true)
@@ -120,12 +120,13 @@ class KHttpMessageHeaders extends KObjectArray
      * This function will not add headers that already exist.
      *
      * @param array $headers An array of HTTP headers
+     * @param boolean $replace If TRUE replace the actual value, if FALSE merge values if the header already exists. Default FALSE
      * @return KHttpMessageHeaders
      */
-    public function add(array $headers)
+    public function add(array $headers, $replace = false)
     {
         foreach ($headers as $key => $values) {
-            $this->set($key, $values, false);
+            $this->set($key, $values, $replace);
         }
 
         return $this;
