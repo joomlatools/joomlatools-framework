@@ -314,7 +314,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
                     $method = strtoupper($this->data->get('_method', 'alpha'));
                 }
 
-                if(!in_array($method, array('POST', 'PUT', 'PATCH', 'DELETE'))) {
+                if(!in_array($method, array('GET', 'POST', 'PUT', 'PATCH', 'DELETE'))) {
                     $method = null;
                 }
             }
