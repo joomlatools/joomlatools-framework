@@ -79,12 +79,18 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     protected $_proxies;
 
     /**
+     * A list of trusted origins
+     *
+     * @var array
+     */
+    protected $_origins;
+
+    /**
      * The requested ranges
      *
      * @var array
      */
     protected $_ranges;
-
 
     /**
      * Constructor
@@ -97,6 +103,9 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
         //Set the trusted proxies
         $this->setProxies(KObjectConfig::unbox($config->proxies));
+
+        //Set the trusted origins
+        $this->setOrigins(KObjectConfig::unbox($config->origins) + array($this->getHost()));
 
         //Set files parameters
         $this->setFiles($config->files);
@@ -222,6 +231,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             'cookies' => $_COOKIE,
             'files'   => $_FILES,
             'proxies' => array(),
+            'origins' => array()
         ));
 
         parent::_initialize($config);
@@ -249,6 +259,38 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     public function getProxies()
     {
         return $this->_proxies;
+    }
+
+    /**
+     * Sets a list of trusted origins.
+     *
+     * You should only list the origins that you manage directly.
+     *
+     * @param array $proxies A list of trusted proxies
+     * @return KDispatcherRequestInterface
+     */
+    public function setOrigins(array $origins)
+    {
+        foreach($origins as $origin)
+        {
+            if (strpos($origin, '://') !== false) {
+                $this->_origins[] = $this->getObject('lib:http.url', array('url' => $origin))->getHost();
+            } else {
+                $this->_origins[] = $origin;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets the list of trusted origins.
+     *
+     * @return array An array of trusted origins.
+     */
+    public function getOrigins()
+    {
+        return $this->_origins;
     }
 
     /**

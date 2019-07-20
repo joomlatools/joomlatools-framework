@@ -33,6 +33,23 @@ interface KDispatcherRequestInterface extends KControllerRequestInterface
     public function getProxies();
 
     /**
+     * Sets a list of trusted origins.
+     *
+     * You should only list the origins that you manage directly.
+     *
+     * @param array $proxies A list of trusted proxies
+     * @return KDispatcherRequestInterface
+     */
+    public function setOrigins(array $origins);
+
+    /**
+     * Gets the list of trusted origins.
+     *
+     * @return array An array of trusted origins.
+     */
+    public function getOrigins();
+
+    /**
      * Set the request cookies
      *
      * @param  array $cookies
