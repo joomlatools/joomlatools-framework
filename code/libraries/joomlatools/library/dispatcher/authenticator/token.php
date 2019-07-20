@@ -37,12 +37,8 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
     {
         parent::__construct($config);
 
-        $this->addCommandCallback('before.put'   , 'authenticateRequest');
-        $this->addCommandCallback('before.post'  , 'authenticateRequest');
-        $this->addCommandCallback('before.patch' , 'authenticateRequest');
-        $this->addCommandCallback('before.delete', 'authenticateRequest');
-
-        $this->addCommandCallback('after.get'  , 'signResponse');
+        $this->addCommandCallback('before.dispatch', 'authenticateRequest');
+        $this->addCommandCallback('after.get', 'signResponse');
     }
 
     /**
@@ -88,7 +84,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
         //Check the raw request method to bypass method overrides
-        if($context->user->getSession()->isActive())
+        if($context->user->getSession()->isActive() && $this->isPost())
         {
             //Check csrf token
             if(!$this->getCsrfToken()) {
@@ -116,5 +112,15 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
             $token = $context->user->getSession()->getToken();
             $context->response->headers->set('X-CSRF-Token', $token);
         }
+    }
+
+    /**
+     * Is this a POST method request?
+     *
+     * @return bool
+     */
+    public function isPost()
+    {
+        return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 }

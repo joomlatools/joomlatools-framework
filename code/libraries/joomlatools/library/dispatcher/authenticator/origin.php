@@ -10,7 +10,7 @@
 /**
  * Origin Dispatcher Authenticator
  *
- * This authenticator implements origina and referrer based csrf mitigation
+ * This authenticator implements origin and referrer based csrf mitigation
  *
  * @link https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.md#verifying-origin-with-standard-headers
  * @link https://seclab.stanford.edu/websec/csrf/csrf.pdf
@@ -29,10 +29,7 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
     {
         parent::__construct($config);
 
-        $this->addCommandCallback('before.put'   , 'authenticateRequest');
-        $this->addCommandCallback('before.post'  , 'authenticateRequest');
-        $this->addCommandCallback('before.patch' , 'authenticateRequest');
-        $this->addCommandCallback('before.delete', 'authenticateRequest');
+        $this->addCommandCallback('before.dispatch', 'authenticateRequest');
     }
 
     /**
@@ -47,35 +44,47 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
-        //Check the raw request method to bypass method overrides
-        $origin  = false;
-        $request = $context->request;
-
-        //No Origin, fallback to Referer
-        if(!$origin = $request->headers->get('Origin')) {
-            $origin = $request->headers->get('Referer');
-        }
-
-        //Don't not allow origin to be empty or null (possible in some cases)
-        if(!empty($origin))
+        if($this->isPost())
         {
-            $origin = $this->getObject('lib:filter.url')->sanitize($origin);
+            //Check the raw request method to bypass method overrides
+            $origin  = false;
+            $request = $context->request;
 
-            $target = $request->getUrl()->getHost();
-            $source = KHttpUrl::fromString($origin)->getHost();
+            //No Origin, fallback to Referer
+            if(!$origin = $request->headers->get('Origin')) {
+                $origin = $request->headers->get('Referer');
+            }
 
-            // Check if the source matches the target
-            if($target !== $source)
+            //Don't not allow origin to be empty or null (possible in some cases)
+            if(!empty($origin))
             {
-                // Special case - check if the source is a subdomain of the target origin
-                if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
-                    throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
+                $origin = $this->getObject('lib:filter.url')->sanitize($origin);
+
+                $target = $request->getUrl()->getHost();
+                $source = KHttpUrl::fromString($origin)->getHost();
+
+                // Check if the source matches the target
+                if($target !== $source)
+                {
+                    // Special case - check if the source is a subdomain of the target origin
+                    if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
+                        throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
+                    }
                 }
             }
+            else throw new KControllerExceptionRequestInvalid('Origin or referer required');
         }
-        else throw new KControllerExceptionRequestInvalid('Origin or referer required');
-
 
         return true;
+    }
+
+    /**
+     * Is this a POST method request?
+     *
+     * @return bool
+     */
+    public function isPost()
+    {
+        return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 }
