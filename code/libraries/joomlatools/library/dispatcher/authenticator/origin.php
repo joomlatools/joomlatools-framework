@@ -58,18 +58,20 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
             //Don't not allow origin to be empty or null (possible in some cases)
             if(!empty($origin))
             {
+                $match  = false;
                 $origin = $this->getObject('lib:filter.url')->sanitize($origin);
-
-                $target = $request->getUrl()->getHost();
                 $source = KHttpUrl::fromString($origin)->getHost();
 
-                // Check if the source matches the target
-                if($target !== $source)
+                foreach($request->getOrigins() as $target)
                 {
-                    // Special case - check if the source is a subdomain of the target origin
-                    if ('.'.$target !== substr($source, -1 * (strlen($target)+1))) {
-                        throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
+                    // Check if the source matches the target
+                    if($target == $source || '.'.$target === substr($source, -1 * (strlen($target)+1))) {
+                       $match = true; break;
                     }
+                }
+
+                if(!$match) {
+                    throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
                 }
             }
             else throw new KControllerExceptionRequestInvalid('Origin or referer required');
