@@ -104,9 +104,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         //Set the trusted proxies
         $this->setProxies(KObjectConfig::unbox($config->proxies));
 
-        //Set the trusted origins
-        $this->setOrigins(KObjectConfig::unbox($config->origins) + array($this->getHost()));
-
         //Set files parameters
         $this->setFiles($config->files);
 
@@ -209,6 +206,12 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
                 $this->data->add($data);
             }
         }
+
+        //Add the trusted origins
+        $origins = KObjectConfig::unbox($config->origins) + array($this->getHost());
+        foreach($origins as $origin) {
+            $this->addOrigin($origin);
+        }
     }
 
     /**
@@ -259,38 +262,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     public function getProxies()
     {
         return $this->_proxies;
-    }
-
-    /**
-     * Sets a list of trusted origins.
-     *
-     * You should only list the origins that you manage directly.
-     *
-     * @param array $proxies A list of trusted proxies
-     * @return KDispatcherRequestInterface
-     */
-    public function setOrigins(array $origins)
-    {
-        foreach($origins as $origin)
-        {
-            if (strpos($origin, '://') !== false) {
-                $this->_origins[] = $this->getObject('lib:http.url', array('url' => $origin))->getHost();
-            } else {
-                $this->_origins[] = $origin;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Gets the list of trusted origins.
-     *
-     * @return array An array of trusted origins.
-     */
-    public function getOrigins()
-    {
-        return $this->_origins;
     }
 
     /**
@@ -560,10 +531,10 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      * 'referer' a commonly used misspelling word for 'referrer'
      * @link http://en.wikipedia.org/wiki/HTTP_referrer
      *
-     * @param   boolean  $isInternal Only allow internal url's
+     * @param   boolean  $isTrusted Only allow trusted origins
      * @return  KHttpUrl|null  A HttpUrl object or NULL if no referrer could be found
      */
-    public function getReferrer($isInternal = true)
+    public function getReferrer($isTrusted = true)
     {
         if(!isset($this->_referrer) && ($this->_headers->has('Referer') || $this->data->has('_referrer')))
         {
@@ -576,60 +547,27 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             $this->setReferrer($this->getObject('lib:filter.url')->sanitize($referrer));
         }
 
-        if(isset($this->_referrer) && $isInternal)
-        {
-            $target_origin = $this->getUrl()->getHost();
-            $source_origin = $this->_referrer->getHost();
+        $referrer = $this->_referrer;
 
-            // Check if the source matches the target
-            if($target_origin !== $source_origin)
+        if(isset($referrer) && $isTrusted)
+        {
+            $trusted = false;
+            $source  = $this->_referrer->getHost();
+
+            foreach($this->getOrigins() as $target)
             {
-                // Special case: check if the source is a subdomain of the target origin
-                if ('.'.$target_origin !== substr($source_origin, -1 * (strlen($target_origin)+1))) {
-                    return null;
+                // Check if the source matches the target
+                if($target == $source || '.'.$target === substr($source, -1 * (strlen($target)+1))) {
+                    $trusted = true; break;
                 }
+            }
+
+            if(!$trusted) {
+                $referrer = null;
             }
         }
 
-        return $this->_referrer;
-    }
-
-    /**
-     * Returns the HTTP origin header.
-     *
-     * @param   boolean  $isInternal Only allow internal URLs
-     * @return  KHttpUrl|null  A HttpUrl object or NULL if no origin header could be found
-     */
-    public function getOrigin($isInternal = true)
-    {
-        $origin = null;
-
-        if ($this->_headers->has('Origin'))
-        {
-            try {
-                $origin = $this->getObject('lib:http.url', [
-                    'url' => $this->getObject('lib:filter.url')->sanitize($this->_headers->get('Origin'))
-                ]);
-
-                if($isInternal)
-                {
-                    $target_origin = $this->getUrl()->getHost();
-                    $source_origin = $origin->getHost();
-
-                    // Check if the source matches the target
-                    if($target_origin !== $source_origin)
-                    {
-                        // Special case: check if the source is a subdomain of the target origin
-                        if ('.'.$target_origin !== substr($source_origin, -1 * (strlen($target_origin)+1))) {
-                            $origin = null;
-                        }
-                    }
-                }
-            }
-            catch (UnexpectedValueException $e) {}
-        }
-
-        return $origin;
+        return $referrer;
     }
 
     /**
@@ -647,6 +585,79 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         $this->_referrer = $referrer;
 
         return $this;
+    }
+
+    /**
+     * Add a trusted origin
+     *
+     * You should only add an origins that you trust
+     *
+     * @param string $origin A trusted origin
+     * @return KDispatcherRequestInterface
+     */
+    public function addOrigin($origin)
+    {
+        if (strpos($origin, '://') !== false) {
+            $origin = $this->getObject('lib:http.url', array('url' => $origin))->getHost();
+        }
+
+        if(!in_array($origin, (array) $this->_origins)) {
+            $this->_origins[] = $origin;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the HTTP origin header.
+     *
+     * @param   boolean  $isTrusted Only allow trusted origins
+     * @return  KHttpUrl|null  A HttpUrl object or NULL if no origin header could be found
+     */
+    public function getOrigin($isTrusted = true)
+    {
+        $origin = null;
+
+        if ($this->_headers->has('Origin'))
+        {
+            try
+            {
+                $origin = $this->getObject('lib:http.url', [
+                    'url' => $this->getObject('lib:filter.url')->sanitize($this->_headers->get('Origin'))
+                ]);
+
+                if($isTrusted)
+                {
+                    $trusted = false;
+                    $source  = $origin->getHost();
+
+                    foreach($this->getOrigins() as $target)
+                    {
+                        // Check if the source matches the target
+                        if($target == $source || '.'.$target === substr($source, -1 * (strlen($target)+1))) {
+                            $trusted = true; break;
+                        }
+                    }
+
+                    if(!$trusted) {
+                        $origin = null;
+                    }
+                }
+            }
+            catch (UnexpectedValueException $e) {}
+        }
+
+        return $origin;
+    }
+
+    /**
+     * Gets the list of trusted origins.
+     *
+     * @return array An array of trusted origins.
+     */
+    public function getOrigins()
+    {
+        return $this->_origins;
     }
 
     /**
