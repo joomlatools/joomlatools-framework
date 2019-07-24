@@ -44,9 +44,9 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
+        //Check the raw request method to bypass method overrides
         if($this->isPost())
         {
-            //Check the raw request method to bypass method overrides
             $origin  = false;
             $request = $context->request;
 
