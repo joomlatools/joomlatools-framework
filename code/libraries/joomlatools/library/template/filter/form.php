@@ -74,9 +74,13 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
      */
     public function filter(&$text)
     {
-        //$this->_addMetatag($text);
+        if($this->getObject('user')->getSession()->isActive())
+        {
+            //$this->_addMetatag($text);
+            $this->_addToken($text);
+        }
+
         $this->_addAction($text);
-        $this->_addToken($text);
         $this->_addQueryParameters($text);
 
         return $this;

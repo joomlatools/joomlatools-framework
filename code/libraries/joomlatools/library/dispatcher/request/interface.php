@@ -16,16 +16,6 @@
 interface KDispatcherRequestInterface extends KControllerRequestInterface
 {
     /**
-     * Sets a list of trusted proxies.
-     *
-     * You should only list the reverse proxies that you manage directly.
-     *
-     * @param array $proxies A list of trusted proxies
-     * @return KDispatcherRequestInterface
-     */
-    public function setProxies(array $proxies);
-
-    /**
      * Gets the list of trusted proxies.
      *
      * @return array An array of trusted proxies.
@@ -96,18 +86,35 @@ interface KDispatcherRequestInterface extends KControllerRequestInterface
      * 'referer' a commonly used misspelling word for 'referrer'
      * @link     http://en.wikipedia.org/wiki/HTTP_referrer
      *
-     * @param   boolean  $isInternal Only allow internal url's
+     * @param   boolean  $isTrusted Only allow trusted origins
      * @return  KHttpUrl A HttpUrl object
      */
-    public function getReferrer($isInternal = true);
+    public function getReferrer($isTrusted = true);
+
+    /**
+     * Add a trusted origin
+     *
+     * You should only add an origins that you trust
+     *
+     * @param string $origin A trusted origin
+     * @return KDispatcherRequestInterface
+     */
+    public function addOrigin($origin);
 
     /**
      * Returns the HTTP origin header.
      *
-     * @param   boolean  $isInternal Only allow internal URLs
+     * @param   boolean  $isTrusted Only allow trusted origins
      * @return  KHttpUrl|null  A HttpUrl object or NULL if no origin header could be found
      */
-    public function getOrigin($isInternal = true);
+    public function getOrigin($isTrusted = true);
+
+    /**
+     * Gets the list of trusted origins.
+     *
+     * @return array An array of trusted origins.
+     */
+    public function getOrigins();
 
     /**
      * Returns the client information doing the request

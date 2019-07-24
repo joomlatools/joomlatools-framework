@@ -8,14 +8,18 @@
  */
 
 /**
- * Csrf Dispatcher Authenticator
+ * Token Dispatcher Authenticator
  *
- * @link http://www.adambarth.com/papers/2008/barth-jackson-mitchell-b.pdf
+ * This authenticator implements token based csrf mitigation using the synchroniser token pattern. The csrf token is
+ * only checked if a session is active.
+ *
+ * @link https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.md#token-based-mitigation
+ * @link https://seclab.stanford.edu/websec/csrf/csrf.pdf
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Dispatcher\Authenticator
  */
-class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
+class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
 {
     /**
      * The CSRF token
@@ -33,8 +37,8 @@ class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
     {
         parent::__construct($config);
 
-        $this->addCommandCallback('before.post', 'authenticateRequest');
-        $this->addCommandCallback('after.get'  , 'signResponse');
+        $this->addCommandCallback('before.dispatch', 'authenticateRequest');
+        $this->addCommandCallback('after.get', 'signResponse');
     }
 
     /**
@@ -70,9 +74,6 @@ class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
     /**
      * Verify the request to prevent CSRF exploits
      *
-     * Method will always perform a referrer check and a cookie token check if the user is not authentic and
-     * additionally a session token check if the user is authentic.
-     *
      * @param KDispatcherContextInterface $context	A dispatcher context object
      *
      * @throws KControllerExceptionRequestInvalid      If the request referrer is not valid
@@ -82,32 +83,17 @@ class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
-        if (!$context->user->isAuthentic(true))
+        //Check the raw request method to bypass method overrides
+        if($context->user->getSession()->isActive() && $this->isPost())
         {
-            $request = $context->request;
-            $user    = $context->user;
-
-            //Check referrer or origin
-            if (!$request->getReferrer() && !$request->getOrigin()) {
-                throw new KControllerExceptionRequestInvalid('Request referrer or origin not found');
-            }
-
             //Check csrf token
             if(!$this->getCsrfToken()) {
                 throw new KControllerExceptionRequestNotAuthenticated('Csrf Token Not Found');
             }
 
-            //Check cookie token
-            if($this->getCsrfToken() !== $request->cookies->get('csrf_token', 'sha1')) {
-                throw new KControllerExceptionRequestNotAuthenticated('Invalid Cookie Token');
-            }
-
-            if($user->isAuthentic())
-            {
-                //Check session token
-                if( $this->getCsrfToken() !== $user->getSession()->getToken()) {
-                    throw new KControllerExceptionRequestForbidden('Invalid Session Token');
-                }
+            //Check session token
+            if( $this->getCsrfToken() !== $context->user->getSession()->getToken()) {
+                throw new KControllerExceptionRequestForbidden('Invalid Session Token');
             }
         }
 
@@ -121,17 +107,20 @@ class KDispatcherAuthenticatorCsrf extends KDispatcherAuthenticatorAbstract
      */
     public function signResponse(KDispatcherContextInterface $context)
     {
-        if(!$context->response->isError())
+        if(!$context->response->isError() && $context->user->getSession()->isActive())
         {
             $token = $context->user->getSession()->getToken();
-
-            $context->response->headers->addCookie($this->getObject('lib:http.cookie', array(
-                'name'   => 'csrf_token',
-                'value'  => $token,
-                'path'   => $context->request->getBaseUrl()->getPath(),
-            )));
-
             $context->response->headers->set('X-CSRF-Token', $token);
         }
+    }
+
+    /**
+     * Is this a POST method request?
+     *
+     * @return bool
+     */
+    public function isPost()
+    {
+        return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 }
