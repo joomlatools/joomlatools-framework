@@ -88,6 +88,12 @@ class ComKoowaDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorJwt
         if (in_array(false, $results, true) == false)
         {
             parent::_loginUser($username);
+
+            // Publish the onUserAfterLogin event to make sure that user instances are synced (see: ComKoowaEventSubscriberUser::onAfterUserLogin)
+            $this->getObject('event.publisher')
+                 ->publishEvent('onAfterUserLogin', array('user' => JFactory::getUser($username)), JFactory::getApplication());
+
+
             return true;
         }
 
