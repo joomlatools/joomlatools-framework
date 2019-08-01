@@ -51,7 +51,8 @@ class KDate extends KObject implements KDateInterface
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'date'       => 'now',
+            'format'     => DateTime::W3C ,
+             'date'      => 'now',
             'timezone'   => date_default_timezone_get(),
         ));
     }
@@ -275,5 +276,15 @@ class KDate extends KObject implements KDateInterface
         $replacement = preg_replace('/([a-z])/i', '\\\\$1', $replacement);
 
         return $replacement;
+    }
+
+    /**
+     * Allow PHP casting of this object
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->format($this->getConfig()->format);
     }
 }
