@@ -84,7 +84,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
         //Check the raw request method to bypass method overrides
-        if($context->user->getSession()->isActive() && $this->isPost())
+        if($context->user->isAuthentic() && $this->isPost())
         {
             //Check csrf token
             if(!$this->getCsrfToken()) {
@@ -107,7 +107,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
      */
     public function signResponse(KDispatcherContextInterface $context)
     {
-        if(!$context->response->isError() && $context->user->getSession()->isActive())
+        if(!$context->response->isError() && $context->user->isAuthentic())
         {
             $token = $context->user->getSession()->getToken();
             $context->response->headers->set('X-CSRF-Token', $token);

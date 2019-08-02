@@ -74,7 +74,7 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
      */
     public function filter(&$text)
     {
-        if($this->getObject('user')->getSession()->isActive())
+        if($this->getObject('user')->isAuthentic())
         {
             //$this->_addMetatag($text);
             $this->_addToken($text);
