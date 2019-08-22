@@ -137,7 +137,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                 else
                 {
                     // basename does not work if the string starts with a UTF character
-                    $filename   = ltrim(basename(' '.strtr($response->getStream()->getPath(), array('/' => '/ '))));
+                    $filename   = \Koowa\basename($response->getStream()->getPath());
                 }
 
                 // Android cuts file names after #
