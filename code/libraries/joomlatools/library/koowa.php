@@ -80,6 +80,9 @@ class Koowa
             $this->_vendor_path = $this->_root_path.'/libraries/vendor';
         }
 
+        //Load functions
+        require_once dirname(__FILE__).'/functions.php';
+
         //Load the legacy functions
         require_once dirname(__FILE__).'/legacy.php';
 
