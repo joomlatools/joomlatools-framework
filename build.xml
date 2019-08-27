@@ -8,7 +8,7 @@
 
     <property name="file.compress" value="true" />
 
-    <property name="files.branch" value="feature/103-basename" />
+    <property name="files.branch" value="v3.2.3" />
     <property name="activities.branch" value="v3.1.5" />
     <property name="scheduler.branch" value="v1.3.1" />
     <property name="migrator.branch" value="v1.2.1" />
@@ -98,7 +98,8 @@
             <then>
                 <delete file="joomlatools-framework.zip" quiet="true" />
 
-                <zip destfile="joomlatools-framework.zip" basedir="tmp/clone/code" />
+                <exec command="cd tmp/clone/code &amp;&amp; zip -r ../../../joomlatools-framework.zip **" />
+                <!--<zip destfile="joomlatools-framework.zip" basedir="tmp/clone/code" />-->
             </then>
             <else>
                 <echo message="${file.compress}" />
