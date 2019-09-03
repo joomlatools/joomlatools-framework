@@ -33,29 +33,24 @@ class KTemplateHelperActionbar extends KTemplateHelperToolbar
 
         $commands = $config->toolbar->getCommands();
 
-        if (count($commands))
+        foreach ($commands as $command)
         {
-            $html .= '<div class="k-toolbar k-js-toolbar">';
+            $name = $command->getName();
 
-            foreach ($commands as $command)
-            {
-                $name = $command->getName();
-
-                if ($name === 'title') {
-                    continue;
-                }
-
-                if(method_exists($this, $name)) {
-                    $html .= $this->$name(array('command' => $command));
-                } else {
-                    $html .= $this->command(array('command' => $command));
-                }
+            if ($name === 'title') {
+                continue;
             }
 
-            $html .= '</div>';
+            if(method_exists($this, $name)) {
+                $html .= $this->$name(array('command' => $command));
+            } else {
+                $html .= $this->command(array('command' => $command));
+            }
         }
 
-
+        if (!empty($html)) {
+            $html = '<div class="k-toolbar k-js-toolbar">'.$html.'</div>';
+        }
 
         return $html;
     }
