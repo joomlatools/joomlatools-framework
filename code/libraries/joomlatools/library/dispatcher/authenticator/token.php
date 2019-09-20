@@ -84,7 +84,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
         //Check the raw request method to bypass method overrides
-        if($context->user->isAuthentic() && $this->isPost())
+        if($context->user->isAuthentic() && !$context->user->isAuthentic(true) && $this->isPost())
         {
             //Check csrf token
             if(!$this->getCsrfToken()) {
