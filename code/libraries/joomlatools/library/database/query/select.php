@@ -208,12 +208,17 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
     /**
      * Build the having clause
      *
-     * @param   array|string $columns A string or array of ordering columns
+     * @param   string $condition   The having condition statement
+     * @param   string $combination The having combination, defaults to 'AND'
      * @return  $this
      */
-    public function having($columns)
+    public function having($condition, $combination = 'AND')
     {
-        $this->having = array_unique(array_merge($this->having, (array) $columns));
+        $this->having[] = array(
+            'condition'   => $condition,
+            'combination' => count($this->having) ? $combination : ''
+        );
+
         return $this;
     }
 
@@ -347,12 +352,16 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
 
         if($this->having)
         {
-            $columns = array();
-            foreach($this->having as $column) {
-                $columns[] = $adapter->quoteIdentifier($column);
-            }
+            $query .= ' HAVING';
 
-            $query .= ' HAVING '.implode(' , ', $columns);
+            foreach($this->having as $having)
+            {
+                if($having['combination']) {
+                    $query .= ' '.$having['combination'];
+                }
+
+                $query .= ' '. $adapter->quoteIdentifier($having['condition']);
+            }
         }
 
         if($this->order)
