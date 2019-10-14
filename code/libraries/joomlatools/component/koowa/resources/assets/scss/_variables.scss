@@ -1,0 +1,31 @@
+$k-primary-color:         #212121 !default;
+
+$k-secondary-color:       #FFFFFF !default;
+
+$k-type-color:            #FFFFFF !default;
+
+$k-sidebar-border:        #4D4C4D !default;
+
+$k-navigation-border:     #4D4C4D !default;
+
+$k-scopebar-border:       #4D4C4D !default;
+
+$k-toolbar-border:        #4D4C4D !default;
+
+$k-primary-min-2-color:   #4D4C4D !default;
+
+$k-scopebar-color:        #FFFFFF !default;
+
+$k-primary-min-5-color:   #FFFFFF !default;
+
+
+//slight hacks I can't see where the color override takes place
+button{
+  span.k-scopebar__item--filter__title, span.k-scopebar__item--filter__icon{
+    color: white;
+  }
+}
+
+.k-ui-namespace .k-button--default, .k-ui-namespace .btn {
+  color: #212121 !important;
+}
