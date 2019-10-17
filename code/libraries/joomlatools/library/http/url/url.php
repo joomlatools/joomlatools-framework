@@ -414,8 +414,8 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
         {
             $result =  http_build_query($this->_query, '', $escape ? '&amp;' : '&');
 
-            // We replace the + used for spaces by http_build_query with the more standard %20.
-            $result = str_replace('+', '%20', $result);
+            //Follow the more recent RFC3986 for URLs, which makes square brackets reserved (for IPv6) and thus not encoded
+            $result = str_replace(['%5B', '%5D'], ['[', ']'], $result);
         }
 
         return $result;
