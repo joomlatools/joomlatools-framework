@@ -23,6 +23,23 @@ abstract class PlgKoowaSubscriber extends PlgKoowaAbstract implements KEventSubs
     private $__publishers;
 
     /**
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param  KObjectConfig $config A ObjectConfig object with configuration options
+     * @return void
+     */
+    protected function _initialize(KObjectConfig $config)
+    {
+        $config->append(array(
+            'priority'   => self::PRIORITY_NORMAL,
+        ));
+
+        parent::_initialize($config);
+    }
+
+    /**
      * Connect the plugin to the dispatcher
      *
      * @param $dispatcher
@@ -39,11 +56,9 @@ abstract class PlgKoowaSubscriber extends PlgKoowaAbstract implements KEventSubs
      * Event listeners always start with 'on' and need to be public methods.
      *
      * @param KEventPublisherInterface $publisher
-     * @param  integer                 $priority   The event priority, usually between 1 (high priority) and 5 (lowest),
-     *                                 default is 3 (normal)
      * @return array An array of public methods that have been attached
      */
-    public function subscribe(KEventPublisherInterface $publisher, $priority = KEvent::PRIORITY_NORMAL)
+    public function subscribe(KEventPublisherInterface $publisher)
     {
         $handle = $publisher->getHandle();
 
@@ -53,7 +68,7 @@ abstract class PlgKoowaSubscriber extends PlgKoowaAbstract implements KEventSubs
 
             foreach ($listeners as $listener)
             {
-                $publisher->addListener($listener, array($this, $listener), $priority);
+                $publisher->addListener($listener, array($this, $listener), $this->getPriority());
                 $this->__publishers[$handle][] = $listener;
             }
         }
@@ -111,5 +126,15 @@ abstract class PlgKoowaSubscriber extends PlgKoowaAbstract implements KEventSubs
         }
 
         return $listeners;
+    }
+
+    /**
+     * Get the priority of a subscriber
+     *
+     * @return  integer The subscriber priority
+     */
+    public function getPriority()
+    {
+        return $this->getConfig()->priority;
     }
 }

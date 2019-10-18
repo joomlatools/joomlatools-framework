@@ -197,7 +197,6 @@ class PlgSystemJoomlatools extends JPlugin
     public function onException(KEventException $event)
     {
         KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
-        return true;
     }
 
     /**

@@ -19,14 +19,21 @@
 interface KEventSubscriberInterface
 {
     /**
+     * Priority levels
+     */
+    const PRIORITY_HIGHEST = 1;
+    const PRIORITY_HIGH    = 2;
+    const PRIORITY_NORMAL  = 3;
+    const PRIORITY_LOW     = 4;
+    const PRIORITY_LOWEST  = 5;
+
+    /**
      * Register one or more listeners
      *
      * @param KEventPublisherInterface $publisher
-     * @param  integer                 $priority   The event priority, usually between 1 (high priority) and 5 (lowest),
-     *                                 default is 3 (normal)
      * @@return array An array of public methods that have been attached
      */
-    public function subscribe(KEventPublisherInterface $publisher, $priority = KEventInterface::PRIORITY_NORMAL);
+    public function subscribe(KEventPublisherInterface $publisher);
 
     /**
      * Unsubscribe all previously registered listeners
@@ -50,4 +57,11 @@ interface KEventSubscriberInterface
      * @return array
      */
     public static function getEventListeners();
+
+    /**
+     * Get the priority of the subscriber
+     *
+     * @return	integer The subscriber priority
+     */
+    public function getPriority();
 }
