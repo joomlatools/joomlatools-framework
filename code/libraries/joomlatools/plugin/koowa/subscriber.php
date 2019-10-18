@@ -23,26 +23,6 @@ abstract class PlgKoowaSubscriber extends PlgKoowaAbstract implements KEventSubs
     private $__publishers;
 
     /**
-     * The subscriber priority
-     *
-     * @var integer
-     */
-    protected $_priority;
-
-    /**
-     * Constructor.
-     *
-     * @param KObjectConfig $config  An optional ObjectConfig object with configuration options
-     */
-    public function __construct(KObjectConfig $config)
-    {
-        parent::__construct($config);
-
-        //Set the command priority
-        $this->_priority = $config->priority;
-    }
-
-    /**
      * Initializes the options for the object
      *
      * Called from {@link __construct()} as a first step of object instantiation.
@@ -155,6 +135,6 @@ abstract class PlgKoowaSubscriber extends PlgKoowaAbstract implements KEventSubs
      */
     public function getPriority()
     {
-        return $this->_priority;
+        return $this->getConfig()->priority;
     }
 }
