@@ -18,7 +18,7 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority' => KEvent::PRIORITY_HIGH
+            'priority' => KEvent::PRIORITY_HIGHEST
         ));
 
         parent::_initialize($config);

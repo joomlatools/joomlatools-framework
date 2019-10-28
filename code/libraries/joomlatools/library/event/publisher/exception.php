@@ -88,7 +88,7 @@ class KEventPublisherException extends KEventPublisherAbstract
      * @param   Exception           $exception  The exception to be published.
      * @param  array|Traversable    $attributes An associative array or a Traversable object
      * @param  mixed                $target     The event target
-     * @return  KEventException
+     * @return  bool
      */
     public function publishException(Exception $exception, $attributes = array(), $target = null)
     {
@@ -96,7 +96,15 @@ class KEventPublisherException extends KEventPublisherAbstract
         $event = new KEventException('onException', $attributes, $target);
         $event->setException($exception);
 
-        parent::publishEvent($event);
+        if(parent::publishEvent($event))
+        {
+            //Halt the exception handling if the exception event can no longer be propagated.
+            if(!$event->canPropagate()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
