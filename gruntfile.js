@@ -14,8 +14,8 @@ module.exports = function(grunt) {
 
         // Grunt variables
         KUIPath: '../kodekit-ui',
-        srcPath: 'src',
-        distPath: 'dist',
+        srcPath: 'code/libraries/joomlatools/component/koowa/resources/assets',
+        distPath: 'code/libraries/joomlatools/component/koowa/resources/assets',
 
 
         // Compile sass files
