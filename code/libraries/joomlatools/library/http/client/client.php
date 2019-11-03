@@ -54,31 +54,45 @@ class KHttpClient extends KObject implements KHttpClientInterface
             'protocol_version' => $request->getVersion(),
             'header'           => (string) $headers,
             'follow_location ' => $this->getConfig()->follow_location,
-            'method'           => $request->getMethod() ?? 'GET',
+            'method'           => $request->getMethod() ? $request->getMethod() : 'GET',
             'content'          => (string) $request->getContent(),
         )));
 
         $url     = $request->getUrl();
-        $content = file_get_contents($url, false, $context);
+        $content = @file_get_contents($url, false, $context);
 
-        if ($content === false)
-        {
-            if($error = error_get_last()) {
-                throw new RuntimeException(sprintf('Cannot send HTTP request, error: "%s"', trim($error['message'])));
-            } else {
-                throw new RuntimeException(sprintf('Cannot send HTTP request: "%s"', $url));
-            }
+        //An E_WARNING level error is generated if filename cannot be found
+        if($error = error_get_last()) {
+            throw new KHttpExceptionNotFound(sprintf('Url: "%s" does not exist', $url));
         }
 
         $response = $this->_createResponse($http_response_header);
-        $response->setContent($content);
+
+        if($content) {
+            $response->setContent($content);
+        }
 
         //Request failed
         if(!$response->isSuccess())
         {
-            throw new RuntimeException(
-                sprintf('Sending HTTP request failed, error: "%s %s"', $response->getStatusCode(), $response->getStatusMessage()
-            ));
+            $code    = $response->getStatusCode();
+            $message = $response->getStatusMessage();
+
+            switch($code)
+            {
+                case 400: $exception = new KHttpExceptionBadRequest($message); break;
+                case 401: $exception = new KHttpExceptionUnauthorized($message); break;
+                case 403: $exception = new KHttpExceptionForbidden($message); break;
+                case 404: $exception = new KHttpExceptionNotFound($message); break;
+                case 405: $exception = new KHttpExceptionMethodNotAllowed($message); break;
+                case 406: $exception = new KHttpExceptionNotAcceptable($message); break;
+                case 409: $exception = new KHttpExceptionConflict($message); break;
+                case 415: $exception = new KHttpExceptionUnsupportedMediaType($message); break;
+                default: $exception = new  KHttpExceptionError($message, $code);
+            }
+
+            //Throw the exception
+            throw new $exception();
         }
 
         return $response;
@@ -235,7 +249,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $response = $this->getObject('http.response', [
             'status_code'    => $status[1],
-            'status_message' => $status[2],
+            'status_message' => isset($status[2]) ? $status[2] : '',
         ]);
 
         foreach($headers as $value )
