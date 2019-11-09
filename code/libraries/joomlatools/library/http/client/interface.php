@@ -82,4 +82,30 @@ interface  KHttpClientInterface
      * @return array|string|false
      */
     public function delete($url, $data = array(), $headers = array());
+
+    /**
+     * Send a OPTIONS request
+     *
+     * If successfull the response headers will returned as an array. If the request fails FALSE will be returned.
+     *
+     * @link https://tools.ietf.org/html/rfc7231#page-31
+     *
+     * @param string $url  The endpoint url
+     * @param array $headers Optional request headers
+     * @return array|false
+     */
+    public function options($url, $headers = array());
+
+    /**
+     * Send a HEAD request
+     *
+     * If successfull the response headers will returned as an array. If the request fails FALSE will be returned.
+     *
+     * @link https://tools.ietf.org/html/rfc7231#page-25
+     *
+     * @param string $url  The endpoint url
+     * @param array $headers Optional request headers
+     * @return array|false
+     */
+    public function head($url, $headers = array());
 }

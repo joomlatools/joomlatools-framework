@@ -37,7 +37,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
      * Send a http request
      *
      * @param  KHttpRequestInterface $request   The http request object
-     * @throws RuntimeException If the request failed
+     * @throws KHttpException[Status] If the request failed
      * @return  KHttpResponseInterface
      */
     public function send(KHttpRequestInterface $request)
@@ -92,7 +92,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
             }
 
             //Throw the exception
-            throw new $exception();
+            throw $exception;
         }
 
         return $response;
@@ -108,15 +108,13 @@ class KHttpClient extends KObject implements KHttpClientInterface
      *
      * @param string $url  The endpoint url
      * @param array $headers Optional request headers
-     * @return array|string|false
+     * @return array|string
      */
     public function get($url, $headers = array())
     {
-        //Create the request
         $request = $this->_createRequest($url, array(), $headers)
             ->setMethod(KHttpRequest::GET);
 
-        //Send the request
         $response = $this->send($request);
 
         return $this->_parseResponseContent($response);
@@ -133,15 +131,13 @@ class KHttpClient extends KObject implements KHttpClientInterface
      * @param string $url  The endpoint url
      * @param array|KObjectConfigFormat $data The data to send. If the data is an array it will be urlencoded.
      * @param array $headers Optional request headers
-     * @return array|string|false
+     * @return array|string
      */
     public function post($url, $data, $headers = array())
     {
-        //Create the request
         $request = $this->_createRequest($url, $data, $headers)
             ->setMethod(KHttpRequest::POST);
 
-        //Send the request
         $response = $this->send($request);
 
         return $this->_parseResponseContent($response);
@@ -158,15 +154,36 @@ class KHttpClient extends KObject implements KHttpClientInterface
      * @param string $url  The endpoint url
      * @param array|KObjectConfigFormat $data The data to send. If the data is an array it will be urlencoded.
      * @param array $headers Optional request headers
-     * @return array|string|false
+     * @return array|string
      */
     public function put($url, $data, $headers = array())
     {
-        //Create the request
         $request = $this->_createRequest($url, $data, $headers)
             ->setMethod(KHttpRequest::PUT);
 
-        //Send the request
+        $response = $this->send($request);
+
+        return $this->_parseResponseContent($response);
+    }
+
+    /**
+     * Send a PATCH request
+     *
+     * If successfull and the response content format is known, the content will returned as an array, if the content
+     * cannot be unserialised it will be returned directly. If the request fails FALSE will be returned.
+     *
+     * @link https://tools.ietf.org/html/rfc5789
+     *
+     * @param string $url  The endpoint url
+     * @param array|KObjectConfigFormat $data The data to send. If the data is an array it will be urlencoded.
+     * @param array $headers Optional request headers
+     * @return array|string
+     */
+    public function patch($url, $data, $headers = array())
+    {
+        $request = $this->_createRequest($url, $data, $headers)
+            ->setMethod(KHttpRequest::PATCH);
+
         $response = $this->send($request);
 
         return $this->_parseResponseContent($response);
@@ -183,18 +200,58 @@ class KHttpClient extends KObject implements KHttpClientInterface
      * @param string $url  The endpoint url
      * @param array|KObjectConfigFormat $data The data to send. If the data is an array it will be urlencoded.
      * @param array $headers Optional request headers
-     * @return array|string|false
+     * @return array|string
      */
     public function delete($url, $data = array(), $headers = array())
     {
-        //Create the request
         $request = $this->_createRequest($url, $data, $headers)
             ->setMethod(KHttpRequest::DELETE);
 
-        //Send the request
         $response = $this->send($request);
 
         return $this->_parseResponseContent($response);
+    }
+
+    /**
+     * Send a OPTIONS request
+     *
+     * If successfull the response headers will returned as an array. If the request fails FALSE will be returned.
+     *
+     * @link https://tools.ietf.org/html/rfc7231#page-31
+     *
+     * @param string $url  The endpoint url
+     * @param array $headers Optional request headers
+     * @return array|false
+     */
+    public function options($url, $headers = array())
+    {
+        $request = $this->_createRequest($url, [], $headers)
+            ->setMethod(KHttpRequest::OPTIONS);
+
+        $response = $this->send($request);
+
+        return $response->isSuccess() ? $response->getHeaders()->toArray(): false;
+    }
+
+    /**
+     * Send a HEAD request
+     *
+     * If successfull the response headers will returned as an array. If the request fails FALSE will be returned.
+     *
+     * @link https://tools.ietf.org/html/rfc7231#page-25
+     *
+     * @param string $url  The endpoint url
+     * @param array $headers Optional request headers
+     * @return array|false
+     */
+    public function head($url, $headers = array())
+    {
+        $request = $this->_createRequest($url, [], $headers)
+            ->setMethod(KHttpRequest::HEAD);
+
+        $response = $this->send($request);
+
+        return $response->isSuccess() ? $response->getHeaders()->toArray(): false;
     }
 
     /**
@@ -270,20 +327,17 @@ class KHttpClient extends KObject implements KHttpClientInterface
      * cannot be unserialised it will be returned directly. If the response is not successfull FALSE will be returned.
      *
      * @param KHttpResponseInterface $response
-     * @return array|false
+     * @return array
      */
     protected function _parseResponseContent(KHttpResponseInterface $response)
     {
         $result = false;
 
-        if($response->isSuccess())
-        {
-            $format = $response->getFormat();
-            $result = $response->getContent();
+        $format = $response->getFormat();
+        $result = $response->getContent();
 
-            if($this->getObject('object.config.factory')->isRegistered($format)) {
-                $result = $this->getObject('object.config.factory')->createFormat($format)->fromString($result, false);
-            }
+        if($this->getObject('object.config.factory')->isRegistered($format)) {
+            $result = $this->getObject('object.config.factory')->createFormat($format)->fromString($result, false);
         }
 
         return $result;
