@@ -263,39 +263,6 @@ class KModelState extends KObjectArray implements KModelStateInterface
     }
 
     /**
-     * Get the state names
-     *
-     * This function only returns states that have been been set.
-     *
-     * @param   boolean $unique If TRUE only retrieve unique state names, default FALSE
-     * @return  array   An array of state names
-     */
-    public function getNames($unique = false)
-    {
-        $data = array();
-
-        foreach ($this->_data as $name => $state)
-        {
-            //Only return unique data
-            if($unique)
-            {
-                //Unique values cannot be null or an empty string
-                if($state->unique)
-                {
-                    foreach($state->required as $required) {
-                        $data[] = $this->_data[$required]->name;
-                    }
-
-                    $data[] = $state->name;
-                }
-            }
-            else $data[] = $state->name;
-        }
-
-        return $data;
-    }
-
-    /**
      * Set a state property
      *
      * @param string $name      The name of the state

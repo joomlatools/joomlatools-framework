@@ -99,16 +99,6 @@ interface KModelStateInterface
     public function getValues($unique = false);
 
     /**
-     * Get the state names
-     *
-     * This function only returns states that have been been set.
-     *
-     * @param   boolean $unique If TRUE only retrieve unique state names, default FALSE
-     * @return  array   An array of state names
-     */
-    public function getNames($unique = false);
-
-    /**
      * Set a state property
      *
      * @param string $name      The name of the state
