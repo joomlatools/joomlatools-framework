@@ -117,7 +117,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $response = $this->send($request);
 
-        return $this->_parseResponseContent($response);
+        return $this->parseResponseContent($response);
     }
 
     /**
@@ -140,7 +140,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $response = $this->send($request);
 
-        return $this->_parseResponseContent($response);
+        return $this->parseResponseContent($response);
     }
 
     /**
@@ -163,7 +163,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $response = $this->send($request);
 
-        return $this->_parseResponseContent($response);
+        return $this->parseResponseContent($response);
     }
 
     /**
@@ -186,7 +186,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $response = $this->send($request);
 
-        return $this->_parseResponseContent($response);
+        return $this->parseResponseContent($response);
     }
 
     /**
@@ -209,7 +209,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $response = $this->send($request);
 
-        return $this->_parseResponseContent($response);
+        return $this->parseResponseContent($response);
     }
 
     /**
@@ -252,6 +252,29 @@ class KHttpClient extends KObject implements KHttpClientInterface
         $response = $this->send($request);
 
         return $response->isSuccess() ? $response->getHeaders()->toArray(): false;
+    }
+
+    /**
+     * Parse the response content
+     *
+     * If the response content format is known, the content will returned as an array, if the content
+     * cannot be unserialised it will be returned directly. If the response is not successfull FALSE will be returned.
+     *
+     * @param KHttpResponseInterface $response
+     * @return array
+     */
+    public function parseResponseContent(KHttpResponseInterface $response)
+    {
+        $result = false;
+
+        $format = $response->getFormat();
+        $result = $response->getContent();
+
+        if($this->getObject('object.config.factory')->isRegistered($format)) {
+            $result = $this->getObject('object.config.factory')->createFormat($format)->fromString($result, false);
+        }
+
+        return $result;
     }
 
     /**
@@ -318,28 +341,5 @@ class KHttpClient extends KObject implements KHttpClientInterface
         }
 
         return $response;
-    }
-
-    /**
-     * Parse the response content
-     *
-     * If the response content format is known, the content will returned as an array, if the content
-     * cannot be unserialised it will be returned directly. If the response is not successfull FALSE will be returned.
-     *
-     * @param KHttpResponseInterface $response
-     * @return array
-     */
-    protected function _parseResponseContent(KHttpResponseInterface $response)
-    {
-        $result = false;
-
-        $format = $response->getFormat();
-        $result = $response->getContent();
-
-        if($this->getObject('object.config.factory')->isRegistered($format)) {
-            $result = $this->getObject('object.config.factory')->createFormat($format)->fromString($result, false);
-        }
-
-        return $result;
     }
 }
