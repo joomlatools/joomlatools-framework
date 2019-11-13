@@ -129,10 +129,9 @@ interface KModelStateInterface
     /**
      * Check if the state information is unique
      *
-     * @param bool strict Check for a single unique value
      * @return  boolean TRUE if the state is unique, otherwise FALSE.
      */
-    public function isUnique($strict = true);
+    public function isUnique();
 
     /**
      * Check if the state information is empty

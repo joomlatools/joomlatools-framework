@@ -322,10 +322,9 @@ class KModelState extends KObjectArray implements KModelStateInterface
     /**
      * Check if the state information is unique
      *
-     * @param bool strict Check for a single unique value
      * @return  boolean TRUE if the state is unique, otherwise FALSE.
      */
-    public function isUnique($strict = true)
+    public function isUnique()
     {
         $unique = false;
 
@@ -336,16 +335,13 @@ class KModelState extends KObjectArray implements KModelStateInterface
         {
             $unique = true;
 
-            if($strict)
+            //If a state contains multiple values the state is not unique
+            foreach($states as $state)
             {
-                //If a state contains multiple values the state is not unique
-                foreach($states as $state)
+                if(is_array($state) && count($state) > 1)
                 {
-                    if(is_array($state) && count($state) > 1)
-                    {
-                        $unique = false;
-                        break;
-                    }
+                    $unique = false;
+                    break;
                 }
             }
         }
