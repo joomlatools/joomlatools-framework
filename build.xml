@@ -63,7 +63,7 @@
 
     <target name="include" depends="clone">
         <if>
-            <equals arg1="${component.include}" arg2="local" />
+            <equals arg1="${component.include}" arg2="1" />
             <then>
                 <property name="component.folder" value="${project.basedir}/tmp/clone/code/libraries/joomlatools-components" />
                 <delete file="${component.folder}/files" includeemptydirs="true" />
