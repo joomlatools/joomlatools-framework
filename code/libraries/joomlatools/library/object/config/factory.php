@@ -85,7 +85,7 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
         if(!isset($this->__prototypes[$name]))
         {
             $class    = $this->_formats[$name];
-            $instance = new $class($options);
+            $instance = new $class();
 
             if(!$instance instanceof KObjectConfigSerializable)
             {
@@ -99,6 +99,8 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
 
         //Clone the object
         $result = clone $this->__prototypes[$name];
+        $result->merge($options);
+
         return $result;
     }
 
@@ -170,11 +172,11 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
      * Writes a config to a file
      *
      * @param string $filename
-     * @param KObjectConfigInterface $config
+     * @param KObjectConfigInterface|array $config
      * @throws RuntimeException
      * @return KObjectConfigFactory
      */
-    public function toFile($filename, KObjectConfigInterface $config)
+    public function toFile($filename, $config)
     {
         $pathinfo = pathinfo($filename);
 
@@ -185,7 +187,7 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
             ));
         }
 
-        $this->createFormat($pathinfo['extension'])->toFile($filename, $config);
+        $this->createFormat($pathinfo['extension'], $config)->toFile($filename);
         return $this;
     }
 
