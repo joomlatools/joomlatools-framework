@@ -54,7 +54,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
             'protocol_version' => $request->getVersion(),
             'header'           => (string) $headers,
             'follow_location ' => $this->getConfig()->follow_location,
-            'method'           => $request->getMethod() ? $request->getMethod() : 'GET',
+            'method'           => $request->getMethod(),
             'content'          => (string) $request->getContent(),
         )));
 
@@ -73,7 +73,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
         }
 
         //Request failed
-        if(!$response->isSuccess())
+        if($response->isError())
         {
             $code    = $response->getStatusCode();
             $message = $response->getStatusMessage();
