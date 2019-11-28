@@ -453,6 +453,8 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
 
         if(!is_null($shared_max_age) && $shared_max_age > $max_age) {
             $cache_control['s-maxage'] = (int) $shared_max_age;
+        } else {
+            unset($cache_control['s-maxage']);
         }
 
         $this->_headers->set('Cache-Control', $cache_control);
