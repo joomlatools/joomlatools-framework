@@ -568,13 +568,14 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      * considered uncacheable.
      *
      * @link https://tools.ietf.org/html/rfc7234#section-3
+     *
      * @return Boolean true if the response is worth caching, false otherwise
      */
     public function isCacheable()
     {
         $cache_control = $this->getCacheControl();
 
-        if (in_array(['no-store', 'private'], $cache_control)) {
+        if (in_array('no-store', $cache_control)) {
             return false;
         }
 
@@ -619,6 +620,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     public function isStale()
     {
         $result = true;
+
         if ($maxAge = $this->getMaxAge()) {
             $result = ($maxAge - $this->getAge()) <= 0;
         }
