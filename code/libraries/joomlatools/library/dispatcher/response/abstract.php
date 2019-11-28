@@ -359,6 +359,26 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
     }
 
     /**
+     * Returns true if the response is worth caching under any circumstance.
+     *
+     * Responses that cannot be stored or are without cache validation (Last-Modified, ETag) heades are
+     * considered un-cacheable.
+     *
+     * @link https://tools.ietf.org/html/rfc7234#section-3
+     * @return Boolean true if the response is worth caching, false otherwise
+     */
+    public function isCacheable()
+    {
+        $result = false;
+
+        if($this->getRequest()->isCacheable() && parent::isCacheable()) {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    /**
      * Check if the response is downloadable
      *
      * @return bool
