@@ -337,6 +337,28 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
     }
 
     /**
+     * Returns true if the response is "stale".
+     *
+     * When the responses is stale, the response may not be served from cache without first re-validating with
+     * the origin.
+     *
+     * @return Boolean true if the response is stale, false otherwise
+     */
+    public function isStale()
+    {
+        $cache_control = $this->getRequest()->getCacheControl();
+
+        if(isset($cache_control['max-age']))
+        {
+            $maxAge = $cache_control['max-age'];
+            $result = ($maxAge - $this->getAge()) <= 0;
+        }
+        else  $result = parent::isStale();
+
+        return $result;
+    }
+
+    /**
      * Check if the response is downloadable
      *
      * @return bool
