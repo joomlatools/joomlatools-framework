@@ -593,7 +593,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
             return true;
         }
 
-        if (in_array($this->getStatusCode(), array(200 , 203 , 204 , 206 , 300 , 301 , 404 , 405 , 410 , 414 , 501))) {
+        if (!in_array($this->getStatusCode(), array(200 , 203 , 204 , 206 , 300 , 301 , 404 , 405 , 410 , 414 , 501))) {
             return false;
         }
 
