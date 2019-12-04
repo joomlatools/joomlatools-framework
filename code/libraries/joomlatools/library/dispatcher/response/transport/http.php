@@ -153,10 +153,12 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
 
                 if($encoded_name !== $filename)
                 {
+                    $webkit13OrHigher = preg_match('#(.+)AppleWebKit(.+)Version\/([2-9]+0|1[3-9])(.+)#', $user_agent);
+
                     if (preg_match('/(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:)(\d+)/i', $user_agent)) {
                         $directives['filename'] = '"'.$encoded_name.'"';
                     }
-                    elseif (!stripos($user_agent, 'AppleWebkit')) {
+                    elseif ($webkit13OrHigher || !stripos($user_agent, 'AppleWebkit')) {
                         $directives['filename*'] = 'UTF-8\'\''.$encoded_name;
                     }
                 }
