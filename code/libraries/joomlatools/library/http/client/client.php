@@ -61,9 +61,8 @@ class KHttpClient extends KObject implements KHttpClientInterface
         $url     = $request->getUrl();
         $content = @file_get_contents($url, false, $context);
 
-        //An E_WARNING level error is generated if filename cannot be found
-        if($error = error_get_last()) {
-            throw new KHttpExceptionNotFound(sprintf('Url: "%s" does not exist', $url));
+        if($content === false) {
+            throw new KHttpExceptionError(sprintf('Failed to establish connectiion to: "%s"', $url));
         }
 
         $response = $this->_createResponse($http_response_header);
