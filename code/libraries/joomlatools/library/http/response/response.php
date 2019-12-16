@@ -577,11 +577,11 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     {
         $cache_control = $this->getCacheControl();
 
-        if (in_array('no-store', $cache_control)) {
+        if (in_array('no-store', $cache_control, true)) {
             return false;
         }
 
-        if (in_array('public', $cache_control)) {
+        if (in_array('public', $cache_control, true)) {
             return true;
         }
 
@@ -637,7 +637,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function isNotModified()
     {
-        return (bool) $this->getStatusCode() == 304;
+        return (bool) ($this->getStatusCode() == 304);
     }
 
     /**

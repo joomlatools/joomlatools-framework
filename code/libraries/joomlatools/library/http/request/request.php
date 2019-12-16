@@ -426,7 +426,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
      */
     public function isCacheable()
     {
-        return ($this->isGet() || $this->isHead()) && !in_array('no-store', $this->getCacheControl());
+        return ($this->isGet() || $this->isHead()) && !in_array('no-store', $this->getCacheControl(), true);
     }
 
     /**
