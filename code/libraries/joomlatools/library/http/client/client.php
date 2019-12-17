@@ -54,16 +54,15 @@ class KHttpClient extends KObject implements KHttpClientInterface
             'protocol_version' => $request->getVersion(),
             'header'           => (string) $headers,
             'follow_location ' => $this->getConfig()->follow_location,
-            'method'           => $request->getMethod() ? $request->getMethod() : 'GET',
+            'method'           => $request->getMethod(),
             'content'          => (string) $request->getContent(),
         )));
 
         $url     = $request->getUrl();
         $content = @file_get_contents($url, false, $context);
 
-        //An E_WARNING level error is generated if filename cannot be found
-        if($error = error_get_last()) {
-            throw new KHttpExceptionNotFound(sprintf('Url: "%s" does not exist', $url));
+        if($content === false) {
+            throw new KHttpExceptionError(sprintf('Failed to establish connectiion to: "%s"', $url));
         }
 
         $response = $this->_createResponse($http_response_header);
@@ -73,7 +72,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
         }
 
         //Request failed
-        if(!$response->isSuccess())
+        if($response->isError())
         {
             $code    = $response->getStatusCode();
             $message = $response->getStatusMessage();

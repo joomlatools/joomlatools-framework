@@ -28,6 +28,14 @@ interface KHttpRequestInterface extends KHttpMessageInterface
     public function getAccept(array $defaults = NULL);
 
     /**
+     * Get the cache control
+     *
+     * @link https://tools.ietf.org/html/rfc7234#section-5.2.1
+     * @return array
+     */
+    public function getCacheControl();
+
+    /**
      * Set the method for this request
      *
      * @param  string $method

@@ -201,6 +201,37 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
     }
 
     /**
+     * Get the cache control
+     *
+     * @link https://tools.ietf.org/html/rfc7234#section-5.2.1
+     * @return array
+     */
+    public function getCacheControl()
+    {
+        $values = $this->_headers->get('Cache-Control', array());
+
+        if (is_string($values)) {
+            $values = explode(',', $values);
+        }
+
+        foreach ($values as $key => $value)
+        {
+            if(is_string($value))
+            {
+                $parts = explode('=', $value);
+
+                if (count($parts) > 1)
+                {
+                    unset($values[$key]);
+                    $values[trim($parts[0])] = trim($parts[1]);
+                }
+            }
+        }
+
+        return $values;
+    }
+
+    /**
      * Set the header parameters
      *
      * @param  array $headers
@@ -395,7 +426,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
      */
     public function isCacheable()
     {
-        return ($this->isGet() || $this->isHead()) && !in_array($this->_headers->get('Cache-Control'), array('no-cache', 'max-age=0'));
+        return ($this->isGet() || $this->isHead()) && !in_array('no-store', $this->getCacheControl(), true);
     }
 
     /**

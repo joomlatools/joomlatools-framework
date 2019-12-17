@@ -196,12 +196,19 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             $response->headers->set('Cache-Control', array('private', 'no-cache', 'no-store'));
         }
 
-        //Validate the response if it's cacheable and a request etag if defined
+        //Validate the response
         if($response->isCacheable() && !$response->isStale())
         {
             if ($etags = $request->getEtags())
             {
                 if(in_array($response->getEtag(), $etags) || in_array('*', $etags)) {
+                    $response->setStatus(KHttpResponse::NOT_MODIFIED);
+                }
+            }
+
+            if($since = $request->headers->get('If-Modified-Since') && $response->getLastModified())
+            {
+                if(!($response->getLastModified()->getTimestamp() > strtotime($since))) {
                     $response->setStatus(KHttpResponse::NOT_MODIFIED);
                 }
             }
@@ -212,18 +219,20 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         {
             $headers = array(
                 'Allow',
+                'Age',
                 'Content-Encoding',
                 'Content-Language',
                 'Content-Length',
-                'Content-MD5',
                 'Content-Type',
-                'Last-Modified'
             );
 
             //Remove headers that MUST NOT be included with 304 Not Modified responses
             foreach ($headers as $header) {
                 $response->headers->remove($header);
             }
+
+            //Reset the date if the response has been succesfully validated
+            $response->setDate(new DateTime('now'));
         }
 
         // Prevent caching: Cache-control needs to be empty for IE on SSL.

@@ -148,7 +148,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         $this->setStatus($config->status_code, $config->status_message);
 
         if (!$this->_headers->has('Date')) {
-            $this->setDate(new DateTime(null, new DateTimeZone('UTC')));
+            $this->setDate(new DateTime('now'));
         }
     }
 
@@ -453,6 +453,8 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
 
         if(!is_null($shared_max_age) && $shared_max_age > $max_age) {
             $cache_control['s-maxage'] = (int) $shared_max_age;
+        } else {
+            unset($cache_control['s-maxage']);
         }
 
         $this->_headers->set('Cache-Control', $cache_control);
@@ -527,7 +529,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function isInvalid()
     {
-        return $this->_status_code < 100 || $this->_status_code >= 600;
+        return $this->getStatusCode() < 100 || $this->getStatusCode() >= 600;
     }
 
     /**
@@ -567,21 +569,35 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      * Responses that cannot be stored or are without cache validation (Last-Modified, ETag) heades are
      * considered uncacheable.
      *
-     * @link http://tools.ietf.org/html/rfc2616#section-14.9.1
+     * @link https://tools.ietf.org/html/rfc7234#section-3
+     *
      * @return Boolean true if the response is worth caching, false otherwise
      */
     public function isCacheable()
     {
-        if (!in_array($this->_status_code, array(200, 203, 300, 301, 302, 304, 404, 410))) {
-            return false;
-        }
-
         $cache_control = $this->getCacheControl();
-        if (isset($cache_control['no-store'])) {
+
+        if (in_array('no-store', $cache_control, true)) {
             return false;
         }
 
-        return $this->isValidateable();
+        if (in_array('public', $cache_control, true)) {
+            return true;
+        }
+
+        if (isset($cache_control['max-age']) || isset($cache_control['s-maxage'])) {
+            return true;
+        }
+
+        if($this->isValidateable()) {
+            return true;
+        }
+
+        if (!in_array($this->getStatusCode(), array(200 , 203 , 204 , 206 , 300 , 301 , 404 , 405 , 410 , 414 , 501))) {
+            return false;
+        }
+
+        return false;
     }
 
     /**
@@ -606,11 +622,22 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
     public function isStale()
     {
         $result = true;
+
         if ($maxAge = $this->getMaxAge()) {
             $result = ($maxAge - $this->getAge()) <= 0;
         }
 
         return $result;
+    }
+
+    /**
+     * Return true of the response has not been modified
+     *
+     * @return Boolean true if the response is not modified
+     */
+    public function isNotModified()
+    {
+        return (bool) ($this->getStatusCode() == 304);
     }
 
     /**
