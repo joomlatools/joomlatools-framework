@@ -34,6 +34,7 @@ class KControllerBehaviorTrashable extends KControllerBehaviorAbstract
         $data             = $context->request->data;
         $data->trashed    = 1;
         $data->trashed_on = gmdate('Y-m-d H:i:s');
+        $data->trashed_by = $context->user->getId();
 
         return $this->getMixer()->execute('edit', $context);
     }
@@ -51,6 +52,7 @@ class KControllerBehaviorTrashable extends KControllerBehaviorAbstract
         $data             = $context->request->data;
         $data->trashed    = 0;
         $data->trashed_on = null;
+        $data->trashed_by = null;
 
         return $this->getMixer()->execute('edit', $context);
     }

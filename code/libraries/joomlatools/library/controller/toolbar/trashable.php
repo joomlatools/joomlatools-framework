@@ -20,9 +20,9 @@ class KControllerToolbarTrashable extends KControllerToolbarDecorator
         $controller = $this->getController();
 
         if ($controller->getRequest()->getQuery()->get('trashed', 'int')) {
-            $this->addCommand('restore', array('allowed' => $controller->canEdit()));
+            $this->addCommand('restore', array('allowed' => $controller->canAdd()));
         } else {
-            $this->addCommand('trash', array('allowed' => $controller->canEdit()));
+            $this->addCommand('trash', array('allowed' => $controller->canDelete()));
         }
     }
 
@@ -55,14 +55,12 @@ class KControllerToolbarTrashable extends KControllerToolbarDecorator
         $translator = $this->getObject('translator');
         $query      = $this->getController()->getRequest()->getQuery();
 
-        $command->label = $translator->translate('Restore');
+        $command->icon  = 'k-icon-action-undo';
+        $command->label = $translator->translate('Restore from trash');
         $command->append(array(
             'attribs' => array(
                 'data-action' => 'restore',
             )
         ));
-
-        $command->label = 'Restore from trash';
-        $command->icon  = 'k-icon-action-undo';
     }
 }
