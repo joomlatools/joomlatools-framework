@@ -18,7 +18,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
     /**
      * The template parameters
      *
-     * @var array
+     * @var KObjectConfigInterface
      */
     private $__parameters;
 
