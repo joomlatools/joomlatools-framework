@@ -57,21 +57,11 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
         //Set the filter queue
         $this->__filter_queue = $this->getObject('lib:object.queue');
 
-        //Attach the filters
-        $filters = KObjectConfig::unbox($config->filters);
-
-        foreach ($filters as $key => $value)
-        {
-            if (is_numeric($key)) {
-                $this->addFilter($value);
-            } else {
-                $this->addFilter($key, $value);
-            }
-        }
+        //Add the filters
+        $this->addFilters($config->filters);
 
         //Set the parameters
         $this->setParameters($config->parameters);
-
 
         //Set the excluded types
         $this->_excluded_types = KObjectConfig::unbox($config->excluded_types);
@@ -353,6 +343,26 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
     }
 
     /**
+     * Add template filters
+     *
+     * @param  array $filters A mixed array of template filters
+     * @return KTemplateAbstract
+     */
+    public function addFilters($filters)
+    {
+        foreach((array)KObjectConfig::unbox($filters) as $key => $value)
+        {
+            if (is_numeric($key)) {
+                $this->addFilter($value);
+            } else {
+                $this->addFilter($key, $value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Attach a filter for template transformation
      *
      * @param   mixed $filter An object that implements ObjectInterface, ObjectIdentifier object
@@ -374,7 +384,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
         }
         else $identifier = $this->getIdentifier($filter);
 
-        if (!$this->hasFilter($identifier->name))
+        if (!$this->hasFilter($identifier))
         {
             $filter = $this->getObject($identifier, array_merge($config, array('template' => $this)));
 
@@ -386,7 +396,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
             }
 
             //Store the filter
-            $this->__filters[$filter->getIdentifier()->name] = $filter;
+            $this->__filters[(string)$identifier] = $filter;
 
             //Enqueue the filter
             $this->__filter_queue->enqueue($filter, $filter->getPriority());
@@ -398,12 +408,24 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
     /**
      * Check if a filter exists
      *
-     * @param 	string	$filter The name of the filter
+     * @param   mixed $filter An object that implements ObjectInterface, ObjectIdentifier object
+     *                         or valid identifier string
      * @return  boolean	TRUE if the filter exists, FALSE otherwise
      */
     public function hasFilter($filter)
     {
-        return isset($this->__filters[$filter]);
+        //Create the complete identifier if a partial identifier was passed
+        if (is_string($filter) && strpos($filter, '.') === false)
+        {
+            $identifier = $this->getIdentifier()->toArray();
+            $identifier['path'] = array('template', 'filter');
+            $identifier['name'] = $filter;
+
+            $identifier = $this->getIdentifier($identifier);
+        }
+        else $identifier = $this->getIdentifier($filter);
+
+        return isset($this->__filters[(string)$filter]);
     }
 
     /**
@@ -418,8 +440,19 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
     {
         $result = null;
 
-        if(isset($this->__filters[$filter])) {
-            $result = $this->__filters[$filter];
+        //Create the complete identifier if a partial identifier was passed
+        if (is_string($filter) && strpos($filter, '.') === false)
+        {
+            $identifier = $this->getIdentifier()->toArray();
+            $identifier['path'] = array('template', 'filter');
+            $identifier['name'] = $filter;
+
+            $identifier = $this->getIdentifier($identifier);
+        }
+        else $identifier = $this->getIdentifier($filter);
+
+        if(isset($this->__filters[(string)$identifier])) {
+            $result = $this->__filters[(string)$identifier];
          }
 
         return $result;
