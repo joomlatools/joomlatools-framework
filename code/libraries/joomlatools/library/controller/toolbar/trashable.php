@@ -19,10 +19,14 @@ class KControllerToolbarTrashable extends KControllerToolbarDecorator
     {
         $controller = $this->getController();
 
-        if ($controller->getRequest()->getQuery()->get('trashed', 'int')) {
+        if ($controller->getRequest()->getQuery()->get('trashed', 'int'))
+        {
             $this->addCommand('restore', array('allowed' => $controller->canAdd()));
-        } else {
+        }
+        else
+        {
             $this->addCommand('trash', array('allowed' => $controller->canDelete()));
+            $this->removeCommand('delete');
         }
     }
 
