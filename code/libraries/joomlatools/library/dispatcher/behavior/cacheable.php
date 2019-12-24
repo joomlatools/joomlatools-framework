@@ -36,6 +36,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             'cache_private' => false,
             'cache_time'         => 0, //must revalidate
             'cache_time_shared'  => 0, //must revalidate proxy
+            'cache_control'      => array(),
         ));
 
         parent::_initialize($config);
@@ -53,8 +54,13 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
     {
         parent::onMixin($mixer);
 
-        //Set max age default
-        if($this->isCacheable()) {
+        if($this->isCacheable())
+        {
+            //Set cache control default
+            $cache_control = (array) KObjectConfig::unbox($this->getConfig()->cache_control);
+            $this->getMixer()->getResponse()->getHeaders()->set('Cache-Control', $cache_control);
+
+            //Set max age default
             $this->getMixer()->getResponse()->setMaxAge($this->getConfig()->cache_time, $this->getConfig()->cache_time_shared);
         }
     }
