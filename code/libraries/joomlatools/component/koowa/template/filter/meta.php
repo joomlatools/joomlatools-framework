@@ -44,8 +44,17 @@ class ComKoowaTemplateFilterMeta extends KTemplateFilterMeta
     {
         if($this->getTemplate()->decorator() == 'joomla')
         {
-            $meta = parent::_renderTag($attribs, $content);
-            JFactory::getDocument()->addCustomTag($meta);
+            if(isset($attribs['name'])) {
+                JFactory::getDocument()->setMetaData($attribs['name'], $attribs['content'], 'name');
+            }
+            elseif(isset($attribs['property'])) {
+                JFactory::getDocument()->setMetaData($attribs['property'], $attribs['content'], 'property');
+            }
+            else
+            {
+                $meta = parent::_renderTag($attribs, $content);
+                JFactory::getDocument()->addCustomTag($meta);
+            }
         }
         else return parent::_renderTag($attribs, $content);
     }
