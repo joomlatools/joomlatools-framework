@@ -89,7 +89,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
 
         if($handle = $object->getHandle())
         {
-            if($this->__object_list->offsetExists($handle))
+            if(isset($this->__object_list[$handle]))
             {
                 unset($this->__object_list[$handle]);
                 unset($this->__priority_list[$handle]);
