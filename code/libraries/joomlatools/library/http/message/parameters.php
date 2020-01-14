@@ -60,10 +60,6 @@ class KHttpMessageParameters extends KObjectArray
         // If the value is null return the default
         if(!empty($result))
         {
-            // Handle magic quotes compatibility
-            if (get_magic_quotes_gpc()) {
-                $result = $this->_stripSlashes( $result );
-            }
 
             // Filter the data
             if(!($filter instanceof KFilterInterface)) {
@@ -103,11 +99,6 @@ class KHttpMessageParameters extends KObjectArray
         // If the value is null return the default
         if(!is_null($result))
         {
-            // Handle magic quotes compatibility
-            if (get_magic_quotes_gpc()) {
-                $result = $this->_stripSlashes( $result );
-            }
-
             // Filter the data
             if(!($filter instanceof KFilterInterface)) {
                 $filter = $this->getObject('filter.factory')->createChain($filter);
