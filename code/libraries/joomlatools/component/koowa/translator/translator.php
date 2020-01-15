@@ -68,7 +68,8 @@ class ComKoowaTranslator extends KTranslator
             {
                 $locales   = array($current);
 
-                if ($parts = explode('-', $current, 2)) {
+                if ($parts = explode('-', $current, 2)) 
+                {
                     if (count($parts) === 2 && $parts[0] !== $parts[1]) {
                         array_unshift($locales, $parts[0].'-'.$parts[0]);
                     }
