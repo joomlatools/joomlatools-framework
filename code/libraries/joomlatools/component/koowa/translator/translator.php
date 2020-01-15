@@ -64,21 +64,21 @@ class ComKoowaTranslator extends KTranslator
             $current  = $this->getLocale();
             $fallback = $this->getLocaleFallback();
 
+            $locales   = array($current);
+
+            if ($parts = explode('-', $current, 2))
+            {
+                if (count($parts) === 2 && $parts[0] !== $parts[1]) {
+                    array_unshift($locales, $parts[0].'-'.$parts[0]);
+                }
+            }
+
+            if ($current !== $fallback) {
+                array_unshift($locales, $fallback);
+            }
+
             foreach($this->find($url) as $extension => $base)
             {
-                $locales   = array($current);
-
-                if ($parts = explode('-', $current, 2)) 
-                {
-                    if (count($parts) === 2 && $parts[0] !== $parts[1]) {
-                        array_unshift($locales, $parts[0].'-'.$parts[0]);
-                    }
-                }
-
-                if ($current !== $fallback) {
-                    array_unshift($locales, $fallback);
-                }
-
                 foreach ($locales as $locale)
                 {
                     if (!JFactory::getLanguage()->load($extension, $base, $locale, true, false))
