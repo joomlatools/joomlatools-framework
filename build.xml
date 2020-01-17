@@ -9,7 +9,7 @@
     <property name="file.compress" value="true" />
 
     <property name="files.branch" value="v3.2.4" />
-    <property name="activities.branch" value="v3.1.5" />
+    <property name="activities.branch" value="v3.1.6" />
     <property name="scheduler.branch" value="v1.3.1" />
     <property name="migrator.branch" value="v1.2.1" />
     <property name="tags.branch" value="v1.2.1" />
