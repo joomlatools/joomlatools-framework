@@ -110,10 +110,13 @@ class KViewCsv extends KViewAbstract
         foreach($data as $value)
         {
             //Cast objects to string
-            if(is_object($value) && method_exists($value, '__toString')) {
-               $value = (string) $value;
-            } else {
-                $value = null;
+            if(is_object($value))
+            {
+                if(method_exists($value, '__toString')) {
+                    $value = (string) $value;
+                } else {
+                    $value = null;
+                }
             }
 
             //Implode array's
