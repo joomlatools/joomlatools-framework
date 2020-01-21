@@ -290,6 +290,32 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
+     * Proxy onPrepareModuleList
+     *
+     * @return void
+     */
+    public function onPrepareModuleList(&$modules)
+    {
+        $result = $this->_proxyEvent('onBeforeTemplateModules', ['modules' => $modules]);
+
+        //Passback modules by references
+        $modules = $result->modules;
+    }
+
+    /**
+     * Proxy onAfterModuleList
+     *
+     * @return void
+     */
+    public function onAfterModuleList(&$modules)
+    {
+        $result = $this->_proxyEvent('onAfterTemplateModules', ['modules' => $modules]);
+
+        //Passback modules by references
+        $modules = $result->modules;
+    }
+
+    /**
      * Proxy all Joomla events
      *
      * @param   array  &$args  Arguments
@@ -297,10 +323,14 @@ class PlgSystemJoomlatools extends JPlugin
      */
     protected function _proxyEvent($event, $args = array())
     {
+        $result = null;
+
         //Publish the event
         if (class_exists('Koowa')) {
-            KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
+            $result = KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
         }
+
+        return $result;
     }
 
     /**
