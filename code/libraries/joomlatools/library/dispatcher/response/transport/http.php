@@ -53,7 +53,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                 header($header, false);
             }
         }
-        else throw new \RuntimeException(sprintf('Headers already send (output started at %s:%s', $file, $line));
+        //else throw new \RuntimeException(sprintf('Headers already send (output started at %s:%s', $file, $line));
 
         return $this;
     }
