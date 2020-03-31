@@ -72,10 +72,10 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
                 }
                 else
                 {
-                    unset($attribs['src']);
-                    unset($attribs['condition']);
+                    $defer = isset($attribs['defer']) ? true : false;
+                    $async = isset($attribs['async']) ? true : false;
 
-                    JFactory::getDocument()->addScript($link, 'text/javascript');
+                    JFactory::getDocument()->addScript($link, 'text/javascript', $defer, $async);
                 }
             }
         }
