@@ -91,7 +91,7 @@ abstract class KTemplateEngineAbstract extends KTemplateAbstract implements KTem
             'functions'    => array(
                 'object'    => array($this, 'getObject'),
                 'translate' => array($this->getObject('translator'), 'translate'),
-                'json'      => 'json_encode',
+                'json'      => array($this, 'jsonEncode'),
                 'format'    => 'sprintf',
                 'replace'   => 'strtr',
                 'debug'     => array($this, 'isDebug'),
@@ -99,6 +99,23 @@ abstract class KTemplateEngineAbstract extends KTemplateAbstract implements KTem
         ));
 
         parent::_initialize($config);
+    }
+
+    /**
+     *  Returns the JSON representation of a value
+     *
+     * @param $value mixed The value being encoded. Can be any type except a resource.
+     * @param $escape bool  If TRUE escapes the result for xml compliance. Default FALSE
+     */
+    public function jsonEncode($value, $escape = false)
+    {
+        $result = json_encode($value, JSON_HEX_QUOT);
+
+        if($escape) {
+            $result = htmlspecialchars($result);
+        }
+
+        return $result;
     }
 
     /**
