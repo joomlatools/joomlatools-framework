@@ -32,6 +32,11 @@ jimport('joomla.application.module.helper');
  * Example <khtml:modules position="sidebar" condition="sidebar >= 2"> In this case the sidebar will be rendered only
  * if at least two modules have been injected.
  *
+ * Params can be passed along when creating a module and should be encoded as a json string and especaded for xml
+ * compliance.
+ *
+ * Example <ktml:module position="sidebar" name="menu" params="<?= json(['menutype' => 'mainmenu'], true); ?>">
+ *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Template\Filter
  */
