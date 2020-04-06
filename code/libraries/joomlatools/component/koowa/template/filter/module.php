@@ -289,7 +289,7 @@ class ComKoowaTemplateFilterModule extends KTemplateFilterAbstract
         $module->content   = $content;
         $module->id        = uniqid();
         $module->position  = $attributes['position'];
-        $module->params    = $attributes['params'];
+        $module->params    = htmlspecialchars_decode($attributes['params']);
         $module->showtitle = !empty($attributes['title']);
         $module->title     = $attributes['title'];
         $module->attribs   = $attributes;
