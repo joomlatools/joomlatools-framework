@@ -23,6 +23,13 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
     public $distinct  = false;
 
     /**
+     * Shuffle operation
+     *
+     * @var boolean
+     */
+    public $shuffle  = false;
+
+    /**
      * The columns
      *
      * @var array
@@ -138,7 +145,7 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
     }
 
     /**
-     * Build the from clause 
+     * Build the from clause
      *
      * @param  array|string The table string or array name.
      * @return $this
@@ -223,7 +230,7 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
     }
 
     /**
-     * Build the order clause 
+     * Build the order clause
      *
      * @param   array|string $columns   A string or array of ordering columns
      * @param   string       $direction Either DESC or ASC
@@ -243,7 +250,18 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
     }
 
     /**
-     * Build the limit element 
+     * Build the shuffle clause
+     *
+     * @return  $this
+     */
+    public function shuffle()
+    {
+        $this->shuffle = true;
+        return $this;
+    }
+
+    /**
+     * Build the limit element
      *
      * @param   integer $limit  Number of items to fetch.
      * @param   integer $offset Offset to start fetching at.
@@ -364,11 +382,15 @@ class KDatabaseQuerySelect extends KDatabaseQueryAbstract
             }
         }
 
-        if($this->order)
+        if($this->order || $this->shuffle)
         {
             $query .= ' ORDER BY ';
 
             $list = array();
+            if($this->shuffle) {
+                $list[] = 'RAND()';
+            }
+
             foreach($this->order as $order) {
                 $list[] = $adapter->quoteIdentifier($order['column']).' '.$order['direction'];
             }
