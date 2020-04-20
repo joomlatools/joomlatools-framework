@@ -120,7 +120,7 @@ class KControllerBehaviorEditable extends KControllerBehaviorAbstract
      */
     public function setReferrer(KControllerContextInterface $context)
     {
-        if (!$context->request->cookies->has($this->_cookie_name.'_locked'))
+        if (!$this->_isReferrerLocked() && !$context->request->cookies->has($this->_cookie_name.'_locked'))
         {
             $request  = $context->request->getUrl();
             $referrer = $context->request->getReferrer();
