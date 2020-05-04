@@ -3277,7 +3277,6 @@ body.k-is-resizing {
 }
 
 .k-ui-namespace .k-container {
-  overflow: hidden;
   width: 100%;
   margin: 0 auto;
   -ms-flex: 0 0 auto;
@@ -3298,6 +3297,12 @@ body.k-is-resizing {
 
 .k-is-resizing .k-ui-namespace .k-container {
   overflow: hidden;
+}
+
+@media screen and (min-width: 768px) {
+  .k-ui-namespace .k-container {
+    overflow: hidden;
+  }
 }
 
 .k-ui-namespace .k-container + .k-container .k-container__full,
@@ -8283,6 +8288,10 @@ html:not([dir="rtl"]) .k-input-group__button:first-child > .k-button-group:not(:
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
   }
+}
+
+.k-ui-namespace .k-scopebar.k-scopebar.k-scopebar {
+  overflow: visible;
 }
 
 .k-ui-namespace .k-scopebar__item {
