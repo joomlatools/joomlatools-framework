@@ -201,7 +201,7 @@ class KControllerBehaviorEditable extends KControllerBehaviorAbstract
      *
      * If referrer lock is set to true, we know that the lock happened in this request, so it is not unlocked yet.
      *
-     * @param $locked
+     * @param bool $locked
      * @return $this
      */
     protected function _setReferrerLocked($locked)
