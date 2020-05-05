@@ -60,7 +60,7 @@ class KDatabaseQueryUpdate extends KDatabaseQueryAbstract
     /**
      * Build the table clause 
      *
-     * @param   string $table The name of the table to update.
+     * @param   string|array $table The name of the table to update.
      * @return  KDatabaseQueryUpdate
      */
     public function table($table)
