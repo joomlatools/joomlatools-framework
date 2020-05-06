@@ -1000,4 +1000,31 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         return $html;
     }
+
+    /**
+     * Loads Alpine.js
+     *
+     * If debug config property is set, an uncompressed version will be included.
+     *
+     * @param array|KObjectConfig $config
+     * @return string
+     */
+    public function alpine($config = [])
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append([
+            'debug' => false
+        ]);
+
+        $html = '';
+
+        if (!static::isLoaded('alpine')) {
+            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'alpine.js" type="module" />';
+            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'alpine-ie11.js" nomodule defer />';
+
+            static::setLoaded('alpine');
+        }
+
+        return $html;
+    }
 }

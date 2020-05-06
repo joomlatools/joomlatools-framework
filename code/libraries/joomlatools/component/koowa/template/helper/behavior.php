@@ -242,4 +242,23 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
 
         return parent::calendar($config);
     }
+
+    /**
+     * Loads Alpine.js
+     *
+     * If debug config property is set, an uncompressed version will be included.
+     *
+     * @param array|KObjectConfig $config
+     * @return string
+     */
+    public function alpine($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append(array(
+            'debug' => JFactory::getApplication()->getCfg('debug')
+        ));
+
+        return parent::alpine($config);
+    }
+
 }
