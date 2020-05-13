@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Location of the config file relative to the build-scripts/assets folder. You only need to change this:
-CONFIGFILE="joomlatools/joomlatools-framework2"
+CONFIGFILE="joomlatools/joomlatools-framework"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SCRIPTS_DIR="$(dirname $(dirname "$DIR"))/build-scripts"
