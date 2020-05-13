@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-# Location of the gruntfile in the build-scripts repo. You only need to change these two variables
-GRUNTFOLDER="joomlatools"
-GRUNTFILE="joomlatools-framework.js"
+# Location of the config file relative to the build-scripts/assets folder. You only need to change this:
+CONFIGFILE="joomlatools/joomlatools-framework2"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SCRIPTS_DIR="$(dirname $(dirname "$DIR"))/build-scripts"
@@ -12,4 +11,4 @@ if [ ! -d "$SCRIPTS_DIR" ]; then
     git clone git@github.com:joomlatools/build-scripts.git "$SCRIPTS_DIR"
 fi
 
-source $SCRIPTS_DIR/grunt/run
+source $SCRIPTS_DIR/assets/compile
