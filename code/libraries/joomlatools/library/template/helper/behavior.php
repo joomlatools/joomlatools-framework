@@ -62,7 +62,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if (!static::isLoaded('koowa'))
         {
             $html .= $this->jquery();
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'koowa.js" />';
+            $html .= '<ktml:script src="assets://js/koowa'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('koowa');
         }
@@ -88,17 +88,9 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('vue'))
         {
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'vue.js" />';
+            $html .= '<ktml:script src="assets://js/vue'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('vue');
-        }
-
-        if ($config->vuex && !static::isLoaded('vuex'))
-        {
-            $html .= '<ktml:script src="assets://js/polyfill.promise.js" />';
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'vuex.js" />';
-
-            static::setLoaded('vuex');
         }
 
         if ($config->entity instanceof KModelEntityInterface)
@@ -110,7 +102,6 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
             $html .= $this->koowa($config);
             $html .= "
-            <ktml:script src=\"assets://js/koowa.vue.js\" />
             <script>
                 kQuery(function($) {
                     var form = $('.k-js-form-controller');
@@ -146,34 +137,9 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('modernizr'))
         {
-            $html = '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'modernizr.js" />';
+            $html = '<ktml:script src="assets://js/modernizr'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('modernizr');
-        }
-
-        return $html;
-    }
-
-    /**
-     * Loads KUI initialize
-     *
-     * @param array|KObjectConfig $config
-     * @return string
-     */
-    public function kodekitui($config = array())
-    {
-        $config = new KObjectConfigJson($config);
-        $config->append(array(
-            'debug' => false
-        ));
-
-        $html = '';
-
-        if (!static::isLoaded('kodekitui'))
-        {
-            $html = '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'kui-initialize.js" />';
-
-            static::setLoaded('kodekitui');
         }
 
         return $html;
@@ -200,7 +166,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('jquery'))
         {
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'jquery.js" />';
+            $html .= '<ktml:script src="assets://js/jquery'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('jquery');
         }
@@ -228,7 +194,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if ($config->javascript && !static::isLoaded('bootstrap-javascript'))
         {
             $html .= $this->jquery($config);
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'bootstrap.js" />';
+            $html .= '<ktml:script src="assets://js/bootstrap'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('bootstrap-javascript');
         }
@@ -265,7 +231,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if(!static::isLoaded('modal'))
         {
             $html .= $this->jquery();
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'jquery.magnific-popup.js" />';
+            $html .= '<ktml:script src="assets://js/jquery.magnific-popup'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('modal');
         }
@@ -411,7 +377,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if(!static::isLoaded('validator'))
         {
             $html .= $this->koowa();
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'jquery.validate.js" />';
+            $html .= '<ktml:script src="assets://js/jquery.validate'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('validator');
         }
@@ -468,7 +434,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if (!static::isLoaded('select2'))
         {
             $html .= $this->jquery();
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'koowa.select2.js" />';
+            $html .= '<ktml:script src="assets://js/koowa.select2'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('select2');
         }
@@ -551,57 +517,6 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
             $html .= $this->select2(array('element' => false));
 
-            if (!static::isLoaded('koowa-select2-autocomplete')) {
-                $html .= '<script>
-                if(!Koowa) {
-                    var Koowa = {};
-                }
-                
-                Koowa.getSelect2Options = function(options) {
-                    var defaults = {
-                        width: "resolve",
-                        minimumInputLength: 2,
-                        theme: "bootstrap",
-                        ajax: {
-                            url: options.url,
-                            delay: 100,
-                            data: function (params) {
-                                var page  = params.page || 1,  // page is the one-based page number tracked by Select2
-                                    query = {
-                                        limit: 10, // page size
-                                        offset: (page-1)*10
-                                    };
-                                query[options.queryVarName] = params.term;
-            
-                                return query;
-                            },
-                            processResults: function (data, page) {
-                                var results = [],
-                                    more = (page * 10) < data.meta.total; // whether or not there are more results available
-            
-                                kQuery.each(data.entities, function(i, item) {
-                                    // Change format to what select2 expects
-                                    item.id   = item[options.value];
-                                    item.text = item[options.text];
-            
-                                    results.push(item);
-                                });
-            
-                                // notice we return the value of more so Select2 knows if more results can be loaded
-                                return {results: results, more: more};
-                            }
-                        }
-                    };
-                    
-                    var settings = kQuery.extend( {}, defaults, options);
-                    
-                    return settings;
-                };
-                </script>';
-
-                static::setLoaded('koowa-select2-autocomplete');
-            }
-
             $html .= '<script>
             kQuery(function($){
                 $("'.$config->element.'").select2(Koowa.getSelect2Options('.$options.'));
@@ -647,7 +562,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if (!static::isLoaded('tree'))
         {
             $html .= $this->koowa();
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'koowa.tree.js" />';
+            $html .= '<ktml:script src="assets://js/koowa.tree'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('tree');
         }
@@ -731,7 +646,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         // Load Bootstrap with JS plugins.
         if(!static::isLoaded('tooltip'))
         {
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'tooltip.js" />';
+            $html .= '<ktml:script src="assets://js/tooltip'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('tooltip');
         }
@@ -905,7 +820,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         $html = '';
 
         if (!static::isLoaded('calendar')) {
-            $html .= '<ktml:script src="assets://js/' . ($config->debug ? 'build/' : 'min/') . 'koowa.datepicker.js" />';
+            $html .= '<ktml:script src="assets://js/koowa.datepicker'.($config->debug ? '' : '.min').'.js" />';
 
             static::setLoaded('calendar');
         }
@@ -1019,10 +934,30 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         $html = '';
 
         if (!static::isLoaded('alpine')) {
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'alpine.js" type="module" />';
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'alpine-ie11.js" nomodule defer />';
+            $html .= '<ktml:script src="assets://js/alpine'.($config->debug ? '' : '.min').'.js" type="module" />';
+            $html .= '<ktml:script src="assets://js/alpine-ie11'.($config->debug ? '' : '.min').'.js" nomodule defer />';
 
             static::setLoaded('alpine');
+        }
+
+        return $html;
+    }
+
+    public function debugger($config = array())
+    {
+        $config = new KObjectConfigJson($config);
+        $config->append(array(
+            'debug' => false
+        ));
+
+        $html = '';
+
+        if (!static::isLoaded('debugger'))
+        {
+            $html = '<ktml:script src="assets://js/debugger'.($config->debug ? '' : '.min').'.js" />';
+            $html = '<ktml:style src="assets://css/debugger'.($config->debug ? '' : '.min').'.css" />';
+
+            static::setLoaded('debugger');
         }
 
         return $html;
