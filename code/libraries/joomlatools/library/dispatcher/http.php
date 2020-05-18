@@ -147,18 +147,20 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     /**
      * Redirect
      *
-     * Redirect to a URL externally. Method performs a 301 (permanent) redirect. Method should be used to immediately
-     * redirect the dispatcher to another URL after a GET request.
+     * Redirect to a URL externally. If no redirect status code has been specified in the response a 301 (permanent)
+     * redirect will performed.
      *
      * @param KDispatcherContextInterface $context A dispatcher context object
      * @return bool
      */
     protected function _actionRedirect(KDispatcherContextInterface $context)
     {
-        $url = $context->param;
+        //Only set the status if it hasn't been set yet
+        if(!$context->response->isRedirect()) {
+            $context->response->setStatus(KDispatcherResponse::MOVED_PERMANENTLY);
+        }
 
-        $context->response->setStatus(KDispatcherResponse::MOVED_PERMANENTLY);
-        $context->response->setRedirect($url);
+        $context->response->setRedirect($context->param);
         $this->send();
 
         return false;
