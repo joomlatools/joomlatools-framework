@@ -454,7 +454,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         $cache_control = $this->getCacheControl();
 
         //Convert max_age to seconds
-        if(!ctype_digit($max_age))
+        if(!is_numeric($max_age))
         {
             if($max_age = strtotime($max_age)) {
                 $max_age = $max_age - strtotime('now');
@@ -462,7 +462,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         }
 
         //Convert shared_max_age to seconds
-        if(!ctype_digit($shared_max_age))
+        if(!is_numeric($shared_max_age))
         {
             if($shared_max_age = strtotime($shared_max_age)) {
                 $shared_max_age = $shared_max_age - strtotime('now');
@@ -475,7 +475,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
             unset($cache_control['max-age']);
         }
 
-        if(!is_null($shared_max_age) && !$shared_max_age !== false && $shared_max_age > $max_age) {
+        if($shared_max_age > $max_age) {
             $cache_control['s-maxage'] = (int) $shared_max_age;
         } else {
             unset($cache_control['s-maxage']);
