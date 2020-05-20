@@ -13,7 +13,6 @@ defined('KOOWA') or die; ?>
 
 <ktml:style src="media://koowa/framework/css/debugger.css" />
 <ktml:script src="media://koowa/framework/js/debugger.js" />
-<ktml:script src="media://koowa/framework/js/dumper.js" />
 
 <script data-inline type="text/javascript">
 // Remove all classes from html and body
