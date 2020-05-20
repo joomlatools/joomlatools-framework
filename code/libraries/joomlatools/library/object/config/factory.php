@@ -38,7 +38,11 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
     {
         parent::__construct($config);
 
-        $this->_formats = $config->formats;
+        $this->_formats = array();
+
+        foreach($config->formats as $format => $identifier) {
+            $this->registerFormat($format, $identifier);
+        }
     }
 
     /**
@@ -53,12 +57,12 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
     {
         $config->append(array(
             'formats' => array(
-                'php'  => 'KObjectConfigPhp',
-                'ini'  => 'KObjectConfigIni',
-                'json' => 'KObjectConfigJson',
-                'xml'  => 'KObjectConfigXml',
-                'yml'  => 'KObjectConfigYaml',
-                'yaml' => 'KObjectConfigYaml'
+                'php'  => 'lib:object.config.php',
+                'ini'  => 'lib:object.config.ini',
+                'json' => 'lib:object.config.json',
+                'xml'  => 'lib:object.config.xml',
+                'yml'  => 'lib:object.config.yaml',
+                'yaml' => 'lib:object.config.yaml'
             )
         ));
 
@@ -108,12 +112,14 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
      * Register config format
      *
      * @param string $format The name of the format
-     * @param mixed  $class Class name
+     * @param string  $identifier A fully qualified object identifier
      * @throws InvalidArgumentException If the class does not exist
      * @return KObjectConfigFactory
      */
-    public function registerFormat($format, $class)
+    public function registerFormat($format, $identifier)
     {
+        $class = $this->getObject('manager')->getClass($identifier);
+
         if(!class_exists($class, true)) {
             throw new InvalidArgumentException('Class : '.$class.' cannot does not exist.');
         }
