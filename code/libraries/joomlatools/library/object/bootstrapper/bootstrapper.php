@@ -211,12 +211,14 @@ final class KObjectBootstrapper extends KObject implements KObjectBootstrapperIn
                 *
                 * Collect identifiers by priority and then flatten the array.
                 */
-                $identifiers_flat = array();
+                $identifiers_flat = new KObjectConfig();
 
                 krsort($identifiers);
-                foreach ($identifiers as $priority => $merges) {
-                    $identifiers_flat = array_replace_recursive($identifiers_flat, $merges);
+                foreach ($identifiers as $identifier) {
+                    $identifiers_flat->append($identifier);
                 }
+
+                $identifiers_flat = $identifiers_flat->toArray();
 
                 foreach ($identifiers_flat as $identifier => $config) {
                     $manager->setIdentifier(new KObjectIdentifier($identifier, $config));
