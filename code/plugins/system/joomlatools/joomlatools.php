@@ -58,15 +58,6 @@ class PlgSystemJoomlatools extends JPlugin
      */
     public function __destruct()
     {
-        /*
-         * Ensure a referrer is available for same origin requests by force setting the referrer policy
-         *
-         * Send the origin, path, and querystring when performing a same-origin request, only send the
-         * origin when the protocol security level stays the same while performing a cross-origin request
-         * (HTTPS→HTTPS), and send no header to any less-secure destinations (HTTPS→HTTP).
-         */
-        header('Referrer-Policy: strict-origin-when-cross-origin', true);
-
         $this->onBeforeApplicationTerminate();
     }
 

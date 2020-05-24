@@ -104,21 +104,35 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
      */
     public function onBeforeApplicationTerminate(KEventInterface $event)
     {
-        if (JDEBUG && !headers_sent())
+        if(!headers_sent())
         {
-            $buffer = JProfiler::getInstance('Application')->getBuffer();
-            if ($buffer)
+            /*
+             * Ensure a referrer is available for same origin requests by force setting the referrer policy
+             *
+             * Send the origin, path, and querystring when performing a same-origin request, only send the
+             * origin when the protocol security level stays the same while performing a cross-origin request
+             * (HTTPS→HTTPS), and send no header to any less-secure destinations (HTTPS→HTTP).
+             */
+            if($this->getObject('user')->isAuthentic() && $this->getObject('response')->getFormat() == 'html') {
+                header('Referrer-Policy: strict-origin-when-cross-origin', true);
+            }
+
+            if (JDEBUG)
             {
-                $data = strip_tags(end($buffer));
-                $row = array(array($data), null, 'info');
+                $buffer = JProfiler::getInstance('Application')->getBuffer();
+                if ($buffer)
+                {
+                    $data = strip_tags(end($buffer));
+                    $row = array(array($data), null, 'info');
 
-                $header = array(
-                    'version' => '4.1.0',
-                    'columns' => array('log', 'backtrace', 'type'),
-                    'rows'    => array($row)
-                );
+                    $header = array(
+                        'version' => '4.1.0',
+                        'columns' => array('log', 'backtrace', 'type'),
+                        'rows'    => array($row)
+                    );
 
-                header('X-ChromeLogger-Data: ' . base64_encode(utf8_encode(json_encode($header))));
+                    header('X-ChromeLogger-Data: ' . base64_encode(utf8_encode(json_encode($header))));
+                }
             }
         }
     }
