@@ -15,6 +15,9 @@
  */
 final class ComKoowaUser extends KUser implements ComKoowaUserInterface
 {
+    private $__groups  = null;
+    private $__roles   = null;
+
     protected function _initialize(KObjectConfig $config)
     {
         $user = JFactory::getUser();
@@ -88,9 +91,10 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
     /**
      * Returns the roles of the user
      *
-     * @return int The role id
+     * @param  bool  $by_name Return the roles by name instead of by id
+     * @return array The role id's or names
      */
-    public function getRoles()
+    public function getRoles($by_name = false)
     {
         $data  = $this->getData();
         $roles = KObjectConfig::unbox($data->roles);
@@ -99,15 +103,58 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
             $this->getSession()->set('user.roles', JAccess::getAuthorisedViewLevels($this->getId()));
         }
 
-        return parent::getRoles();
+        //Convert to names
+        if($by_name)
+        {
+            if(!isset($this->__roles))
+            {
+                //Get the user roles
+                $roles = $this->getObject('com:koowa.database.table.roles')
+                    ->select(parent::getRoles(), KDatabase::FETCH_ARRAY_LIST);
+
+                $this->__roles = array_map('strtolower', array_column($roles, 'title'));
+            }
+
+            $result = $this->__roles;
+        }
+        else $result = parent::getRoles();
+
+        return $result;
+    }
+
+    /**
+     * Checks if the user has a role.
+     *
+     * @param  mixed|array $roles A role name or id or an array containing role names id's.
+     * @return bool True if the user has at least one of the provided roles, false otherwise.
+     */
+    public function hasRole($roles)
+    {
+        $result = false;
+
+        foreach((array)$roles as $role)
+        {
+            if(is_numeric($role)) {
+                $result = in_array($role, $this->getRoles());
+            } else {
+                $result = in_array($role, $this->getRoles(true));
+            }
+
+            if($result == true) {
+                break;
+            }
+        }
+
+        return (bool) $result;
     }
 
     /**
      * Returns the groups the user is part of
      *
-     * @return array An array of group id's
+     * @param  bool  $by_name Return the groups by name instead of by id
+     * @return array An array of group id's or names
      */
-    public function getGroups()
+    public function getGroups($by_name = false)
     {
         $data  = $this->getData();
         $groups = KObjectConfig::unbox($data->groups);
@@ -116,7 +163,49 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
             $this->getSession()->set('user.groups', JAccess::getGroupsByUser($this->getId()));
         }
 
-        return parent::getGroups();
+        //Convert to names
+        if($by_name)
+        {
+            if(!isset($this->__groups))
+            {
+                //Get the user groups
+                $groups = $this->getObject('com:koowa.database.table.groups')
+                    ->select(parent::getGroups(), KDatabase::FETCH_ARRAY_LIST);
+
+                $this->__groups = array_map('strtolower', array_column($groups, 'title'));
+            }
+
+            $result = $this->__groups;
+        }
+        else $result =  parent::getGroups();
+
+        return $result;
+    }
+
+    /**
+     * Checks if the user is part of a group.
+     *
+     * @param  mixed|array $groups A group name or id or an array containing group names or id's.
+     * @return bool True if the user has at least one of the provided groups, false otherwise.
+     */
+    public function hasGroup($groups)
+    {
+        $result = false;
+
+        foreach((array) $groups as $group)
+        {
+            if(is_numeric($group)) {
+                $result = in_array($group, $this->getGroups());
+            } else {
+                $result = in_array($group, $this->getGroups(true));
+            }
+
+            if($result == true) {
+                break;
+            }
+        }
+
+        return (bool) $result;
     }
 
     /**
