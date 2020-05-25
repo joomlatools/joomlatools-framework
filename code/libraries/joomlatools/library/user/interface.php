@@ -59,6 +59,14 @@ interface KUserInterface extends KObjectEquatable
     public function getGroups();
 
     /**
+     * Checks if the user is part of a group
+     *
+     * @param  mixed|array $group A role name or an array containing group names.
+     * @return bool True if the user is at least part of one of the provided group(s), false otherwise.
+     */
+    public function hasGroup($group);
+
+    /**
      * Returns the password used to authenticate the user.
      *
      * This should be the encoded password. On authentication, a plain-text password will be salted, encoded, and
