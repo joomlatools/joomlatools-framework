@@ -23,7 +23,7 @@ class ComKoowaEventSubscriberUser extends KEventSubscriberAbstract
         $user = $this->getObject('user');
 
         if (!$user->isAuthentic()) {
-            $user->setUser($event->user);
+            $user->setData($event->user);
         }
 
         $menu = JFactory::getApplication()->getMenu();
