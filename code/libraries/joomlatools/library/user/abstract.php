@@ -323,4 +323,14 @@ abstract class KUserAbstract extends KObject implements KUserInterface
     {
         return KObjectConfig::unbox($this->getData());
     }
+
+    /**
+     * Dumping user object
+     *
+     * @return mixed
+     */
+    public function __debugInfo()
+    {
+        return $this->toArray();
+    }
 }
