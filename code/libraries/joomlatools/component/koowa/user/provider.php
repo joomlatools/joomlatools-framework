@@ -20,7 +20,7 @@ final class ComKoowaUserProvider extends KUserProvider
      *
      * @param string $identifier A unique user identifier, (i.e a username or user id)
      * @param bool  $refresh     If TRUE and the user has already been loaded it will be re-loaded.
-     * @return KUserInterface Returns a UserInterface object.
+     * @return ComKoowaUserInterface Returns a UserInterface object.
      */
     public function load($identifier, $refresh = false)
     {
@@ -39,7 +39,7 @@ final class ComKoowaUserProvider extends KUserProvider
         {
             $user = parent::load($identifier, $refresh);
 
-            if (!$user instanceof KUserInterface)
+            if (!$user instanceof ComKoowaUserInterface)
             {
                 $user = $this->create(array(
                     'id'   => $identifier,
@@ -55,7 +55,7 @@ final class ComKoowaUserProvider extends KUserProvider
      * Fetch the user for the given user identifier from the backend
      *
      * @param string $identifier A unique user identifier, (i.e a username or email address)
-     * @return KUserInterface|null Returns a UserInterface object or NULL if the user could not be found.
+     * @return ComKoowaUserInterface|null Returns a UserInterface object or NULL if the user could not be found.
      */
     public function fetch($identifier)
     {
@@ -94,11 +94,23 @@ final class ComKoowaUserProvider extends KUserProvider
     }
 
     /**
+     * Create a user object
+     *
+     * @param array $data An associative array of user data
+     * @return ComKoowaUserInterface     Returns a UserInterface object
+     */
+    public function create($data)
+    {
+        $user = $this->getObject('com:koowa.user.default', array('data' => $data));
+        return $user;
+    }
+
+    /**
      * Store a user object in the provider
      *
      * @param string $identifier A unique user identifier, (i.e a username or email address)
      * @param array $data An associative array of user data
-     * @return KUserInterface     Returns a UserInterface object
+     * @return ComKoowaUserInterface     Returns a UserInterface object
      */
     public function store($identifier, $data)
     {
