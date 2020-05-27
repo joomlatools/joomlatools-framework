@@ -73,10 +73,11 @@ trait ComKoowaUserTrait
     /**
      * Checks if the user has a role.
      *
-     * @param  mixed|array $roles A role name or id or an array containing role names id's.
-     * @return bool True if the user has at least one of the provided roles, false otherwise.
+     * @param  mixed|array $role A role name or an array containing role names.
+     * @param  bool        $strict If true, the user has to have all the provided roles, not just one
+     * @return bool
      */
-    public function hasRole($roles)
+    public function hasRole($roles, $strict = false)
     {
         $result = false;
 
@@ -88,8 +89,10 @@ trait ComKoowaUserTrait
                 $result = in_array($role, $this->getRoles(true));
             }
 
-            if($result == true) {
-                break;
+            if(!$strict) {
+                if($result == true) break;
+            } else {
+                if($result == false) break;
             }
         }
 
@@ -125,12 +128,13 @@ trait ComKoowaUserTrait
     }
 
     /**
-     * Checks if the user is part of a group.
+     * Checks if the user is part of a group
      *
-     * @param  mixed|array $groups A group name or id or an array containing group names or id's.
-     * @return bool True if the user has at least one of the provided groups, false otherwise.
+     * @param  mixed|array $group A role name or an array containing group names.
+     * @param  bool        $strict If true, the user needs to be part of all provided group(s), not just one.
+     * @return bool
      */
-    public function hasGroup($groups)
+    public function hasGroup($groups, $strict = false)
     {
         $result = false;
 
@@ -142,8 +146,10 @@ trait ComKoowaUserTrait
                 $result = in_array($group, $this->getGroups(true));
             }
 
-            if($result == true) {
-                break;
+            if(!$strict) {
+                if($result == true) break;
+            } else {
+                if($result == false) break;
             }
         }
 

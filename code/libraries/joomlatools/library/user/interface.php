@@ -47,9 +47,10 @@ interface KUserInterface extends KObjectEquatable
      * Checks if the user has a role.
      *
      * @param  mixed|array $role A role name or an array containing role names.
+     * @param  bool        $strict If true, the user has to have all the provided roles, not just one
      * @return bool True if the user has at least one of the provided roles, false otherwise.
      */
-    public function hasRole($role);
+    public function hasRole($role, $strict = false);
 
     /**
      * Returns the groups the user is part of
@@ -61,10 +62,11 @@ interface KUserInterface extends KObjectEquatable
     /**
      * Checks if the user is part of a group
      *
-     * @param  mixed|array $group A role name or an array containing group names.
-     * @return bool True if the user is at least part of one of the provided group(s), false otherwise.
+     * @param  mixed|array $group A role name or an array containing group names.©≈©
+     * @param  bool        $strict If true, the user needs to be part of all provided group(s), not just one.
+     * @return bool
      */
-    public function hasGroup($group);
+    public function hasGroup($group, $strict = false);
 
     /**
      * Returns the password used to authenticate the user.
