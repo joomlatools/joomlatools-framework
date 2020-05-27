@@ -33,12 +33,12 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
     /**
      * Set the user data
      *
-     * @param  array|JUser $user An associative array of data or a JUser object
+     * @param  array|JUser|Joomla\CMS\User\User $user An associative array of data or a JUser object
      * @return $this
      */
     public function setData($user)
     {
-        if($user instanceof JUser)
+        if($user instanceof JUser || $user instanceof \Joomla\CMS\User\User)
         {
             $data = array(
                 'id'         => $user->id,
