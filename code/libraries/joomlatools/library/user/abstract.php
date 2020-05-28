@@ -130,12 +130,20 @@ abstract class KUserAbstract extends KObject implements KUserInterface
      * Checks if the user has a role.
      *
      * @param  mixed|array $role A role name or an array containing role names.
-     * @return bool True if the user has at least one of the provided roles, false otherwise.
+     * @param  bool        $strict If true, the user has to have all the provided roles, not just one
+     * @return bool
      */
-    public function hasRole($role)
+    public function hasRole($role, $strict = false)
     {
         $roles = (array) $role;
-        return (bool) array_intersect($this->getRoles(), $roles);
+
+        if($strict) {
+            $result = !array_diff($roles, $this->getRoles());
+        } else {
+            $result =  (bool) array_intersect($this->getRoles(), $roles);
+        }
+
+        return $result;
     }
 
     /**
@@ -146,6 +154,26 @@ abstract class KUserAbstract extends KObject implements KUserInterface
     public function getGroups()
     {
         return KObjectConfig::unbox($this->getData()->groups);
+    }
+
+    /**
+     * Checks if the user is part of a group
+     *
+     * @param  mixed|array $group A role name or an array containing group names.
+     * @param  bool        $strict If true, the user needs to be part of all provided group(s), not just one.
+     * @return bool
+     */
+    public function hasGroup($group, $strict = false)
+    {
+        $groups = (array) $group;
+
+        if($strict) {
+            $result = !array_diff($groups, $this->getGroups());
+        } else {
+            $result = (bool) array_intersect($this->getGroups(), $groups);
+        }
+
+        return $result;
     }
 
     /**
@@ -310,5 +338,15 @@ abstract class KUserAbstract extends KObject implements KUserInterface
     public function toArray()
     {
         return KObjectConfig::unbox($this->getData());
+    }
+
+    /**
+     * Dumping user object
+     *
+     * @return mixed
+     */
+    public function __debugInfo()
+    {
+        return $this->toArray();
     }
 }

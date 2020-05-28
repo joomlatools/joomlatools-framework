@@ -15,52 +15,49 @@
  */
 final class ComKoowaUser extends KUser implements ComKoowaUserInterface
 {
-    protected function _initialize(KObjectConfig $config)
+    use ComKoowaUserTrait;
+
+    /**
+     * Constructor
+     *
+     * @param KObjectConfig $config An optional KObjectConfig object with configuration options.
+     */
+    public function __construct(KObjectConfig $config)
     {
-        $user = JFactory::getUser();
+        KObject::__construct($config);
 
-        $config->append(array(
-            'data' => $this->_mapData($user)
-        ));
-
-        parent::_initialize($config);
+        //Set the user properties and attributes
+        $this->setData(JFactory::getUser());
     }
 
     /**
-     * User setter
+     * Set the user data
      *
-     * @param JUser $user A joomla user object
-     *
+     * @param  array|JUser|Joomla\CMS\User\User $user An associative array of data or a JUser object
      * @return $this
      */
-    public function setUser(JUser $user)
+    public function setData($user)
     {
-        $this->setData($this->_mapData($user));
+        if($user instanceof JUser || $user instanceof \Joomla\CMS\User\User)
+        {
+            $data = array(
+                'id'         => $user->id,
+                'email'      => $user->email,
+                'name'       => $user->name,
+                'username'   => $user->username,
+                'password'   => $user->password,
+                'salt'       => '',
+                'groups'     => JAccess::getGroupsByUser($user->id),
+                'roles'      => JAccess::getAuthorisedViewLevels($user->id),
+                'authentic'  => !$user->guest,
+                'enabled'    => !$user->block,
+                'expired'    => !$user->activation,
+                'attributes' => $user->getParameters()->toArray()
+            );
+        }
+        else $data = $user;
 
-        return $this;
-    }
-
-    /**
-     * Joomla user to Koowa user data mapper
-     *
-     * @param JUser $user
-     *
-     * @return array Koowa user data
-     */
-    protected function _mapData(JUser $user)
-    {
-        return array(
-            'id'         => $user->id,
-            'email'      => $user->email,
-            'name'       => $user->name,
-            'username'   => $user->username,
-            'password'   => $user->password,
-            'salt'       => '',
-            'authentic'  => !$user->guest,
-            'enabled'    => !$user->block,
-            'expired'    => !$user->activation,
-            'attributes' => $user->getParameters()->toArray()
-        );
+        return parent::setData($data);
     }
 
     /**
@@ -71,63 +68,5 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
     public function getUsername()
     {
         return $this->getSession()->get('user.username');
-    }
-
-    /**
-     * Method to get a parameter value
-     *
-     * @param   string  $key      Parameter key
-     * @param   mixed   $default  Parameter default value
-     * @return  mixed  The value or the default if it did not exist
-     */
-    public function getParameter($key, $default = null)
-    {
-        return JFactory::getUser()->getParam($key, $default);
-    }
-
-    /**
-     * Returns the roles of the user
-     *
-     * @return int The role id
-     */
-    public function getRoles()
-    {
-        $data  = $this->getData();
-        $roles = KObjectConfig::unbox($data->roles);
-
-        if(empty($roles)) {
-            $this->getSession()->set('user.roles', JAccess::getAuthorisedViewLevels($this->getId()));
-        }
-
-        return parent::getRoles();
-    }
-
-    /**
-     * Returns the groups the user is part of
-     *
-     * @return array An array of group id's
-     */
-    public function getGroups()
-    {
-        $data  = $this->getData();
-        $groups = KObjectConfig::unbox($data->groups);
-
-        if(empty($groups)) {
-            $this->getSession()->set('user.groups', JAccess::getGroupsByUser($this->getId()));
-        }
-
-        return parent::getGroups();
-    }
-
-    /**
-     * Method to check object authorisation against an access control object and optionally an access extension object
-     *
-     * @param   string  $action     The name of the action to check for permission.
-     * @param   string  $assetname  The name of the asset on which to perform the action.
-     * @return  boolean  True if authorised
-     */
-    public function authorise($action, $assetname = null)
-    {
-        return JFactory::getUser()->authorise($action, $assetname);
     }
 }
