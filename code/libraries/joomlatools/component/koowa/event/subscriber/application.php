@@ -102,7 +102,7 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
      *
      * See: https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
      */
-    public function onBeforeApplicationTerminate(KEventInterface $event)
+    public function onAfterApplicationRender(KEventInterface $event)
     {
         if(!headers_sent())
         {
@@ -113,8 +113,11 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
              * origin when the protocol security level stays the same while performing a cross-origin request
              * (HTTPS→HTTPS), and send no header to any less-secure destinations (HTTPS→HTTP).
              */
-            if($this->getObject('user')->isAuthentic() && $this->getObject('response')->getFormat() == 'html') {
-                header('Referrer-Policy: strict-origin-when-cross-origin', true);
+            if($this->getObject('user')->isAuthentic() && $this->getObject('response')->getFormat() == 'html')
+            {
+                header_register_callback(function() {
+                    header('Referrer-Policy: strict-origin-when-cross-origin', true);
+                });
             }
 
             if (JDEBUG)
