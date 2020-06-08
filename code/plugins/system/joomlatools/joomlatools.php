@@ -290,6 +290,59 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
+     * Proxy onInstallerBeforeInstallation
+     *
+     * @return void
+     */
+    public function onInstallerBeforeInstallation($model, &$package)
+    {
+        $result = $this->_proxyEvent('onBeforeInstallerDownload', array(
+            'model'   => $model,
+            'package' => $package
+        ));
+
+        //Passback result by reference
+        $package = $result->package;
+    }
+
+    /**
+     * Proxy onInstallerBeforeInstall
+     *
+     * @return void
+     */
+    public function onInstallerBeforeInstall($model, &$package)
+    {
+        $result = $this->_proxyEvent('onBeforeInstallerInstall', array(
+            'model'   => $model,
+            'package' => $package
+        ));
+
+        //Passback result by reference
+        $package = $result->package;
+    }
+
+    /**
+     * Proxy  onInstallerBeforeInstallation
+     *
+     * @return void
+     */
+    public function onInstallerAfterInstall($model, &$package, $installer, &$success, &$message)
+    {
+        $result = $this->_proxyEvent('onAfterInstallerInstall',  array(
+            'model'     => $model,
+            'package'   => $package,
+            'installer' => $installer,
+            'success'   => $success,
+            'message'   => $message,
+        ));
+
+        //Passback result by reference
+        $package = $result->package;
+        $success = $result->success;
+        $message = $result->message;
+    }
+
+    /**
      * Proxy onPrepareModuleList
      *
      * @return void
@@ -298,7 +351,7 @@ class PlgSystemJoomlatools extends JPlugin
     {
         $result = $this->_proxyEvent('onBeforeTemplateModules', ['modules' => $modules]);
 
-        //Passback modules by references
+        //Passback result by reference
         $modules = $result->modules;
     }
 
@@ -311,8 +364,19 @@ class PlgSystemJoomlatools extends JPlugin
     {
         $result = $this->_proxyEvent('onAfterTemplateModules', ['modules' => $modules]);
 
-        //Passback modules by references
+        //Passback result by reference
         $modules = $result->modules;
+    }
+
+    /**
+     * Update user object on login
+     *
+     * @param   array  login event data
+     * @return void
+     */
+    public function onUserAfterLogin($data)
+    {
+        $this->_proxyEvent('onAfterUserLogin', $data);
     }
 
     /**
@@ -331,16 +395,5 @@ class PlgSystemJoomlatools extends JPlugin
         }
 
         return $result;
-    }
-
-    /**
-     * Update user object on login
-     *
-     * @param   array  login event data
-     * @return  mixed  Routine return value
-     */
-    public function onUserAfterLogin($data)
-    {
-        $this->_proxyEvent('onAfterUserLogin', $data);
     }
 }
