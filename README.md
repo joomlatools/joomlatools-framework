@@ -1,6 +1,6 @@
 # Joomlatools Framework
 
-[ ![Codacy Badge](https://www.codacy.com/project/badge/c6cc3c05cc7a4d13806602c7647f4476) ](https://www.codacy.com/app/timble/nooku-framework)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ba6e3e1390b488ca40f3d7458332345)](https://www.codacy.com/gh/joomlatools/joomlatools-pages?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=joomlatools/joomlatools-pages&amp;utm_campaign=Badge_Grade)
 
 ## What is Joomlatools Framework?
 
