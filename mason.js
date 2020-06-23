@@ -12,6 +12,7 @@ async function build({ config = {} }) {
         {
             source: 'local',
             location: frameworkFolder,
+            appendVersion: false,
             destination: `${frameworkFolder}/joomlatools-framework.zip`,
             compress: true,
             githubToken: null,
@@ -79,6 +80,19 @@ async function build({ config = {} }) {
         `${frameworkCodeFolder}/plugins/system/joomlatools/script.php`,
         `${frameworkCodeFolder}/script.php`
     );
+
+    if (buildConfig.appendVersion) {
+        const versionFile = (await fs.readFile(`${frameworkCodeFolder}/libraries/joomlatools/library/koowa.php`)).toString();
+        const version = versionFile.match(/VERSION\s+=\s+'(.*?)'/);
+
+        if (version) {
+            if (buildConfig.destination.includes('.zip')) {
+                buildConfig.destination = buildConfig.destination.replace('.zip', `-${version[1]}.zip`);
+            } else {
+                buildConfig.destination += `-${version[1]}`;
+            }
+        }
+    }
 
     if (buildConfig.compress) {
         await mason.fs.archiveDirectory(frameworkCodeFolder, buildConfig.destination);

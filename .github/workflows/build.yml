@@ -41,7 +41,7 @@ jobs:
 
       - run: npm i -g @joomlatools/mason
 
-      - run: mason build --config.githubToken=${{ secrets.JOOMLATOOLS_BUILDS_GITHUB_TOKEN }} --verbose --debug
+      - run: mason build --config.githubToken=${{ secrets.JOOMLATOOLS_BUILDS_GITHUB_TOKEN }} --config.appendVersion=true --verbose --debug
 
       - name: Create release
         uses: meeDamian/github-release@2.0
