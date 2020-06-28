@@ -49,7 +49,8 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
     {
         if($this->getTemplate()->decorator() == 'joomla')
         {
-            $link      = isset($attribs['src']) ? $attribs['src'] : false;
+            $link = isset($attribs['src']) ? $attribs['src'] : false;
+            $condition = isset($attribs['condition']) ? $attribs['condition'] : false;
 
             if(!$link)
             {
@@ -58,7 +59,13 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
 
                 if (!isset($this->_loaded[$hash]))
                 {
-                    JFactory::getDocument()->addScriptDeclaration($script);
+                    if($condition)
+                    {
+                        $script = parent::_renderTag($attribs, $content);
+                        JFactory::getDocument()->addCustomTag($script);
+                    }
+                    else JFactory::getDocument()->addScriptDeclaration($script);
+
                     $this->_loaded[$hash] = true;
                 }
             }
@@ -66,7 +73,7 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
             {
                 if (defined('JOOMLATOOLS_PLATFORM'))
                 {
-                    if(isset($attribs['condition']))
+                    if($condition)
                     {
                         $script = parent::_renderTag($attribs, $content);
                         JFactory::getDocument()->addCustomTag($script);
@@ -78,7 +85,9 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
 
                         JFactory::getDocument()->addScript($link, 'text/javascript', $defer, $async);
                     }
-                } else {
+                }
+                else
+                {
                     $options = [];
 
                     if (isset($attribs['defer'])) { $attribs['defer'] = true; }
@@ -86,12 +95,11 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
 
                     unset($attribs['src']);
 
-                    if (isset($attribs['condition'])) {
+                    if($condition)
+                    {
                         $options['conditional'] = $attribs['condition'];
-
                         unset($attribs['condition']);
                     }
-
 
                     JFactory::getDocument()->addScript($link, $options, $attribs);
                 }
