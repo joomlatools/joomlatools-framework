@@ -54,12 +54,17 @@ class ComKoowaTemplateFilterStyle extends KTemplateFilterStyle
 
             if(!$link)
             {
-
                 $hash  = md5($content.serialize($attribs));
 
                 if (!isset($this->_loaded[$hash]))
                 {
-                    JFactory::getDocument()->addStyleDeclaration($content);
+                    if($condition)
+                    {
+                        $script = parent::_renderTag($attribs, $content);
+                        JFactory::getDocument()->addCustomTag($script);
+                    }
+                    else JFactory::getDocument()->addStyleDeclaration($content);
+
                     $this->_loaded[$hash] = true;
                 }
             }

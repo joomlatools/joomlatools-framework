@@ -68,31 +68,34 @@ class KTemplateFilterStyle extends KTemplateFilterTag
      */
     protected function _renderTag($attribs = array(), $content = null)
     {
-        $link = isset($attribs['src']) ? $attribs['src'] : false;
+        $link      = isset($attribs['src']) ? $attribs['src'] : false;
         $condition = isset($attribs['condition']) ? $attribs['condition'] : false;
+
+        unset($attribs['condition']);
 
         if(!$link)
         {
             $attribs = $this->buildAttributes($attribs);
 
-            $html  = '<style'.$attribs.'>'."\n";
-            $html .= trim($content);
-            $html .= '</style>'."\n";
+            $style  = '<style'.$attribs.'>'."\n";
+            $style .= trim($content);
+            $style .= '</style>'."\n";
         }
         else
         {
             unset($attribs['src']);
-            unset($attribs['condition']);
             $attribs = $this->buildAttributes($attribs);
 
-            if($condition)
-            {
-                $html  = '<!--['.$condition.']>';
-                $html .= '<link rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
-                $html .= '<![endif]-->';
-            }
-            else $html  = '<link rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
+            $style = '<link rel="stylesheet" href="'.$link.'" '.$attribs.' />'."\n";
         }
+
+        if($condition)
+        {
+            $html  = '<!--[if '.$condition.']>'."\n";
+            $html .=  $style;
+            $html .= '<![endif]-->'."\n";
+        }
+        else $html = $style;
 
         return $html;
     }
