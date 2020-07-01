@@ -1,0 +1,12 @@
+includeComponents: true
+components:
+  files:
+    branch: "v3.2.5"
+  activities:
+    branch: "v3.1.5"
+  scheduler:
+    branch: "v1.3.1"
+  migrator:
+    branch: "v1.2.1"
+  tags:
+    branch: "v1.2.1"
