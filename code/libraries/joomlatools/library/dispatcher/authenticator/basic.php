@@ -85,8 +85,15 @@ class KDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorAbstract
      */
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
-        if(!$context->user->isAuthentic() && $username = $this->getUsername()) {
-            return $this->_loginUser($username);
+        if(!$context->user->isAuthentic() && $username = $this->getUsername())
+        {
+            if($result = $this->_loginUser($username))
+            {
+                //Explicitly authenticate the request
+                $context->setAuthentic();
+            }
+
+            return $result;
         }
 
         return false;

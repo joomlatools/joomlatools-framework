@@ -84,7 +84,7 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
         //Check the raw request method to bypass method overrides
-        if($context->user->isAuthentic() && !$context->user->isAuthentic(true) && $this->isPost())
+        if($context->user->isAuthentic() && !$context->isAuthentic()  && $this->isPost())
         {
             //Check csrf token
             if(!$this->getCsrfToken()) {
@@ -95,6 +95,9 @@ class KDispatcherAuthenticatorToken extends KDispatcherAuthenticatorAbstract
             if( $this->getCsrfToken() !== $context->user->getSession()->getToken()) {
                 throw new KControllerExceptionRequestForbidden('Invalid Session Token');
             }
+
+            // Explicitly authenticate the request
+            $context->setAuthentic();
         }
 
         return true;
