@@ -13,4 +13,26 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Dispatcher\Context
  */
-class KDispatcherContext extends KControllerContext implements KDispatcherContextInterface {}
+class KDispatcherContext extends KControllerContext implements KDispatcherContextInterface
+{
+    /**
+     * The request has been successfully authenticated
+     *
+     * @return Boolean
+     */
+    public function isAuthentic()
+    {
+        return (bool) KObjectConfig::get('authentic', $this->getUser()->isAuthentic(true));
+    }
+
+    /**
+     * Sets the request as authenticated
+     *
+     * @return $this
+     */
+    public function setAuthentic()
+    {
+        KObjectConfig::set('authentic', true);
+        return $this;
+    }
+}

@@ -166,19 +166,21 @@ class PlgSystemJoomlatoolsInstallerScript
                 JFolder::create($components_target);
             }
 
-            // Move reusable components
-            $components = JFolder::folders($components_source);
+            if (JFolder::exists($components_source)) {
+                // Move reusable components
+                $components = JFolder::folders($components_source);
 
-            foreach ($components as $component)
-            {
-                $from = $components_source.'/'.$component;
-                $to   = $components_target.'/'.$component;
+                foreach ($components as $component)
+                {
+                    $from = $components_source.'/'.$component;
+                    $to   = $components_target.'/'.$component;
 
-                if (is_link($to)) {
-                    continue;
+                    if (is_link($to)) {
+                        continue;
+                    }
+
+                    $this->_moveFolder($from, $to);
                 }
-
-                $this->_moveFolder($from, $to);
             }
 
             // Remove reusable components from the joomlatools folder as they have their own folder now
@@ -336,7 +338,7 @@ class PlgSystemJoomlatoolsInstallerScript
         foreach ($queries as $query) {
             $query = trim($query);
 
-            if ($query != '' && $query{0} != '#') {
+            if ($query != '' && $query[0] != '#') {
                 try {
                     $db->setQuery($query)->execute();
                 } catch (Exception $e) {

@@ -330,6 +330,16 @@ abstract class KModelAbstract extends KObject implements KModelInterface, KComma
             return $this;
         }
 
+        if (!isset($this->_mixed_methods[$method]))
+        {
+            //Check if a behavior is mixed
+            $parts = KStringInflector::explode($method);
+
+            if ($parts[0] == 'is' && isset($parts[1])) {
+                return false;
+            }
+        }
+
         return parent::__call($method, $args);
     }
 

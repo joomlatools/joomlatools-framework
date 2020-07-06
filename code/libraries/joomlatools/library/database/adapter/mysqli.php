@@ -512,6 +512,7 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
         $table->collation   = $info->Collation;
         $table->behaviors   = array();
         $table->description = $info->Comment != 'VIEW' ? $info->Comment : '';
+        $table->modified    = $info->Update_time;
 
         return $table;
     }

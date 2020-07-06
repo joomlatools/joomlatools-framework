@@ -65,6 +65,13 @@ class KDatabaseSchemaTable
     public $description;
 
     /**
+     * When the table was last updated
+     *
+     * @var timestamp
+     */
+    public $modified;
+
+    /**
      * List of columns
      *
      * Associative array of columns, where key holds the columns name and the value is an KDatabaseSchemaColumn

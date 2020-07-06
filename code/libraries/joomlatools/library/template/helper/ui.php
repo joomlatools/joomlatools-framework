@@ -93,7 +93,12 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
 
         $html = '';
 
-        if (empty($config->css_file) && $config->css_file !== false) {
+        if (empty($config->css_file) && $config->css_file !== false)
+        {
+            if (!$config->debug) {
+                $config->file .= '.min';
+            }
+
             $config->css_file = sprintf('%scss/%s.css', (empty($config->folder) ? '' : $config->folder.'/'), $config->file);
         }
 
@@ -116,15 +121,21 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
 
         $html = '';
 
+        if (!KTemplateHelperBehavior::isLoaded('k-js-enabled'))
+        {
+            $html .= '<script data-inline type="text/javascript">document.documentElement.classList.add(\'k-js-enabled\');</script>';
+
+            KTemplateHelperBehavior::setLoaded('k-js-enabled');
+        }
+
         $html .= $this->getTemplate()->helper('behavior.modernizr', $config->toArray());
-        $html .= $this->getTemplate()->helper('behavior.kodekitui', $config->toArray());
 
         if (($config->domain === 'admin' || $config->domain === '')  && !KTemplateHelperBehavior::isLoaded('admin.js')) {
             // Make sure jQuery is always loaded right before admin.js, helps when wrapping components
             KTemplateHelperBehavior::setLoaded('jquery', false);
 
             $html .= $this->getTemplate()->helper('behavior.jquery', $config->toArray());
-            $html .= '<ktml:script src="assets://js/'.($config->debug ? 'build/' : 'min/').'admin.js" />';
+            $html .= '<ktml:script src="assets://js/admin'.($config->debug ? '' : '.min').'.js" />';
 
             KTemplateHelperBehavior::setLoaded('admin.js');
             KTemplateHelperBehavior::setLoaded('modal');
@@ -133,6 +144,7 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
             KTemplateHelperBehavior::setLoaded('tree');
             KTemplateHelperBehavior::setLoaded('calendar');
             KTemplateHelperBehavior::setLoaded('tooltip');
+            KTemplateHelperBehavior::setLoaded('validator');
         }
 
         $html .= $this->getTemplate()->helper('behavior.koowa', $config->toArray());

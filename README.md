@@ -1,10 +1,10 @@
 # Joomlatools Framework
 
-[ ![Codacy Badge](https://www.codacy.com/project/badge/c6cc3c05cc7a4d13806602c7647f4476) ](https://www.codacy.com/app/timble/nooku-framework)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ba6e3e1390b488ca40f3d7458332345)](https://www.codacy.com/gh/joomlatools/joomlatools-pages?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=joomlatools/joomlatools-pages&amp;utm_campaign=Badge_Grade)
 
 ## What is Joomlatools Framework?
 
-Joomlatools Framework (codename 'Koowa') is a open-source **extension framework** for **[Joomla](http://www.joomla.org)**. Developed and maintained by [Timble](http://timble.net) with the help of passionate developers from all over the world.
+Joomlatools Framework (codename 'Koowa') is a open-source **extension framework** for **[Joomla](http://www.joomla.org)**. Developed and maintained by [Joomlatools](http://joomlatoolls.com) with the help of passionate developers from all over the world.
 
 Joomlatools Framework can be installed in Joomla as a plugin and lets you focus on the "business" logic of your extension. By doing most of the repetitive work for you [boilerplate code][boilerplate] is eliminated which greatly reduces the time
 to develop Joomla extensions.
@@ -30,7 +30,7 @@ Joomlatools Framework is for developers creating custom Joomla extensions. The f
 ## Production Ready
 
 The framework uses a conservative development approach focused on the lowest common denominator, at time of writing this
-is Joomla 3.x and PHP 5.4. The framework is fully forwards compatible with PHP 7.
+is Joomla 3.x and PHP 5.4. The framework is fully forwards compatible with PHP 7.4.
 
 The framework follows the [semantic versioning standard](http://semver.org/). Rest assured : it's designed for stability
 and compatibility. We promise that all minor versions will be 100% backwards compatible. Only in major versions backwards

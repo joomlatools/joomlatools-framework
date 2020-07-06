@@ -192,14 +192,14 @@ class KHttpMessageHeaders extends KObjectArray
                             $modifiers[] = $k.'='.$v;
                         }
 
-                        $results[] = $key.';'.implode($modifiers, ',');
+                        $results[] = $key.';'.implode(',', $modifiers);
                     }
                     else $results[] = $key.'='.$parameter;
                 }
                 else $results[] = $parameter;
             }
 
-            return $value = implode($results, ', ');
+            return $value = implode(', ', $results);
         };
 
         //Serialise the headers to an array
@@ -218,7 +218,7 @@ class KHttpMessageHeaders extends KObjectArray
                 }
             }
 
-            if ($value = implode($results, ', ')) {
+            if ($value = implode(', ', $results)) {
                 $headers[$name] = $value;
             }
         }

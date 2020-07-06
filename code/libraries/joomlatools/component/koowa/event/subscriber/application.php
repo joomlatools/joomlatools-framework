@@ -98,28 +98,50 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
     }
 
     /**
-     * Adds application response time and memory usage to Chrome Inspector with ChromeLogger extension
+     * Ensure a referrer is available for same origin requests by force setting the referrer policy
      *
-     * See: https://chrome.google.com/webstore/detail/chrome-logger/noaneddfkdjfnfdakjjmocngnfkfehhd
+     * If the referrer-policy is set to no-referrer, origin, or strict-origin override it and send
+     * strict-origin-when-cross-origin instead.
+     *
+     * strict-origin-when-cross-origin: Send the origin, path, and querystring when performing a same-origin request,
+     * only send the origin when the protocol security level stays the same while performing a cross-origin request
+     * (HTTPS→HTTPS), and send no header to any less-secure destinations (HTTPS→HTTP).
+     *
+     * @param KEventInterface $event
      */
-    public function onBeforeApplicationTerminate(KEventInterface $event)
+    public function onAfterApplicationRender(KEventInterface $event)
     {
-        if (JDEBUG && !headers_sent())
+        if(!headers_sent())
         {
-            $buffer = JProfiler::getInstance('Application')->getBuffer();
-            if ($buffer)
-            {
-                $data = strip_tags(end($buffer));
-                $row = array(array($data), null, 'info');
+            /**
+             * Returns true if referrer-policy is set to any of  no-referrer, origin, or strict-origin
+             *
+             * @param array $headers
+             * @return bool
+             */
+            $hasProblematicReferrerPolicy = function (array $headers) {
+                foreach ($headers as $header) {
+                    if (stripos(trim($header), 'referrer-policy:') === 0) {
+                        $policy = trim(substr($header, strpos($header, ':')+1));
 
-                $header = array(
-                    'version' => '4.1.0',
-                    'columns' => array('log', 'backtrace', 'type'),
-                    'rows'    => array($row)
-                );
+                        // Only these three is a problem for our case
+                        return in_array($policy, ['no-referrer', 'origin', 'strict-origin']);
+                    }
+                }
 
-                header('X-ChromeLogger-Data: ' . base64_encode(utf8_encode(json_encode($header))));
+                return false;
+            };
+
+            // Since header_register_callback can be overridden later on, we set the referrer policy once here as well
+            if ($hasProblematicReferrerPolicy(headers_list())) {
+                header('Referrer-Policy: strict-origin-when-cross-origin', true);
             }
+
+            header_register_callback(function() use($hasProblematicReferrerPolicy) {
+                if ($hasProblematicReferrerPolicy(headers_list())) {
+                    header('Referrer-Policy: strict-origin-when-cross-origin', true);
+                }
+            });
         }
     }
 }

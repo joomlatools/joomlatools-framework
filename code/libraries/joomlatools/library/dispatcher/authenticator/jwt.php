@@ -179,7 +179,14 @@ class KDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorAbstract
                     throw new KControllerExceptionRequestNotAuthenticated('User Not Found');
                 }
 
-                return $this->_loginUser($username, $data);
+                //Try logging-in in the user
+                if($result = $this->_loginUser($username, $data))
+                {
+                    //Explicitly authenticate the request
+                    $context->setAuthentic();
+                }
+
+                return $result;
             }
             else throw new KControllerExceptionRequestNotAuthenticated('Invalid Token');
         }

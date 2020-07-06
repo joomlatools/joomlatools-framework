@@ -23,6 +23,14 @@ interface KTemplateFilterable
     public function filter();
 
     /**
+     * Add template filters
+     *
+     * @param  array $filters A mixed array of template filters
+     * @return KTemplateInterface
+     */
+    public function addFilters($filters);
+
+    /**
      * Add a filter for template transformation
      *
      * @param   mixed  $filter An object that implements KObjectInterface, KObjectIdentifier object
@@ -35,7 +43,8 @@ interface KTemplateFilterable
     /**
      * Check if a filter exists
      *
-     * @param 	string	$filter The name of the filter
+     * @param   mixed $filter An object that implements ObjectInterface, ObjectIdentifier object
+     *                         or valid identifier string
      * @return  boolean	TRUE if the filter exists, FALSE otherwise
      */
     public function hasFilter($filter);

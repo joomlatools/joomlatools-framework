@@ -49,7 +49,7 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'methods'        => array('get', 'head', 'post', 'put', 'delete', 'options'),
+            'methods'        => array('get', 'head', 'post', 'put', 'patch', 'delete', 'options'),
             'behaviors'      => array('resettable'),
             'authenticators' => array('token', 'origin'),
             'limit'          => array('default' => 100)
@@ -147,18 +147,20 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     /**
      * Redirect
      *
-     * Redirect to a URL externally. Method performs a 301 (permanent) redirect. Method should be used to immediately
-     * redirect the dispatcher to another URL after a GET request.
+     * Redirect to a URL externally. If no redirect status code has been specified in the response a 301 (permanent)
+     * redirect will performed.
      *
      * @param KDispatcherContextInterface $context A dispatcher context object
      * @return bool
      */
     protected function _actionRedirect(KDispatcherContextInterface $context)
     {
-        $url = $context->param;
+        //Only set the status if it hasn't been set yet
+        if(!$context->response->isRedirect()) {
+            $context->response->setStatus(KDispatcherResponse::MOVED_PERMANENTLY);
+        }
 
-        $context->response->setStatus(KDispatcherResponse::MOVED_PERMANENTLY);
-        $context->response->setRedirect($url);
+        $context->response->setRedirect($context->param);
         $this->send();
 
         return false;
@@ -168,6 +170,8 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
      * Get method
      *
      * This function translates a GET request into a render action.
+     *
+     * @link https://tools.ietf.org/html/rfc7231#page-24
      *
      * @param KDispatcherContextInterface $context  A dispatcher context object
      * @return KModelEntityInterface
@@ -202,6 +206,8 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     /**
      * Head method
      *
+     * @link https://tools.ietf.org/html/rfc7231#page-25
+     *
      * @param KDispatcherContextInterface $context  A dispatcher context object
      * @return KModelEntityInterface
      */
@@ -218,6 +224,8 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
      *
      * If an _action parameter exists in the request data it will be used instead. If no action can be found an bad
      * request exception will be thrown.
+     *
+     * @linkv https://tools.ietf.org/html/rfc7231#page-25
      *
      * @param   KDispatcherContextInterface $context  A dispatcher context object
      * @throws  KDispatcherExceptionMethodNotAllowed  The action specified in the request is not allowed for the
@@ -277,10 +285,13 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
      * exists an edit action will be executed, if the entity does not exist and the state is unique an add action will
      * be executed.
      *
-     * If the entity already exists it will be completely replaced based on the data available in the request.
+     * If the entity already exists it will be completely replaced based on the data available in the request. The request
+     * needs to contain a complete entity representation.
+     *
+     * @linkv https://tools.ietf.org/html/rfc7231#page-26
      *
      * @param   KDispatcherContextInterface $context    A dispatcher context object
-     * @throws  KControllerExceptionRequestInvalid  If the model state is not unique
+     * @throws  KControllerExceptionRequestInvalid  If the model state is not unique, or if the identity key is used.
      * @return  KModelEntityInterface
      */
     protected function _actionPut(KDispatcherContextInterface $context)
@@ -290,28 +301,24 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
 
         if($controller instanceof KControllerModellable)
         {
-            if($controller->getModel()->getState()->isUnique())
+            $model = $controller->getModel();
+
+            if($model->getState()->isUnique())
             {
-                $action = 'add';
-                $entity = $controller->getModel()->fetch();
+                $entity = $model->fetch();
 
-                if(!$entity->isNew())
+                if($entity->isNew())
                 {
-                    //Reset the row data
-                    $entity->reset();
-                    $action = 'edit';
-                }
+                    $action = 'add';
 
-                //Set the row data based on the unique state information
-                $state = $controller->getModel()->getState()->getValues(true);
-                $entity->setProperties($state);
+                    $identity_key = $entity->getIdentityKey();
+                    if($identity_key && $model->getState()->get($identity_key)) {
+                        throw new KControllerExceptionResourceNotFound('Resource not found');
+                    }
+                }
+                else $action = 'edit';
             }
             else throw new KControllerExceptionRequestInvalid('Resource not found');
-
-            //Throw exception if no action could be determined from the request
-            if(!$action) {
-                throw new KControllerExceptionRequestInvalid('Resource not found');
-            }
 
             //Execute the controller action
             $result = $controller->execute($action, $context);
@@ -330,9 +337,45 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
     }
 
     /**
+     * Patch method
+     *
+     * This function translates a PATCH request into an edit action.
+     *
+     * @link https://tools.ietf.org/html/rfc5789
+     *
+     * @param   KDispatcherContextInterface $context    A dispatcher context object
+     * @throws  KControllerExceptionRequestInvalid  If the model state is not unique, or if the identity key is used.
+     * @return  KModelEntityInterface
+     */
+    protected function _actionPatch(KDispatcherContextInterface $context)
+    {
+        $action     = null;
+        $controller = $this->getController();
+
+        if($controller instanceof KControllerModellable)
+        {
+            //Execute the controller action
+            $result = $controller->execute('edit', $context);
+
+            //Return the new representation of the resource
+            if ($context->response->isSuccess())
+            {
+                if(!is_string($result) && !(is_object($result) && method_exists($result, '__toString'))) {
+                    $result = $controller->execute('render', $context);
+                }
+            }
+        }
+        else throw new KDispatcherExceptionMethodNotAllowed('Method PATCH not allowed');
+
+        return $result;
+    }
+
+    /**
      * Delete method
      *
      * This function translates a DELETE request into a delete action.
+     *
+     * @link https://tools.ietf.org/html/rfc7231#page-29
      *
      * @param   KDispatcherContextInterface $context A dispatcher context object
      * @throws  KDispatcherExceptionMethodNotAllowed
@@ -357,6 +400,8 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
      *
      * Adds Allow header. Example output: `Allow: GET, POST, PUT, DELETE`
      *
+     * @link https://tools.ietf.org/html/rfc7231#page-31
+     *
      * @param   KDispatcherContextInterface $context    A dispatcher context object
      */
     protected function _actionOptions(KDispatcherContextInterface $context)
@@ -380,7 +425,24 @@ class KDispatcherHttp extends KDispatcherAbstract implements KObjectInstantiable
             }
         }
 
+        //See: https://tools.ietf.org/html/rfc7231#section-7.4.1
         $context->response->headers->set('Allow', implode(', ', $methods));
+
+        //Set Accept-Post header to framework defaults
+        if(array_search('post', $this->getHttpMethods())) {
+            $context->response->headers->set('Accept-Post', ['application/x-www-form-urlencoded', 'application/json']);
+        }
+
+        //Set Accept-Put header to framework defaults
+        if(array_search('put', $this->getHttpMethods())) {
+            $context->response->headers->set('Accept-Put', ['application/x-www-form-urlencoded', 'application/json']);
+        }
+
+        //Set Accept-Patch header to framework defaults
+        //See: https://tools.ietf.org/html/rfc5789#page-7
+        if(array_search('patch', $this->getHttpMethods())) {
+            $context->response->headers->set('Accept-Patch', ['application/x-www-form-urlencoded', 'application/json']);
+        }
     }
 
     /**

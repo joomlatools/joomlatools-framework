@@ -49,7 +49,7 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
     {
         if($this->getTemplate()->decorator() == 'joomla')
         {
-            $link      = isset($attribs['src']) ? $attribs['src'] : false;
+            $link = isset($attribs['src']) ? $attribs['src'] : false;
             $condition = isset($attribs['condition']) ? $attribs['condition'] : false;
 
             if(!$link)
@@ -59,23 +59,49 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
 
                 if (!isset($this->_loaded[$hash]))
                 {
-                    JFactory::getDocument()->addScriptDeclaration($script);
+                    if($condition)
+                    {
+                        $script = parent::_renderTag($attribs, $content);
+                        JFactory::getDocument()->addCustomTag($script);
+                    }
+                    else JFactory::getDocument()->addScriptDeclaration($script);
+
                     $this->_loaded[$hash] = true;
                 }
             }
             else
             {
-                if($condition)
+                if (defined('JOOMLATOOLS_PLATFORM'))
                 {
-                    $script = parent::_renderTag($attribs, $content);
-                    JFactory::getDocument()->addCustomTag($script);
+                    if($condition)
+                    {
+                        $script = parent::_renderTag($attribs, $content);
+                        JFactory::getDocument()->addCustomTag($script);
+                    }
+                    else
+                    {
+                        $defer = isset($attribs['defer']);
+                        $async = isset($attribs['async']);
+
+                        JFactory::getDocument()->addScript($link, 'text/javascript', $defer, $async);
+                    }
                 }
                 else
                 {
-                    unset($attribs['src']);
-                    unset($attribs['condition']);
+                    $options = [];
 
-                    JFactory::getDocument()->addScript($link, 'text/javascript');
+                    if (isset($attribs['defer'])) { $attribs['defer'] = true; }
+                    if (isset($attribs['async'])) { $attribs['async'] = true; }
+
+                    unset($attribs['src']);
+
+                    if($condition)
+                    {
+                        $options['conditional'] = $attribs['condition'];
+                        unset($attribs['condition']);
+                    }
+
+                    JFactory::getDocument()->addScript($link, $options, $attribs);
                 }
             }
         }

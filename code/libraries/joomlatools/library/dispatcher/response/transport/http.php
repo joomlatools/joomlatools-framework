@@ -153,10 +153,12 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
 
                 if($encoded_name !== $filename)
                 {
+                    $webkit13OrHigher = preg_match('#(.+)AppleWebKit(.+)Version\/([2-9]+0|1[3-9])(.+)#', $user_agent);
+
                     if (preg_match('/(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:)(\d+)/i', $user_agent)) {
                         $directives['filename'] = '"'.$encoded_name.'"';
                     }
-                    elseif (!stripos($user_agent, 'AppleWebkit')) {
+                    elseif ($webkit13OrHigher || !stripos($user_agent, 'AppleWebkit')) {
                         $directives['filename*'] = 'UTF-8\'\''.$encoded_name;
                     }
                 }
@@ -171,11 +173,11 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             if($response->isAttachable()) {
                 $response->setContentType('application/octet-stream');
             }
-        }
 
-        //Add Content-Length if not present
-        if(!$response->headers->has('Content-Length')) {
-            $response->headers->set('Content-Length', $response->getStream()->getSize());
+            //Add Content-Length if not present
+            if(!$response->headers->has('Content-Length')) {
+                $response->headers->set('Content-Length', $response->getStream()->getSize());
+            }
         }
 
         //Remove Content-Length for transfer encoded responses that do not contain a content range
@@ -194,12 +196,19 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
             $response->headers->set('Cache-Control', array('private', 'no-cache', 'no-store'));
         }
 
-        //Validate the response if it's cacheable and a request etag if defined
+        //Validate the response
         if($response->isCacheable() && !$response->isStale())
         {
             if ($etags = $request->getEtags())
             {
                 if(in_array($response->getEtag(), $etags) || in_array('*', $etags)) {
+                    $response->setStatus(KHttpResponse::NOT_MODIFIED);
+                }
+            }
+
+            if($since = $request->headers->get('If-Modified-Since') && $response->getLastModified())
+            {
+                if(!($response->getLastModified()->getTimestamp() > strtotime($since))) {
                     $response->setStatus(KHttpResponse::NOT_MODIFIED);
                 }
             }
@@ -210,18 +219,20 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         {
             $headers = array(
                 'Allow',
+                'Age',
                 'Content-Encoding',
                 'Content-Language',
                 'Content-Length',
-                'Content-MD5',
                 'Content-Type',
-                'Last-Modified'
             );
 
             //Remove headers that MUST NOT be included with 304 Not Modified responses
             foreach ($headers as $header) {
                 $response->headers->remove($header);
             }
+
+            //Reset the date if the response has been succesfully validated
+            $response->setDate(new DateTime('now'));
         }
 
         // Prevent caching: Cache-control needs to be empty for IE on SSL.

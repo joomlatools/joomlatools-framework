@@ -45,7 +45,7 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
     public function authenticateRequest(KDispatcherContextInterface $context)
     {
         //Check the raw request method to bypass method overrides
-        if(!$context->user->isAuthentic(true) && $this->isPost())
+        if(!$context->isAuthentic() && $this->isPost())
         {
             $origin  = false;
             $request = $context->request;
@@ -73,6 +73,9 @@ class KDispatcherAuthenticatorOrigin extends KDispatcherAuthenticatorAbstract
                 if(!$match) {
                     throw new KControllerExceptionRequestInvalid('Origin or referer not valid');
                 }
+
+                // Explicitly authenticate the request
+                $context->setAuthentic();
             }
             else throw new KControllerExceptionRequestInvalid('Origin or referer required');
         }

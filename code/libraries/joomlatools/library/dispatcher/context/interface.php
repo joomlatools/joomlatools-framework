@@ -13,4 +13,19 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Dispatcher\Context
  */
-interface KDispatcherContextInterface extends KControllerContextInterface {}
+interface KDispatcherContextInterface extends KControllerContextInterface
+{
+    /**
+     * The request has been successfully authenticated
+     *
+     * @return Boolean
+     */
+    public function isAuthentic();
+
+    /**
+     * Sets the request as authenticated
+     *
+     * @return $this
+     */
+    public function setAuthentic();
+}

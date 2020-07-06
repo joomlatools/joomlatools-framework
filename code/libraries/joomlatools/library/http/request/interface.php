@@ -16,6 +16,26 @@
 interface KHttpRequestInterface extends KHttpMessageInterface
 {
     /**
+     * Return the accept header
+     *
+     * Parses the accept header and returns an array (type => quality) of the accepted types, ordered by quality.
+     *
+     * @link : https://tools.ietf.org/html/rfc7231#page-38
+     *
+     * @param array   $defaults  The default values
+     * @return array
+     */
+    public function getAccept(array $defaults = NULL);
+
+    /**
+     * Get the cache control
+     *
+     * @link https://tools.ietf.org/html/rfc7234#section-5.2.1
+     * @return array
+     */
+    public function getCacheControl();
+
+    /**
      * Set the method for this request
      *
      * @param  string $method
