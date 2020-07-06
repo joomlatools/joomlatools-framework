@@ -1,5 +1,9 @@
+//kquery.set.js
 var globalCacheForjQueryReplacement = window.jQuery;
 window.jQuery = window.kQuery;
+
+
+//bootstrap-tooltip.js
 /* ===========================================================
  * bootstrap-tooltip.js v2.3.2
  * http://getbootstrap.com/2.3.2/javascript.html#tooltips
@@ -381,5 +385,9 @@ window.jQuery = window.kQuery;
 
 }(window.jQuery);
 
+
+
+//kquery.unset.js
 window.jQuery = globalCacheForjQueryReplacement;
 globalCacheForjQueryReplacement = undefined;
+

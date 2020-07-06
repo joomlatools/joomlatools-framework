@@ -2,24 +2,6 @@ body#minwidth-body .subheader,
 body#minwidth-body .toolbar-box {
   display: none !important;
 }
-<<<<<<< HEAD
-
-body#minwidth-body #content {
-  margin: 15px;
-}
-
-body#minwidth-body #content > .k-heading {
-  display: none !important;
-}
-
-body#minwidth-body #element-box {
-  border: 1px solid #ccc;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-}
-
-=======
 body#minwidth-body #content {
   margin: 15px;
 }
@@ -31,13 +13,8 @@ body#minwidth-body #element-box {
   display: flex;
   width: 100%;
 }
->>>>>>> master
 body#minwidth-body .k-ui-container {
   width: 100%;
   max-width: none;
   font-size: 13px;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

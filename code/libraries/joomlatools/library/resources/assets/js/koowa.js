@@ -1,5 +1,9 @@
+//kquery.set.js
 var globalCacheForjQueryReplacement = window.jQuery;
 window.jQuery = window.kQuery;
+
+
+//jquery.ui.widget.js
 /*! jQuery UI - v1.11.4 - 2016-01-08
  * http://jqueryui.com
  * Includes: widget.js
@@ -566,6 +570,9 @@ window.jQuery = window.kQuery;
 
 
 }));
+
+
+//koowa.scopebar.js
 ;(function(window, document, $) {
 
     $.widget("koowa.scopebar", {
@@ -830,6 +837,9 @@ window.jQuery = window.kQuery;
     });
 
 } (window, document, kQuery));
+
+
+//koowa.class.js
 /**
  * Joomlatools Framework - https://www.joomlatools.com/developer/framework/
  *
@@ -999,6 +1009,9 @@ Koowa.Class = klass({
 
 })(window.kQuery);
 
+
+
+//koowa.grid.js
 /**
  * Joomlatools Framework - https://www.joomlatools.com/developer/framework/
  *
@@ -1172,6 +1185,9 @@ $(function() {
 
 
 })(window.kQuery);
+
+
+//koowa.js
 /**
  * Joomlatools Framework - https://www.joomlatools.com/developer/framework/
  *
@@ -1616,5 +1632,9 @@ Koowa.Controller.Form = Koowa.Controller.extend({
 
 })(window.kQuery);
 
+
+
+//kquery.unset.js
 window.jQuery = globalCacheForjQueryReplacement;
 globalCacheForjQueryReplacement = undefined;
+

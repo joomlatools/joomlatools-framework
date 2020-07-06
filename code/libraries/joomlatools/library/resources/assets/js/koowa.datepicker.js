@@ -1,5 +1,9 @@
+//kquery.set.js
 var globalCacheForjQueryReplacement = window.jQuery;
 window.jQuery = window.kQuery;
+
+
+//datepicker.js
 /* =========================================================
  * bootstrap-datepicker.js
  * http://www.eyecon.ro/bootstrap-datepicker
@@ -1420,5 +1424,9 @@ window.jQuery = window.kQuery;
 
 }( window.kQuery ));
 
+
+
+//kquery.unset.js
 window.jQuery = globalCacheForjQueryReplacement;
 globalCacheForjQueryReplacement = undefined;
+

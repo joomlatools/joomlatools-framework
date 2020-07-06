@@ -6,15 +6,8 @@ body {
    * Set Joomla containers to flex and adjust margins and paddings
    * As soon as something in this chain of classnames changes we fall back to non-flexbox view
    */
-<<<<<<< HEAD
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-=======
   display: flex;
   flex-direction: column;
->>>>>>> master
   overflow: auto;
   padding-top: 0 !important;
   /**
@@ -61,42 +54,11 @@ body {
    * Special debug styling
    */
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 body .btn-subhead,
 body .subhead-collapse,
 body .navbar + .header {
   display: none !important;
 }
-<<<<<<< HEAD
-
-body header.header {
-  border-top: none;
-}
-
-body header.header + div {
-  display: none;
-}
-
-body header.header + #status {
-  display: block;
-}
-
-body .content-title {
-  display: none;
-}
-
-body footer.footer {
-  display: none;
-}
-
-body.component {
-  padding: 0;
-}
-
-=======
 body header.header {
   border-top: none;
 }
@@ -115,84 +77,30 @@ body footer.footer {
 body.component {
   padding: 0;
 }
->>>>>>> master
 body .container-main {
   margin-left: -20px;
   margin-right: -20px;
   padding: 0;
   margin-bottom: 0;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 @media screen and (min-width: 768px) {
   body .container-main {
     margin-left: 0;
     margin-right: 0;
   }
 }
-<<<<<<< HEAD
-
-body .container-main #content .row-fluid .span12 .k-overview {
-  margin-top: 0;
-}
-
-body nav.navbar {
-  position: static;
-}
-
-=======
 body .container-main #content .row-fluid .span12 .k-overview {
   margin-top: 0;
 }
 body nav.navbar {
   position: static;
 }
->>>>>>> master
 body nav.navbar,
 body header.header,
 body .subhead-collapse,
 body #status,
 body #system-message-container,
 body #system-debug {
-<<<<<<< HEAD
-  -ms-flex: 0 0 auto;
-      flex: 0 0 auto;
-}
-
-body .container-main {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-  overflow: auto;
-  /**
-     * Flex all children of main container
-     */
-  /**
-     * Remove clearfix psuedo elements
-     * Otherwise they'll be treated as 1 pixel flex items
-     */
-  /**
-     * No longer a fixed position for the statusbar
-     * since that doesn't play nice with flexbox
-     */
-}
-
-body .container-main #content,
-body .container-main #content .row-fluid,
-body .container-main #content .row-fluid .span12 {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-  overflow: auto;
-}
-
-=======
   flex: 0 0 auto;
 }
 body .container-main {
@@ -219,7 +127,6 @@ body .container-main #content .row-fluid .span12 {
   flex: 1 1 auto;
   overflow: auto;
 }
->>>>>>> master
 body .container-main:before, body .container-main:after,
 body .container-main #content:before,
 body .container-main #content:after,
@@ -227,10 +134,6 @@ body .container-main #content .row-fluid:before,
 body .container-main #content .row-fluid:after {
   display: none;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 body .container-main + #status {
   position: relative;
   top: auto;
@@ -239,72 +142,37 @@ body .container-main + #status {
   left: auto;
   box-shadow: none;
 }
-<<<<<<< HEAD
-
 body #system-message-container {
   padding: 0;
 }
-
-=======
-body #system-message-container {
-  padding: 0;
-}
->>>>>>> master
 body #system-message-container .alert {
   margin: 0;
   border-radius: 0;
   border-bottom: 1px solid #d2d2d2;
   padding: 10px 35px 10px 10px;
 }
-<<<<<<< HEAD
-
-[dir="rtl"] body #system-message-container .alert {
-=======
 [dir=rtl] body #system-message-container .alert {
->>>>>>> master
   padding: 10px 10px 10px 35px;
 }
 
 body #system-message-container .alert h4:last-child, body #system-message-container .alert p:last-child, body #system-message-container .alert div:last-child {
   margin-bottom: 0;
 }
-<<<<<<< HEAD
-
-body .span10 {
-  margin: 0;
-}
-
-body a:focus {
-  outline: auto 5px -webkit-focus-ring-color;
-}
-
-=======
 body .span10 {
   margin: 0;
 }
 body a:focus {
   outline: auto 5px -webkit-focus-ring-color;
 }
->>>>>>> master
 body div#system-debug {
   margin: 0;
   padding: 0;
   border: none;
   max-height: 36px;
   overflow: hidden;
-<<<<<<< HEAD
-  transition: all .2s ease;
-}
-
-body div#system-debug:hover, body div#system-debug:focus {
-  max-height: 999px;
-  overflow: auto;
-}
-=======
   transition: all 0.2s ease;
 }
 body div#system-debug:hover, body div#system-debug:focus {
   max-height: 999px;
   overflow: auto;
 }
->>>>>>> master

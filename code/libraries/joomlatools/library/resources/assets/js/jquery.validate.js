@@ -1,5 +1,9 @@
+//kquery.set.js
 var globalCacheForjQueryReplacement = window.jQuery;
 window.jQuery = window.kQuery;
+
+
+//jquery.validate.js
 /*!
  * jQuery Validation Plugin v1.14.0
  *
@@ -1398,6 +1402,9 @@ if ( $.ajaxPrefilter ) {
 }
 
 }));
+
+
+//jquery.validate.patch.js
 /*
  ---
 
@@ -1520,5 +1527,9 @@ if ( $.ajaxPrefilter ) {
     });
 
 })(kQuery);
+
+
+//kquery.unset.js
 window.jQuery = globalCacheForjQueryReplacement;
 globalCacheForjQueryReplacement = undefined;
+

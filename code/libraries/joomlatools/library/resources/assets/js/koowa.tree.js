@@ -1,5 +1,9 @@
+//kquery.set.js
 var globalCacheForjQueryReplacement = window.jQuery;
 window.jQuery = window.kQuery;
+
+
+//tree.jquery.js
 /*
 JqTree 1.3.4
 
@@ -3597,6 +3601,9 @@ module.exports = '1.3.4';
 
 },{}]},{},[11]);
 
+
+
+//koowa.tree.js
 /**
  * Koowa jqTree wrapper
  *
@@ -3930,5 +3937,9 @@ module.exports = '1.3.4';
     });
 }(window.kQuery));
 
+
+
+//kquery.unset.js
 window.jQuery = globalCacheForjQueryReplacement;
 globalCacheForjQueryReplacement = undefined;
+
