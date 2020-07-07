@@ -1,4 +1,5 @@
-@import './variables';
+//import our dark variables here, set by default before kodekit/admin-ui has the chance to set them
+@import "../../../../../../../../../kodekit-ui/src/scss/admin/tools/_dark_variables";
 // ==========================================================================
 // Kodekit UI
 // ==========================================================================
@@ -12,3 +13,74 @@
 
 @import "icomoon";
 @import "styles";
+
+button{
+  span.k-scopebar__item--filter__title, span.k-scopebar__item--filter__icon{
+    color: $k-secondary-color;
+  }
+}
+
+ul.select2-selection__rendered{
+  background-color: $k-primary-plus-5-color;
+}
+
+.k-inline-modal{
+  color: $k-secondary-color !important;
+  background-color: $k-primary-plus-7-color !important;
+}
+
+.k-inline-modal__title {
+  color: $k-secondary-color !important;
+}
+
+.k-ui-namespace .k-scopebar__item--search .k-search__submit{
+  color: $k-secondary-color  !important;
+}
+
+.select2-results__option{
+  color: $k-secondary-color;
+}
+
+.select2-dropdown {
+  background-color: $k-primary-plus-7-color !important;
+  color: $k-secondary-color !important;
+}
+
+.k-ui-namespace .k-pagination .k-pagination__pages > li > a{
+  background-color: $k-primary-plus-7-color  !important;
+  color: $k-secondary-color !important;
+}
+
+.k-ui-namespace .k-pagination__pages > li.k-is-disabled > span {
+  background-color: $k-primary-plus-7-color  !important;
+  color: $k-secondary-color !important;
+}
+
+.k-ui-namespace .k-pagination__pages > li.k-is-active > a {
+  background-color: $k-accent-color !important;
+}
+
+
+.datepicker td:nth-child(n), .datepicker th:nth-child(n){
+  color: $k-secondary-color;
+}
+
+.k-upload{
+  background-color: $k-primary-plus-7-color !important;
+  border: 1px solid $k-primary-min-2-color !important;
+  .k-upload__content-wrapper {
+    background-color: $k-primary-plus-7-color !important;
+    color: $k-secondary-color !important;
+    border-bottom: none;
+  }
+  .k-upload__info__body{
+    background-color: $k-primary-plus-7-color !important;
+    color: $k-secondary-color !important;
+    border-top: 1px solid $k-primary-min-2-color !important;
+  }
+}
+
+.k-upload:after{
+  background-color: $k-primary-plus-7-color !important;
+  color: $k-secondary-color !important;
+}
