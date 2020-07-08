@@ -97,3 +97,7 @@ ul.select2-selection__rendered{
 #tinymce{
   background-color: $k-primary-plus-9-color !important;
 }
+
+.access-rules .table-striped tbody>tr:nth-child(odd)>td{
+  background-color: $k-primary-plus-7-color !important;
+}

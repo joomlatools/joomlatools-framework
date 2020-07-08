@@ -6833,7 +6833,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   bottom: 0;
   left: 0;
   z-index: 5;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(84, 84, 84, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16094,4 +16094,8 @@ ul.select2-selection__rendered {
 
 #tinymce {
   background-color: #949494 !important;
+}
+
+.access-rules .table-striped tbody > tr:nth-child(odd) > td {
+  background-color: #545454 !important;
 }
