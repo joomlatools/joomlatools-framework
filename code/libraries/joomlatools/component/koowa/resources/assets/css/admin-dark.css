@@ -16082,3 +16082,16 @@ ul.select2-selection__rendered {
   background-color: #545454 !important;
   color: #FFFFFF !important;
 }
+
+.mce-container * {
+  background-color: #545454 !important;
+  color: #FFFFFF !important;
+}
+
+.mce-panel {
+  border: none !important;
+}
+
+#tinymce {
+  background-color: #949494 !important;
+}

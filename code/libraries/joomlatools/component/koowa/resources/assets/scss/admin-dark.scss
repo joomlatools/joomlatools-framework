@@ -84,3 +84,16 @@ ul.select2-selection__rendered{
   background-color: $k-primary-plus-7-color !important;
   color: $k-secondary-color !important;
 }
+
+.mce-container *{
+  background-color: $k-primary-plus-7-color !important;
+  color: $k-secondary-color !important;
+}
+
+.mce-panel{
+  border: none !important;
+}
+
+#tinymce{
+  background-color: $k-primary-plus-9-color !important;
+}
