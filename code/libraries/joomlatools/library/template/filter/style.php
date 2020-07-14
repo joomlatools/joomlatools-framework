@@ -91,9 +91,9 @@ class KTemplateFilterStyle extends KTemplateFilterTag
 
         if($condition)
         {
-            $html  = '<!--[if '.$condition.']>-->'."\n";
+            $html  = '<!--[if '.$condition.']>'."\n";
             $html .=  $style;
-            $html .= '<!--<![endif]-->'."\n";
+            $html .= '<![endif]-->'."\n";
         }
         else $html = $style;
 
