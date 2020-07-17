@@ -224,8 +224,11 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
 
             JPluginHelper::importPlugin('system');
 
-            $dispatcher = class_exists('JEventDispatcher') ? JEventDispatcher::getInstance() : JFactory::getApplication()->getDispatcher();
-            $dispatcher->trigger('onAfterInitialiase');
+            if (class_exists('JEventDispatcher')) {
+                $results = JEventDispatcher::getInstance()->trigger('onAfterInitialiase');
+            } else {
+                $results = JFactory::getApplication()->triggerEvent('onAfterInitialiase');
+            }
         }
 
         return class_exists('Koowa');
@@ -310,11 +313,18 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         $data = $entity->getProperties();
 
         //Get the indexer result item
-        $item = JArrayHelper::toObject($data, 'FinderIndexerResult');
+        if (class_exists('JArrayHelper')) {
+            $item = JArrayHelper::toObject($data, 'FinderIndexerResult');
+        } else {
+            $item = \Joomla\Utilities\ArrayHelper::toObject($data, 'FinderIndexerResult');
+        }
 
         $item->url = $this->getURL($item->id, $this->extension, $this->layout);
         $item->route = $this->getLink($entity);
-        $item->path = FinderIndexerHelper::getContentPath($item->route);
+
+        if (method_exists('FinderIndexerHelper', 'getContentPath')) {
+            $item->path = FinderIndexerHelper::getContentPath($item->route);
+        }
 
         // Trigger the onContentPrepare event.
         if ($item->description) {

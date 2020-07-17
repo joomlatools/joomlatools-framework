@@ -127,18 +127,18 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
     /**
      * Gets the Joomla event dispatcher
      *
-     * @return \Joomla\Event\DispatcherInterface
+     * @param string $event Event name
+     * @param array $arguments Arguments
      */
-    protected function _getDispatcher()
+    protected function _trigger($event, $arguments)
     {
-        if (!self::$_dispatcher)
-        {
-            JPluginHelper::importPlugin('finder');
+        JPluginHelper::importPlugin('finder');
 
-            self::$_dispatcher = class_exists('JEventDispatcher') ? JEventDispatcher::getInstance() : JFactory::getApplication()->getDispatcher();
+        if (class_exists('JEventDispatcher')) {
+            return JEventDispatcher::getInstance()->trigger($event, $arguments);
+        } else {
+            return JFactory::getApplication()->triggerEvent($event, $arguments);
         }
-
-        return self::$_dispatcher;
     }
 
     /**
@@ -181,10 +181,10 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
                     {
                         $category_context = 'com_'.$this->_package.'.'.$this->_category_entity;
 
-                        $this->_getDispatcher()->trigger('onFinderAfterSave', array($category_context, $entity, false));
+                        $this->_trigger('onFinderAfterSave', array($category_context, $entity, false));
                     }
                 } else {
-                    $this->_getDispatcher()->trigger('onFinderAfterSave', array($this->_event_context, $entity, false));
+                    $this->_trigger('onFinderAfterSave', array($this->_event_context, $entity, false));
                 }
             }
         }
@@ -201,7 +201,7 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
         $name    = $entity->getIdentifier()->name;
 
         if ($name === $this->_entity && $entity->getStatus() !== KDatabase::STATUS_FAILED) {
-            $this->_getDispatcher()->trigger('onFinderAfterSave', array($this->_event_context, $entity, true));
+            $this->_trigger('onFinderAfterSave', array($this->_event_context, $entity, true));
         }
     }
 
@@ -219,7 +219,7 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
             foreach ($context->result as $entity)
             {
                 if ($entity->getStatus() === KDatabase::STATUS_DELETED) {
-                    $this->_getDispatcher()->trigger('onFinderAfterDelete', array($this->_event_context, $entity));
+                    $this->_trigger('onFinderAfterDelete', array($this->_event_context, $entity));
                 }
             }
         }

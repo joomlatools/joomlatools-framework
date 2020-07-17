@@ -44,8 +44,11 @@ class ComKoowaTemplateHelperEvent extends KTemplateHelperAbstract
             JPluginHelper::importPlugin($config->import_group);
         }
 
-        $dispatcher = class_exists('JEventDispatcher') ? JEventDispatcher::getInstance() : JFactory::getApplication()->getDispatcher();
-        $results = $dispatcher->trigger($config->name, $attributes);
+        if (class_exists('JEventDispatcher')) {
+            $results = JEventDispatcher::getInstance()->trigger($config->name, $attributes);
+        } else {
+            $results = JFactory::getApplication()->triggerEvent($config->name, $attributes);
+        }
 
         if($config->name == 'onContentPrepare')
         {
