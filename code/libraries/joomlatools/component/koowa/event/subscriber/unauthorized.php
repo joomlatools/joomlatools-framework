@@ -42,7 +42,7 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
             {
                 $message = $this->getObject('translator')->translate('You are not authorized to access this resource. Please login and try again.');
 
-                if(JFactory::getApplication()->isSite()) {
+                if(JFactory::getApplication()->isClient('site')) {
                     $url = JRoute::_('index.php?option=com_users&view=login&return='.base64_encode((string) $request->getUrl()), false);
                 } else {
                     $url = JRoute::_('index.php', false);
@@ -60,7 +60,7 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
          *
          * If a user does not have access to the entity after logging out, they will be redirected to the homepage.
          */
-        if($exception instanceof KHttpExceptionNotFound && JFactory::getApplication()->isSite())
+        if($exception instanceof KHttpExceptionNotFound && JFactory::getApplication()->isClient('site'))
         {
             $hash = JApplicationHelper::getHash('PlgSystemLogout');
 

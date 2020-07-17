@@ -41,7 +41,7 @@ class PlgSystemJoomlatools extends JPlugin
         }
 
         //Bugfix: Set display_errors accordingly
-        if(JFactory::getApplication()->getCfg('error_reporting') == 'none') {
+        if(JFactory::getConfig()->get('error_reporting') == 'none') {
             @ini_set('display_errors', 0);
         }
 
@@ -103,8 +103,8 @@ class PlgSystemJoomlatools extends JPlugin
                  */
                 Koowa::getInstance(array(
                     'debug'           => JDEBUG,
-                    'cache'           => false, //JFactory::getApplication()->getCfg('caching')
-                    'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getApplication()->getCfg('secret')),
+                    'cache'           => false, //JFactory::getConfig()->get('caching')
+                    'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getConfig()->get('secret')),
                     'root_path'       => JPATH_ROOT,
                     'base_path'       => JPATH_BASE,
                     'vendor_path'     => $vendor_path
@@ -115,8 +115,8 @@ class PlgSystemJoomlatools extends JPlugin
                  */
                 $bootstrapper = KObjectManager::getInstance()->getObject('object.bootstrapper')
                     ->registerComponents(JPATH_LIBRARIES . '/joomlatools/component', 'koowa')
-                    ->registerApplication('site', JPATH_SITE . '/components', JFactory::getApplication()->isSite())
-                    ->registerApplication('admin', JPATH_ADMINISTRATOR . '/components', JFactory::getApplication()->isAdmin());
+                    ->registerApplication('site', JPATH_SITE . '/components', JFactory::getApplication()->isClient('site'))
+                    ->registerApplication('admin', JPATH_ADMINISTRATOR . '/components', JFactory::getApplication()->isClient('administrator'));
 
                 if (is_dir(JPATH_LIBRARIES . '/joomlatools-components')) {
                     $bootstrapper->registerComponents(JPATH_LIBRARIES . '/joomlatools-components', 'koowa');
@@ -159,7 +159,7 @@ class PlgSystemJoomlatools extends JPlugin
             $request = $manager->getObject('request');
 
             // Get the URL from Joomla if live_site is set
-            if (JFactory::getApplication()->getCfg('live_site'))
+            if (JFactory::getConfig()->get('live_site'))
             {
                 $request->setBasePath(rtrim(JURI::base(true), '/\\'));
                 $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(JURI::base(), '/\\'))));

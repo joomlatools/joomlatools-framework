@@ -55,7 +55,7 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
         $request = $this->getObject('request');
 
         $app = JFactory::getApplication();
-        if ($app->isSite())
+        if ($app->isClient('site'))
         {
             $uri     = clone JURI::getInstance();
 

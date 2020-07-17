@@ -132,7 +132,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             $route = $route->toString(array('path', 'query', 'fragment'));
 
             // Check if we need to remove "administrator" from the path
-            if ($current->isAdmin() && $application->getName() == 'site')
+            if ($current->isClient('administrator') && $application->getName() == 'site')
             {
                 $base = JUri::base('true');
 

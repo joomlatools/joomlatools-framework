@@ -25,7 +25,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug'),
+            'debug' => JFactory::getConfig()->get('debug'),
             'wrapper_class' => array(
                 JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
             )
@@ -35,7 +35,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         {
             $layout = $this->getTemplate()->getParameters()->layout;
 
-            if (JFactory::getApplication()->isSite() && $layout === 'form') {
+            if (JFactory::getApplication()->isClient('site') && $layout === 'form') {
                 $config->domain = 'admin';
             }
         }
@@ -45,7 +45,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         if ($identifier->type === 'com' && $menu)
         {
-            if ($suffix = htmlspecialchars($menu->params->get('pageclass_sfx')))
+            if ($suffix = htmlspecialchars($menu->getParams()->get('pageclass_sfx')))
             {
                 $config->append(array(
                     'wrapper_class' => array($suffix)
@@ -70,7 +70,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug'),
+            'debug' => JFactory::getConfig()->get('debug'),
             'package' => $identifier->package,
             'domain'  => $identifier->domain
         ))->append(array(
@@ -98,12 +98,12 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             $template = $app->getTemplate();
 
             // Load Bootstrap file if it's explicitly asked for
-            if ($app->isSite() && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
+            if ($app->isClient('site') && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
                 $html .= $this->getTemplate()->helper('behavior.bootstrap', ['javascript' => false, 'css' => true]);
             }
 
             // Load overrides for the current admin template
-            if ($app->isAdmin() && $config->file === 'admin')
+            if ($app->isClient('administrator') && $config->file === 'admin')
             {
                 if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';

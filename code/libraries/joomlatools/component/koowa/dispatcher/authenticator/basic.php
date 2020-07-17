@@ -52,7 +52,7 @@ class ComKoowaDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorBasic
     {
         $config->append(array(
             'options' => array(
-                'action'       => JFactory::getApplication()->isSite() ? 'core.login.site' : 'core.login.admin',
+                'action'       => JFactory::getApplication()->isClient('site') ? 'core.login.site' : 'core.login.admin',
                 'autoregister' => false,
                 'type'         => 'basic'
             ),
@@ -72,7 +72,7 @@ class ComKoowaDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorBasic
     {
         $data['username'] = $username;
 
-        $parameter        = JFactory::getApplication()->isAdmin() ? 'admin_language' : 'language';
+        $parameter        = JFactory::getApplication()->isClient('administrator') ? 'admin_language' : 'language';
         $data['language'] = $this->getObject('user.provider')->load($username)->get($parameter);
 
         $options = $this->_options;

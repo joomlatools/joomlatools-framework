@@ -22,7 +22,7 @@ abstract class ComKoowaDispatcherPermissionAbstract extends KDispatcherPermissio
      */
     public function canDispatch()
     {
-        if(JFactory::getApplication()->isAdmin())
+        if(JFactory::getApplication()->isClient('administrator'))
         {
             if(!$this->canManage())
             {
