@@ -7,61 +7,15 @@
  * @link        https://github.com/joomlatools/joomlatools-framework for the canonical source repository
  */
 
-
-class JoomlatoolsTemporaryDispatcher extends JEventDispatcher
-{
-    /**
-     * Get rid of registered Logman plugins and disable it permanently afterwards if it's version 1 or 2
-     */
-    public static function disableLogman()
-    {
-        $dispatcher = JEventDispatcher::getInstance();
-
-        foreach ($dispatcher->_observers as $key => $observer)
-        {
-            if (is_object($observer)
-                && (substr(get_class($observer), 0, 9) === 'PlgLogman' || get_class($observer) === 'PlgSystemKoowa')) {
-                $dispatcher->detach($observer);
-            }
-        }
-
-        $logman_manifest = JPATH_ADMINISTRATOR.'/components/com_logman/logman.xml';
-        if (file_exists($logman_manifest))
-        {
-            $manifest = simplexml_load_file($logman_manifest);
-
-            if ($manifest && $manifest->version)
-            {
-                $version = (string)$manifest->version;
-
-                if ($version && version_compare($version, '3', '<'))
-                {
-                    $db = JFactory::getDbo();
-
-                    $query = "UPDATE #__extensions SET enabled = 0 WHERE type='plugin' AND folder='koowa' AND element='logman'";
-                    $db->setQuery($query)->query();
-
-                    $query = "UPDATE #__extensions SET enabled = 0 WHERE type='plugin' AND folder='system' AND element='logman'";
-                    $db->setQuery($query)->query();
-
-                    $query = "UPDATE #__modules SET published = 0 WHERE module='mod_logman'";
-                    $db->setQuery($query)->query();
-                }
-            }
-        }
-    }
-}
-
 class PlgSystemJoomlatoolsInstallerScript
 {
-    public function __construct($installer)
-    {
-        JoomlatoolsTemporaryDispatcher::disableLogman();
-    }
-
     public function preflight($type, $installer)
     {
         if (defined('JOOMLATOOLS_PLATFORM')) {
+            return;
+        }
+
+        if ($type === 'uninstall') {
             return;
         }
 
@@ -72,13 +26,13 @@ class PlgSystemJoomlatoolsInstallerScript
             echo implode(',', $errors);
 
             $error = ob_get_clean();
-            JFactory::getApplication()->enqueueMessage($error, 'error');
+            \Joomla\CMS\Factory::getApplication()->enqueueMessage($error, 'error');
 
             return false;
         }
 
         if (!$this->_uninstallExtman()) {
-            JFactory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
+            \Joomla\CMS\Factory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
             Please go to Extension Manager and remove EXTman first in order to upgrade to the latest version'), 'error');
 
             return false;
@@ -102,17 +56,17 @@ class PlgSystemJoomlatoolsInstallerScript
             // Make extensions uninstallable by Joomla extension manager
             $query = /** @lang text */'UPDATE #__extensions SET protected = 0
               WHERE extension_id IN (SELECT joomla_extension_id FROM #__extman_extensions)';
-            \JFactory::getDbo()->setQuery($query)->query();
+            \JFactory::getDbo()->setQuery($query)->execute();
 
             // First we remove the extension list so Extman does not give an error
             $query = /** @lang text */'CREATE TABLE IF NOT EXISTS #__extman_extensions_bkp AS SELECT * FROM #__extman_extensions;';
-            $db->setQuery($query)->query();
+            $db->setQuery($query)->execute();
             $query = /** @lang text */'TRUNCATE TABLE #__extman_extensions;';
-            $db->setQuery($query)->query();
+            $db->setQuery($query)->execute();
 
             // Temporary fix to avoid errors on uninstall
             $query = /** @lang text */"UPDATE #__extensions SET element = 'files_koowa' WHERE element = 'koowa' AND type = 'file';";
-            $db->setQuery($query)->query();
+            $db->setQuery($query)->execute();
 
             $installer = new \JInstaller();
             $result = $installer->uninstall('component', $extension_id, 1);
@@ -154,7 +108,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
             if (!$this->_moveFolder($source.'/libraries/joomlatools', JPATH_LIBRARIES.'/joomlatools')) {
                 $warning = 'Could not create the libraries folder';
-                JFactory::getApplication()->enqueueMessage($warning, 'warning');
+                \Joomla\CMS\Factory::getApplication()->enqueueMessage($warning, 'warning');
 
                 return false;
             }
@@ -252,7 +206,7 @@ class PlgSystemJoomlatoolsInstallerScript
             'plugin', 'joomlatools', 'system'
         );
 
-        JFactory::getDbo()->setQuery($query)->query();
+        JFactory::getDbo()->setQuery($query)->execute();
 
         $this->bootFramework();
 
@@ -430,7 +384,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
         require_once $path;
 
-        $dispatcher = JEventDispatcher::getInstance();
+        $dispatcher = \Joomla\CMS\Factory::getApplication()->getDispatcher();
         $className  = 'PlgSystemJoomlatools';
 
         // Constructor does all the work in the plugin
