@@ -62,7 +62,7 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 $options  = $document->getScriptOptions();
 
                 $buffer  = '<script type="application/json" class="joomla-script-options new">';
-                $buffer .= $options ? json_encode($options) : '{}';
+                $buffer .= $options ? json_encode($options, JSON_PRETTY_PRINT) : '{}';
                 $buffer .= '</script>';
 
                 echo $buffer;
@@ -110,6 +110,25 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             foreach ($head['custom'] as $custom) {
                 // Inject custom head scripts right before </head>
                 $text = str_replace('</head>', $custom."\n</head>", $text);
+            }
+
+            if (isset($head['assetManager']) && isset($head['assetManager']['assets'])) {
+                $manager = $head['assetManager']['assets'];
+
+                /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
+                foreach ($manager['script'] as $script) {
+                    $uri = $script->getUri(true);
+                    $attributes = $script->getAttributes();
+
+                    echo sprintf('<ktml:script src="%s" %s />', $uri, $this->buildAttributes($attributes));
+                }
+
+                foreach ($manager['style'] as $style) {
+                    $uri = $style->getUri(true);
+                    $attributes = $script->getAttributes();
+
+                    echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
+                }
             }
 
             $head = ob_get_clean();
