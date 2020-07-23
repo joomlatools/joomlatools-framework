@@ -617,8 +617,8 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
             return true;
         }
 
-        if (!in_array($this->getStatusCode(), array(200 , 203 , 204 , 206 , 300 , 301 , 404 , 405 , 410 , 414 , 501))) {
-            return false;
+        if (in_array($this->getStatusCode(), array(200 , 203 , 204 , 206 , 300 , 301 , 404 , 405 , 410 , 414 , 501))) {
+            return true;
         }
 
         return false;
@@ -639,19 +639,29 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      * Returns true if the response is "stale".
      *
      * When the responses is stale, the response may not be served from cache without first re-validating with
-     * the origin.
+     * the origin. To determine if the response is stale we use the max-age, or in case no max-age directive is
+     * defined try to calculate the heuristic freshness as follows: (Now - (Time since Last-Modified)) * 0.1
+     *
+     * @link https://tools.ietf.org/html/rfc7234#section-4.2.2
      *
      * @return Boolean true if the response is stale, false otherwise
      */
     public function isStale()
     {
-        $result = true;
+        $stale = !$this->isCacheable();
 
-        if ($maxAge = (int) $this->getMaxAge()) {
-            $result = ($maxAge - $this->getAge()) <= 0;
+        if (!$stale && $this->getMaxAge() === NULL)
+        {
+            //Calculate heuristic freshness and determine if response is still fresh
+            if($this->getLastModified())
+            {
+                $time  = floor((strtotime('now') - $this->getLastModified()->getTimestamp()) * 0.1);
+                $stale = ($time - $this->getAge()) <= 0;
+            }
         }
+        else $stale = ($this->getMaxAge() - $this->getAge()) <= 0;
 
-        return $result;
+        return $stale;
     }
 
     /**
