@@ -43,7 +43,18 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         } elseif (version_compare(JVERSION, '4.0', '>=')) {
             if (!KTemplateHelperBehavior::isLoaded('k-ui-j4')) {
                 $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
-                $html .= '<script data-inline type="text/javascript">document.documentElement.classList.add('.implode(", ",$classes).');</script>';
+                $html .= '<script data-inline type="text/javascript">
+                    document.documentElement.classList.add('.implode(", ",$classes).');
+                    
+                    // Hide sidebar
+                    document.addEventListener("DOMContentLoaded", function() {
+                      var wrapper = document.getElementById(\'wrapper\');
+                      var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
+                      wrapper.classList.add(\'closed\');
+                      menuToggleIcon.classList.remove(\'fa-toggle-on\');
+                      menuToggleIcon.classList.add(\'fa-toggle-off\');
+                    });
+                </script>';
 
                 KTemplateHelperBehavior::setLoaded('k-ui-j4');
 
