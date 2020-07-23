@@ -30,13 +30,47 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
             )
         ));
-        
+
+        $html = '';
+
         if($this->getTemplate()->decorator() === 'koowa')
         {
             $layout = $this->getTemplate()->getParameters()->layout;
 
             if (JFactory::getApplication()->isClient('site') && $layout === 'form') {
                 $config->domain = 'admin';
+            }
+        } elseif (version_compare(JVERSION, '4.0', '>=')) {
+            if (!KTemplateHelperBehavior::isLoaded('k-ui-j4')) {
+                $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
+                $html .= '<script data-inline type="text/javascript">document.documentElement.classList.add('.implode(", ",$classes).');</script>';
+
+                KTemplateHelperBehavior::setLoaded('k-ui-j4');
+
+                $html .= "
+                <style>
+                /* Remove toolbar */
+                .k-ui-j4-administrator #subhead {
+                    display: none;
+                }
+                
+                /* Make content full height */
+                .k-ui-j4-administrator #content > .row {
+                    min-height: calc(100vh - 60px) !important;
+                }
+                .k-ui-j4-administrator #content > .row main {
+                    height: 100% !important;
+                    flex-direction: column !important;
+                    display: flex !important;
+                }
+                .k-ui-j4-administrator #content > .row > .col-md-12 {
+                    padding: 0;
+                }
+                .k-ui-j4-administrator .container-main {
+                    padding-bottom: 0;
+                }
+                </style>
+                ";
             }
         }
 
@@ -53,7 +87,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
-        $html = parent::load($config);
+        $html .= parent::load($config);
 
         return $html;
     }
