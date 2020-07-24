@@ -40,49 +40,6 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             if (JFactory::getApplication()->isClient('site') && $layout === 'form') {
                 $config->domain = 'admin';
             }
-        } elseif (version_compare(JVERSION, '4.0', '>=')) {
-            if (!KTemplateHelperBehavior::isLoaded('k-ui-j4')) {
-                $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
-                $html .= '<script data-inline type="text/javascript">
-                    document.documentElement.classList.add('.implode(", ",$classes).');
-                    
-                    // Hide sidebar
-                    document.addEventListener("DOMContentLoaded", function() {
-                      var wrapper = document.getElementById(\'wrapper\');
-                      var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
-                      wrapper.classList.add(\'closed\');
-                      menuToggleIcon.classList.remove(\'fa-toggle-on\');
-                      menuToggleIcon.classList.add(\'fa-toggle-off\');
-                    });
-                </script>';
-
-                KTemplateHelperBehavior::setLoaded('k-ui-j4');
-
-                $html .= "
-                <style>
-                /* Remove toolbar */
-                .k-ui-j4-administrator #subhead {
-                    display: none;
-                }
-                
-                /* Make content full height */
-                .k-ui-j4-administrator #content > .row {
-                    min-height: calc(100vh - 60px) !important;
-                }
-                .k-ui-j4-administrator #content > .row main {
-                    height: 100% !important;
-                    flex-direction: column !important;
-                    display: flex !important;
-                }
-                .k-ui-j4-administrator #content > .row > .col-md-12 {
-                    padding: 0;
-                }
-                .k-ui-j4-administrator .container-main {
-                    padding-bottom: 0;
-                }
-                </style>
-                ";
-            }
         }
 
         $identifier = $this->getTemplate()->getIdentifier();
@@ -152,6 +109,51 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             {
                 if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
+                }
+
+                if (version_compare(JVERSION, '4.0', '>=')) {
+                    if (!KTemplateHelperBehavior::isLoaded('k-ui-j4')) {
+                        $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
+                        $html .= '<script data-inline type="text/javascript">
+                    document.documentElement.classList.add('.implode(", ",$classes).');
+                    
+                    // Hide sidebar
+                    document.addEventListener("DOMContentLoaded", function() {
+                      var wrapper = document.getElementById(\'wrapper\');
+                      var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
+                      wrapper.classList.add(\'closed\');
+                      menuToggleIcon.classList.remove(\'fa-toggle-on\');
+                      menuToggleIcon.classList.add(\'fa-toggle-off\');
+                    });
+                </script>';
+
+                        KTemplateHelperBehavior::setLoaded('k-ui-j4');
+
+                        $html .= "
+                <style>
+                /* Remove toolbar */
+                .k-ui-j4-administrator #subhead {
+                    display: none;
+                }
+                
+                /* Make content full height */
+                .k-ui-j4-administrator #content > .row {
+                    min-height: calc(100vh - 60px) !important;
+                }
+                .k-ui-j4-administrator #content > .row main {
+                    height: 100% !important;
+                    flex-direction: column !important;
+                    display: flex !important;
+                }
+                .k-ui-j4-administrator #content > .row > .col-md-12 {
+                    padding: 0;
+                }
+                .k-ui-j4-administrator .container-main {
+                    padding-bottom: 0;
+                }
+                </style>
+                ";
+                    }
                 }
             }
         }
