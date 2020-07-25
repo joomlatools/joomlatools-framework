@@ -352,7 +352,7 @@ class PlgSystemJoomlatools extends JPlugin
         $result = $this->_proxyEvent('onBeforeTemplateModules', ['modules' => $modules]);
 
         //Passback result by reference
-        $modules = $result->modules;
+        $modules = KObjectConfig::unbox($result->modules);
     }
 
     /**
@@ -365,7 +365,7 @@ class PlgSystemJoomlatools extends JPlugin
         $result = $this->_proxyEvent('onAfterTemplateModules', ['modules' => $modules]);
 
         //Passback result by reference
-        $modules = $result->modules;
+        $modules = KObjectConfig::unbox($result->modules);
     }
 
     /**
