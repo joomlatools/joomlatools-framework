@@ -403,7 +403,7 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
         $result  = null;
         $request = $this->getRequest();
 
-        if($this->isCacheable() && !$this->isStale())
+        if($this->isCacheable())
         {
             if ($etags = $request->getEtags())
             {
