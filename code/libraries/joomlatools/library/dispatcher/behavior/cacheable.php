@@ -54,7 +54,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
     {
         parent::onMixin($mixer);
 
-        if($this->isCacheable())
+        if($this->isSupported())
         {
             //Set cache control default
             $cache_control = (array) KObjectConfig::unbox($this->getConfig()->cache_control);
@@ -72,7 +72,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      */
     public function isSupported()
     {
-        return $this->isCacheable() ? parent::isSupported() : false;
+        return $this->getConfig() ? parent::isSupported() : false;
     }
 
     /**
