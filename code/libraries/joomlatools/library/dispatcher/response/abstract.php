@@ -74,6 +74,9 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
         $config->append(array(
             'content'     => '',
             'transports'  => array('redirect', 'json', 'http'),
+            'headers'     => [
+                'Cache-Control' => ['no-store']
+            ]
         ));
 
         parent::_initialize($config);
