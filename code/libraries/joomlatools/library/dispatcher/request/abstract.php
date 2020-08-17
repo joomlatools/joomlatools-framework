@@ -183,6 +183,11 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             $this->setVersion('1.0');
         }
 
+        //Set the request time
+        if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
+            $this->setTime($_SERVER['REQUEST_TIME_FLOAT']);
+        }
+
         //Set request data
         if($this->getContentType() == 'application/x-www-form-urlencoded')
         {
@@ -234,7 +239,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             'cookies' => $_COOKIE,
             'files'   => $_FILES,
             'proxies' => array(),
-            'origins' => array()
+            'origins' => array(),
         ));
 
         parent::_initialize($config);

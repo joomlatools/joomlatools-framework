@@ -59,4 +59,12 @@ interface KControllerRequestInterface
      * @return  string  The request format or NULL if no format could be found
      */
     public function getFormat();
+
+    /**
+     * The timestamp of the start of the request, with microsecond precision
+     *
+     * @see: https://www.php.net/manual/en/reserved.variables.server.php
+     * @return float
+     */
+    public function getTime();
 }
