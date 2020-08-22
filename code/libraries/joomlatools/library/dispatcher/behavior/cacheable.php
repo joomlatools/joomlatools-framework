@@ -32,11 +32,12 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
     {
         $config->append(array(
             'priority' => self::PRIORITY_LOW,
-            'cache'         => true,
-            'cache_private' => false,
+            'cache'     => true,
             'cache_time'         => 0, //must revalidate
+            'cache_time_private' => 0, //must revalidate proxy
             'cache_time_shared'  => 0, //must revalidate proxy
-            'cache_control'      => array(),
+            'cache_control'         => [],
+            'cache_control_private' => ['private'],
         ));
 
         parent::_initialize($config);
@@ -57,13 +58,21 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
         if($this->isSupported())
         {
             $response = $mixer->getResponse();
+            $user     = $mixer->getUser();
+
+            if(!$user->isAuthentic())
+            {
+                $cache_control = (array) KObjectConfig::unbox($this->getConfig()->cache_control);
+                $response->setMaxAge($this->getConfig()->cache_time, $this->getConfig()->cache_time_shared);
+            }
+            else
+            {
+                $cache_control = (array) KObjectConfig::unbox($this->getConfig()->cache_control_private);
+                $response->setMaxAge($this->getConfig()->cache_time_private);
+            }
 
             //Reset cache control header (if caching enabled)
-            $cache_control = (array) KObjectConfig::unbox($this->getConfig()->cache_control);
             $response->headers->set('Cache-Control', $cache_control, true);
-
-            //Set max age default
-            $response->setMaxAge($this->getConfig()->cache_time, $this->getConfig()->cache_time_shared);
         }
     }
 
@@ -86,14 +95,10 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
     {
         $request = $this->getRequest();
 
-        $cacheable = false;
-        if($request->isCacheable() && $this->getConfig()->cache)
-        {
+        if($request->isCacheable() && $this->getConfig()->cache) {
             $cacheable = true;
-
-            if(!$this->getConfig()->cache_private && $this->getUser()->isAuthentic()) {
-                $cacheable = false;
-            }
+        } else {
+            $cacheable = false;
         }
 
         return $cacheable;
@@ -114,32 +119,10 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
         $response = $context->response;
         $request  = $context->request;
 
-        if($this->isCacheable())
-        {
-            $response->headers->set('Cache-Control', $this->_getCacheControl());
-
-            //Set Validator
-            $response->setEtag($this->_getEtag(), !$response->isDownloadable());
+        ////Set Etag
+        if($this->isCacheable()) {
+            $response->setEtag($this->_getEtag($response), !$response->isDownloadable());
         }
-    }
-
-    /**
-     * Get the cache control directives
-     *
-     * @link https://tools.ietf.org/html/rfc7234#page-21
-     *
-     * @return array
-     */
-    protected function _getCacheControl()
-    {
-        $response = $this->getResponse();
-        $cache    = $response->getCacheControl();
-
-        if($response->getUser()->isAuthentic()) {
-            $cache[] = 'private';
-        }
-
-        return $cache;
     }
 
     /**
@@ -150,18 +133,17 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      *
      * @link http://stackoverflow.com/questions/44937/how-do-you-make-an-etag-that-matches-apache
      *
+     * @param KHttpResponseInterface $response The response
      * @return string
      */
-    protected function _getEtag()
+    protected function _getEtag(KHttpResponseInterface $response)
     {
-        $response = $this->getResponse();
-
         if($response->isDownloadable())
         {
             $info = $response->getStream()->getInfo();
             $etag = sprintf('"%x-%x-%s"', $info['ino'], $info['size'],base_convert(str_pad($info['mtime'],16,"0"),10,16));
         }
-        else $etag = hash('crc32b', $response->getContent().$response->getFormat());
+        else $etag = hash('crc32b', $response->getContent().$response->getFormat().$response->getUser()->getId());
 
         return $etag;
     }
