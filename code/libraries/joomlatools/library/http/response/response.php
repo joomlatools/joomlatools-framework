@@ -605,6 +605,10 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
             return false;
         }
 
+        if (in_array('private', $cache_control, true)) {
+            return false;
+        }
+
         if (in_array('public', $cache_control, true)) {
             return true;
         }
@@ -648,9 +652,9 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function isStale()
     {
-        $stale = !$this->isCacheable();
+        $stale = null;
 
-        if (!$stale && $this->getMaxAge() === NULL)
+        if ($this->getMaxAge() === NULL)
         {
             //Calculate heuristic freshness and determine if response is still fresh
             if($this->getLastModified())
