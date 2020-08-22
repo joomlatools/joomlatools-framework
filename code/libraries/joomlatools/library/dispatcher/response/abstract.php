@@ -406,20 +406,17 @@ abstract class KDispatcherResponseAbstract extends KControllerResponse implement
         $result  = null;
         $request = $this->getRequest();
 
-        if($this->isCacheable())
+        if ($etag = $request->getEtag())
         {
-            if ($etags = $request->getEtags())
-            {
-                if(in_array($this->getEtag(), $etags) || in_array('*', $etags)) {
-                    $result = true;
-                }
+            if($this->getEtag() == $etag) {
+                $result = true;
             }
+        }
 
-            if($since = $request->headers->get('If-Modified-Since') && $this->getLastModified())
-            {
-                if(!($this->getLastModified()->getTimestamp() > strtotime($since))) {
-                    $result = true;
-                }
+        if($since = $request->headers->get('If-Modified-Since') && $this->getLastModified())
+        {
+            if(!($this->getLastModified()->getTimestamp() > strtotime($since))) {
+                $result = true;
             }
         }
 

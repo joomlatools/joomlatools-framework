@@ -882,18 +882,18 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
-     * Gets the etags
+     * Gets the etag
      *
      * @link https://tools.ietf.org/html/rfc7232#page-14
      *
      * @return array The entity tags
      */
-    public function getETags()
+    public function getETag()
     {
         $result = array();
         if($this->_headers->has('If-None-Match'))
         {
-            $result = preg_split('/\s*,\s*/', $this->_headers->get('If-None-Match'), null, PREG_SPLIT_NO_EMPTY);
+            $result = $this->_headers->get('If-None-Match');
 
             //Remove the encoding from the etag
             //
