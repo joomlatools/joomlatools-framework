@@ -34,7 +34,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             'priority' => self::PRIORITY_LOW,
             'cache'     => true,
             'cache_time'         => 0, //must revalidate
-            'cache_time_private' => 0, //must revalidate proxy
+            'cache_time_private' => 0, //must revalidate
             'cache_time_shared'  => 0, //must revalidate proxy
             'cache_control'         => [],
             'cache_control_private' => ['private'],
