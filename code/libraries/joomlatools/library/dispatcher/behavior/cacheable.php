@@ -123,30 +123,31 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
 
         ////Set Etag
         if($this->isCacheable()) {
-            $response->setEtag($this->_getEtag($response), !$response->isDownloadable());
+            $response->setEtag($this->getHash(), !$response->isDownloadable());
         }
     }
 
     /**
-     * Generate a response etag
+     * Generate a response hash
      *
      * For files returns a md5 hash of same format as Apache does. Eg "%ino-%size-%0mtime" using the file
      * info, otherwise return a crc32 digest the user identifier and response content
      *
      * @link http://stackoverflow.com/questions/44937/how-do-you-make-an-etag-that-matches-apache
      *
-     * @param KHttpResponseInterface $response The response
      * @return string
      */
-    protected function _getEtag(KHttpResponseInterface $response)
+    protected function getHash()
     {
+        $response = $this->getResponse();
+
         if($response->isDownloadable())
         {
             $info = $response->getStream()->getInfo();
-            $etag = sprintf('"%x-%x-%s"', $info['ino'], $info['size'],base_convert(str_pad($info['mtime'],16,"0"),10,16));
+            $hash = sprintf('"%x-%x-%s"', $info['ino'], $info['size'],base_convert(str_pad($info['mtime'],16,"0"),10,16));
         }
-        else $etag = hash('crc32b', $response->getContent().$response->getFormat().$response->getUser()->getId());
+        else $hash = hash('crc32b', $response->getContent().$response->getFormat().$response->getUser()->getId());
 
-        return $etag;
+        return $hash;
     }
 }
