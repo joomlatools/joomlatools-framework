@@ -34,7 +34,6 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
             'priority' => self::PRIORITY_LOW,
             'cache'     => true,
             'cache_time'         => 0, //must revalidate
-            'cache_time_private' => 0, //must revalidate
             'cache_time_shared'  => 0, //must revalidate proxy
             'cache_control'         => [],
             'cache_control_private' => ['private'],
@@ -73,7 +72,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
                 $cache_control = (array) KObjectConfig::unbox($this->getConfig()->cache_control_private);
                 $response->headers->set('Cache-Control', $cache_control, true);
 
-                $response->setMaxAge($this->getConfig()->cache_time_private);
+                $response->setMaxAge($this->getConfig()->cache_time);
             }
         }
     }
@@ -95,15 +94,7 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
      */
     public function isCacheable()
     {
-        $request = $this->getRequest();
-
-        if($request->isCacheable() && $this->getConfig()->cache) {
-            $cacheable = true;
-        } else {
-            $cacheable = false;
-        }
-
-        return $cacheable;
+        return $this->getRequest()->isCacheable() && $this->getConfig()->cache;
     }
 
     /**
@@ -119,7 +110,6 @@ class KDispatcherBehaviorCacheable extends KControllerBehaviorAbstract
     protected function _beforeSend(KDispatcherContextInterface $context)
     {
         $response = $context->response;
-        $request  = $context->request;
 
         ////Set Etag
         if($this->isCacheable()) {
