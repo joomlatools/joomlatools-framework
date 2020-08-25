@@ -526,7 +526,7 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
         $values = $this->_headers->get('Cache-Control', array());
 
         if (is_string($values)) {
-            $values = explode(',', $values);
+            $values = array_map('trim', explode(',', $values));
         }
 
         foreach ($values as $key => $value)
