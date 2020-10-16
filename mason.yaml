@@ -1,7 +1,7 @@
 includeComponents: true
 components:
   files:
-    branch: "v3.2.7"
+    branch: "v3.2.8"
   activities:
     branch: "v3.1.6"
   scheduler:
