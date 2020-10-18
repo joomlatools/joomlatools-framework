@@ -380,6 +380,8 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
      */
     public function setUrl(KHttpUrl $url)
     {
+        $url = clone $url;
+
         //Remove the user and pass from the view url
         unset($url->user);
         unset($url->pass);
