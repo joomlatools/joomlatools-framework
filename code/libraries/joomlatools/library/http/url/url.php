@@ -365,8 +365,13 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
      */
     public function getPath($toArray = false)
     {
-        $result = $toArray ? $this->_path : $this->_pathEncode($this->_path);
-        return $result;
+        if ($toArray) {
+            $path = is_array($this->_path) ? $this->_path : array();
+        } else {
+            $path = $this->_pathEncode($this->_path);
+        }
+
+        return $path;
     }
 
     /**
