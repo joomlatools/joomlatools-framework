@@ -499,16 +499,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             if (($this->_url->scheme == 'http' && $port != 80) || ($this->_url->scheme == 'https' && $port != 443)) {
                 $this->_url->port = $port;
             }
-
-            //Set the user
-            if(isset($_SERVER['PHP_AUTH_USER']))
-            {
-                $this->_url->user = $_SERVER['PHP_AUTH_USER'];
-
-                if(isset($_SERVER['PHP_AUTH_PW'])) {
-                    $this->_url->pass = $_SERVER['PHP_AUTH_PW'];
-                }
-            }
         }
 
         return $this->_url;
