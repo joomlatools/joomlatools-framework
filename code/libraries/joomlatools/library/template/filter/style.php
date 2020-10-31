@@ -45,7 +45,7 @@ class KTemplateFilterStyle extends KTemplateFilterTag
         }
 
         $matches = array();
-        if(preg_match_all('#<style(.*)>(.*)<\/style>#siU', $text, $matches))
+        if(preg_match_all('#<style(?!\s+data\-inline\s*)(.*)>(.*)</style>#siU', $text, $matches))
         {
             foreach($matches[2] as $key => $match)
             {
