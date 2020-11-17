@@ -163,7 +163,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
      * @var array
      */
     protected $_encode_path = array(
-        ' ' => '+',
+        ' ' => '%20',
         '/' => '%2F',
         '?' => '%3F',
         '&' => '%26',
