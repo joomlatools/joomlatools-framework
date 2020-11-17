@@ -3,7 +3,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ba6e3e1390b488ca40f3d7458332345)](https://www.codacy.com/gh/joomlatools/joomlatools-pages?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=joomlatools/joomlatools-pages&amp;utm_campaign=Badge_Grade)
 
 ## What is Joomlatools Framework?
-
+ 
 Joomlatools Framework (codename 'Koowa') is a open-source **extension framework** for **[Joomla](http://www.joomla.org)**. Developed and maintained by [Joomlatools](http://joomlatoolls.com) with the help of passionate developers from all over the world.
 
 Joomlatools Framework can be installed in Joomla as a plugin and lets you focus on the "business" logic of your extension. By doing most of the repetitive work for you [boilerplate code][boilerplate] is eliminated which greatly reduces the time
