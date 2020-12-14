@@ -104,11 +104,15 @@ class KHttpMessageHeaders extends KObjectArray
         {
             $key = strtr(strtolower($key), '_', '-');
 
-            if ($replace === true || !isset($this[$key])) {
-                $this->_data[$key] = array($values);
-            } else {
-                $this->_data[$key] = array_merge($this->_data[$key], array($values));
+            if(!empty($values))
+            {
+                if ($replace === true || !isset($this[$key])) {
+                    $this->_data[$key] = array($values);
+                } else {
+                    $this->_data[$key] = array_merge($this->_data[$key], array($values));
+                }
             }
+            else $this->_data[$key] = array();
         }
 
         return $this;

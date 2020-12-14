@@ -523,27 +523,38 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      */
     public function getCacheControl()
     {
-        $values = $this->_headers->get('Cache-Control', array());
+        $values = $this->_headers->get('Cache-Control', array(), false);
 
-        if (is_string($values)) {
-            $values = array_map('trim', explode(',', $values));
-        }
-
-        foreach ($values as $key => $value)
+        $result = array();
+        foreach((array)$values as $key => $value)
         {
-            if(is_string($value))
+            if (is_string($value))
             {
-                $parts = explode('=', $value);
-
-                if (count($parts) > 1)
+                foreach (array_map('trim', explode(',', $value)) as $k => $v)
                 {
-                    unset($values[$key]);
-                    $values[trim($parts[0])] = trim($parts[1]);
+                    $parts = explode('=', $v);
+
+                    if (count($parts) > 1) {
+                        $result[trim($parts[0])] = trim($parts[1]);
+                    } else {
+                        $result[] =  trim($parts[0]);
+                    }
+                }
+            }
+            else
+            {
+                foreach((array)$value as $k => $v)
+                {
+                    if(is_numeric($k)) {
+                        $result[] = $v;
+                    } else {
+                        $result[$k] = $v;
+                    }
                 }
             }
         }
 
-        return $values;
+        return $result;
     }
 
     /**
