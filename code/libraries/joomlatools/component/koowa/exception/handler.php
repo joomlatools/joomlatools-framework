@@ -44,7 +44,7 @@ final class ComKoowaExceptionHandler extends KExceptionHandler
      */
     protected function _initialize(KObjectConfig $config)
     {
-        if(extension_loaded('xdebug') && xdebug_is_enabled() && getenv('JOOMLATOOLS_BOX'))
+        if(extension_loaded('xdebug'))
         {
             $level = self::ERROR_DEVELOPMENT;
             $type  = self::TYPE_ALL;
