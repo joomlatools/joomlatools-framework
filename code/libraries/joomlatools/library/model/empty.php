@@ -29,6 +29,18 @@ final class KModelEmpty extends KModelAbstract
     }
 
     /**
+     * Create a new entity for the data store
+     *
+     * @param KModelContext $context A model context object
+     *
+     * @return KModelEntityInterface The entity
+     */
+    protected function _actionCreate(KModelContext $context)
+    {
+        return $this->_entity;
+    }
+
+    /**
      * Get the total number of entities
      *
      * @param KModelContext $context A model context object
