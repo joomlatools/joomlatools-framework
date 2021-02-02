@@ -885,7 +885,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             //Remove the encoding from the etag
             //
             //RFC-7232 explicitly states that ETags should be content-coding aware
-            $result = str_replace('-gzip', '', $result);
+            $result = str_replace(['-gzip', '-br'], '', $result);
         }
 
         return $result;
