@@ -26,13 +26,13 @@ class PlgSystemJoomlatoolsInstallerScript
             echo implode(',', $errors);
 
             $error = ob_get_clean();
-            \Joomla\CMS\Factory::getApplication()->enqueueMessage($error, 'error');
+            JFactory::getApplication()->enqueueMessage($error, 'error');
 
             return false;
         }
 
         if (!$this->_uninstallExtman()) {
-            \Joomla\CMS\Factory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
+            JFactory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
             Please go to Extension Manager and remove EXTman first in order to upgrade to the latest version'), 'error');
 
             return false;
@@ -108,7 +108,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
             if (!$this->_moveFolder($source.'/libraries/joomlatools', JPATH_LIBRARIES.'/joomlatools')) {
                 $warning = 'Could not create the libraries folder';
-                \Joomla\CMS\Factory::getApplication()->enqueueMessage($warning, 'warning');
+                JFactory::getApplication()->enqueueMessage($warning, 'warning');
 
                 return false;
             }
@@ -384,7 +384,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
         require_once $path;
 
-        $dispatcher = \Joomla\CMS\Factory::getApplication()->getDispatcher();
+        $dispatcher = JFactory::getApplication()->getDispatcher();
         $className  = 'PlgSystemJoomlatools';
 
         // Constructor does all the work in the plugin
