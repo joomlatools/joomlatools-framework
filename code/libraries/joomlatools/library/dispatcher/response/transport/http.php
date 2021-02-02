@@ -153,12 +153,10 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
 
                 if($encoded_name !== $filename)
                 {
-                    $webkit13OrHigher = preg_match('#(.+)AppleWebKit(.+)Version\/([2-9]+0|1[3-9])(.+)#', $user_agent);
-
                     if (preg_match('/(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:)(\d+)/i', $user_agent)) {
                         $directives['filename'] = '"'.$encoded_name.'"';
                     }
-                    elseif ($webkit13OrHigher || !stripos($user_agent, 'AppleWebkit')) {
+                    elseif (!stripos($user_agent, 'AppleWebkit')) {
                         $directives['filename*'] = 'UTF-8\'\''.$encoded_name;
                     }
                 }
@@ -192,7 +190,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
 
         //Set cache-control header to most conservative value.
         if (!$request->isCacheable()) {
-            $response->headers->set('Cache-Control', array('private', 'no-cache', 'no-store'));
+            $response->headers->set('Cache-Control', array('no-store'));
         }
 
         //Validate the response
@@ -225,6 +223,13 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         // See: http://support.microsoft.com/default.aspx?scid=KB;EN-US;q316431
         if ($request->isSecure() && preg_match('#(?:MSIE |Internet Explorer/)(?:[0-9.]+)#', $request->getAgent())) {
             $response->headers->set('Cache-Control', '');
+        }
+
+        //Add request time in seconds
+        if($start = $response->getRequest()->getTime())
+        {
+            $time  = (microtime(true) - $start) * 1000;
+            $response->headers->set('Server-Timing', 'tot;desc="Total";dur='.(int) $time);
         }
 
         //Send headers and content

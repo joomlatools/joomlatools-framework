@@ -125,15 +125,6 @@ class ComKoowaControllerError extends KControllerView
 
             //Remove the first trace containing the call to KExceptionHandler
             unset($traces[0]);
-
-            //Get trace from xdebug if enabled
-            if($exception instanceof KExceptionFailure && extension_loaded('xdebug') && xdebug_is_enabled())
-            {
-                $stack = array_reverse(xdebug_get_function_stack());
-                $trace = debug_backtrace(PHP_VERSION_ID >= 50306 ? DEBUG_BACKTRACE_IGNORE_ARGS : false);
-
-                $traces = array_diff_key($stack, $trace);
-            }
         }
         else $traces = $exception->getTrace();
 

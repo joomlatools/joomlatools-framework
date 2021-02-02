@@ -183,6 +183,11 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             $this->setVersion('1.0');
         }
 
+        //Set the request time
+        if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
+            $this->setTime($_SERVER['REQUEST_TIME_FLOAT']);
+        }
+
         //Set request data
         if($this->getContentType() == 'application/x-www-form-urlencoded')
         {
@@ -234,7 +239,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             'cookies' => $_COOKIE,
             'files'   => $_FILES,
             'proxies' => array(),
-            'origins' => array()
+            'origins' => array(),
         ));
 
         parent::_initialize($config);
@@ -493,16 +498,6 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
             if (($this->_url->scheme == 'http' && $port != 80) || ($this->_url->scheme == 'https' && $port != 443)) {
                 $this->_url->port = $port;
-            }
-
-            //Set the user
-            if(isset($_SERVER['PHP_AUTH_USER']))
-            {
-                $this->_url->user = $_SERVER['PHP_AUTH_USER'];
-
-                if(isset($_SERVER['PHP_AUTH_PW'])) {
-                    $this->_url->pass = $_SERVER['PHP_AUTH_PW'];
-                }
             }
         }
 
@@ -877,19 +872,16 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
-     * Gets the etags
+     * Gets the etag
      *
      * @link https://tools.ietf.org/html/rfc7232#page-14
      *
-     * @return array The entity tags
+     * @return string|null The entity tag, or null if the etag header doesn't exist
      */
-    public function getETags()
+    public function getETag()
     {
-        $result = array();
-        if($this->_headers->has('If-None-Match'))
+        if($result = $this->_headers->get('If-None-Match'))
         {
-            $result = preg_split('/\s*,\s*/', $this->_headers->get('If-None-Match'), null, PREG_SPLIT_NO_EMPTY);
-
             //Remove the encoding from the etag
             //
             //RFC-7232 explicitly states that ETags should be content-coding aware

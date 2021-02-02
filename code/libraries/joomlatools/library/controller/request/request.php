@@ -30,6 +30,13 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
     protected $_data;
 
     /**
+     * The timestamp of the start of the request, with microsecond precision
+     *
+     * @var float
+     */
+    protected $_time;
+
+    /**
      * Constructor
      *
      * @param KObjectConfig|null $config  An optional ObjectConfig object with configuration options
@@ -43,6 +50,9 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
 
         //Set data parameters
         $this->setData($config->data);
+
+        //Set the time
+        $this->setTime($config->time);
     }
 
     /**
@@ -59,9 +69,32 @@ class KControllerRequest extends KHttpRequest implements KControllerRequestInter
             'query'  => array(),
             'data'   => array(),
             'format' => 'html',
+            'time'   => microtime(true)
         ));
 
         parent::_initialize($config);
+    }
+
+    /**
+     * The timestamp of the start of the request, with microsecond precision
+     *
+     * @return float
+     */
+    public function getTime()
+    {
+        return $this->_time;
+    }
+
+    /**
+     *T he timestamp of the start of the request, with microsecond precision
+     *
+     * @param $time
+     * @return $thi
+     */
+    public function setTime($time)
+    {
+        $this->_time = $time;
+        return $this;
     }
 
     /**

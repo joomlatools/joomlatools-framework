@@ -3,7 +3,7 @@ components:
   files:
     branch: master
   activities:
-    branch: "v3.1.6"
+    branch: "v3.1.7"
   scheduler:
     branch: "v1.3.1"
   migrator:
