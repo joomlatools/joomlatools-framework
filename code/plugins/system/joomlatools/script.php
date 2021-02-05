@@ -9,6 +9,78 @@
 
 class PlgSystemJoomlatoolsInstallerScript
 {
+    public function __construct($installer)
+    {
+        $this->_disableLogman1And2Permanently();
+
+        if(version_compare(JVERSION, '4', '<')) {
+            $dispatcher = JEventDispatcher::getInstance();
+            $disableLogmanDuringInstallation = Closure::bind(function() {
+                foreach ($this->_observers as $key => $observer)
+                {
+                    if (is_object($observer)
+                        && (substr(get_class($observer), 0, 9) === 'PlgLogman' || get_class($observer) === 'PlgSystemKoowa')) {
+                        $this->detach($observer);
+                    }
+                }
+            }, $dispatcher, $dispatcher);
+
+            $disableLogmanDuringInstallation();
+        } else {
+            $dispatcher = JFactory::getApplication()->getDispatcher();
+            $disableLogmanDuringInstallation = Closure::bind(function() {
+                foreach ($this->getListeners() as $event => $listeners)
+                {
+                    foreach ($listeners as $listener) {
+                        if (is_object($listener)) {
+                            if ((substr(get_class($listener), 0, 9) === 'PlgLogman' || get_class($listener) === 'PlgSystemKoowa')) {
+                                $this->removeListener($event, $listener);
+                            }
+                            else if ($listener instanceof Closure) {
+                                $fn = new ReflectionFunction($listener);
+                                $closureThis = get_class($fn->getClosureThis());
+                                if (substr($closureThis, 0, 9) === 'PlgLogman' || $closureThis === 'PlgSystemKoowa') {
+                                    $this->removeListener($event, $listener);
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }, $dispatcher, $dispatcher);
+
+            $disableLogmanDuringInstallation();
+        }
+    }
+
+    protected function _disableLogman1And2Permanently()
+    {
+        $logman_manifest = JPATH_ADMINISTRATOR.'/components/com_logman/logman.xml';
+        if (file_exists($logman_manifest))
+        {
+            $manifest = simplexml_load_file($logman_manifest);
+
+            if ($manifest && $manifest->version)
+            {
+                $version = (string)$manifest->version;
+
+                if ($version && version_compare($version, '3', '<'))
+                {
+                    $db = JFactory::getDbo();
+
+                    $query = "UPDATE #__extensions SET enabled = 0 WHERE type='plugin' AND folder='koowa' AND element='logman'";
+                    $db->setQuery($query)->execute();
+
+                    $query = "UPDATE #__extensions SET enabled = 0 WHERE type='plugin' AND folder='system' AND element='logman'";
+                    $db->setQuery($query)->execute();
+
+                    $query = "UPDATE #__modules SET published = 0 WHERE module='mod_logman'";
+                    $db->setQuery($query)->execute();
+                }
+            }
+        }
+    }
+
     public function preflight($type, $installer)
     {
         if (defined('JOOMLATOOLS_PLATFORM')) {
@@ -384,7 +456,12 @@ class PlgSystemJoomlatoolsInstallerScript
 
         require_once $path;
 
-        $dispatcher = JFactory::getApplication()->getDispatcher();
+        if (version_compare(JVERSION, '4', '<')) {
+            $dispatcher = JEventDispatcher::getInstance();
+        } else {
+            $dispatcher = JFactory::getApplication()->getDispatcher();
+        }
+
         $className  = 'PlgSystemJoomlatools';
 
         // Constructor does all the work in the plugin
