@@ -154,6 +154,13 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 </style>
                 ";
                     }
+                } else { // Joomla 3
+                    if (!KTemplateHelperBehavior::isLoaded('k-ui-j3')) {
+                        $classes = array_map('json_encode', ['k-ui-j3', 'k-ui-j3-' . JFactory::getApplication()->getName()]);
+                        $html .= '<script data-inline type="text/javascript">document.documentElement.classList.add('.implode(", ",$classes).');</script>';
+
+                        KTemplateHelperBehavior::setLoaded('k-ui-j3');
+                    }
                 }
             }
         }
