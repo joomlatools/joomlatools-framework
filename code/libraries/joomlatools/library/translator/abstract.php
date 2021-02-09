@@ -98,7 +98,7 @@ abstract class KTranslatorAbstract extends KObject implements KTranslatorInterfa
         {
             $class = $manager->getClass('lib:translator.cache');
 
-            if(call_user_func(array($class, 'isSupported'))/*$class::isSupported()*/)
+            if($class::isSupported())
             {
                 $instance = $instance->decorate('lib:translator.cache');
                 $instance->setNamespace($config->cache_namespace);
