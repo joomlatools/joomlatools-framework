@@ -35,7 +35,7 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli
 
         $this->getConnection()->set_charset('utf8mb4');
 
-        if(JFactory::getApplication()->getCfg('caching')) {
+        if(JFactory::getConfig()->get('caching')) {
             $this->_cache = JFactory::getCache('com_koowa.tables', 'output');
         }
     }

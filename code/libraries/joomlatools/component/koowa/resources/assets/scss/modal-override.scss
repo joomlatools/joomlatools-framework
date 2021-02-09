@@ -24,7 +24,7 @@ $modal-height: 900px;
  * Overriding styles make sure we get the most space out of it (at least on our views)
  */
 
-.k-joomla-modal-override {
+.k-joomla-modal-override-j3 {
   opacity: 1;
   width: $modal-width !important;
   max-width: 90% !important;
@@ -99,5 +99,17 @@ $modal-height: 900px;
   & > #sbox-content > iframe {
     width: 100% !important;
     height: 100% !important;
+  }
+}
+
+/**
+ * Joomla 4
+ */
+.k-joomla-modal-override-j4 {
+  .modal-body {
+    padding: 0;
+  }
+  .modal-footer {
+    display: none;
   }
 }

@@ -11,5 +11,8 @@ $k-icon-path: '../../framework/fonts' !default;
 // Joomla styling
 // ==========================================================================
 
-@import "icomoon";
+.k-ui-j3 {
+  @import "icomoon";
+}
+
 @import "styles";

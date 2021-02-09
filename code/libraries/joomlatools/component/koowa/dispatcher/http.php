@@ -47,7 +47,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
             'event_subscribers' => array('unauthorized'),
             'user'              => 'com:koowa.user',
             'limit'             => array(
-                'default' => JFactory::getApplication()->getCfg('list_limit'),
+                'default' => JFactory::getConfig()->get('list_limit'),
                 'max'     => 100
             ),
         ));

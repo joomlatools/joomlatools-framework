@@ -25,7 +25,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::koowa($config);
@@ -41,7 +41,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::vue($config);
@@ -57,7 +57,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::modernizr($config);
@@ -73,7 +73,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::kodekitui($config);
@@ -83,7 +83,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::modal($config);
@@ -104,7 +104,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         $html = '';
@@ -136,7 +136,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         $html = '';
@@ -172,7 +172,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::validator($config);
@@ -190,7 +190,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::select2($config);
@@ -211,7 +211,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::tree($config);
@@ -232,7 +232,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
         }
 
         $config->append(array(
-            'debug'          => JFactory::getApplication()->getCfg('debug'),
+            'debug'          => JFactory::getConfig()->get('debug'),
             'server_offset'  => JFactory::getConfig()->get('offset'),
             'first_week_day' => JFactory::getLanguage()->getFirstDay(),
             'options'        => array(
@@ -255,7 +255,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug')
+            'debug' => JFactory::getConfig()->get('debug')
         ));
 
         return parent::alpine($config);
