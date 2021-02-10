@@ -130,7 +130,7 @@ class KTemplateEngineFactory extends KObject implements KObjectSingleton
             );
         }
 
-        $types = call_user_func(array($class, 'getFileTypes'));/*$class::getFileTypes();*/
+        $types = $class::getFileTypes();
 
         if (!empty($types))
         {
@@ -175,7 +175,7 @@ class KTemplateEngineFactory extends KObject implements KObjectSingleton
                 );
             }
 
-            $types = call_user_func(array($class, 'getFileTypes'));/*$class::getFileTypes();*/
+            $types = $class::getFileTypes();
 
         }
         else $types = (array) $identifier;
@@ -246,7 +246,7 @@ class KTemplateEngineFactory extends KObject implements KObjectSingleton
                 );
             }
 
-            $types = call_user_func(array($class, 'getFileTypes'));/*$class::getFileTypes();*/
+            $types = $class::getFileTypes();
         }
         else $types = (array) $identifier;
 
