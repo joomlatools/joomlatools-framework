@@ -520,7 +520,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         if (is_numeric($query) || is_string($query) || (is_array($query) && is_numeric(key($query))))
         {
             $key = $this->getIdentityColumn();
-            $query = $this->getObject('lib:database.query.select')
+            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getAdapter()])
                 ->where('tbl.'.$key . ' IN :' . $key)
                 ->bind(array($key => (array)$query));
         }
@@ -528,7 +528,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         if (is_array($query) && !is_numeric(key($query)))
         {
             $columns = $this->mapColumns($query);
-            $query = $this->getObject('lib:database.query.select');
+            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getAdapter()]);
 
             foreach ($columns as $column => $value)
             {
@@ -638,7 +638,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         if (is_array($query) && !is_numeric(key($query)))
         {
             $columns = $this->mapColumns($query);
-            $query = $this->getObject('lib:database.query.select');
+            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getAdapter()]);
 
             foreach ($columns as $column => $value)
             {
@@ -671,7 +671,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
     public function insert(KDatabaseRowInterface $row)
     {
         // Create query object.
-        $query = $this->getObject('lib:database.query.insert')
+        $query = $this->getObject('lib:database.query.insert', ['adapter' => $this->getAdapter()])
             ->table($this->getBase());
 
         //Create commandchain context
@@ -719,7 +719,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
     public function update(KDatabaseRowInterface $row)
     {
         // Create query object.
-        $query = $this->getObject('lib:database.query.update')
+        $query = $this->getObject('lib:database.query.update', ['adapter' => $this->getAdapter()])
             ->table($this->getBase());
 
         // Create commandchain context.
@@ -772,7 +772,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
     public function delete(KDatabaseRowInterface $row)
     {
         // Create query object.
-        $query = $this->getObject('lib:database.query.delete')
+        $query = $this->getObject('lib:database.query.delete', ['adapter' => $this->getAdapter()])
             ->table($this->getBase());
 
         //Create commandchain context
