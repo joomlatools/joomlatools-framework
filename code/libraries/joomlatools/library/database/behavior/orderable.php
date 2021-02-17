@@ -154,7 +154,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
         $table  = $this->getTable();
         $db     = $table->getAdapter();
         
-        $query = $this->getObject('lib:database.query.select')
+        $query = $this->getObject('lib:database.query.select', ['adapter' => $db])
             ->columns('MAX(ordering)')
             ->table($table->getName());
 
