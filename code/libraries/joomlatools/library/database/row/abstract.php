@@ -644,12 +644,6 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      */
     public function __clone()
     {
-        foreach ($this->_mixed_methods as $method => $object)
-        {
-            if (is_object($object) && !($object instanceof Closure)){
-                $this->_mixed_methods[$method] = $object;
-            }
-        }
     }
 
     /**
