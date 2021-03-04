@@ -638,6 +638,15 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
     }
 
     /**
+     * Overridden to NOT clone the mixed methods as we want the behaviors to be shared between rows
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+    }
+
+    /**
      * Search the mixin method map and call the method or trigger an error
      *
      * This function implements a just in time mixin strategy. Available table behaviors are only mixed when needed.
