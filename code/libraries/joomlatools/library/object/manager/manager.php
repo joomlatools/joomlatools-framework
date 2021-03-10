@@ -598,7 +598,7 @@ final class KObjectManager implements KObjectInterface, KObjectManagerInterface,
     {
         if ($delegate instanceof KObjectDecoratable)
         {
-            $decorators = $identifier->getDecorators();
+            $decorators = (array) KObjectConfig::unbox($delegate->getDecorators());
 
             foreach ($decorators as $key => $value)
             {

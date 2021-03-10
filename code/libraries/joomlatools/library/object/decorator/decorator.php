@@ -123,4 +123,14 @@ abstract class KObjectDecorator extends KObjectDecoratorAbstract implements KObj
     {
         return $this->getDelegate()->getConfig($identifier);
     }
+
+    /**
+     * Get the object decorators
+     *
+     * @return KObjectConfig
+     */
+    public function getDecorators()
+    {
+        return $this->getDelegate()->getDecorators();
+    }
 }

@@ -28,4 +28,11 @@ interface KObjectDecoratable
      * @throws  UnexpectedValueException If the decorator does not extend from KObjectDecorator
      */
     public function decorate($decorator, $config = array());
+
+    /**
+     * Get the object decorators
+     *
+     * @return KObjectConfig
+     */
+    public function getDecorators();
 }
