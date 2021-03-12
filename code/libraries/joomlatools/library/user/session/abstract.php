@@ -199,10 +199,11 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
      *
      * @param   boolean $refresh If true, force a new token to be created
      * @return  string  The session token
+     * @deprecated CSRF tokens are removed in favor of origin checks
      */
     public function getToken($refresh = false)
     {
-        return $this->getContainer('metadata')->getToken($refresh);
+        return '';
     }
 
     /**
