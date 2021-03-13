@@ -175,7 +175,7 @@ class KDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorAbstract
                 }
 
                 //Ensure the user has an account already
-                if($this->_check_user && $this->getObject('user.provider')->load($username)->getId() == 0) {
+                if($this->_check_user && $this->getUser($username)->getId() == 0) {
                     throw new KControllerExceptionRequestNotAuthenticated('User Not Found');
                 }
 
@@ -205,7 +205,7 @@ class KDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorAbstract
     protected function _loginUser($username, $data = array())
     {
         //Set user data in context
-        $data = $this->getObject('user.provider')->load($username)->toArray();
+        $data = $this->getUser($username)->toArray();
         $data['authentic'] = true;
 
         $this->getObject('user')->setData($data);

@@ -17,6 +17,8 @@
  */
 abstract class KControllerAbstract extends KObject implements KControllerInterface, KCommandCallbackDelegate
 {
+    use KUserTrait;
+
     /**
      * The class actions
      *
@@ -37,13 +39,6 @@ abstract class KControllerAbstract extends KObject implements KControllerInterfa
      * @var	string|object
      */
     protected $_request;
-
-    /**
-     * User object or identifier
-     *
-     * @var	string|object
-     */
-    protected $_user;
 
     /**
      * Has the controller been dispatched
@@ -71,7 +66,7 @@ abstract class KControllerAbstract extends KObject implements KControllerInterfa
         $this->_response = $config->response;
 
         // Set the user identifier
-        $this->_user = $config->user;
+        $this->setUser($config->user);
 
         // Mixin the behavior (and command) interface
         $this->mixin('lib:behavior.mixin', $config);
@@ -303,43 +298,6 @@ abstract class KControllerAbstract extends KObject implements KControllerInterfa
         }
 
         return $this->_response;
-    }
-
-    /**
-     * Set the user object
-     *
-     * @param KUserInterface $user A request object
-     * @return KControllerAbstract
-     */
-    public function setUser(KUserInterface $user)
-    {
-        $this->_user = $user;
-        return $this;
-    }
-
-    /**
-     * Get the user object
-     *
-     * @throws UnexpectedValueException	If the user doesn't implement the KUserInterface
-     * @return KUserInterface
-     */
-    public function getUser()
-    {
-        if(!$this->_user instanceof KUserInterface)
-        {
-            $this->_user = $this->getObject($this->_user, array(
-                'request' => $this->getRequest(),
-            ));
-
-            if(!$this->_user instanceof KUserInterface)
-            {
-                throw new UnexpectedValueException(
-                    'User: '.get_class($this->_user).' does not implement KUserInterface'
-                );
-            }
-        }
-
-        return $this->_user;
     }
 
     /**
