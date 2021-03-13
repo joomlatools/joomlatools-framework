@@ -62,7 +62,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
         $content = @file_get_contents($url, false, $context);
 
         if($content === false) {
-            throw new KHttpExceptionError(sprintf('Failed to establish connectiion to: "%s"', $url));
+            throw new KHttpExceptionError(sprintf('Failed to establish connection to: "%s"', $url));
         }
 
         $response = $this->_createResponse($http_response_header);
