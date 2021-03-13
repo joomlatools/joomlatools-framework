@@ -273,16 +273,6 @@ class KObject implements KObjectInterface, KObjectMixable, KObjectHandlable, KOb
     }
 
     /**
-     * Get the object decorators
-     *
-     * @return array An array
-     */
-    public function getDecorators()
-    {
-        return $this->getConfig()->decorators;
-    }
-
-    /**
      * Get an instance of a class based on a class identifier only creating it if it doesn't exist yet.
      *
      * @param   mixed $identifier An KObjectIdentifier, identifier string or object implementing KObjectInterface
