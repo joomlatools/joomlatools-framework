@@ -84,11 +84,7 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
         parent::__construct($config);
 
         //Session write and close handlers are called after destructing objects since PHP 5.0.5.
-        if (version_compare(phpversion(), '5.4.0', '>=')) {
-            session_register_shutdown();
-        } else {
-            register_shutdown_function('session_write_close');
-        }
+        session_register_shutdown();
 
         //Only configure the session if it's not active yet
         if(!$this->isActive())
@@ -203,10 +199,11 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
      *
      * @param   boolean $refresh If true, force a new token to be created
      * @return  string  The session token
+     * @deprecated CSRF tokens are removed in favor of origin checks
      */
     public function getToken($refresh = false)
     {
-        return $this->getContainer('metadata')->getToken($refresh);
+        return '';
     }
 
     /**

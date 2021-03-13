@@ -38,7 +38,7 @@ class ComKoowaViewPageHtml extends ComKoowaViewHtml
     protected function _fetchData(KViewContext $context)
     {
         //Set the language information
-        $language = JFactory::getApplication()->getCfg('language');
+        $language = JFactory::getConfig()->get('language');
 
         $context->data->language  = $language ? $language : 'en-GB';
         $context->data->direction = JFactory::getLanguage()->isRTL() ? 'rtl' : 'ltr';

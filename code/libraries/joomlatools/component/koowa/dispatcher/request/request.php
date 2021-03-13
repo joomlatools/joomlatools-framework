@@ -43,7 +43,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function setFormat($format)
     {
-        if (JFactory::getApplication()->getCfg('sef_suffix') && $format === 'feed') {
+        if (JFactory::getConfig()->get('sef_suffix') && $format === 'feed') {
             $format = 'rss';
         }
 

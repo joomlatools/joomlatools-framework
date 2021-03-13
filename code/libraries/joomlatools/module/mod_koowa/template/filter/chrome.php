@@ -24,11 +24,13 @@ class ModKoowaTemplateFilterChrome extends KTemplateFilterAbstract
     {
         parent::__construct($config);
 
-        include_once JPATH_THEMES . '/system/html/modules.php';
+        if (version_compare(JVERSION, '4', '<')) {
+            include_once JPATH_THEMES . '/system/html/modules.php';
 
-        $template = JFactory::getApplication()->getTemplate();
-        if(file_exists(JPATH_THEMES.'/'.$template.'/html/modules.php')) {
-            include_once JPATH_THEMES.'/'.$template.'/html/modules.php';
+            $template = JFactory::getApplication()->getTemplate();
+            if(file_exists(JPATH_THEMES.'/'.$template.'/html/modules.php')) {
+                include_once JPATH_THEMES.'/'.$template.'/html/modules.php';
+            }
         }
     }
 
@@ -64,18 +66,29 @@ class ModKoowaTemplateFilterChrome extends KTemplateFilterAbstract
         {
             foreach($data->styles as $style)
             {
-                $method = 'modChrome_'.$style;
+                $data->module->style   = implode(' ', $data->styles);
+                $data->module->content = $text;
 
-                // Apply chrome and render module
-                if (function_exists($method))
-                {
-                    $data->module->style   = implode(' ', $data->styles);
-                    $data->module->content = $text;
 
-                    ob_start();
-                    $method($data->module, $data->module->params, $data->attribs);
-                    $data->module->content = ob_get_contents();
-                    ob_end_clean();
+                if (version_compare(JVERSION, '4', '<')) {
+                    $method = 'modChrome_'.$style;
+
+                    // Apply chrome and render module
+                    if (function_exists($method))
+                    {
+                        ob_start();
+                        $method($data->module, $data->module->params, $data->attribs);
+                        $data->module->content = ob_get_contents();
+                        ob_end_clean();
+                    }
+                } else {
+                    $displayData = array(
+                        'module'  => $data->module,
+                        'params'  => $data->module->params,
+                        'attribs' => $data->attribs,
+                    );
+
+                    $data->module->content = \Joomla\CMS\Layout\LayoutHelper::render('chromes.' . $style, $displayData);
                 }
 
                 $text = $data->module->content;

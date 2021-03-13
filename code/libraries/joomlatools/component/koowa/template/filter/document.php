@@ -59,10 +59,31 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
             if (version_compare(JVERSION, '3.7.0', '>=')) {
                 $document = JFactory::getDocument();
+
+                // Copied from \Joomla\CMS\Document\Renderer\Html\MetasRenderer::render
+                if (version_compare(JVERSION, '4.0', '>=')) {
+                    $wa  = $document->getWebAssetManager();
+                    $wc  = [];
+                    foreach ($wa->getAssets('script', true) as $asset) {
+                        if ($asset instanceof \Joomla\CMS\WebAsset\WebAssetAttachBehaviorInterface) {
+                            $asset->onAttachCallback($document);
+                        }
+
+                        if ($asset->getOption('webcomponent')) {
+                            $wc[] = $asset->getUri();
+                        }
+                    }
+
+                    if ($wc) {
+                        $document->addScriptOptions('webcomponents', array_unique($wc));
+                    }
+                }
+
+
                 $options  = $document->getScriptOptions();
 
                 $buffer  = '<script type="application/json" class="joomla-script-options new">';
-                $buffer .= $options ? json_encode($options) : '{}';
+                $buffer .= $options ? json_encode($options, JSON_PRETTY_PRINT) : '{}';
                 $buffer .= '</script>';
 
                 echo $buffer;
@@ -110,6 +131,34 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             foreach ($head['custom'] as $custom) {
                 // Inject custom head scripts right before </head>
                 $text = str_replace('</head>', $custom."\n</head>", $text);
+            }
+
+            if (isset($head['assetManager']) && isset($head['assetManager']['assets'])) {
+                $manager = $head['assetManager']['assets'];
+
+                if (isset($manager['script'])) {
+                    /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
+                    foreach ($manager['script'] as $script) {
+                        if ($script->getOption('webcomponent')) {
+                            continue; // they are loaded by Joomla in core.js
+                        }
+                        $uri = $script->getUri(true);
+                        $attributes = $script->getAttributes();
+
+                        echo sprintf('<ktml:script src="%s" %s />', $uri, $this->buildAttributes($attributes));
+                    }
+                }
+
+
+                if (isset($manager['style'])) {
+                    foreach ($manager['style'] as $style) {
+                        $uri = $style->getUri(true);
+                        $attributes = $script->getAttributes();
+
+                        echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
+                    }
+                }
+
             }
 
             $head = ob_get_clean();

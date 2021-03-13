@@ -71,6 +71,11 @@ final class ComKoowaUserProvider extends KUserProvider
 
             $user->setParameters($params);
 
+            // Get params from the protected property
+            $getParams   = Closure::bind(function() {
+                return $this->_params->toArray();
+            }, $user, $user);
+
             $data = array(
                 'id'         => $user->id,
                 'email'      => $user->email,
@@ -83,7 +88,7 @@ final class ComKoowaUserProvider extends KUserProvider
                 'authentic'  => !$user->guest,
                 'enabled'    => !$user->block,
                 'expired'    => (bool) $user->activation,
-                'attributes' => $user->getParameters()->toArray()
+                'attributes' => $getParams()
             );
 
             $user = $this->create($data);

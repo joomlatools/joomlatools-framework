@@ -34,7 +34,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
         parent::__construct($config);
 
         $this->_applications = KObjectConfig::unbox($config->applications);
-        $this->_application  = $this->setApplication($config->application);
+        $this->setApplication($config->application);
     }
 
     protected function _initialize(KObjectConfig $config)
@@ -111,6 +111,11 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
     {
         $current = JFactory::getApplication();
 
+        // Joomla 4 is not always pushing Itemid to the query
+        if (version_compare(JVERSION, '4', '>=') && $current->input->exists('Itemid')) {
+            $query['Itemid'] = $current->input->getInt('Itemid');
+        }
+
         if ($current->getName() !== $this->getApplication())
         {
             $application = JApplicationCms::getInstance($this->getConfig()->application);
@@ -132,7 +137,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             $route = $route->toString(array('path', 'query', 'fragment'));
 
             // Check if we need to remove "administrator" from the path
-            if ($current->isAdmin() && $application->getName() == 'site')
+            if ($current->isClient('administrator') && $application->getName() == 'site')
             {
                 $base = JUri::base('true');
 

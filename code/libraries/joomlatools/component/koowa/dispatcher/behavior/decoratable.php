@@ -53,7 +53,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         {
             $app = JFactory::getApplication();
 
-            if ($app->isSite()) {
+            if ($app->isClient('site')) {
                 $app->setTemplate('system');
             }
         }

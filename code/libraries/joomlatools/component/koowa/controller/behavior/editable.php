@@ -40,7 +40,7 @@ class ComKoowaControllerBehaviorEditable extends KControllerBehaviorEditable
      */
     public function findReferrer(KControllerContextInterface $context)
     {
-        if(JFactory::getApplication()->isSite())
+        if(JFactory::getApplication()->isClient('site'))
         {
             $redirect = sprintf('index.php?Itemid=%d', $context->request->query->Itemid);
             $referrer = $this->getObject('lib:http.url', array('url' => JRoute::_($redirect, false)));

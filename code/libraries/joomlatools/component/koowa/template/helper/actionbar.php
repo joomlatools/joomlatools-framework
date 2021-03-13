@@ -38,7 +38,7 @@ class ComKoowaTemplateHelperActionbar extends KTemplateHelperActionbar
      */
     public function command($config = array())
     {
-        if (JFactory::getApplication()->isSite())
+        if (JFactory::getApplication()->isClient('site'))
         {
             $config = new KObjectConfigJson($config);
             $config->append(array(

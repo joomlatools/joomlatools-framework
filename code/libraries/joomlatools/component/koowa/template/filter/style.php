@@ -80,7 +80,11 @@ class ComKoowaTemplateFilterStyle extends KTemplateFilterStyle
                     unset($attribs['src']);
                     unset($attribs['condition']);
 
-                    JFactory::getDocument()->addStyleSheet($link, 'text/css', null, $attribs);
+                    if (defined('JOOMLATOOLS_PLATFORM')) {
+                        JFactory::getDocument()->addStyleSheet($link, 'text/css', null, $attribs);
+                    } else {
+                        JFactory::getDocument()->addStyleSheet($link, [], $attribs);
+                    }
                 }
             }
         }
