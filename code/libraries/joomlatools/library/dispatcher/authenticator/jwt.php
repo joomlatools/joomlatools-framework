@@ -205,13 +205,13 @@ class KDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorAbstract
     protected function _loginUser($username, $data = array())
     {
         //Set user data in context
-        $data = $this->getUser($username)->toArray();
-        $data['authentic'] = true;
+        $data = $this->getUser($username);
+        $data->authentic = true;
 
-        $this->getObject('user')->setData($data);
+        $this->setUser($data);
 
         // Explicitly authenticate user
-        $this->getObject('user')->setAuthentic();
+        $this->getUser()->setAuthentic();
 
         return true;
     }

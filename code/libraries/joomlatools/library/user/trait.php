@@ -30,7 +30,12 @@ trait KUserTrait
      */
     public function setUser($user)
     {
-        $this->__user = $user;
+        if($this->__user instanceof KUserInterface && $user instanceof KUserInterface) {
+            $this->__user->setData($user->toArray());
+        } else {
+            $this->__user = $user;
+        }
+
         return $this;
     }
 
