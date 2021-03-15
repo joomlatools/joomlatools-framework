@@ -47,7 +47,7 @@ trait KUserTrait
         {
             if(!$this->__user instanceof KUserInterface)
             {
-                $this->__user = $this->getObject($this->__user ?? 'lib:user');
+                $this->__user = $this->getObject(isset($this->__user) ? $this->__user : 'lib:user');
 
                 if(!$this->__user instanceof KUserInterface)
                 {
