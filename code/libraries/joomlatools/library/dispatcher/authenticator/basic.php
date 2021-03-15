@@ -141,13 +141,13 @@ class KDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorAbstract
     protected function _loginUser($username, $data = array())
     {
         //Set user data in context
-        $data = $this->getUser($username);
-        $data->authentic = true;
+        $data = $this->getUser($username)->toArray();
+        $data['authentic'] = true;
 
-        $this->setUser($data);
+        $this->getObject('user')->setData($data);
 
         // Explicitly authenticate user
-        $this->getUser()->setAuthentic();
+        $this->getObject('user')->setAuthentic();
 
         return true;
     }
