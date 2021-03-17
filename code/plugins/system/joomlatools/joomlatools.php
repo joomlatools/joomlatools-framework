@@ -165,11 +165,6 @@ class PlgSystemJoomlatools extends JPlugin
                 $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(JURI::base(), '/\\'))));
             }
 
-            //Exception Handling
-            if (PHP_SAPI !== 'cli') {
-                $manager->getObject('event.publisher')->addListener('onException', array($this, 'onException'), KEvent::PRIORITY_LOW);
-            }
-
             /**
              * Plugin Bootstrapping
              */
@@ -185,18 +180,6 @@ class PlgSystemJoomlatools extends JPlugin
         }
 
         return false;
-    }
-
-    /**
-     * Low priority catch-all exception listener
-     *
-     * Catch exceptions if no other event listener has handled them yet and direct them to the http dispatcher.
-     *
-     * @param KEventException $event
-     */
-    public function onException(KEventException $event)
-    {
-        KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
     }
 
     /**

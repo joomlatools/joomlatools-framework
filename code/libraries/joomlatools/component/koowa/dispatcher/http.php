@@ -25,9 +25,6 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         parent::__construct($config);
 
         $this->addCommandCallback('before.dispatch', '_enableExceptionHandler');
-
-        //Render an exception before sending the response
-        $this->addCommandCallback('before.fail', '_renderError');
     }
 
     /**
@@ -79,84 +76,6 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
     protected function _revertExceptionHandler(KDispatcherContextInterface $context)
     {
         $this->getObject('exception.handler')->disable(KExceptionHandlerInterface::TYPE_EXCEPTION);
-    }
-
-    /**
-     * Render an exception
-     *
-     * @throws InvalidArgumentException If the action parameter is not an instance of Exception
-     * @param KDispatcherContextInterface $context  A dispatcher context object
-     * @return boolean|null
-     */
-    protected function _renderError(KDispatcherContextInterface $context)
-    {
-        $request   = $context->request;
-        $response  = $context->response;
-
-        //Check an exception was passed
-        if(!isset($context->param) && !$context->param instanceof KException)
-        {
-            throw new InvalidArgumentException(
-                "Action parameter 'exception' [KException] is required"
-            );
-        }
-
-        //Get the exception object
-        if($context->param instanceof KEventException) {
-            $exception = $context->param->getException();
-        } else {
-            $exception = $context->param;
-        }
-
-        //Make sure the output buffers are cleared
-        $level = ob_get_level();
-        while($level > 0) {
-            ob_end_clean();
-            $level--;
-        }
-
-        //Render the error
-        if(!JDEBUG && $request->getFormat() == 'html')
-        {
-            //If the error code does not correspond to a status message, use 500
-            $code = $exception->getCode();
-            if(!isset(KHttpResponse::$status_messages[$code])) {
-                $code = '500';
-            }
-
-            if(ini_get('display_errors')) {
-                $message = $exception->getMessage();
-            } else {
-                $message = KHttpResponse::$status_messages[$code];
-            }
-
-            $message = $this->getObject('translator')->translate($message);
-
-            $class = get_class($exception);
-            $error = new $class($message, $exception->getCode());
-            JErrorPage::render($error);
-
-            JFactory::getApplication()->close(0);
-
-            return false;
-        }
-        else
-        {
-            //Render the exception if debug mode is enabled or if we are returning json
-            if(in_array($request->getFormat(), array('json', 'html')))
-            {
-                $config = array(
-                    'request'  => $request,
-                    'response' => $response
-                );
-
-                $result = $this->getObject('com:koowa.controller.error',  $config)
-                    ->layout('default')
-                    ->render($exception);
-
-                $response->setContent($result);
-            }
-        }
     }
 
     /**
