@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Event\Subscriber
  */
-class ComKoowaEventSubscriberException extends KEventSubscriberException
+class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
 {
     protected function _initialize(KObjectConfig $config)
     {
@@ -31,12 +31,12 @@ class ComKoowaEventSubscriberException extends KEventSubscriberException
      * @param KDispatcherContextInterface $context  A dispatcher context object
      * @return boolean|null
      */
-    public function onException(KEventException $event)
+    public function onException(KEvent $event)
     {
         $request   = $this->getObject('request');
         $response  = $this->getObject('response');
 
-        $exception = $event->getException();
+        $exception = $event->exception;
 
         //If the error code does not correspond to a status message, use 500
         $code = $exception->getCode();

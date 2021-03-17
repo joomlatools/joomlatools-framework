@@ -24,9 +24,9 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
         parent::_initialize($config);
     }
 
-    public function onException(KEventException $event)
+    public function onException(KEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->exception;
 
         /**
          * Redirect user to login screen

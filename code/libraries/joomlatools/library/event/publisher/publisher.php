@@ -13,4 +13,4 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Event\Publisher
  */
-class KEventPublisher extends KEventPublisherException implements KObjectSingleton {}
+class KEventPublisher extends KEventPublisherAbstract implements KObjectSingleton {}
