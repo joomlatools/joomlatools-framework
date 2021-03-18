@@ -405,10 +405,10 @@ class KFilterHtml extends KFilterAbstract implements KFilterTraversable
         $source = strtr($source, $ttr);
 
         // convert decimal
-        $source = preg_replace('/&#(\d+);/me', "chr(\\1)", $source); // decimal notation
+        $source = preg_replace('/&#(\d+);/m', "chr(\\1)", $source); // decimal notation
 
         // convert hex
-        $source = preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source); // hex notation
+        $source = preg_replace('/&#x([a-f0-9]+);/mi', "chr(0x\\1)", $source); // hex notation
         return $source;
     }
 }
