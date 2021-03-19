@@ -51,6 +51,13 @@ class Koowa
     protected $_vendor_path;
 
     /**
+     * The object manager
+     *
+     * @var KObjectManager
+     */
+    private static $__object_manager;
+
+    /**
      * Constructor
      *
      * Prevent creating instances of this class by making the constructor private
@@ -121,6 +128,9 @@ class Koowa
 
         //Warm-up the stream factory
         $manager->getObject('lib:filesystem.stream.factory');
+
+        //Store the object manager
+        self::$__object_manager = $manager;
     }
 
     /**
@@ -185,5 +195,21 @@ class Koowa
     public function getBasePath()
     {
         return $this->_base_path;
+    }
+
+    /**
+     * Proxy static method calls to the object manager
+     *
+     * @param  string     $method    The function name
+     * @param  array      $arguments The function arguments
+     * @throws \BadMethodCallException  If method is called statically before Kodekit has been instantiated.
+     * @return mixed The result of the method
+     */
+    public static function __callStatic($method, $arguments)
+    {
+        if(self::$__object_manager instanceof KObjectManager) {
+            return self::$__object_manager->$method(...$arguments);
+        }
+        else throw new \BadMethodCallException('Cannot call method: $s. Koowa has not been instantiated', $method);
     }
 }
