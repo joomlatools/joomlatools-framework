@@ -25,17 +25,6 @@ trait ComKoowaEventTrait
     private $__event_handlers = [];
 
     /**
-     * Converts a callable into a string for hashing
-     *
-     * @param string|closure $handler
-     * @return string
-     */
-    private function __getEventHandlerHash($handler)
-    {
-        return $handler instanceof Closure ? spl_object_hash($handler) : serialize($handler);
-    }
-
-    /**
      * Attach a Joomla event handler
      *
      * In Joomla 4 it wraps the event handler into a lambda function to unpack arguments from the event object
@@ -105,5 +94,16 @@ trait ComKoowaEventTrait
         }
 
         return $this;
+    }
+
+    /**
+     * Converts a callable into a string for hashing
+     *
+     * @param string|closure $handler
+     * @return string
+     */
+    private function __getEventHandlerHash($handler)
+    {
+        return $handler instanceof Closure ? spl_object_hash($handler) : serialize($handler);
     }
 }
