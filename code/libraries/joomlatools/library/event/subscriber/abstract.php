@@ -60,7 +60,7 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
     {
         $config->append(array(
             'priority' => self::PRIORITY_NORMAL,
-            'enable'   => true,
+            'enabled'   => true,
         ));
 
         parent::_initialize($config);
@@ -132,7 +132,7 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
      */
     public function isEnabled()
     {
-        return $this->getConfig()->enable;
+        return $this->getConfig()->enabled;
     }
 
     /**
