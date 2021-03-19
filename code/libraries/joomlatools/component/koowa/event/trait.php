@@ -63,18 +63,15 @@ trait ComKoowaEventTrait
                 if (isset($arguments['result']))
                 {
                     $allResults = $arguments['result'];
-
                     unset($arguments['result']);
                 }
 
                 // Convert to indexed array for unpacking.
                 $arguments = \array_values($arguments);
-
-                $result = $handler(...$arguments);
+                $result    = $handler(...$arguments);
 
                 // Ignore null results
-                if ($result === null)
-                {
+                if ($result === null) {
                     return;
                 }
 
