@@ -50,10 +50,10 @@ trait ComKoowaEventTrait
             $handler = array($this, $handler);
         }
 
-        if (class_exists('JEventDispatcher')) {
-            JEventDispatcher::getInstance()->attach(['event' => $event, 'handler' => $handler]);
-        } else {
-            $this->__event_handlers[$this->__getEventHandlerHash($handler)] = function($event) use($handler) {
+        if (version_compare(JVERSION, '4.0', '>='))
+        {
+            $this->__event_handlers[$this->__getEventHandlerHash($handler)] = function($event) use($handler)
+            {
                 // Get the event arguments
                 $arguments = $event->getArguments();
 
@@ -82,10 +82,8 @@ trait ComKoowaEventTrait
                 $allResults[]    = $result;
                 $event['result'] = $allResults;
             };
-
-            JFactory::getApplication()->getDispatcher()->addListener($event, $this->__event_handlers[$this->__getEventHandlerHash($handler)]);
         }
-
+        else  JEventDispatcher::getInstance()->attach(['event' => $event, 'handler' => $handler]);
 
         return $this;
     }
@@ -103,10 +101,10 @@ trait ComKoowaEventTrait
             $handler = array($this, $handler);
         }
 
-        if (class_exists('JEventDispatcher')) {
-            JEventDispatcher::getInstance()->detach(['event' => $event, 'handler' => $handler]);
-        } else {
+        if (version_compare(JVERSION, '4.0', '>=')) {
             JFactory::getApplication()->getDispatcher()->removeListener($event, $this->__event_handlers[$this->__getEventHandlerHash($handler)]);
+        } else {
+            JEventDispatcher::getInstance()->detach(['event' => $event, 'handler' => $handler]);
         }
 
         return $this;
