@@ -46,13 +46,13 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
     {
         if(!defined('JOOMLATOOLS_PLATFORM'))
         {
-            $query = $this->getObject('lib:database.query.select')
+            $query = $this->getObject('database')->getQuery('select')
                 ->table('template_styles')
                 ->columns('template')
                 ->where('client_id = :client_id AND home = :home')
                 ->bind(array('client_id' => 0, 'home' => 1));
 
-            $template = $this->getObject('lib:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
+            $template = $this->getObject('database')->getAdapter()->select($query, KDatabase::FETCH_FIELD);
         }
         else  $template = JFactory::getApplication()->getTemplate();
 

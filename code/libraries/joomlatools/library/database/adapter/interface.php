@@ -199,4 +199,12 @@ interface KDatabaseAdapterInterface
      * @return string|array The quoted identifier name (or array of names).
      */
     public function quoteIdentifier($spec);
+
+    /**
+     * Returns a query object with the current adapter set
+     *
+     * @param string|KObjectIdentifier $identifier Query type (e.g. `select`, `insert`) or a full identifier
+     * @return KDatabaseQueryInterface
+     */
+    public function getQuery($identifier);
 }

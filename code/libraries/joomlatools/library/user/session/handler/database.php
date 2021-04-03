@@ -150,7 +150,8 @@ class KUserSessionHandlerDatabase extends KUserSessionHandlerAbstract
 
         if ($this->getTable()->isConnected())
         {
-            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getTable()->getAdapter()])
+
+            $query = $this->getTable()->getAdapter()->getQuery('select')
                 ->where('time < :time')
                 ->bind(array('time' => (int)(time() - $maxlifetime)));
 
