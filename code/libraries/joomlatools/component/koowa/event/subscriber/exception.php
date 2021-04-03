@@ -34,8 +34,6 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
     public function onException(KEvent $event)
     {
         $request   = $this->getObject('request');
-        $response  = $this->getObject('response');
-
         $exception = $event->exception;
 
         //Make sure the output buffers are cleared
@@ -80,8 +78,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
                 //Set status code (before rendering the error)
                 $dispatcher->getResponse()->setStatus($code);
 
-                //Set the controller
-                $content = $this->getObject('com:koowa.controller.error')
+                $content = $this->getObject('com:koowa.controller.error',  ['request'  => $request])
                     ->render($exception);
 
                 //Set error in the response
