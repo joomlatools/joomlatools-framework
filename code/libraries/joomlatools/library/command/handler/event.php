@@ -145,7 +145,7 @@ final class KCommandHandlerEvent extends KCommandHandlerAbstract implements KObj
         $event_generic  = 'on'.ucfirst($when).ucfirst($type).$name;
 
         // Clone the context
-        if($this->_immutable) {
+        if($this->isImmutable()) {
             $event = clone($command);
         } else {
             $event = $command;
@@ -159,6 +159,11 @@ final class KCommandHandlerEvent extends KCommandHandlerAbstract implements KObj
         {
             $event->setName($event_generic);
             $this->getEventPublisher()->publishEvent($event);
+        }
+
+        // Replace the attributes
+        if(!$this->isImmutable()) {
+            $command->setAttributes($event->getAttributes());
         }
     }
 
