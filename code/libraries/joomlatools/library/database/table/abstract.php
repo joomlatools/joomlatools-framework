@@ -71,7 +71,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
 
         $this->_name = $config->name;
         $this->_base = $config->base;
-        $this->_adapter = $config->adapter ?? $this->getObject('database')->getAdapter();
+        $this->_adapter = $config->adapter ?? $this->getObject('database');
 
         //Check if the table exists
         if (!$info = $this->getSchema()) {

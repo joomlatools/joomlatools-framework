@@ -61,7 +61,7 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
                     'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
                 ));
 
-            $template = $this->getObject('database')->getAdapter()->select($query, KDatabase::FETCH_FIELD);
+            $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
         }
         else $template = JFactory::getApplication()->getTemplate();
 

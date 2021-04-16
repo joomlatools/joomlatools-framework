@@ -26,7 +26,8 @@ class KDatabaseAdapterSqlite extends KDatabaseAdapterPdo
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'driver'    => 'sqlite',
+            'driver'       => 'sqlite',
+            'auto_connect' => true,
         ));
 
         parent::_initialize($config);

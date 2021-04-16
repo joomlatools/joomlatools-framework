@@ -52,7 +52,7 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
                 ->where('client_id = :client_id AND home = :home')
                 ->bind(array('client_id' => 0, 'home' => 1));
 
-            $template = $this->getObject('database')->getAdapter()->select($query, KDatabase::FETCH_FIELD);
+            $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
         }
         else  $template = JFactory::getApplication()->getTemplate();
 

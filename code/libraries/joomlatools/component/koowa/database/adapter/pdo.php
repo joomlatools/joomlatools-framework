@@ -25,8 +25,6 @@ class ComKoowaDatabaseAdapterPdo extends KDatabaseAdapterPdo
     /**
      * Constructor
      *
-     * Prevent creating instances of this class by making the constructor private
-     *
      * @param   KObjectConfig $config Configuration options
      */
     public function __construct(KObjectConfig $config)
@@ -68,10 +66,6 @@ class ComKoowaDatabaseAdapterPdo extends KDatabaseAdapterPdo
             $conf = JFactory::getConfig();
             $host = $conf->get('host');
 
-            /*
-             * Unlike mysql_connect(), mysqli_connect() takes the port and socket as separate arguments. Therefore, we
-             * have to extract them from the host string.
-             */
             $tmp = substr(strstr($host, ':'), 1);
             if (!empty($tmp))
             {
