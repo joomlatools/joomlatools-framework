@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Database\Adapter
  */
-class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KObjectMultiton
+class ComKoowaDatabaseAdapterPdo extends KDatabaseAdapterPdo
 {
     /**
      * The cache object
@@ -25,15 +25,11 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
     /**
      * Constructor
      *
-     * Prevent creating instances of this class by making the constructor private
-     *
      * @param   KObjectConfig $config Configuration options
      */
     public function __construct(KObjectConfig $config)
     {
         parent::__construct($config);
-
-        $this->getConnection()->set_charset('utf8mb4');
 
         if(JFactory::getConfig()->get('caching')) {
             $this->_cache = JFactory::getCache('com_koowa.tables', 'output');
@@ -58,9 +54,10 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
         ));
 
         //Set the database connection
-        if (($db instanceof JDatabaseDriverMysqli || $db instanceof Joomla\Database\Mysqli\MysqliDriver) && $db->getConnection() instanceof mysqli)
+        if (($db instanceof JDatabaseDriverPdomysql || $db instanceof Joomla\Database\Mysql\MysqlDriver) && $db->getConnection() instanceof \PDO)
         {
             $config->append(array(
+                'driver'       => 'mysql',
                 'connection'   => $db->getConnection(),
             ));
         }
@@ -69,10 +66,6 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
             $conf = JFactory::getConfig();
             $host = $conf->get('host');
 
-            /*
-             * Unlike mysql_connect(), mysqli_connect() takes the port and socket as separate arguments. Therefore, we
-             * have to extract them from the host string.
-             */
             $tmp = substr(strstr($host, ':'), 1);
             if (!empty($tmp))
             {
@@ -100,6 +93,7 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
             }
 
             $config->append(array(
+                'driver'       => 'mysql',
                 'auto_connect' => true,
                 'host'         => $host,
                 'username'     => $conf->get('user'),

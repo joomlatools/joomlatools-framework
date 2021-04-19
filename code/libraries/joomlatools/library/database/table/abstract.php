@@ -71,7 +71,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
 
         $this->_name = $config->name;
         $this->_base = $config->base;
-        $this->_adapter = $config->adapter;
+        $this->_adapter = $config->adapter ?? $this->getObject('database');
 
         //Check if the table exists
         if (!$info = $this->getSchema()) {
@@ -125,7 +125,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         $name = $this->getIdentifier()->name;
 
         $config->append(array(
-            'adapter'           => 'lib:database.adapter.mysqli',
+            'adapter'           => null,
             'name'              => empty($package) ? $name : $package . '_' . $name,
             'column_map'        => null,
             'filters'           => array(),
@@ -520,7 +520,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         if (is_numeric($query) || is_string($query) || (is_array($query) && is_numeric(key($query))))
         {
             $key = $this->getIdentityColumn();
-            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getAdapter()])
+            $query = $this->getAdapter()->getQuery('select')
                 ->where('tbl.'.$key . ' IN :' . $key)
                 ->bind(array($key => (array)$query));
         }
@@ -528,7 +528,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         if (is_array($query) && !is_numeric(key($query)))
         {
             $columns = $this->mapColumns($query);
-            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getAdapter()]);
+            $query = $this->getAdapter()->getQuery('select');
 
             foreach ($columns as $column => $value)
             {
@@ -638,7 +638,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
         if (is_array($query) && !is_numeric(key($query)))
         {
             $columns = $this->mapColumns($query);
-            $query = $this->getObject('lib:database.query.select', ['adapter' => $this->getAdapter()]);
+            $query = $this->getAdapter()->getQuery('select');
 
             foreach ($columns as $column => $value)
             {
