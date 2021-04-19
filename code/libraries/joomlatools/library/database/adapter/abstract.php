@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Database\Adapter
  */
-abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdapterInterface, KObjectMultiton
+abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdapterInterface
 {
     /**
      * Active state of the connection
