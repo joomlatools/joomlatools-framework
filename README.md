@@ -39,7 +39,7 @@ compatibility is not guaranteed.
 ## Requirements
 
 * Joomla 3.6 or newer
-* PHP 5.4 or newer
+* PHP 7.3 or newer
 * MySQL 5.x
 
 ## Installation
