@@ -302,6 +302,7 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
                 switch ($token)
                 {
                     //Proxy registered functions through __call()
+                    case T_EMPTY:
                     case T_STRING :
 
                         if(isset($this->_functions[$content]) )
