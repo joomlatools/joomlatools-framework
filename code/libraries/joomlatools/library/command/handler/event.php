@@ -162,8 +162,8 @@ final class KCommandHandlerEvent extends KCommandHandlerAbstract implements KObj
         }
 
         // Replace the attributes
-        if(!$this->isImmutable()) {
-            $command->setAttributes($event->getAttributes());
+        if(!$this->isImmutable() && is_scalar($event->result)) {
+            $command->result = $event->result;
         }
     }
 
