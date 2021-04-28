@@ -27,7 +27,7 @@ class KEvent extends KObjectConfig implements KEventInterface
     /**
      * The event name
      *
-     * @var array
+     * @var string
      */
     protected $_name;
 

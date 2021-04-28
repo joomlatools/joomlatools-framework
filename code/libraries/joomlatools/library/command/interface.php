@@ -46,6 +46,21 @@ interface KCommandInterface
     public function setSubject($subject);
 
     /**
+     * Get the command result
+     *
+     * @return mixed The command result
+     */
+    public function getResult();
+
+    /**
+     * Set the command result
+     *
+     * @param mixed $subject The command result
+     * @return KCommand
+     */
+    public function setResult($result);
+
+    /**
      * Set attributes
      *
      * Overwrites existing attributes

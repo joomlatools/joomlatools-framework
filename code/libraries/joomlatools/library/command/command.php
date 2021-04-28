@@ -16,9 +16,9 @@
 class KCommand extends KObjectConfig implements KCommandInterface
 {
     /**
-     * The event name
+     * The command name
      *
-     * @var array
+     * @var string
      */
     protected $_name;
 
@@ -28,6 +28,13 @@ class KCommand extends KObjectConfig implements KCommandInterface
      * @var mixed
      */
     protected $_subject;
+
+    /**
+     * The command result
+     *
+     * @var mixed
+     */
+    protected $_result;
 
     /**
      * Constructor.
@@ -85,6 +92,28 @@ class KCommand extends KObjectConfig implements KCommandInterface
     public function setSubject($subject)
     {
         $this->_subject = $subject;
+        return $this;
+    }
+
+    /**
+     * Get the command result
+     *
+     * @return mixed The command result
+     */
+    public function getResult()
+    {
+        return $this->_result;
+    }
+
+    /**
+     * Set the command result
+     *
+     * @param mixed $subject The command result
+     * @return KCommand
+     */
+    public function setResult($result)
+    {
+        $this->_result = $result;
         return $this;
     }
 
