@@ -57,16 +57,20 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
         $app = JFactory::getApplication();
         if ($app->isClient('site'))
         {
-            $uri     = clone JURI::getInstance();
+            try {
+                $uri    = clone JURI::getInstance();
+                $router = JFactory::getApplication()->getRouter();
+                $result = $router->parse($uri);
 
-            $router = JFactory::getApplication()->getRouter();
-            $result = $router->parse($uri);
-
-            foreach ($result as $key => $value)
-            {
-                if (!$request->query->has($key)) {
-                    $request->query->set($key, $value);
+                foreach ($result as $key => $value)
+                {
+                    if (!$request->query->has($key)) {
+                        $request->query->set($key, $value);
+                    }
                 }
+            }
+            catch (\Exception $e) {
+                if (JDEBUG) { throw $e; }
             }
         }
 
