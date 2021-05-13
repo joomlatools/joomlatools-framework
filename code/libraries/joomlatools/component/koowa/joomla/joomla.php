@@ -10,6 +10,17 @@
 /**
  * Wrapper around Joomla calls
  *
+ * This class wraps Joomla calls in the framework in a class so they can be mocked, replaced, or augmented as needed.
+ * For example JApplication instance can be reached with `$this->getObject('joomla')->app or you can get the database
+ * driver with `$this->getObject('joomla')->db`
+ *
+ * Certain Joomla classes with static methods such as `JPluginHelper` or `JHtml` are proxied with anonymous classes.
+ * For example `$this->getObject('joomla')->pluginHelper->importPlugin('user');` calls `JPluginHelper::importPlugin`
+ *
+ * Constants such as `JPATH_ROOT` can be reached with `$this->getObject('joomla')->getPath('root')`
+ *
+ * Some methods like `isSite`, `isAdmin`, or `isDebug` are provided for convenience.
+ *
  * @method   \Joomla\CMS\Application\BaseApplication app($id = null, array $config = array(), $prefix = 'J')
  * @method   \Joomla\CMS\Application\BaseApplication application($id = null, array $config = array(), $prefix = 'J')
  * @method   \Joomla\CMS\Cache\CacheController cache($group = '', $handler = 'callback', $storage = null)
