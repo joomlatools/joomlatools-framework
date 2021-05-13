@@ -32,7 +32,7 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
      */
     public function onAfterApplicationInitialise(KEventInterface $event)
     {
-        if(JFactory::getUser()->guest)
+        if($this->getObject('joomla')->user->guest)
         {
             $authenticator = $this->getObject('com:koowa.dispatcher.authenticator.jwt');
 
@@ -54,12 +54,11 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
     {
         $request = $this->getObject('request');
 
-        $app = JFactory::getApplication();
-        if ($app->isClient('site'))
+        if ($this->getObject('joomla')->isSite())
         {
             try {
-                $uri    = clone JURI::getInstance();
-                $router = JFactory::getApplication()->getRouter();
+                $uri    = clone $this->getObject('joomla')->uri->getInstance();
+                $router = $this->getObject('joomla')->app->getRouter();
                 $result = $router->parse($uri);
 
                 foreach ($result as $key => $value)
@@ -70,7 +69,7 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
                 }
             }
             catch (\Exception $e) {
-                if (JDEBUG) { throw $e; }
+                if ($this->getObject('joomla')->isDebug()) { throw $e; }
             }
         }
 
@@ -96,7 +95,7 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
             }
 
             foreach($group as $message) {
-                JFactory::getApplication()->enqueueMessage($message, $type);
+                $this->getObject('joomla')->app->enqueueMessage($message, $type);
             }
         }
     }

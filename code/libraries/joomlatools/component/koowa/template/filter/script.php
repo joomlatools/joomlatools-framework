@@ -62,9 +62,9 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
                     if($condition)
                     {
                         $script = parent::_renderTag($attribs, $content);
-                        JFactory::getDocument()->addCustomTag($script);
+                        $this->getObject('joomla')->document->addCustomTag($script);
                     }
-                    else JFactory::getDocument()->addScriptDeclaration($script);
+                    else $this->getObject('joomla')->document->addScriptDeclaration($script);
 
                     $this->_loaded[$hash] = true;
                 }
@@ -76,14 +76,14 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
                     if($condition)
                     {
                         $script = parent::_renderTag($attribs, $content);
-                        JFactory::getDocument()->addCustomTag($script);
+                        $this->getObject('joomla')->document->addCustomTag($script);
                     }
                     else
                     {
                         $defer = isset($attribs['defer']);
                         $async = isset($attribs['async']);
 
-                        JFactory::getDocument()->addScript($link, 'text/javascript', $defer, $async);
+                        $this->getObject('joomla')->document->addScript($link, 'text/javascript', $defer, $async);
                     }
                 }
                 else
@@ -101,7 +101,7 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
                         unset($attribs['condition']);
                     }
 
-                    JFactory::getDocument()->addScript($link, $options, $attribs);
+                    $this->getObject('joomla')->document->addScript($link, $options, $attribs);
                 }
             }
         }

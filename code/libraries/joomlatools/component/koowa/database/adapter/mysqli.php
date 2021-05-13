@@ -35,8 +35,8 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
 
         $this->getConnection()->set_charset('utf8mb4');
 
-        if(JFactory::getConfig()->get('caching')) {
-            $this->_cache = JFactory::getCache('com_koowa.tables', 'output');
+        if($this->getObject('joomla')->config->get('caching')) {
+            $this->_cache = $this->getObject('joomla')->cache('com_koowa.tables', 'output');
         }
     }
 
@@ -50,7 +50,7 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $db = JFactory::getDbo();
+        $db = $this->getObject('joomla')->db;
 
         //Set the table prefix
         $config->append(array(
@@ -66,7 +66,7 @@ class ComKoowaDatabaseAdapterMysqli extends KDatabaseAdapterMysqli implements KO
         }
         else
         {
-            $conf = JFactory::getConfig();
+            $conf = $this->getObject('joomla')->config;
             $host = $conf->get('host');
 
             /*

@@ -52,7 +52,7 @@ class ComKoowaDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorBasic
     {
         $config->append(array(
             'options' => array(
-                'action'       => JFactory::getApplication()->isClient('site') ? 'core.login.site' : 'core.login.admin',
+                'action'       => $this->getObject('joomla')->isSite() ? 'core.login.site' : 'core.login.admin',
                 'autoregister' => false,
                 'type'         => 'basic'
             ),
@@ -72,13 +72,13 @@ class ComKoowaDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorBasic
     {
         $data['username'] = $username;
 
-        $parameter        = JFactory::getApplication()->isClient('administrator') ? 'admin_language' : 'language';
+        $parameter        = $this->getObject('joomla')->isAdmin() ? 'admin_language' : 'language';
         $data['language'] = $this->getUser($username)->get($parameter);
 
         $options = $this->_options;
 
-        JPluginHelper::importPlugin('user');
-        $results = JFactory::getApplication()->triggerEvent('onUserLogin', array($data, $options));
+        $this->getObject('joomla')->pluginHelper->importPlugin('user');
+        $results = $this->getObject('joomla')->app->triggerEvent('onUserLogin', array($data, $options));
 
         // The user is successfully logged in. Refresh the current user.
         if (in_array(false, $results, true) == false)
@@ -87,7 +87,7 @@ class ComKoowaDispatcherAuthenticatorBasic extends KDispatcherAuthenticatorBasic
 
             // Publish the onUserAfterLogin event to make sure that user instances are synced (see: ComKoowaEventSubscriberUser::onAfterUserLogin)
             $this->getObject('event.publisher')
-                 ->publishEvent('onAfterUserLogin', array('user' => JFactory::getUser($username)), JFactory::getApplication());
+                 ->publishEvent('onAfterUserLogin', array('user' => $this->getObject('joomla')->user($username)), $this->getObject('joomla')->app);
 
             return true;
         }

@@ -63,7 +63,7 @@ class ComKoowaTemplateHelperListbox extends KTemplateHelperListbox
             $prompt = array((object) array('value' => $config->deselect_value, 'text'  => $config->prompt.'&nbsp;'));
         }
 
-        $html = JHtml::_('access.level', $config->name, $config->selected, $config->attribs->toArray(), $prompt);
+        $html = $this->getObject('joomla')->htmlHelper->_('access.level', $config->name, $config->selected, $config->attribs->toArray(), $prompt);
 
         if ($config->select2)
         {

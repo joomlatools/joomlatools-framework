@@ -81,7 +81,7 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
             if(isset($data['modules']))
             {
                 foreach($data['modules'] as $name => $content) {
-                    JFactory::getDocument()->setBuffer($content, 'modules', $name);
+                    $this->getObject('joomla')->document->setBuffer($content, 'modules', $name);
                 }
             }
 
@@ -110,7 +110,7 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
             {
                 $data['component'] = (string) $view->getTemplate()->render();
 
-                $buffer = JFactory::getDocument()->getBuffer();
+                $buffer = $this->getObject('joomla')->document->getBuffer();
                 if(isset($buffer['modules'])) {
                     $data['modules'] = array_intersect_key($buffer['modules'], array_flip($this->_modules));
                 }
@@ -214,11 +214,11 @@ class ComKoowaControllerBehaviorCacheable extends KControllerBehaviorAbstract
      * @param string $group
      * @param string $handler
      * @param null   $storage
-     * @return JCacheController
+     * @return \Joomla\CMS\Cache\CacheController
      */
     protected function _getCache($group = '', $handler = 'callback', $storage = null)
     {
-        return JFactory::getCache($group, $handler, $storage);
+        return $this->getObject('joomla')->cache($group, $handler, $storage);
     }
 
     /**

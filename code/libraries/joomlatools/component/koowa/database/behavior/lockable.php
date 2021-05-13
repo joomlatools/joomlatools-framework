@@ -26,7 +26,7 @@ class ComKoowaDatabaseBehaviorLockable extends KDatabaseBehaviorLockable
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'lifetime'   =>  JFactory::getSession()->getExpire()
+            'lifetime'   =>  $this->getObject('joomla')->session->getExpire()
         ));
 
         parent::_initialize($config);

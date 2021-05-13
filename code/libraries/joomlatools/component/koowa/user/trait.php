@@ -39,7 +39,7 @@ trait ComKoowaUserTrait
      */
     public function getParameter($key, $default = null)
     {
-        return JFactory::getUser()->getParam($key, $default);
+        return $this->getObject('joomla')->user->getParam($key, $default);
     }
 
     /**
@@ -165,6 +165,6 @@ trait ComKoowaUserTrait
      */
     public function authorise($action, $assetname = null)
     {
-        return JFactory::getUser()->authorise($action, $assetname);
+        return $this->getObject('joomla')->user->authorise($action, $assetname);
     }
 }

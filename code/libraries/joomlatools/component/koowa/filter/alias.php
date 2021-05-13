@@ -52,7 +52,7 @@ class ComKoowaFilterAlias extends KFilterSlug implements KFilterTraversable
      */
     public function sanitize($value)
     {
-        $value = \Joomla\CMS\Application\ApplicationHelper::stringURLSafe($value);
+        $value = $this->getObject('joomla')->applicationHelper->stringURLSafe($value);
 
         //limit length
         if (mb_strlen($value) > $this->_length) {

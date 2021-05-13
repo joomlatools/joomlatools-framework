@@ -25,7 +25,7 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'editor'    => JFactory::getConfig()->get('editor'),
+            'editor'    => $this->getObject('joomla')->config->get('editor'),
             'name'      => 'description',
             'value'     => '',
             'width'     => '100%',
@@ -39,7 +39,7 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
         // Add editor styles and scripts in JDocument to page when rendering
         $this->getIdentifier('com:koowa.view.page.html')->getConfig()->append(['template_filters' => ['document']]);
 
-        $editor  = JEditor::getInstance($config->editor);
+        $editor  = $this->getObject('joomla')->editor($config->editor);
         $options = KObjectConfig::unbox($config->options);
 
         $result = $editor->display($config->name, $config->value, $config->width, $config->height, $config->cols, $config->rows, KObjectConfig::unbox($config->buttons), $config->name, null, null, $options);

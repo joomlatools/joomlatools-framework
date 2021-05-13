@@ -24,7 +24,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $url = clone $this->getBaseUrl();
 
-        if(JFactory::getApplication()->getName() == 'administrator')
+        if($this->getObject('joomla')->isAdmin())
         {
             // Replace the application name only once since it's possible that
             // we can run from http://localhost/administrator/administrator
@@ -43,7 +43,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function setFormat($format)
     {
-        if (JFactory::getConfig()->get('sef_suffix') && $format === 'feed') {
+        if ($this->getObject('joomla')->config->get('sef_suffix') && $format === 'feed') {
             $format = 'rss';
         }
 
@@ -59,7 +59,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $port = parent::getPort();
 
-        if (JUri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
+        if ($this->getObject('joomla')->uri->getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
             $port = '443';
         }
 
@@ -73,7 +73,7 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function isSecure()
     {
-        return JUri::getInstance()->isSsl() ? true : parent::isSecure();
+        return $this->getObject('joomla')->uri->getInstance()->isSsl() ? true : parent::isSecure();
     }
 
     /**

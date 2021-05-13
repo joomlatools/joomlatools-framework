@@ -9,8 +9,8 @@
 
 defined('KOOWA') or die;
 
-$app             = JFactory::getApplication();
-$doc             = JFactory::getDocument();
+$app             = object('joomla')->app;
+$doc             = object('joomla')->document;
 $language  = $doc->language;
 $direction = $doc->direction;
 

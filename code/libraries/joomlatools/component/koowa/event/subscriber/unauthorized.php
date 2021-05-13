@@ -42,10 +42,10 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
             {
                 $message = $this->getObject('translator')->translate('You are not authorized to access this resource. Please login and try again.');
 
-                if(JFactory::getApplication()->isClient('site')) {
-                    $url = JRoute::_('index.php?option=com_users&view=login&return='.base64_encode((string) $request->getUrl()), false);
+                if($this->getObject('joomla')->isSite()) {
+                    $url = $this->getObject('joomla')->route('index.php?option=com_users&view=login&return='.base64_encode((string) $request->getUrl()), false);
                 } else {
-                    $url = JRoute::_('index.php', false);
+                    $url = $this->getObject('joomla')->route('index.php', false);
                 }
 
                 $response->setRedirect($url, $message, 'error');
@@ -60,11 +60,11 @@ class ComKoowaEventSubscriberUnauthorized extends KEventSubscriberAbstract
          *
          * If a user does not have access to the entity after logging out, they will be redirected to the homepage.
          */
-        if($exception instanceof KHttpExceptionNotFound && JFactory::getApplication()->isClient('site'))
+        if($exception instanceof KHttpExceptionNotFound && $this->getObject('joomla')->isSite())
         {
-            $hash = JApplicationHelper::getHash('PlgSystemLogout');
+            $hash = $this->getObject('joomla')->applicationHelper->getHash('PlgSystemLogout');
 
-            $app = JFactory::getApplication();
+            $app = $this->getObject('joomla')->app;
             if ($app->input->cookie->getString($hash, null)) // just logged out
             {
                 $app->enqueueMessage(JText::_('PLG_SYSTEM_LOGOUT_REDIRECT'));

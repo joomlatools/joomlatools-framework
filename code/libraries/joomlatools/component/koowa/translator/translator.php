@@ -26,7 +26,7 @@ class ComKoowaTranslator extends KTranslator
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'locale'  => JFactory::getConfig()->get('language'),
+            'locale'  => $this->getObject('joomla')->config->get('language'),
         ));
 
         parent::_initialize($config);
@@ -81,7 +81,7 @@ class ComKoowaTranslator extends KTranslator
             {
                 foreach ($locales as $locale)
                 {
-                    if (!JFactory::getLanguage()->load($extension, $base, $locale, true, false))
+                    if (!$this->getObject('joomla')->language->load($extension, $base, $locale, true, false))
                     {
                         $file = glob(sprintf('%s/language/%s.*', $base, $locale));
 

@@ -140,7 +140,7 @@ abstract class ComKoowaTranslatorCatalogueAbstract extends KTranslatorCatalogueA
             if (isset($this->_aliases[$lowercase])) {
                 $key = $this->_aliases[$lowercase];
             }
-            else if(!JFactory::getLanguage()->hasKey($string))
+            else if(!$this->getObject('joomla')->language->hasKey($string))
             {
                 if (substr($string, 0, strlen($this->getPrefix())) === $this->getPrefix()) {
                     $key = $string;
@@ -151,7 +151,7 @@ abstract class ComKoowaTranslatorCatalogueAbstract extends KTranslatorCatalogueA
             }
             else $key = $string;
 
-            $this->set($lowercase, JFactory::getLanguage()->_($key));
+            $this->set($lowercase, $this->getObject('joomla')->language->_($key));
         }
 
         return parent::get($lowercase);
@@ -167,7 +167,7 @@ abstract class ComKoowaTranslatorCatalogueAbstract extends KTranslatorCatalogueA
     {
         $lowercase = strtolower($string);
 
-        if (!parent::has($lowercase) && !JFactory::getLanguage()->hasKey($string))
+        if (!parent::has($lowercase) && !$this->getObject('joomla')->language->hasKey($string))
         {
             if (isset($this->_aliases[$lowercase])) {
                 $key = $this->_aliases[$lowercase];
@@ -179,7 +179,7 @@ abstract class ComKoowaTranslatorCatalogueAbstract extends KTranslatorCatalogueA
                 $key = $this->getPrefix().$this->generateKey($string);
             }
 
-            $result = JFactory::getLanguage()->hasKey($key);
+            $result = $this->getObject('joomla')->language->hasKey($key);
         }
         else $result = true;
 

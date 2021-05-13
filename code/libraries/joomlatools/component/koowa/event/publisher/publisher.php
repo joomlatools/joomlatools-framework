@@ -49,7 +49,7 @@ final class ComKoowaEventPublisher extends KEventPublisher
             $identifier = $target->getIdentifier()->toArray();
             $package    = $identifier['package'];
 
-            JPluginHelper::importPlugin($package, null, true);
+            $this->getObject('joomla')->pluginHelper->importPlugin($package, null, true);
         }
 
         return parent::publishEvent($event, $attributes, $target);

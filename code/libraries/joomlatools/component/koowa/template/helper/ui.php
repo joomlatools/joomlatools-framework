@@ -25,9 +25,9 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug'),
+            'debug' => $this->getObject('joomla')->isDebug(),
             'wrapper_class' => array(
-                JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
+                $this->getObject('joomla')->language->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
             )
         ));
 
@@ -37,13 +37,13 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         {
             $layout = $this->getTemplate()->getParameters()->layout;
 
-            if (JFactory::getApplication()->isClient('site') && $layout === 'form') {
+            if ($this->getObject('joomla')->isSite() && $layout === 'form') {
                 $config->domain = 'admin';
             }
         }
 
         $identifier = $this->getTemplate()->getIdentifier();
-        $menu       = JFactory::getApplication()->getMenu()->getActive();
+        $menu       = $this->getObject('joomla')->app->getMenu()->getActive();
 
         if ($identifier->type === 'com' && $menu)
         {
@@ -72,13 +72,13 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug'),
+            'debug' => $this->getObject('joomla')->isDebug(),
             'package' => $identifier->package,
             'domain'  => $identifier->domain
         ))->append(array(
             'folder' => 'com_'.$config->package,
             'file'   => ($identifier->type === 'mod' ? 'module' : $config->domain) ?: 'admin',
-            'media_path' => (defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media'
+            'media_path' => (defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : $this->getObject('joomla')->getPath('root')) . '/media'
         ));
 
         $html = '';
@@ -96,24 +96,24 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         if ($this->getTemplate()->decorator() == 'joomla')
         {
-            $app      = JFactory::getApplication();
+            $app      = $this->getObject('joomla')->app;
             $template = $app->getTemplate();
 
             // Load Bootstrap file if it's explicitly asked for
-            if ($app->isClient('site') && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
+            if ($this->getObject('joomla')->isSite() && file_exists($this->getObject('joomla')->getPath('themes').'/'.$template.'/enable-koowa-bootstrap.txt')) {
                 $html .= $this->getTemplate()->helper('behavior.bootstrap', ['javascript' => false, 'css' => true]);
             }
 
             // Load overrides for the current admin template
-            if ($app->isClient('administrator') && $config->file === 'admin')
+            if ($this->getObject('joomla')->isAdmin() && $config->file === 'admin')
             {
-                if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
+                if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : $this->getObject('joomla')->getPath('root')) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
 
-                if (version_compare(JVERSION, '4.0', '>=')) {
+                if ($this->getObject('joomla')->isVersion4()) {
                     if (!KTemplateHelperBehavior::isLoaded('k-ui-j4')) {
-                        $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
+                        $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.$this->getObject('joomla')->app->getName()]);
                         $html .= '<script data-inline type="text/javascript">
                     document.documentElement.classList.add('.implode(", ",$classes).');
                     
@@ -156,7 +156,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                     }
                 } else { // Joomla 3
                     if (!KTemplateHelperBehavior::isLoaded('k-ui-j3')) {
-                        $classes = array_map('json_encode', ['k-ui-j3', 'k-ui-j3-' . JFactory::getApplication()->getName()]);
+                        $classes = array_map('json_encode', ['k-ui-j3', 'k-ui-j3-' . $this->getObject('joomla')->app->getName()]);
                         $html .= '<script data-inline type="text/javascript">document.documentElement.classList.add('.implode(", ",$classes).');</script>';
 
                         KTemplateHelperBehavior::setLoaded('k-ui-j3');

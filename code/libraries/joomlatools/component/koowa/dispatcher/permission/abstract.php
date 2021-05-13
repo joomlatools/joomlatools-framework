@@ -22,13 +22,13 @@ abstract class ComKoowaDispatcherPermissionAbstract extends KDispatcherPermissio
      */
     public function canDispatch()
     {
-        $app = JFactory::getApplication();
-        if($app->isClient('administrator'))
+        $joomla = KObjectManager::getInstance()->getObject('joomla');
+        if($joomla->isAdmin())
         {
             if(!$this->canManage())
             {
-                $app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-                $app->redirect('index.php');
+                $joomla->app->enqueueMessage($joomla->translate('JERROR_ALERTNOAUTHOR'), 'error');
+                $joomla->app->redirect('index.php');
                 return false;
             }
         }

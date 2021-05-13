@@ -50,7 +50,7 @@ class ComKoowaTemplateFilterLink extends KTemplateFilterLink
             unset($attribs['rel']);
             unset($attribs['href']);
 
-            JFactory::getDocument()->addHeadLink($link, $relValue, $relType, $attribs);
+            $this->getObject('joomla')->document->addHeadLink($link, $relValue, $relType, $attribs);
         }
         else return parent::_renderTag($attribs, $content);
     }

@@ -54,12 +54,12 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
 
             $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
         }
-        else  $template = JFactory::getApplication()->getTemplate();
+        else  $template = $this->getObject('joomla')->app->getTemplate();
 
         $config->append(array(
             'override_paths' => [
-                JPATH_ROOT.'/templates/'.$template.'/html',
-                JPATH_ROOT.'/templates/system/html'
+                $this->getObject('joomla')->getPath('root').'/templates/'.$template.'/html',
+                $this->getObject('joomla')->getPath('root').'/templates/system/html'
             ]
         ));
 
@@ -88,7 +88,7 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
         $file   = pathinfo($info['url'], PATHINFO_FILENAME);
         $format = pathinfo($info['url'], PATHINFO_EXTENSION);
 
-        $base_paths = array(JPATH_ROOT);
+        $base_paths = array($this->getObject('joomla')->getPath('root'));
 
         if (!empty($this->_override_paths)) {
             foreach ($this->_override_paths as $override_path) {

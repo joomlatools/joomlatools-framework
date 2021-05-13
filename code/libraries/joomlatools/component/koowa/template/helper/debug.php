@@ -25,7 +25,7 @@ class ComKoowaTemplateHelperDebug extends KTemplateHelperDebug
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'root'  => JPATH_ROOT,
+            'root'  => $this->getObject('joomla')->getPath('root'),
         ));
 
         return parent::path($config);

@@ -35,7 +35,7 @@ class ComKoowaTranslatorLanguage extends JLanguage
      */
     static public function loadFile($file, $extension, KTranslatorInterface $translator)
     {
-        $lang     = JFactory::getLanguage();
+        $lang     = KObjectManager::getInstance()->getObject('joomla')->language;
         $result   = false;
 
         if (!isset(self::$_paths[$extension][$file]))

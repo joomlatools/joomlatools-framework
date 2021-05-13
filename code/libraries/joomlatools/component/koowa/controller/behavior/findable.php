@@ -132,13 +132,9 @@ class ComKoowaControllerBehaviorFindable extends KControllerBehaviorAbstract
      */
     protected function _trigger($event, $arguments)
     {
-        JPluginHelper::importPlugin('finder');
+        $this->getObject('joomla')->pluginHelper->importPlugin('finder');
 
-        if (class_exists('JEventDispatcher')) {
-            return JEventDispatcher::getInstance()->trigger($event, $arguments);
-        } else {
-            return JFactory::getApplication()->triggerEvent($event, $arguments);
-        }
+        $this->getObject('joomla')->app->triggerEvent($event, $arguments);
     }
 
     /**

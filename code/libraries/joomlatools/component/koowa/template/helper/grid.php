@@ -116,7 +116,7 @@ class ComKoowaTemplateHelperGrid extends KTemplateHelperGrid
             'field'		=> 'access'
         ));
 
-        $db = JFactory::getDbo();
+        $db = $this->getObject('joomla')->db;
         $query = $db->getQuery(true);
 
         $query->select('a.title AS text');

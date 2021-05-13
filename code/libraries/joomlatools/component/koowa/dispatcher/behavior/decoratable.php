@@ -51,10 +51,8 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
     {
         if ($this->getDecorator() != 'joomla')
         {
-            $app = JFactory::getApplication();
-
-            if ($app->isClient('site')) {
-                $app->setTemplate('system');
+            if ($this->getObject('joomla')->isSite()) {
+                $this->getObject('joomla')->app->setTemplate('system');
             }
         }
     }
@@ -96,7 +94,7 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
         if(!$response->isRedirect() && !$response->isDownloadable() && $this->getDecorator() == 'joomla')
         {
             //Contenttype
-            JFactory::getDocument()->setMimeEncoding($response->getContentType());
+            $this->getObject('joomla')->document->setMimeEncoding($response->getContentType());
 
             //Set messages for any request method
             $messages = $response->getMessages();
@@ -107,12 +105,12 @@ class ComKoowaDispatcherBehaviorDecoratable extends KControllerBehaviorAbstract
                 }
 
                 foreach($group as $message) {
-                    JFactory::getApplication()->enqueueMessage($message, $type);
+                    $this->getObject('joomla')->app->enqueueMessage($message, $type);
                 }
             }
 
             //Set the cache state
-            JFactory::getApplication()->allowCache($context->getRequest()->isCacheable());
+            $this->getObject('joomla')->app->allowCache($context->getRequest()->isCacheable());
 
             //Do not flush the response
             return false;

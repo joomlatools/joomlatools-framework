@@ -50,7 +50,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
         }
 
         //Render the error
-        if(!JDEBUG && $request->getFormat() == 'html')
+        if(!$this->getObject('joomla')->isDebug() && $request->getFormat() == 'html')
         {
             if(ini_get('display_errors')) {
                 $message = $exception->getMessage();
@@ -62,9 +62,9 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
 
             $class = get_class($exception);
             $error = new $class($message, $exception->getCode());
-            JErrorPage::render($error);
+            $this->getObject('joomla')->exceptionHandler->render($error);
 
-            JFactory::getApplication()->close(0);
+            $this->getObject('joomla')->app->close(0);
 
             return false;
         }

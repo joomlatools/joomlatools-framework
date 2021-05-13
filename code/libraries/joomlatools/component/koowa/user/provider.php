@@ -29,7 +29,7 @@ final class ComKoowaUserProvider extends KUserProvider
         // Find the user id
         if (!is_numeric($identifier))
         {
-            if(!$identifier = JUserHelper::getUserId($identifier)) {
+            if(!$identifier = $this->getObject('joomla')->userHelper->getUserId($identifier)) {
                 $identifier = 0;
             }
         }
@@ -59,14 +59,14 @@ final class ComKoowaUserProvider extends KUserProvider
      */
     public function fetch($identifier)
     {
-        $table = JUser::getTable();
+        $table = $this->getObject('joomla')->userTable;
 
         if ($table->load($identifier))
         {
-            $user = JUser::getInstance(0);
+            $user = $this->getObject('joomla')->user(0);
             $user->setProperties($table->getProperties());
 
-            $params = new JRegistry;
+            $params = $this->getObject('joomla')->registry;
             $params->loadString($table->params);
 
             $user->setParameters($params);
@@ -83,8 +83,8 @@ final class ComKoowaUserProvider extends KUserProvider
                 'username'   => $user->username,
                 'password'   => $user->password,
                 'salt'       => '',
-                'groups'     => JAccess::getGroupsByUser($user->id),
-                'roles'      => JAccess::getAuthorisedViewLevels($user->id),
+                'groups'     => $this->getObject('joomla')->access->getGroupsByUser($user->id),
+                'roles'      => $this->getObject('joomla')->access->getAuthorisedViewLevels($user->id),
                 'authentic'  => !$user->guest,
                 'enabled'    => !$user->block,
                 'expired'    => (bool) $user->activation,
@@ -122,7 +122,7 @@ final class ComKoowaUserProvider extends KUserProvider
         // Find the user id
         if (!is_numeric($identifier))
         {
-            if(!$identifier = JUserHelper::getUserId($identifier)) {
+            if(!$identifier = $this->getObject('joomla')->userHelper->getUserId($identifier)) {
                 $identifier = 0;
             }
         }
@@ -143,7 +143,7 @@ final class ComKoowaUserProvider extends KUserProvider
         // Find the user id
         if (!is_numeric($identifier))
         {
-            if(!$identifier = JUserHelper::getUserId($identifier)) {
+            if(!$identifier = $this->getObject('joomla')->userHelper->getUserId($identifier)) {
                 $identifier = 0;
             }
         }

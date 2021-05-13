@@ -61,9 +61,9 @@ class ComKoowaTemplateFilterStyle extends KTemplateFilterStyle
                     if($condition)
                     {
                         $script = parent::_renderTag($attribs, $content);
-                        JFactory::getDocument()->addCustomTag($script);
+                        $this->getObject('joomla')->document->addCustomTag($script);
                     }
-                    else JFactory::getDocument()->addStyleDeclaration($content);
+                    else $this->getObject('joomla')->document->addStyleDeclaration($content);
 
                     $this->_loaded[$hash] = true;
                 }
@@ -73,7 +73,7 @@ class ComKoowaTemplateFilterStyle extends KTemplateFilterStyle
                 if($condition)
                 {
                     $style = parent::_renderTag($attribs, $content);
-                    JFactory::getDocument()->addCustomTag($style);
+                    $this->getObject('joomla')->document->addCustomTag($style);
                 }
                 else
                 {
@@ -81,9 +81,9 @@ class ComKoowaTemplateFilterStyle extends KTemplateFilterStyle
                     unset($attribs['condition']);
 
                     if (defined('JOOMLATOOLS_PLATFORM')) {
-                        JFactory::getDocument()->addStyleSheet($link, 'text/css', null, $attribs);
+                        $this->getObject('joomla')->document->addStyleSheet($link, 'text/css', null, $attribs);
                     } else {
-                        JFactory::getDocument()->addStyleSheet($link, [], $attribs);
+                        $this->getObject('joomla')->document->addStyleSheet($link, [], $attribs);
                     }
                 }
             }

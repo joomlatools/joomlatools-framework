@@ -30,6 +30,6 @@ class ComKoowaTemplateHelperDate extends KTemplateHelperDate
             'format'   => $this->getObject('translator')->translate('DATE_FORMAT_LC3')
         ));
 
-        return JHtml::_('date', $config->date, $config->format, $config->timezone);
+        return $this->getObject('joomla')->htmlHelper->_('date', $config->date, $config->format, $config->timezone);
     }
 }

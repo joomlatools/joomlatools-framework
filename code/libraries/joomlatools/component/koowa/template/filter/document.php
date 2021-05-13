@@ -28,8 +28,9 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
     {
         if($this->getTemplate()->decorator() == 'koowa')
         {
-            $head = JFactory::getDocument()->getHeadData();
-            $mime = JFactory::getDocument()->getMimeEncoding();
+            $document = $this->getObject('joomla')->document;
+            $head     = $document->getHeadData();
+            $mime     = $document->getMimeEncoding();
 
             ob_start();
 
@@ -57,54 +58,33 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 echo sprintf('<style type="%s">%s</style>', $type, $content);
             }
 
-            if (version_compare(JVERSION, '3.7.0', '>=')) {
-                $document = JFactory::getDocument();
-
-                // Copied from \Joomla\CMS\Document\Renderer\Html\MetasRenderer::render
-                if (version_compare(JVERSION, '4.0', '>=')) {
-                    $wa  = $document->getWebAssetManager();
-                    $wc  = [];
-                    foreach ($wa->getAssets('script', true) as $asset) {
-                        if ($asset instanceof \Joomla\CMS\WebAsset\WebAssetAttachBehaviorInterface) {
-                            $asset->onAttachCallback($document);
-                        }
-
-                        if ($asset->getOption('webcomponent')) {
-                            $wc[] = $asset->getUri();
-                        }
+            // Copied from \Joomla\CMS\Document\Renderer\Html\MetasRenderer::render
+            if ($this->getObject('joomla')->isVersion4()) {
+                $wa  = $document->getWebAssetManager();
+                $wc  = [];
+                foreach ($wa->getAssets('script', true) as $asset) {
+                    if ($asset instanceof \Joomla\CMS\WebAsset\WebAssetAttachBehaviorInterface) {
+                        $asset->onAttachCallback($document);
                     }
 
-                    if ($wc) {
-                        $document->addScriptOptions('webcomponents', array_unique($wc));
+                    if ($asset->getOption('webcomponent')) {
+                        $wc[] = $asset->getUri();
                     }
                 }
 
-
-                $options  = $document->getScriptOptions();
-
-                $buffer  = '<script type="application/json" class="joomla-script-options new">';
-                $buffer .= $options ? json_encode($options, JSON_PRETTY_PRINT) : '{}';
-                $buffer .= '</script>';
-
-                echo $buffer;
-            } else {
-                // Generate script language declarations.
-                if (count(JText::script()))
-                {
-                    echo '<script type="text/javascript">';
-                    echo '(function() {';
-                    echo 'var strings = ' . json_encode(JText::script()) . ';';
-                    echo 'if (typeof Joomla == \'undefined\') {';
-                    echo 'Joomla = {};';
-                    echo 'Joomla.JText = strings;';
-                    echo '}';
-                    echo 'else {';
-                    echo 'Joomla.JText.load(strings);';
-                    echo '}';
-                    echo '})();';
-                    echo '</script>';
+                if ($wc) {
+                    $document->addScriptOptions('webcomponents', array_unique($wc));
                 }
             }
+
+
+            $options  = $document->getScriptOptions();
+
+            $buffer  = '<script type="application/json" class="joomla-script-options new">';
+            $buffer .= $options ? json_encode($options, JSON_PRETTY_PRINT) : '{}';
+            $buffer .= '</script>';
+
+            echo $buffer;
 
             // Generate script file links
             foreach ($head['scripts'] as $path => $attributes)

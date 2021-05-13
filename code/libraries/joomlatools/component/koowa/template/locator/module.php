@@ -58,17 +58,17 @@ class ComKoowaTemplateLocatorModule extends KTemplateLocatorIdentifier
                 ->columns('template')
                 ->where('client_id = :client_id AND home = :home')
                 ->bind(array(
-                    'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
+                    'client_id' => $this->getObject('joomla')->app->getClientId(), 'home' => 1
                 ));
 
             $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
         }
-        else $template = JFactory::getApplication()->getTemplate();
+        else $template = $this->getObject('joomla')->app->getTemplate();
 
         $config->append([
             'override_paths' => [
-                JPATH_THEMES.'/'.$template.'/html',
-                JPATH_THEMES.'/system/html'         // #117: For backwards compatibility purposes
+                $this->getObject('joomla')->getPath('themes').'/'.$template.'/html',
+                $this->getObject('joomla')->getPath('themes').'/system/html'         // #117: For backwards compatibility purposes
             ]
         ]);
 

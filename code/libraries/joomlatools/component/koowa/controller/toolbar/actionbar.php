@@ -47,7 +47,7 @@ class ComKoowaControllerToolbarActionbar extends KControllerToolbarActionbar
      */
     protected function _beforeRender(KControllerContextInterface $context)
     {
-        JFactory::getLanguage()->load('joomla', JPATH_ADMINISTRATOR);
+        $this->getObject('joomla')->language->load('joomla', $this->getObject('joomla')->getPath('administrator'));
     }
 
     /**
@@ -138,7 +138,7 @@ class ComKoowaControllerToolbarActionbar extends KControllerToolbarActionbar
     {
         $command->label = 'JTOOLBAR_SAVE_AND_NEW';
         $command->icon = 'k-icon-plus k-icon--success';
-    
+
         $command->append(array(
             'attribs' => array(
                 'data-action' => 'save2new'
@@ -175,11 +175,11 @@ class ComKoowaControllerToolbarActionbar extends KControllerToolbarActionbar
     {
         $option = $this->getIdentifier()->package;
 
-        $return = urlencode(base64_encode(JUri::getInstance()));
+        $return = urlencode(base64_encode($this->getObject('joomla')->uri->getInstance()));
         $link   = 'option=com_config&view=component&component=com_'.$option.'&path=&return='.$return;
         
         $command->icon = 'k-icon-cog';
         // Need to do a JRoute call here, otherwise component is turned into option in the query string by our router
-        $command->attribs['href'] = JRoute::_('index.php?'.$link, false);
+        $command->attribs['href'] = $this->getObject('joomla')->route('index.php?'.$link, false);
     }
 }

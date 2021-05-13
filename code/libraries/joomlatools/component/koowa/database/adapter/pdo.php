@@ -31,8 +31,8 @@ class ComKoowaDatabaseAdapterPdo extends KDatabaseAdapterPdo
     {
         parent::__construct($config);
 
-        if(JFactory::getConfig()->get('caching')) {
-            $this->_cache = JFactory::getCache('com_koowa.tables', 'output');
+        if($this->getObject('joomla')->config->get('caching')) {
+            $this->_cache = $this->getObject('joomla')->cache('com_koowa.tables', 'output');
         }
     }
 
@@ -46,7 +46,7 @@ class ComKoowaDatabaseAdapterPdo extends KDatabaseAdapterPdo
      */
     protected function _initialize(KObjectConfig $config)
     {
-        $db = JFactory::getDbo();
+        $db = $this->getObject('joomla')->db;
 
         //Set the table prefix
         $config->append(array(
@@ -63,7 +63,7 @@ class ComKoowaDatabaseAdapterPdo extends KDatabaseAdapterPdo
         }
         else
         {
-            $conf = JFactory::getConfig();
+            $conf = $this->getObject('joomla')->config;
             $host = $conf->get('host');
 
             $tmp = substr(strstr($host, ':'), 1);

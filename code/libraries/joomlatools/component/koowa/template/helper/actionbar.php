@@ -24,7 +24,7 @@ class ComKoowaTemplateHelperActionbar extends KTemplateHelperActionbar
     public function render($config = array())
     {
         // Load the language strings for toolbar button labels
-        JFactory::getLanguage()->load('joomla', JPATH_ADMINISTRATOR);
+        $this->getObject('joomla')->language->load('joomla', $this->getObject('joomla')->getPath('administrator'));
 
         $html = parent::render($config);
 
@@ -38,7 +38,7 @@ class ComKoowaTemplateHelperActionbar extends KTemplateHelperActionbar
      */
     public function command($config = array())
     {
-        if (JFactory::getApplication()->isClient('site'))
+        if ($this->getObject('joomla')->isSite())
         {
             $config = new KObjectConfigJson($config);
             $config->append(array(

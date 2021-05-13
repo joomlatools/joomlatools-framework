@@ -51,8 +51,8 @@ final class ComKoowaExceptionHandler extends KExceptionHandler
         }
         else
         {
-            $level = JDEBUG ? E_ERROR | E_PARSE : self::ERROR_REPORTING;
-            $type  = JDEBUG ? self::TYPE_ALL : false;
+            $level = $this->getObject('joomla')->isDebug() ? E_ERROR | E_PARSE : self::ERROR_REPORTING;
+            $type  = $this->getObject('joomla')->isDebug() ? self::TYPE_ALL : false;
         }
 
         $config->append(array(

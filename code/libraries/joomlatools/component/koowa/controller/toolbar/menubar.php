@@ -65,7 +65,7 @@ class ComKoowaControllerToolbarMenubar extends KControllerToolbarAbstract
     {
         $name     = $this->getController()->getIdentifier()->name;
         $package  = $this->getIdentifier()->package;
-        $manifest = JPATH_ADMINISTRATOR.'/components/com_'.$package.'/'.$package.'.xml';
+        $manifest = $this->getObject('joomla')->getPath('admin').'/components/com_'.$package.'/'.$package.'.xml';
 
         if(file_exists($manifest))
         {

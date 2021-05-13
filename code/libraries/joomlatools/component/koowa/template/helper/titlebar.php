@@ -35,14 +35,14 @@ class ComKoowaTemplateHelperTitlebar extends KTemplateHelperTitlebar
         {
             $html = parent::title($config);
 
-            if (JFactory::getApplication()->isClient('administrator'))
+            if ($this->getObject('joomla')->isAdmin())
             {
-                $app = JFactory::getApplication();
+                $app = $this->getObject('joomla')->app;
                 $app->JComponentTitle = $title;
 
-                $sitename = JFactory::getConfig()->get('sitename');
+                $sitename = $this->getObject('joomla')->config->get('sitename');
 
-                JFactory::getDocument()->setTitle($sitename . ' - ' . JText::_('JADMINISTRATION') . ' - ' . $title);
+                $this->getObject('joomla')->document->setTitle($sitename . ' - ' . $this->getObject('joomla')->translate('JADMINISTRATION') . ' - ' . $title);
             }
         }
 

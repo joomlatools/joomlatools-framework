@@ -35,8 +35,8 @@ class ComKoowaFilesystemStreamBuffer extends KFilesystemStreamBuffer
             $result     = false;
             $candidates = array(
                 ini_get('upload_tmp_dir'),
-                JFactory::getConfig()->get('tmp_path'),
-                JPATH_ROOT.'/tmp'
+                $this->getObject('joomla')->config->get('tmp_path'),
+                $this->getObject('joomla')->getPath('root').'/tmp'
             );
 
             if (function_exists('sys_get_temp_dir')) {

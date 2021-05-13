@@ -37,7 +37,7 @@ class ComKoowaFilterHtml extends KFilterAbstract implements KFilterTraversable
         $value = (string) $value;
 
         if (!empty($value)) {
-            $value = JComponentHelper::filterText($value);
+            $value = $this->getObject('joomla')->componentHelper->filterText($value);
         }
 
         return $value;

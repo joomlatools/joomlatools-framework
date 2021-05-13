@@ -24,7 +24,7 @@ class ComKoowaTemplateHelperBootstrap extends ComKoowaTemplateHelperBehavior
     public function javascript($config = array())
     {
         return $this->getTemplate()->helper('behavior.bootstrap', array(
-            'debug' => JFactory::getConfig()->get('debug'),
+            'debug' => $this->getObject('joomla')->isDebug(),
             'css' => false,
             'javascript' => true
         ));

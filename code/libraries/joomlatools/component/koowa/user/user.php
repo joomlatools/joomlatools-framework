@@ -27,7 +27,7 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
         KObject::__construct($config);
 
         //Set the user properties and attributes
-        $this->setData(JFactory::getUser());
+        $this->setData($this->getObject('joomla')->user);
     }
 
     /**
@@ -52,8 +52,8 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
                 'username'   => $user->username,
                 'password'   => $user->password,
                 'salt'       => '',
-                'groups'     => JAccess::getGroupsByUser($user->id),
-                'roles'      => JAccess::getAuthorisedViewLevels($user->id),
+                'groups'     => $this->getObject('joomla')->access->getGroupsByUser($user->id),
+                'roles'      => $this->getObject('joomla')->access->getAuthorisedViewLevels($user->id),
                 'authentic'  => !$user->guest,
                 'enabled'    => !$user->block,
                 'expired'    => !$user->activation,

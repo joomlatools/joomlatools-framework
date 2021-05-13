@@ -25,7 +25,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::koowa($config);
@@ -41,7 +41,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::vue($config);
@@ -57,7 +57,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::modernizr($config);
@@ -73,7 +73,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::kodekitui($config);
@@ -83,7 +83,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::modal($config);
@@ -104,7 +104,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         $html = '';
@@ -112,11 +112,11 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
         {
             if (!static::isLoaded('jquery'))
             {
-                JHtml::_('jquery.framework');
+                $this->getObject('joomla')->htmlHelper->_('jquery.framework');
 
                 // Can't use JHtml here as it makes a file_exists call on koowa.kquery.js?version
-                $path = JUri::root(true).'/media/koowa/framework/js/koowa.kquery.js?'.substr(md5(Koowa::VERSION), 0, 8);
-                JFactory::getDocument()->addScript($path);
+                $path = $this->getObject('joomla')->uri->root(true).'/media/koowa/framework/js/koowa.kquery.js?'.substr(md5(Koowa::VERSION), 0, 8);
+                $this->getObject('joomla')->document->addScript($path);
 
                 static::setLoaded('jquery');
             }
@@ -136,7 +136,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         $html = '';
@@ -144,13 +144,13 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
         if ($this->getTemplate()->decorator() === 'joomla')
         {
             $config->append([
-                'css' => file_exists(JPATH_THEMES.'/'.JFactory::getApplication()->getTemplate().'/enable-koowa-bootstrap.txt')
+                'css' => file_exists($this->getObject('joomla')->getPath('themes').'/'.$this->getObject('joomla')->app->getTemplate().'/enable-koowa-bootstrap.txt')
             ]);
 
             if ($config->javascript && !static::isLoaded('bootstrap-javascript'))
             {
                 $html .= $this->jquery($config);
-                JHtml::_('bootstrap.framework');
+                $this->getObject('joomla')->htmlHelper->_('bootstrap.framework');
 
                 static::setLoaded('bootstrap-javascript');
 
@@ -172,7 +172,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::validator($config);
@@ -190,7 +190,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::select2($config);
@@ -211,7 +211,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::tree($config);
@@ -232,11 +232,11 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
         }
 
         $config->append(array(
-            'debug'          => JFactory::getConfig()->get('debug'),
-            'server_offset'  => JFactory::getConfig()->get('offset'),
-            'first_week_day' => JFactory::getLanguage()->getFirstDay(),
+            'debug'          => $this->getObject('joomla')->isDebug(),
+            'server_offset'  => $this->getObject('joomla')->config->get('offset'),
+            'first_week_day' => $this->getObject('joomla')->language->getFirstDay(),
             'options'        => array(
-                'language' => JFactory::getLanguage()->getTag(),
+                'language' => $this->getObject('joomla')->language->getTag(),
             )
         ));
 
@@ -255,7 +255,7 @@ class ComKoowaTemplateHelperBehavior extends KTemplateHelperBehavior
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getConfig()->get('debug')
+            'debug' => $this->getObject('joomla')->isDebug()
         ));
 
         return parent::alpine($config);

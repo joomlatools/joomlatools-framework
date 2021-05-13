@@ -48,7 +48,7 @@ class ComKoowaTemplateFilterTitle extends KTemplateFilterTitle
                 $content = $this->getTemplate()->escape($content);
             }
 
-            JFactory::getDocument()->setTitle($content);
+            $this->getObject('joomla')->document->setTitle($content);
         }
         else return parent::_renderTag($attribs, $content);
     }

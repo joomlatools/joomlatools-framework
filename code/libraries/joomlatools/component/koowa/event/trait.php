@@ -39,7 +39,7 @@ trait ComKoowaEventTrait
             $handler = array($this, $handler);
         }
 
-        if (version_compare(JVERSION, '4.0', '>='))
+        if (KObjectManager::getInstance()->getObject('joomla')->isVersion4())
         {
             $this->__event_handlers[$this->__getEventHandlerHash($handler)] = function($event) use($handler)
             {
@@ -69,7 +69,7 @@ trait ComKoowaEventTrait
                 $event['result'] = $allResults;
             };
         }
-        else  JEventDispatcher::getInstance()->attach(['event' => $event, 'handler' => $handler]);
+        else KObjectManager::getInstance()->getObject('joomla')->eventDispatcher->attach(['event' => $event, 'handler' => $handler]);
 
         return $this;
     }
@@ -87,10 +87,10 @@ trait ComKoowaEventTrait
             $handler = array($this, $handler);
         }
 
-        if (version_compare(JVERSION, '4.0', '>=')) {
-            JFactory::getApplication()->getDispatcher()->removeListener($event, $this->__event_handlers[$this->__getEventHandlerHash($handler)]);
+        if (KObjectManager::getInstance()->getObject('joomla')->isVersion4()) {
+            KObjectManager::getInstance()->getObject('joomla')->app->getDispatcher()->removeListener($event, $this->__event_handlers[$this->__getEventHandlerHash($handler)]);
         } else {
-            JEventDispatcher::getInstance()->detach(['event' => $event, 'handler' => $handler]);
+            KObjectManager::getInstance()->getObject('joomla')->eventDispatcher->detach(['event' => $event, 'handler' => $handler]);
         }
 
         return $this;
