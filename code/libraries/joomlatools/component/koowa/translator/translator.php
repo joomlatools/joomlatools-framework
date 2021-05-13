@@ -16,6 +16,13 @@
 class ComKoowaTranslator extends KTranslator
 {
     /**
+     * Associative array containing the list of loaded translations.
+     *
+     * @var array
+     */
+    static protected $_paths;
+
+    /**
      * Initializes the options for the object
      *
      * Called from {@link __construct()} as a first step of object instantiation.
@@ -83,10 +90,10 @@ class ComKoowaTranslator extends KTranslator
                 {
                     if (!$this->getObject('joomla')->language->load($extension, $base, $locale, true, false))
                     {
-                        $file = glob(sprintf('%s/language/%s.*', $base, $locale));
+                        $file = glob(sprintf('%1$s/language/%2$s/%2$s.*', $base, $locale));
 
                         if ($file) {
-                            $loaded[] = ComKoowaTranslatorLanguage::loadFile(current($file), $extension, $this);
+                            $loaded[] = $this->_loadFile(current($file), $extension, $this);
                         }
                     }
                     else $loaded[] = true;
@@ -97,6 +104,78 @@ class ComKoowaTranslator extends KTranslator
         }
 
         return in_array(true, $loaded);
+    }
+
+    /**
+     * Adds file translations to the JLanguage catalogue.
+     *
+     * @param string               $file       The file containing translations.
+     * @param string               $extension  The name of the extension containing the file.
+     * @param KTranslatorInterface $translator The Translator object.
+     *
+     * @return bool True if translations where loaded, false otherwise.
+     */
+    protected function _loadFile($file, $extension, KTranslatorInterface $translator)
+    {
+        $lang     = KObjectManager::getInstance()->getObject('joomla')->language;
+        $result   = false;
+
+        if (!isset(static::$_paths[$extension][$file]))
+        {
+            $strings = $this->_parseFile($file, $translator);
+
+            $closure = Closure::bind(function() use ($strings, $extension, &$result) {
+                if (count($strings))
+                {
+                    ksort($strings, SORT_STRING);
+
+                    $this->strings = array_merge($this->strings, $strings);
+
+                    if (!empty($this->override)) {
+                        $this->strings = array_merge($this->strings, $this->override);
+                    }
+
+                    $result = true;
+                }
+
+                // Record the result of loading the extension's file.
+                if (!isset($this->paths[$extension])) {
+                    $this->paths[$extension] = array();
+                }
+            }, $lang, $lang);
+
+            $closure();
+
+            self::$_paths[$extension][$file] = $result;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Parses a translations file and returns an array of key/values entries.
+     *
+     * @param string               $file       The file to parse.
+     * @param KTranslatorInterface $translator The translator object.
+     * @return array The parse result.
+     */
+    protected function _parseFile($file, KTranslatorInterface $translator)
+    {
+        $strings   = array();
+        $catalogue = $translator->getCatalogue();
+
+        // Catch exceptions if any.
+        try {
+            $translations = $translator->getObject('object.config.factory')->fromFile($file);
+        }  catch (Exception $e) {
+            $translations = array();
+        }
+
+        foreach ($translations as $key => $value) {
+            $strings[$catalogue->getPrefix() . $catalogue->generateKey($key)] = $value;
+        }
+
+        return $strings;
     }
 
     /**
