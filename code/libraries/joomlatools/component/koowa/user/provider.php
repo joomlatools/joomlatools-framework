@@ -27,7 +27,7 @@ final class ComKoowaUserProvider extends KUserProvider
         $user = $this->getObject('user');
 
         // Find the user id
-        if (!is_numeric($identifier))
+        if (class_exists('JUser') && !is_numeric($identifier))
         {
             if(!$identifier = JUserHelper::getUserId($identifier)) {
                 $identifier = 0;
@@ -59,41 +59,45 @@ final class ComKoowaUserProvider extends KUserProvider
      */
     public function fetch($identifier)
     {
-        $table = JUser::getTable();
-
-        if ($table->load($identifier))
+        if(class_exists('JUser'))
         {
-            $user = JUser::getInstance(0);
-            $user->setProperties($table->getProperties());
+            $table = JUser::getTable();
 
-            $params = new JRegistry;
-            $params->loadString($table->params);
+            if ($table->load($identifier))
+            {
+                $user = JUser::getInstance(0);
+                $user->setProperties($table->getProperties());
 
-            $user->setParameters($params);
+                $params = new JRegistry;
+                $params->loadString($table->params);
 
-            // Get params from the protected property
-            $getParams   = Closure::bind(function() {
-                return $this->_params->toArray();
-            }, $user, $user);
+                $user->setParameters($params);
 
-            $data = array(
-                'id'         => $user->id,
-                'email'      => $user->email,
-                'name'       => $user->name,
-                'username'   => $user->username,
-                'password'   => $user->password,
-                'salt'       => '',
-                'groups'     => JAccess::getGroupsByUser($user->id),
-                'roles'      => JAccess::getAuthorisedViewLevels($user->id),
-                'authentic'  => !$user->guest,
-                'enabled'    => !$user->block,
-                'expired'    => (bool) $user->activation,
-                'attributes' => $getParams()
-            );
+                // Get params from the protected property
+                $getParams   = Closure::bind(function() {
+                    return $this->_params->toArray();
+                }, $user, $user);
 
-            $user = $this->create($data);
+                $data = array(
+                    'id'         => $user->id,
+                    'email'      => $user->email,
+                    'name'       => $user->name,
+                    'username'   => $user->username,
+                    'password'   => $user->password,
+                    'salt'       => '',
+                    'groups'     => JAccess::getGroupsByUser($user->id),
+                    'roles'      => JAccess::getAuthorisedViewLevels($user->id),
+                    'authentic'  => !$user->guest,
+                    'enabled'    => !$user->block,
+                    'expired'    => (bool) $user->activation,
+                    'attributes' => $getParams()
+                );
+
+                $user = $this->create($data);
+            }
+            else $user = null;
         }
-        else $user = null;
+        else $user = parent::fetch($identifier);
 
         return $user;
     }
@@ -120,7 +124,7 @@ final class ComKoowaUserProvider extends KUserProvider
     public function store($identifier, $data)
     {
         // Find the user id
-        if (!is_numeric($identifier))
+        if (class_exists('JUser') && !is_numeric($identifier))
         {
             if(!$identifier = JUserHelper::getUserId($identifier)) {
                 $identifier = 0;
@@ -141,7 +145,7 @@ final class ComKoowaUserProvider extends KUserProvider
         $user = $this->getObject('user');
 
         // Find the user id
-        if (!is_numeric($identifier))
+        if (class_exists('JUser') && !is_numeric($identifier))
         {
             if(!$identifier = JUserHelper::getUserId($identifier)) {
                 $identifier = 0;
