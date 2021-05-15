@@ -43,15 +43,18 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         }
 
         $identifier = $this->getTemplate()->getIdentifier();
-        $menu       = JFactory::getApplication()->getMenu()->getActive();
-
-        if ($identifier->type === 'com' && $menu)
+        if($menu = JFactory::getApplication()->getMenu())
         {
-            if ($suffix = htmlspecialchars($menu->getParams()->get('pageclass_sfx')))
+            $menu = $menu->getActive();
+
+            if ($identifier->type === 'com' && $menu)
             {
-                $config->append(array(
-                    'wrapper_class' => array($suffix)
-                ));
+                if ($suffix = htmlspecialchars($menu->getParams()->get('pageclass_sfx')))
+                {
+                    $config->append(array(
+                        'wrapper_class' => array($suffix)
+                    ));
+                }
             }
         }
 
@@ -78,7 +81,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         ))->append(array(
             'folder' => 'com_'.$config->package,
             'file'   => ($identifier->type === 'mod' ? 'module' : $config->domain) ?: 'admin',
-            'media_path' => (defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media'
+            'media_path' => JPATH_ROOT . '/media'
         ));
 
         $html = '';
@@ -107,7 +110,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             // Load overrides for the current admin template
             if ($app->isClient('administrator') && $config->file === 'admin')
             {
-                if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
+                if (file_exists( JPATH_ROOT . '/media/koowa/com_koowa/css/'.$template.'.css')) {
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
 
