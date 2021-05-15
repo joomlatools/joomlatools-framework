@@ -111,55 +111,58 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
     {
         $current = JFactory::getApplication();
 
-        // Joomla 4 is not always pushing Itemid to the query
-        if (version_compare(JVERSION, '4', '>=') && $current->input->exists('Itemid')) {
-            $query['Itemid'] = $current->input->getInt('Itemid');
-        }
-
-        if ($current->getName() !== $this->getApplication())
+        if(class_exists('JRoute'))
         {
-            $application = JApplicationCms::getInstance($this->getConfig()->application);
+            // Joomla 4 is not always pushing Itemid to the query
+            if (version_compare(JVERSION, '4', '>=') && $current->input->exists('Itemid')) {
+                $query['Itemid'] = $current->input->getInt('Itemid');
+            }
 
-            // Force route application during route build.
-            JFactory::$application = $application;
-
-            // Get the router.
-            $router = $application->getRouter();
-
-            $url = 'index.php?'.http_build_query($query, '', '&');
-
-            // Build route.
-            $route = $router->build($url);
-
-            // Revert application change.
-            JFactory::$application = $current;
-
-            $route = $route->toString(array('path', 'query', 'fragment'));
-
-            // Check if we need to remove "administrator" from the path
-            if ($current->isClient('administrator') && $application->getName() == 'site')
+            if ($current->getName() !== $this->getApplication())
             {
-                $base = JUri::base('true');
+                $application = JApplicationCms::getInstance($this->getConfig()->application);
 
-                $replacement = explode('/', $base);
+                // Force route application during route build.
+                JFactory::$application = $application;
 
-                array_pop($replacement);
+                // Get the router.
+                $router = $application->getRouter();
 
-                $replacement = implode('/', $replacement);
+                $url = 'index.php?'.http_build_query($query, '', '&');
 
-                $base = str_replace('/', '\/', $base);
+                // Build route.
+                $route = $router->build($url);
 
-                $route = preg_replace('/^' . $base . '/', $replacement, $route);
+                // Revert application change.
+                JFactory::$application = $current;
+
+                $route = $route->toString(array('path', 'query', 'fragment'));
+
+                // Check if we need to remove "administrator" from the path
+                if ($current->isClient('administrator') && $application->getName() == 'site')
+                {
+                    $base = JUri::base('true');
+
+                    $replacement = explode('/', $base);
+
+                    array_pop($replacement);
+
+                    $replacement = implode('/', $replacement);
+
+                    $base = str_replace('/', '\/', $base);
+
+                    $route = preg_replace('/^' . $base . '/', $replacement, $route);
+                }
+
+                // Replace spaces.
+                $route = preg_replace('/\s/u', '%20', $route);
+
+                if ($escape) {
+                    $route = htmlspecialchars($route, ENT_COMPAT, 'UTF-8');
+                }
             }
-
-            // Replace spaces.
-            $route = preg_replace('/\s/u', '%20', $route);
-
-            if ($escape) {
-                $route = htmlspecialchars($route, ENT_COMPAT, 'UTF-8');
-            }
+            else $route = JRoute::_('index.php?'.http_build_query($query, '', '&'), $escape);
         }
-        else $route = JRoute::_('index.php?'.http_build_query($query, '', '&'), $escape);
 
         return $route;
     }
