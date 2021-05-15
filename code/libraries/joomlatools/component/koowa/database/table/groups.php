@@ -18,7 +18,7 @@ class ComKoowaDatabaseTableGroups extends KDatabaseTableAbstract
     protected function _initialize(KObjectConfig $config)
     {
         $config->append([
-            'name' => defined('JOOMLATOOLS_PLATFORM') ? 'users_groups' : 'usergroups'
+            'name' => 'usergroups'
         ]);
 
         parent::_initialize($config);
