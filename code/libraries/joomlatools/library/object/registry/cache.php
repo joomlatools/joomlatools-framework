@@ -31,7 +31,7 @@ class KObjectRegistryCache extends KObjectRegistry
     public function __construct()
     {
         if (!static::isSupported()) {
-            throw new RuntimeException('Unable to use KObjectRegistryCache. APC is not enabled.');
+            throw new RuntimeException('Unable to use KObjectRegistryCache. APCu is not enabled.');
         }
     }
 
@@ -41,7 +41,7 @@ class KObjectRegistryCache extends KObjectRegistry
      */
     public static function isSupported()
     {
-        return extension_loaded('apc');
+        return extension_loaded('apcu') && apcu_enabled();
     }
 
     /**
@@ -83,10 +83,10 @@ class KObjectRegistryCache extends KObjectRegistry
                 'class'      =>  $class
             );
 
-            apc_store($this->getNamespace().'-object_'.$identifier, $data);
+            apcu_store($this->getNamespace().'-object_'.$identifier, $data);
         }
 
-        return  parent::setClass($identifier, $class);
+        return parent::setClass($identifier, $class);
     }
 
     /**
@@ -99,7 +99,7 @@ class KObjectRegistryCache extends KObjectRegistry
     {
         if(!parent::offsetExists($offset))
         {
-            if($data = apc_fetch($this->getNamespace().'-object_'.$offset))
+            if($data = apcu_fetch($this->getNamespace().'-object_'.$offset))
             {
                 $class      = $data['class'];
                 $identifier = $data['identifier'];
@@ -132,7 +132,7 @@ class KObjectRegistryCache extends KObjectRegistry
                 'class'      =>  $this->getClass($identifier)
             );
 
-            apc_store($this->getNamespace().'-object_'.$offset, $data);
+            apcu_store($this->getNamespace().'-object_'.$offset, $data);
         }
 
         parent::offsetSet($offset, $identifier);
@@ -147,7 +147,7 @@ class KObjectRegistryCache extends KObjectRegistry
     public function offsetExists($offset)
     {
         if(false === $result = parent::offsetExists($offset)) {
-            $result = apc_exists($this->getNamespace().'-object_'.$offset);
+            $result = apcu_exists($this->getNamespace().'-object_'.$offset);
         }
 
         return $result;
@@ -161,7 +161,7 @@ class KObjectRegistryCache extends KObjectRegistry
      */
     public function offsetUnset($offset)
     {
-        apc_delete($this->getNamespace().'-object_'.$offset);
+        apcu_delete($this->getNamespace().'-object_'.$offset);
         parent::offsetUnset($offset);
     }
 
@@ -173,7 +173,7 @@ class KObjectRegistryCache extends KObjectRegistry
     public function clear()
     {
         // Clear user cache
-        apc_clear_cache('user');
+        apcu_clear_cache();
 
         return parent::clear();
     }
