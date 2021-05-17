@@ -7,8 +7,12 @@
  * @link        https://github.com/joomlatools/joomlatools-framework for the canonical source repository
  */
 
-if(!class_exists('JFactory')) {
+if(!class_exists('JFactory'))
+{
     class_alias('ComKoowa', 'JFactory');
+
+    //Load the configuration
+    JFactory::getConfig();
 }
 
 if(!defined('JPATH_ROOT')) {
