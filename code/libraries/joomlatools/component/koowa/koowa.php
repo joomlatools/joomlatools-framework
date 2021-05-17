@@ -7,24 +7,16 @@
  * @link        https://github.com/joomlatools/joomlatools-framework for the canonical source repository
  */
 
-if(!class_exists('JFactory'))
-{
-    class_alias('ComKoowa', 'JFactory');
-
-    //Load the configuration
-    JFactory::getConfig();
-}
-
 if(!defined('JPATH_ROOT')) {
-    define('JPATH_ROOT', false);
+    define('JPATH_ROOT',  defined('APPLICATION_ROOT') ? APPLICATION_ROOT : false);
 }
 
 if(!defined('JPATH_BASE')) {
-    define('JPATH_BASE', false );
+    define('JPATH_BASE', defined('APPLICATION_BASE') ? APPLICATION_BASE : JPATH_ROOT);
 }
 
 if(!defined('JPATH_CONFIGURATION')) {
-    define('JPATH_CONFIGURATION', false);
+    define('JPATH_CONFIGURATION',  defined('APPLICATION_CONFIG') ? APPLICATION_CONFIG : JPATH_ROOT.'/config');
 }
 
 if(!defined('JPATH_LIBRARIES')) {
@@ -37,6 +29,14 @@ if(!defined('JPATH_ADMINISTRATOR')) {
 
 if(!defined('JPATH_SITE')) {
     define('JPATH_SITE', false);
+}
+
+if(!class_exists('JFactory'))
+{
+    class_alias('ComKoowa', 'JFactory');
+
+    //Load the configuration
+    JFactory::getConfig();
 }
 
 if(!defined('JDEBUG')) {
@@ -117,7 +117,7 @@ class ComKoowa
                 public function __construct(){
 
                     if(file_exists(JPATH_CONFIGURATION.'/configuration.php')) {
-                        $this->__config = require_once JPATH_CONFIGURATION.'/configuration.php';
+                        $this->__config = require_once JPATH_CONFIGURATION.'/koowa.php';
                     } else {
                         $this->__config = array();
                     }
