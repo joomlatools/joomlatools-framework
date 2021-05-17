@@ -73,12 +73,13 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             //Render the exception if debug mode is enabled or if we are returning json
             if(in_array($request->getFormat(), array('json', 'html')))
             {
-                $dispatcher = $this->getObject('dispatcher');
+                $dispatcher = $this->getObject('com:koowa.dispatcher.http');
 
                 //Set status code (before rendering the error)
                 $dispatcher->getResponse()->setStatus($code);
 
                 $content = $this->getObject('com:koowa.controller.error',  ['request'  => $request])
+                    ->layout('default')
                     ->render($exception);
 
                 //Set error in the response
