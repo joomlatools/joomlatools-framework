@@ -31,7 +31,7 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
     {
         parent::__construct($config);
 
-        $this->_override_paths = (array) $config->override_paths;
+        $this->_override_paths = $config->override_paths;
     }
 
     /**

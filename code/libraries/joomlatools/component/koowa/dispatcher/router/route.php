@@ -95,12 +95,17 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             $query['Itemid'] = $app->input->getInt('Itemid');
         }
 
-        $route = 'index.php?'.http_build_query($query, '', '&');
+        $query = 'index.php?'.http_build_query($query, '', '&');
 
-        if(class_exists('JRoute')) {
-            $route =  JRoute::_($route, $escape);
+        if (class_exists('JRoute'))
+        {
+            if ($app->getName() !== $this->getApplication()) {
+                $query = JRoute::link($this->getApplication(), $query, $escape);
+            } else {
+                $query = JRoute::_($query, $escape);
+            }
         }
 
-        return $route;
+        return $query;
     }
 }
