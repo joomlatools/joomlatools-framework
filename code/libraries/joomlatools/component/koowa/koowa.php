@@ -8,15 +8,15 @@
  */
 
 if(!defined('JPATH_ROOT')) {
-    define('JPATH_ROOT',  defined('APPLICATION_ROOT') ? APPLICATION_ROOT : false);
+    define('JPATH_ROOT',  defined('KOOWA_ROOT') ? KOOWA_ROOT : false);
 }
 
 if(!defined('JPATH_BASE')) {
-    define('JPATH_BASE', defined('APPLICATION_BASE') ? APPLICATION_BASE : JPATH_ROOT);
+    define('JPATH_BASE', defined('KOOWA_BASE') ? KOOWA_BASE : JPATH_ROOT);
 }
 
 if(!defined('JPATH_CONFIGURATION')) {
-    define('JPATH_CONFIGURATION',  defined('APPLICATION_CONFIG') ? APPLICATION_CONFIG : JPATH_ROOT.'/config');
+    define('JPATH_CONFIGURATION',  defined('KOOWA_CONFIG') ? KOOWA_CONFIG : JPATH_ROOT.'/config');
 }
 
 if(!defined('JPATH_LIBRARIES')) {
@@ -116,7 +116,7 @@ class ComKoowa
 
                 public function __construct(){
 
-                    if(file_exists(JPATH_CONFIGURATION.'/configuration.php')) {
+                    if(file_exists(JPATH_CONFIGURATION.'/koowa.php')) {
                         $this->__config = require_once JPATH_CONFIGURATION.'/koowa.php';
                     } else {
                         $this->__config = array();
