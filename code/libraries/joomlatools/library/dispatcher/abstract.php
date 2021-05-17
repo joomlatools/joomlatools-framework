@@ -252,7 +252,7 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
         if (is_string($authenticator) && strpos($authenticator, '.') === false)
         {
             $identifier = $this->getIdentifier()->toArray();
-            $identifier['path'] = array('dispatcher', 'authenticator');
+            $identifier['path'] = isset($identifier['package']) && $identifier['package'] === 'dispatcher' ? ['authenticator'] : ['dispatcher', 'authenticator'];
             $identifier['name'] = $authenticator;
 
             $identifier = $this->getIdentifier($identifier);
