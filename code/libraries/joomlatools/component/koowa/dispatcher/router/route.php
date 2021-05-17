@@ -16,13 +16,6 @@
 class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 {
     /**
-     * The supported route applications
-     *
-     * @var array An array containing application names
-     */
-    protected $_applications;
-
-    /**
      * The route application name
      *
      * @var string
@@ -33,22 +26,12 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
     {
         parent::__construct($config);
 
-        $this->_applications = KObjectConfig::unbox($config->applications);
         $this->setApplication($config->application);
     }
 
     protected function _initialize(KObjectConfig $config)
     {
-        $clients = JApplicationHelper::getClientInfo();
-
-        $applications = array();
-
-        foreach ($clients as $client) {
-            $applications[] = $client->name;
-        }
-
         $config->append(array(
-            'applications' => $applications,
             'application'  => JFactory::getApplication()->getName()
         ));
 
@@ -57,10 +40,6 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 
     public function setApplication($application)
     {
-        if (!in_array($application, $this->_applications)) {
-            throw new InvalidArgumentException(sprintf('Wrong application value: "%s". Allowed values are: %s', $application, implode(', ', $this->_applications)));
-        }
-
         $this->_application = $application;
 
         return $this;
@@ -109,59 +88,17 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
      */
     protected function _getRoute($query, $escape)
     {
-        $current = JFactory::getApplication();
+        $app = JFactory::getApplication();
 
-        if(class_exists('JRoute'))
-        {
-            // Joomla 4 is not always pushing Itemid to the query
-            if (version_compare(JVERSION, '4', '>=') && $current->input->exists('Itemid')) {
-                $query['Itemid'] = $current->input->getInt('Itemid');
-            }
+        // Joomla 4 is not always pushing Itemid to the query
+        if (version_compare(JVERSION, '4', '>=') && $app->input->exists('Itemid')) {
+            $query['Itemid'] = $app->input->getInt('Itemid');
+        }
 
-            if ($current->getName() !== $this->getApplication())
-            {
-                $application = JApplicationCms::getInstance($this->getConfig()->application);
+        $route = 'index.php?'.http_build_query($query, '', '&');
 
-                // Force route application during route build.
-                JFactory::$application = $application;
-
-                // Get the router.
-                $router = $application->getRouter();
-
-                $url = 'index.php?'.http_build_query($query, '', '&');
-
-                // Build route.
-                $route = $router->build($url);
-
-                // Revert application change.
-                JFactory::$application = $current;
-
-                $route = $route->toString(array('path', 'query', 'fragment'));
-
-                // Check if we need to remove "administrator" from the path
-                if ($current->isClient('administrator') && $application->getName() == 'site')
-                {
-                    $base = JUri::base('true');
-
-                    $replacement = explode('/', $base);
-
-                    array_pop($replacement);
-
-                    $replacement = implode('/', $replacement);
-
-                    $base = str_replace('/', '\/', $base);
-
-                    $route = preg_replace('/^' . $base . '/', $replacement, $route);
-                }
-
-                // Replace spaces.
-                $route = preg_replace('/\s/u', '%20', $route);
-
-                if ($escape) {
-                    $route = htmlspecialchars($route, ENT_COMPAT, 'UTF-8');
-                }
-            }
-            else $route = JRoute::_('index.php?'.http_build_query($query, '', '&'), $escape);
+        if(class_exists('JRoute')) {
+            $route =  JRoute::_($route, $escape);
         }
 
         return $route;
