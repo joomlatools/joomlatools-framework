@@ -7,26 +7,6 @@
  * @link        https://github.com/joomlatools/joomlatools-framework for the canonical source repository
  */
 
-/**
- * APC 3.1.4 compatibility
- */
-if(extension_loaded('apc') && !function_exists('apc_exists'))
-{
-    /**
-     * Check if an APC key exists
-     *
-     * @param  mixed  $keys A string, or an array of strings, that contain keys.
-     * @return boolean Returns TRUE if the key exists, otherwise FALSE
-     */
-    function apc_exists($keys)
-    {
-        $result = null;
-
-        apc_fetch($keys,$result);
-
-        return $result;
-    }
-}
 
 /**
  * PHP5.4 compatibility

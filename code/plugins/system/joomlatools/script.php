@@ -295,10 +295,8 @@ class PlgSystemJoomlatoolsInstallerScript
         JFactory::getCache('com_koowa.templates', 'output')->clean();
 
         // Clear APC opcode cache
-        if (extension_loaded('apc'))
-        {
-            apc_clear_cache();
-            apc_clear_cache('user');
+        if ( extension_loaded('apcu') && apcu_enabled()) {
+            apcu_clear_cache();
         }
 
         // Clear OPcache
