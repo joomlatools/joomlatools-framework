@@ -71,38 +71,20 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
             }
             else
             {
-                if (defined('JOOMLATOOLS_PLATFORM'))
+                $options = [];
+
+                if (isset($attribs['defer'])) { $attribs['defer'] = true; }
+                if (isset($attribs['async'])) { $attribs['async'] = true; }
+
+                unset($attribs['src']);
+
+                if($condition)
                 {
-                    if($condition)
-                    {
-                        $script = parent::_renderTag($attribs, $content);
-                        JFactory::getDocument()->addCustomTag($script);
-                    }
-                    else
-                    {
-                        $defer = isset($attribs['defer']);
-                        $async = isset($attribs['async']);
-
-                        JFactory::getDocument()->addScript($link, 'text/javascript', $defer, $async);
-                    }
+                    $options['conditional'] = $attribs['condition'];
+                    unset($attribs['condition']);
                 }
-                else
-                {
-                    $options = [];
 
-                    if (isset($attribs['defer'])) { $attribs['defer'] = true; }
-                    if (isset($attribs['async'])) { $attribs['async'] = true; }
-
-                    unset($attribs['src']);
-
-                    if($condition)
-                    {
-                        $options['conditional'] = $attribs['condition'];
-                        unset($attribs['condition']);
-                    }
-
-                    JFactory::getDocument()->addScript($link, $options, $attribs);
-                }
+                JFactory::getDocument()->addScript($link, $options, $attribs);
             }
         }
         else return parent::_renderTag($attribs, $content);

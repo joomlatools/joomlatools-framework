@@ -175,11 +175,14 @@ class ComKoowaControllerToolbarActionbar extends KControllerToolbarActionbar
     {
         $option = $this->getIdentifier()->package;
 
-        $return = urlencode(base64_encode(JUri::getInstance()));
-        $link   = 'option=com_config&view=component&component=com_'.$option.'&path=&return='.$return;
-        
-        $command->icon = 'k-icon-cog';
-        // Need to do a JRoute call here, otherwise component is turned into option in the query string by our router
-        $command->attribs['href'] = JRoute::_('index.php?'.$link, false);
+        if(class_exists('JUri'))
+        {
+            $return = urlencode(base64_encode(JUri::getInstance()));
+            $link   = 'option=com_config&view=component&component=com_'.$option.'&path=&return='.$return;
+
+            $command->icon = 'k-icon-cog';
+            // Need to do a JRoute call here, otherwise component is turned into option in the query string by our router
+            $command->attribs['href'] = JRoute::_('index.php?'.$link, false);
+        }
     }
 }

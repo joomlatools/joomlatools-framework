@@ -26,7 +26,9 @@ class PlgSystemJoomlatoolsInstallerScript
             }, $dispatcher, $dispatcher);
 
             $disableLogmanDuringInstallation();
-        } else {
+        }
+        else
+        {
             $dispatcher = JFactory::getApplication()->getDispatcher();
             $disableLogmanDuringInstallation = Closure::bind(function() {
                 foreach ($this->getListeners() as $event => $listeners)
@@ -83,10 +85,6 @@ class PlgSystemJoomlatoolsInstallerScript
 
     public function preflight($type, $installer)
     {
-        if (defined('JOOMLATOOLS_PLATFORM')) {
-            return;
-        }
-
         if ($type === 'uninstall') {
             return;
         }

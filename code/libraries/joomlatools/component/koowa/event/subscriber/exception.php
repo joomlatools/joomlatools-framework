@@ -50,7 +50,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
         }
 
         //Render the error
-        if(!JDEBUG && $request->getFormat() == 'html')
+        if(class_exists('JErrorPage' && !JDEBUG && $request->getFormat() == 'html'))
         {
             if(ini_get('display_errors')) {
                 $message = $exception->getMessage();

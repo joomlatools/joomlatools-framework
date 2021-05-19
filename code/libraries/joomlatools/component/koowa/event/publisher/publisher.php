@@ -44,7 +44,7 @@ final class ComKoowaEventPublisher extends KEventPublisher
     public function publishEvent($event, $attributes = array(), $target = null)
     {
         //Try to load the plugin group
-        if($target instanceof KObject)
+        if(class_exists('JPluginHelper') && $target instanceof KObject)
         {
             $identifier = $target->getIdentifier()->toArray();
             $package    = $identifier['package'];

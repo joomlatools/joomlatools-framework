@@ -27,7 +27,7 @@ class ComKoowaViewPageHtml extends ComKoowaViewHtml
     {
         $config->append(array(
             'layout'           => 'joomla',
-            'template_filters' => ['module', 'style', 'link', 'meta', 'script', 'title', 'message'],
+            'template_filters' => ['style', 'link', 'meta', 'script', 'title', 'message'],
         ))->append(array(
             'decorator' => $config->layout
         ));

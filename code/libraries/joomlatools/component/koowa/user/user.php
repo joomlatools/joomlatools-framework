@@ -27,7 +27,9 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
         KObject::__construct($config);
 
         //Set the user properties and attributes
-        $this->setData(JFactory::getUser());
+        if(class_exists('JUser') || class_exists('\Joomla\CMS\User\User')) {
+            $this->setData(JFactory::getUser());
+        }
     }
 
     /**

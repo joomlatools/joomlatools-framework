@@ -43,7 +43,7 @@ class ComKoowaDatabaseBehaviorSluggable extends KDatabaseBehaviorSluggable
     protected function _canonicalizeSlug()
     {
         if (trim(str_replace($this->_separator, '', $this->slug)) == '') {
-            $this->slug = JFactory::getDate()->format('Y-m-d-H-i-s');
+            $this->slug = (new DateTime('now'))->format('Y-m-d-H-i-s');
         }
 
         parent::_canonicalizeSlug();
