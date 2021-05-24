@@ -95,7 +95,7 @@ class KTemplateEngineMarkdown extends KTemplateEngineAbstract
                 $this->cache($file, $source);
                 $this->_source = $source;
             }
-            else  $this->_source = include $cache_file;
+            else  $this->_source = file_get_contents($cache_file);
         }
 
         return $this;
