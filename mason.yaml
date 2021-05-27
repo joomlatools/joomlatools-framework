@@ -9,4 +9,4 @@ components:
   migrator:
     branch: "v1.2.1"
   tags:
-    branch: "v1.2.1"
+    branch: "v1.2.2"
