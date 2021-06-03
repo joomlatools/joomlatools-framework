@@ -353,7 +353,7 @@ class KObjectIdentifier implements KObjectIdentifierInterface
      *
      * @throws Exception
      */
-    final private function __clone()
+    private function __clone()
     {
         trigger_error("An object identifier is an immutable object and cannot be cloned.", E_USER_WARNING);
     }

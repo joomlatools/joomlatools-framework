@@ -64,7 +64,7 @@ class Koowa
      *
      * @param  array  $config An optional array with configuration options.
      */
-    final private function __construct($config = array())
+    private function __construct($config = array())
     {
         //Initialize the root path
         if(isset($config['root_path'])) {
@@ -138,7 +138,7 @@ class Koowa
      *
      * Prevent creating clones of this class
      */
-    final private function __clone() { }
+    private function __clone() { }
 
     /**
      * Singleton instance
