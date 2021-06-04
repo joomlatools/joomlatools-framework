@@ -151,11 +151,12 @@ final class KCommandHandlerEvent extends KCommandHandlerAbstract implements KObj
             $event = $command;
         }
 
-        // Create event object to check for propagation
-        $event = $this->getEventPublisher()->publishEvent($event_specific, $event->getAttributes(), $event->getSubject());
+        //Get the event attributes
+        $attributes = $event->getAttributes();
+        $attributes['result'] = $event->getResult();
 
-        //Set result in the event from the command
-        $event->result = $command->getResult();
+        // Create event object to check for propagation
+        $event = $this->getEventPublisher()->publishEvent($event_specific, $attributes, $event->getSubject());
 
         // Ensure event can be propagated and event name is different
         if ($event->canPropagate() && $event_specific != $event_generic)
