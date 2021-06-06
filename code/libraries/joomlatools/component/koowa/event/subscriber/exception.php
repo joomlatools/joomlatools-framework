@@ -49,28 +49,32 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $code = '500';
         }
 
-        //Render the error
-        if(class_exists('JErrorPage' && !JDEBUG && $request->getFormat() == 'html'))
+        //Render the exception
+        if(!JDEBUG)
         {
-            if(ini_get('display_errors')) {
-                $message = $exception->getMessage();
-            } else {
-                $message = KHttpResponse::$status_messages[$code];
+            //Render the Joomla error page if debug mode is disabled and format is html
+            if(class_exists('JErrorPage') && $request->getFormat() == 'html')
+            {
+                if(ini_get('display_errors')) {
+                    $message = $exception->getMessage();
+                } else {
+                    $message = KHttpResponse::$status_messages[$code];
+                }
+
+                $message = $this->getObject('translator')->translate($message);
+
+                $class = get_class($exception);
+                $error = new $class($message, $exception->getCode());
+                JErrorPage::render($error);
+
+                JFactory::getApplication()->close(0);
             }
-
-            $message = $this->getObject('translator')->translate($message);
-
-            $class = get_class($exception);
-            $error = new $class($message, $exception->getCode());
-            JErrorPage::render($error);
-
-            JFactory::getApplication()->close(0);
 
             return false;
         }
         else
         {
-            //Render the exception if debug mode is enabled or if we are returning json
+            //Render the exception backtrace if debug mode is enabled and format is html or json
             if(in_array($request->getFormat(), array('json', 'html')))
             {
                 $dispatcher = $this->getObject('com:koowa.dispatcher.http');
