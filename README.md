@@ -30,7 +30,7 @@ Joomlatools Framework is for developers creating custom Joomla extensions. The f
 ## Production Ready
 
 The framework uses a conservative development approach focused on the lowest common denominator, at time of writing this
-is Joomla 3.x and PHP 5.4. The framework is fully forwards compatible with PHP 7.4.
+is Joomla 3.x and PHP 5.6. The framework is fully forwards compatible with PHP 8.0.
 
 The framework follows the [semantic versioning standard](http://semver.org/). Rest assured : it's designed for stability
 and compatibility. We promise that all minor versions will be 100% backwards compatible. Only in major versions backwards
