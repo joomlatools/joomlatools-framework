@@ -51,7 +51,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $context = stream_context_create(array('http' => array(
             'user_agent'       => $this->getConfig()->user_agent,
-            'protocol_version' => $request->getVersion(),
+            //'protocol_version' => $request->getVersion(),
             'header'           => (string) $headers,
             'follow_location ' => $this->getConfig()->follow_location,
             'method'           => $request->getMethod(),
