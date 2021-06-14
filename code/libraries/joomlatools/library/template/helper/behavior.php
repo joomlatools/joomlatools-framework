@@ -935,7 +935,6 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('alpine')) {
             $html .= '<ktml:script src="assets://js/alpine'.($config->debug ? '' : '.min').'.js" type="module" />';
-            $html .= '<ktml:script src="assets://js/alpine-ie11'.($config->debug ? '' : '.min').'.js" nomodule defer />';
 
             static::setLoaded('alpine');
         }
