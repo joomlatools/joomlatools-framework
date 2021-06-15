@@ -103,6 +103,12 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function isProxied()
     {
-        return true;
+        if(class_exists('JUri')) {
+            $result = true;
+        } else {
+            $result = parent::isProxied();
+        }
+
+        return $result;
     }
 }
