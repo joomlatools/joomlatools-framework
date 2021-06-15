@@ -781,6 +781,8 @@ window.jQuery = window.kQuery;
                     .val('')
                     .filter('select').trigger('change'); // For select2
 
+                box.find('.k-js-scopebar-clearable').val('');
+
                 var form = event.target.form;
 
                 if (form) {
@@ -1352,7 +1354,7 @@ Koowa.Controller = Koowa.Class.extend({
             this.options.url = this.form.attr('action');
         }
 
-        this.toolbar = $(this.options.toolbar);
+        this.toolbar = this.form.parents('.k-ui-namespace').find(this.options.toolbar);
         this.form.data('controller', this);
 
         this.on('execute', function(){
