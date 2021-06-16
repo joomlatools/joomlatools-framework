@@ -63,14 +63,19 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function getPort()
     {
-        $port = parent::getPort();
-
         if(class_exists('JUri'))
         {
-              if (JUri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
-                  $port = '443';
-              }
+            if ($this->_headers->has('X-Forwarded-Port')) {
+                $port = $this->_headers->get('X-Forwarded-Port');
+            } else {
+                $port = @$_SERVER['SERVER_PORT'];
+            }
+
+            if (JUri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
+                $port = '443';
+            }
         }
+        else $port = parent::getPort();
 
         return $port;
     }
