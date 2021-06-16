@@ -920,11 +920,12 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     /**
      * Checks whether the request is proxied or not.
      *
+     * The request is considered to be proxied if the X-Forwarded-For is provided.
+     *
      * If one or more trusted proxies are defined this method reads the proxy IP from the "X-Forwarded-By" header.
      * If no "X-Forwarded-By" header can be found, or the header IP address doesn't match the list of trusted proxies
-     * the function will return false.
-     *
-     * The "X-Forwarded-By" header must contain the proxy IP address and, potentially, a port number).
+     * the function will return false. The "X-Forwarded-By" header must contain the proxy IP address and, potentially,
+     * a port number).
      *
      * @link http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#page-7
      *
