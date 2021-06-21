@@ -37,12 +37,7 @@ class ComKoowaTemplateHelperTitlebar extends KTemplateHelperTitlebar
 
             if (JFactory::getApplication()->isClient('administrator'))
             {
-                $app = JFactory::getApplication();
-                $app->JComponentTitle = $title;
-
-                $sitename = JFactory::getConfig()->get('sitename');
-
-                JFactory::getDocument()->setTitle($sitename . ' - ' . JText::_('JADMINISTRATION') . ' - ' . $title);
+                Joomla\CMS\Toolbar\ToolbarHelper::title($title, '');
             }
         }
 
