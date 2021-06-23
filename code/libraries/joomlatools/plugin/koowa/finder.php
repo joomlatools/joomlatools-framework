@@ -115,6 +115,8 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
      */
     public function onFinderAfterDelete($context, $table)
     {
+        if (!class_exists('Koowa')) return;
+
         if ($context === $this->extension.'.'.$this->entity) {
             $id = $table->id;
         }
@@ -140,6 +142,8 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
      */
     public function onFinderAfterSave($context, $entity, $isNew)
     {
+        if (!class_exists('Koowa')) return;
+
         if ($context == $this->extension.'.'.$this->entity) {
             $this->reindex($entity->id);
         }
@@ -158,6 +162,8 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
      */
     public function onFinderChangeState($context, $pks, $value)
     {
+        if (!class_exists('Koowa')) return;
+
         // Handle when the plugin is disabled
         if ($context == 'com_plugins.plugin' && $value === 0) {
             $this->pluginDisable($pks);
