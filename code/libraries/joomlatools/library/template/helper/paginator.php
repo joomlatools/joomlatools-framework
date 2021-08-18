@@ -80,6 +80,10 @@ class KTemplateHelperPaginator extends KTemplateHelperSelect
             'values'  => array(5, 10, 15, 20, 25, 30, 50, 100)
         ));
 
+        if ($config->max_limit) {
+            $config->values[] = $config->max_limit;
+        }
+
         $html     = '';
         $selected = 0;
         $options  = array();
@@ -126,7 +130,8 @@ class KTemplateHelperPaginator extends KTemplateHelperSelect
             'show_limit' => true,
             'show_count' => false
         ))->append(array(
-            'show_pages' => $config->count !== 1
+            'show_pages' => $config->count !== 1,
+            'max_limit'  => $this->getConfig()->max_limit
         ));
 
         $this->_initialize($config);
