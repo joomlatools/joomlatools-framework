@@ -42,6 +42,39 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
                 $authenticator->authenticateRequest($dispatcher->getContext());
             }
         }
+
+        /*
+         * Joomla 4: Router sets the results of the router in $_REQUEST and not in $_GET.
+         *
+         * So we hook into router postprocess and set the results in our request object
+         */
+        if (class_exists('JUri') && JFactory::getApplication()->isClient('site'))
+        {
+            if (version_compare(JVERSION, '4.0', '>='))
+            {
+                try
+                {
+                    $request = $this->getObject('request');
+                    $router  = JFactory::getApplication()->getRouter();
+
+                    $router->attachParseRule(function($router, &$uri) use($request) {
+                        foreach ($uri->getQuery(true) as $key => $value)
+                        {
+                            if (!$request->query->has($key)) {
+                                $request->query->set($key, $value);
+                            }
+                        }
+
+                        if ($request->query->has('limitstart')) {
+                            $request->query->offset = $request->query->limitstart;
+                        }
+                    }, \Joomla\CMS\Router\Router::PROCESS_AFTER);
+                }
+                catch (\Exception $e) {
+                    if (JDEBUG) { throw $e; }
+                }
+            }
+        }
     }
 
     /*
@@ -49,29 +82,32 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
      *
      * For Joomla 3.x : Re-run the routing and add returned keys to the $_GET request. This is done because Joomla 3
      * sets the results of the router in $_REQUEST and not in $_GET
+     *
      */
     public function onAfterApplicationRoute(KEventInterface $event)
     {
         $request = $this->getObject('request');
 
-        $app = JFactory::getApplication();
-        if (class_exists('JUri') && $app->isClient('site'))
+        if (class_exists('JUri') && JFactory::getApplication()->isClient('site'))
         {
-            try
+            if (version_compare(JVERSION, '4.0', '<'))
             {
-                $uri    = clone JURI::getInstance();
-                $router = JFactory::getApplication()->getRouter();
-                $result = $router->parse($uri);
-
-                foreach ($result as $key => $value)
+                try
                 {
-                    if (!$request->query->has($key)) {
-                        $request->query->set($key, $value);
+                    $uri    = clone JURI::getInstance();
+                    $router = JFactory::getApplication()->getRouter();
+                    $result = $router->parse($uri);
+
+                    foreach ($result as $key => $value)
+                    {
+                        if (!$request->query->has($key)) {
+                            $request->query->set($key, $value);
+                        }
                     }
                 }
-            }
-            catch (\Exception $e) {
-                if (JDEBUG) { throw $e; }
+                catch (\Exception $e) {
+                    if (JDEBUG) { throw $e; }
+                }
             }
         }
 

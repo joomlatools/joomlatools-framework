@@ -154,6 +154,14 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 .k-ui-j4-administrator .container-main {
                     padding-bottom: 0;
                 }
+                
+                .k-ui-j4-administrator section.content {
+                    padding: 0;
+                }
+
+                .k-ui-j4-administrator #subhead-container {
+                    display: none;
+                }
                 </style>
                 ";
                     }
