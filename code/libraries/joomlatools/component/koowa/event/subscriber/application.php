@@ -109,6 +109,9 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
                     if (JDEBUG) { throw $e; }
                 }
             }
+            catch (\Exception $e) {
+                if (JDEBUG) { throw $e; }
+            }
         }
 
         if ($request->query->has('limitstart')) {
