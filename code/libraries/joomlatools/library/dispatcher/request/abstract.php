@@ -761,7 +761,8 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     public function setBasePath($path)
     {
-        $this->_base_path = rtrim($path, '/\\');
+        $this->_base_path = !empty($path) ? rtrim($path, '/\\') : $path;
+
         return $this;
     }
 
