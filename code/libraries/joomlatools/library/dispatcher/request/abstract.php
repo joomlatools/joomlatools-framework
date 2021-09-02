@@ -912,7 +912,8 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
         if ($this->isProxied() && $this->_headers->has('X-Forwarded-Proto')) {
             $scheme = $this->_headers->get('X-Forwarded-Proto');
         } else {
-            $scheme = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) : 'http';
+            $scheme = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) :
+                     (isset($_SERVER['REQUEST_SCHEME']) ? strtolower($_SERVER['REQUEST_SCHEME']) : 'http');
         }
 
         return in_array(strtolower($scheme), array('https', 'on', '1'));
