@@ -162,6 +162,10 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 .k-ui-j4-administrator #subhead-container {
                     display: none;
                 }
+                
+                .k-ui-j4-administrator .row {
+                    --gutter-x: 0rem; --gutter-y: 0.5rem;
+                }
                 </style>
                 ";
                     }
