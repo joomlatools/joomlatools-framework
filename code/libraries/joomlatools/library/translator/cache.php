@@ -247,6 +247,27 @@ class KTranslatorCache extends KObjectDecorator implements KTranslatorInterface
     }
 
     /**
+     * Sets a url as loaded.
+     *
+     * @param mixed $url The url.
+     * @return KTranslatorInterface
+     */
+    public function setLoaded($url)
+    {
+        return $this->getDelegate()->setLoaded($url);
+    }
+
+    /**
+     * Returns a list of loaded urls.
+     *
+     * @return array The loaded urls.
+     */
+    public function getLoaded()
+    {
+        return $this->getDelegate()->getLoaded();
+    }
+
+    /**
      * Set the decorated translator
      *
      * @param   KTranslatorInterface $delegate The decorated translator
