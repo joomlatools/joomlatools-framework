@@ -12,9 +12,9 @@
  *
  * Setup error handler for Joomla context.
  *
- * 1. xdebug enabled
+ * 1. KOOWA_DEBUG enabled
  *
- * If xdebug is enabled assume we are in local development mode
+ * If KOOWA_DEBUG is enabled assume we are in local development mode
  *    - error types   : TYPE_ALL which will trigger an exception for : exceptions, errors and failures
  *    - error levels  : ERROR_DEVELOPMENT (E_ALL | E_STRICT | ~E_DEPRECATED)
  *
@@ -44,21 +44,20 @@ final class ComKoowaExceptionHandler extends KExceptionHandler
      */
     protected function _initialize(KObjectConfig $config)
     {
-        if(extension_loaded('xdebug'))
-        {
-            $level = self::ERROR_DEVELOPMENT;
-            $type  = self::TYPE_ALL;
+        if(Koowa::isDebug()) {
+            $config->append([
+                'exception_type'  => self::TYPE_ALL,
+                'error_reporting' => self::ERROR_DEVELOPMENT
+            ]);
         }
-        else
-        {
-            $level = JDEBUG ? E_ERROR | E_PARSE : self::ERROR_REPORTING;
-            $type  = JDEBUG ? self::TYPE_ALL : false;
+        elseif (JDEBUG) {
+            $config->append([
+                'exception_type'  => self::TYPE_ALL,
+                'error_reporting' => E_ERROR | E_PARSE
+            ]);
+        } else {
+            $config->append(['exception_type' => false]);
         }
-
-        $config->append(array(
-            'exception_type'  => $type,
-            'error_reporting' => $level
-        ));
 
         parent::_initialize($config);
     }
