@@ -29,6 +29,14 @@ class Koowa
      */
     const VERSION = '3.5.6';
 
+
+    /**
+     * Debug state
+     *
+     * @var boolean
+     */
+    protected static $_debug;
+
     /**
      * The root path
      *
@@ -66,6 +74,12 @@ class Koowa
      */
     private function __construct($config = array())
     {
+        if(isset($config['debug'])) {
+            self::$_debug = $config['debug'];
+        } else {
+            self::$_debug = (bool) getenv('KOOWA_DEBUG');
+        }
+
         //Initialize the root path
         if(isset($config['root_path'])) {
             $this->_root_path = $config['root_path'];
@@ -195,6 +209,27 @@ class Koowa
     public function getBasePath()
     {
         return $this->_base_path;
+    }
+
+    /**
+     * Enable or disable debug
+     *
+     * @param bool $debug True or false.
+     * @return Kodekit
+     */
+    public static function setDebug($debug)
+    {
+        return self::$_debug = (bool) $debug;
+    }
+
+    /**
+     * Check if debug is enabled
+     *
+     * @return bool
+     */
+    public static function isDebug()
+    {
+        return self::$_debug;
     }
 
     /**
