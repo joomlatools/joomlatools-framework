@@ -692,7 +692,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
             $address   = $addresses[0];
         }
-        else $address = $_SERVER['REMOTE_ADDR'];
+        else $address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
 
         return $address;
     }
