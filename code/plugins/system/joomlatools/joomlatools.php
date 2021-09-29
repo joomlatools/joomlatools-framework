@@ -233,6 +233,21 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
+     * Proxy onError event in lieu of a working exception handler mechanism in Joomla 4
+     * 
+     * Joomla 4 catches every exception in CMSApplication::execute and converts into an internal event
+     *
+     * @see: https://github.com/joomla/joomla-cms/blob/4.0-dev/libraries/src/Application/CMSApplication.php#L296
+     * @return void
+     */
+    public function onError($exception)
+    {
+        if ($exception instanceof \Throwable) {
+            $this->_proxyEvent('onException', ['exception' => $exception]);
+        }
+    }
+
+    /**
      * Proxy onBeforeRender
      *
      * @return void
