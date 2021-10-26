@@ -176,9 +176,9 @@ class KDatabaseQueryUnion extends KDatabaseQuerySelect
             $queries[] = '('.$query->toString().')';
         }
 
-        $driver = $this->getDriver();
-        $glue   = $this->all ? 'UNION ALL' : ($this->distinct ? 'UNION DISTINCT'  : 'UNION');
-        $query  = implode("\n".$glue."\n", $queries);
+        $adapter = $this->getAdapter();
+        $glue    = $this->all ? 'UNION ALL' : ($this->distinct ? 'UNION DISTINCT' : 'UNION');
+        $query   = implode("\n" . $glue . "\n", $queries);
 
         if($this->order)
         {
@@ -186,7 +186,7 @@ class KDatabaseQueryUnion extends KDatabaseQuerySelect
 
             $list = array();
             foreach($this->order as $order) {
-                $list[] = $driver->quoteIdentifier($order['column']).' '.$order['direction'];
+                $list[] = $adapter->quoteIdentifier($order['column']).' '.$order['direction'];
             }
 
             $query .= implode(' , ', $list);
