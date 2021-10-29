@@ -16051,9 +16051,41 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j4-form .k-ui-namespace details summary ~ * {
   margin-top: 1rem;
 }
+.k-ui-j4-form .k-ui-namespace .jviewport-height10 {
+  height: 10vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height20 {
+  height: 20vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height30 {
+  height: 30vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height40 {
+  height: 40vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height50 {
+  height: 50vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height60 {
+  height: 60vh;
+}
 .k-ui-j4-form .k-ui-namespace .jviewport-height70 {
   height: 70vh;
 }
+.k-ui-j4-form .k-ui-namespace .jviewport-height80 {
+  height: 80vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height90 {
+  height: 90vh;
+}
+.k-ui-j4-form .k-ui-namespace .jviewport-height100 {
+  height: 100vh;
+}
+.k-ui-j4-form .koowa_editor_modal .mfp-content {
+  width: 80vw;
+  height: 70vh;
+}
+
 /**
  * Default select is not styled outside Joomla scope (for example in koowa template)
  */
