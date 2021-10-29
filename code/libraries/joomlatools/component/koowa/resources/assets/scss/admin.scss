@@ -15,4 +15,21 @@ $k-icon-path: '../../framework/fonts' !default;
   @import "icomoon";
 }
 
+.k-ui-j4-administrator {
+
+  @import "admin_j4";
+}
+
+.k-ui-j4-form {
+
+  .k-ui-namespace {
+
+    .fade.show {
+      opacity: 1;
+    }
+
+    @import "editor_j4";
+  }
+}
+
 @import "styles";
