@@ -30,6 +30,11 @@ $k-icon-path: '../../framework/fonts' !default;
 
     @import "form_j4";
   }
+
+  .koowa_editor_modal .mfp-content {
+    width: 80vw;
+    height: 70vh;
+  }
 }
 
 @import "styles";
