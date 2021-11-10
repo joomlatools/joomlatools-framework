@@ -224,8 +224,12 @@ class KDispatcherResponseTransportStream extends KDispatcherResponseTransportHtt
                     $size   = $this->getFileSize($response);
 
                     $response->setStatus(KHttpResponse::PARTIAL_CONTENT);
-                    $response->headers->set('Content-Length', $range - $offset + 1);
                     $response->headers->set('Content-Range', sprintf('bytes %s-%s/%s', $offset, $range, $size));
+
+                    //Safari sends an initial 0-1 range request, which fails if a Content-Length is provided in response on HTTP2
+                    if(($range - $offset) > 1) {
+                        $response->headers->set('Content-Length', $range - $offset);
+                    }
                 }
 
                 if($response->isError())
