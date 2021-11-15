@@ -1,0 +1,35 @@
+
+#subhead {
+  display: none;
+}
+
+/* Make content full height */
+#content > .row {
+  min-height: calc(100vh - 60px) !important;
+}
+
+#content > .row main {
+  height: 100% !important;
+  flex-direction: column !important;
+  display: flex !important;
+}
+
+#content > .row > .col-md-12 {
+  padding: 0;
+}
+
+.container-main {
+  padding-bottom: 0;
+}
+
+section.content {
+  padding: 0;
+}
+
+#subhead-container {
+  display: none;
+}
+
+.row {
+  --gutter-x: 0rem; --gutter-y: 0.5rem;
+}

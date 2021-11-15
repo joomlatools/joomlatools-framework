@@ -114,8 +114,10 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
 
-                if (version_compare(JVERSION, '4.0', '>=')) {
-                    if (!KTemplateHelperBehavior::isLoaded('k-ui-j4')) {
+                if (version_compare(JVERSION, '4.0', '>='))
+                {
+                    if (!KTemplateHelperBehavior::isLoaded('k-ui-j4'))
+                    {
                         $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
                         $html .= '<script data-inline type="text/javascript">
                     document.documentElement.classList.add('.implode(", ",$classes).');
@@ -131,43 +133,6 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 </script>';
 
                         KTemplateHelperBehavior::setLoaded('k-ui-j4');
-
-                        $html .= "
-                <style>
-                /* Remove toolbar */
-                .k-ui-j4-administrator #subhead {
-                    display: none;
-                }
-                
-                /* Make content full height */
-                .k-ui-j4-administrator #content > .row {
-                    min-height: calc(100vh - 60px) !important;
-                }
-                .k-ui-j4-administrator #content > .row main {
-                    height: 100% !important;
-                    flex-direction: column !important;
-                    display: flex !important;
-                }
-                .k-ui-j4-administrator #content > .row > .col-md-12 {
-                    padding: 0;
-                }
-                .k-ui-j4-administrator .container-main {
-                    padding-bottom: 0;
-                }
-                
-                .k-ui-j4-administrator section.content {
-                    padding: 0;
-                }
-
-                .k-ui-j4-administrator #subhead-container {
-                    display: none;
-                }
-                
-                .k-ui-j4-administrator .row {
-                    --gutter-x: 0rem; --gutter-y: 0.5rem;
-                }
-                </style>
-                ";
                     }
                 } else { // Joomla 3
                     if (!KTemplateHelperBehavior::isLoaded('k-ui-j3')) {
@@ -177,6 +142,15 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                         KTemplateHelperBehavior::setLoaded('k-ui-j3');
                     }
                 }
+            }
+        }
+        elseif (version_compare(JVERSION, '4.0', '>='))
+        {
+            if (!KTemplateHelperBehavior::isLoaded('k-ui-j4-form'))
+            {
+                $classes = array_map('json_encode', ['k-ui-j4-form', 'k-ui-j4-' . JFactory::getApplication()->getName()]);
+                $html    .= '<script data-inline type="text/javascript">document.documentElement.classList.add(' .
+                            implode(", ", $classes) . ');</script>';
             }
         }
 
