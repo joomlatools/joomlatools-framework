@@ -73,28 +73,36 @@ class KDatabaseBehaviorParameterizable extends KDatabaseBehaviorAbstract
         {
             $handle = $this->getMixer()->getHandle();
 
-            if(!isset($this->_parameters[$handle]))
+            if ($handle)
             {
-                $type   = (array) $this->getTable()->getColumn($this->_column)->filter;
-                $data   = $this->getProperty($this->_column);
-                $config = $this->getObject('object.config.factory')->createFormat($type[0]);
-
-                if(!empty($data))
-                {
-                    if (is_string($data)) {
-                        $config->fromString(trim($data));
-                    } else {
-                        $config->append($data);
-                    }
+                if(!isset($this->_parameters[$handle])) {
+                    $this->_parameters[$handle] = $this->_getColumnConfig();
                 }
 
-                $this->_parameters[$handle] = $config;
+                $result = $this->_parameters[$handle];
             }
-
-            $result = $this->_parameters[$handle];
+            else $result = $this->_getColumnConfig();
         }
 
         return $result;
+    }
+
+    protected function _getColumnConfig()
+    {
+        $type   = (array) $this->getTable()->getColumn($this->_column)->filter;
+        $data   = $this->getProperty($this->_column);
+        $config = $this->getObject('object.config.factory')->createFormat($type[0]);
+
+        if(!empty($data))
+        {
+            if (is_string($data)) {
+                $config->fromString(trim($data));
+            } else {
+                $config->append($data);
+            }
+        }
+
+        return $config;
     }
 
     /**
