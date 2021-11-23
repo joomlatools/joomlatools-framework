@@ -151,6 +151,8 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 $classes = array_map('json_encode', ['k-ui-j4-form', 'k-ui-j4-' . JFactory::getApplication()->getName()]);
                 $html    .= '<script data-inline type="text/javascript">document.documentElement.classList.add(' .
                             implode(", ", $classes) . ');</script>';
+
+                KTemplateHelperBehavior::setLoaded('k-ui-j4-form');
             }
         }
 
