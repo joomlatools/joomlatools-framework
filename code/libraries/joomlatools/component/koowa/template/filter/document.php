@@ -15,35 +15,10 @@
  */
 class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 {
-    /**
-     * List of known blacklisted scripts
-     */
-    protected $_blacklist = []; // ['/media/jui/js/jquery.js']
-
-    /**
-     * Constructor.
-     *
-     * @param KObjectConfig $config An optional ObjectConfig object with configuration options
-     */
-    public function __construct(KObjectConfig $config)
-    {
-        parent::__construct($config);
-
-        $this->_blacklist = KObjectConfig::unbox($config->blacklist);
-    }
-
-    /**
-     * Initializes the options for the object
-     *
-     * Called from {@link __construct()} as a first step of object instantiation.
-     *
-     * @param  KObjectConfig $config An optional ObjectConfig object with configuration options
-     */
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority'  => self::PRIORITY_HIGH,
-            'blacklist' => null
+            'priority' => self::PRIORITY_HIGH
         ));
 
         parent::_initialize($config);
@@ -55,8 +30,6 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
         {
             $head = JFactory::getDocument()->getHeadData();
             $mime = JFactory::getDocument()->getMimeEncoding();
-
-            $head['scripts'] = $this->_filterScripts($head['scripts']);
 
             ob_start();
 
@@ -192,27 +165,5 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
             $text = $head.$text;
         }
-    }
-
-    /**
-     * Filter blacklisted scripts
-     *
-     * @param $scripts
-     * @return array|mixed
-     */
-    protected function _filterScripts($scripts)
-    {
-        if ($this->_blacklist)
-        {
-            $scripts = array_filter($scripts, function($value, $path) {
-                if (in_array($path, $this->_blacklist)) {
-                    return null;
-                }
-
-                return $value;
-            }, ARRAY_FILTER_USE_BOTH);
-        }
-
-        return $scripts;
     }
 }
