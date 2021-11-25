@@ -63,13 +63,14 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
                 $fields[] = 'calendar';
             }
 
-            $source = $this->getObject('request')->getBaseUrl();
+            $prepend_path = $this->getObject('request')->getSiteUrl()->getPath(true) ?: [''];
 
             foreach ($fields as $field)
             {
-                $source->setPath(array('', 'media', 'system', 'css', 'fields', sprintf('%s.css', $field)));
+                $url = $this->getObject('lib:http.url');
+                $url->setPath([...$prepend_path, 'media', 'system', 'css', 'fields', sprintf('%s.css', $field)]);
 
-                $result .= sprintf('<ktml:style src="%s" />', $source);
+                $result .= sprintf('<ktml:style src="%s" />', $url);
             }
         }
 
