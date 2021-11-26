@@ -91,7 +91,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
         $app = JFactory::getApplication();
 
         // Joomla 4 is not always pushing Itemid to the query
-        if (version_compare(JVERSION, '4', '>=') && $app->input->exists('Itemid')) {
+        if (version_compare(JVERSION, '4', '>=') && !isset($query['Itemid']) && $app->input->exists('Itemid')) {
             $query['Itemid'] = $app->input->getInt('Itemid');
         }
 
