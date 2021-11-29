@@ -71,23 +71,27 @@ class KDatabaseBehaviorParameterizable extends KDatabaseBehaviorAbstract
 
         if($this->hasProperty($this->_column))
         {
-            $handle = $this->getMixer()->getHandle();
+            $mixer = $this->getMixer();
 
-            if ($handle)
+            // Only existing entities (with a valid handle) are kept in the object pool
+
+            if (!$mixer->isNew())
             {
+                $handle = $mixer->getHandle();
+
                 if(!isset($this->_parameters[$handle])) {
-                    $this->_parameters[$handle] = $this->_getColumnConfig();
+                    $this->_parameters[$handle] = $this->_createParameters();
                 }
 
                 $result = $this->_parameters[$handle];
             }
-            else $result = $this->_getColumnConfig();
+            else $result = $this->_createParameters();
         }
 
         return $result;
     }
 
-    protected function _getColumnConfig()
+    protected function _createParameters()
     {
         $type   = (array) $this->getTable()->getColumn($this->_column)->filter;
         $data   = $this->getProperty($this->_column);
