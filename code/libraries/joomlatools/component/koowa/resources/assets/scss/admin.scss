@@ -3,17 +3,19 @@
 // ==========================================================================
 
 $k-icon-path: '../../framework/fonts' !default;
+$k-atom-html: false;
+$k-atom-body: false;
 
 @import "../../../../../../../../../kodekit-ui/src/scss/admin-ui";
 
+.k-ui-namespace {
+  @include k-html;
+  @include k-body;
+}
 
 // ==========================================================================
 // Joomla styling
 // ==========================================================================
-
-html.k-ui-j4-administrator {
-  font-size: initial; // Avoids us from overriding the font-size on Joomla 4 admin UIs
-}
 
 .k-ui-j3 {
   @import "icomoon";
@@ -22,10 +24,6 @@ html.k-ui-j4-administrator {
 .k-ui-j4-administrator {
 
   @import "admin_j4";
-
-  .k-ui-namespace {
-    font-size: $k-font-size;
-  }
 }
 
 .k-ui-j4-form {
