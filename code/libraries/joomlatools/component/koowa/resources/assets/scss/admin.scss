@@ -22,6 +22,10 @@ html.k-ui-j4-administrator {
 .k-ui-j4-administrator {
 
   @import "admin_j4";
+
+  .k-ui-namespace {
+    font-size: $k-font-size;
+  }
 }
 
 .k-ui-j4-form {
