@@ -11,6 +11,10 @@ $k-icon-path: '../../framework/fonts' !default;
 // Joomla styling
 // ==========================================================================
 
+html.k-ui-j4-administrator {
+  font-size: initial; // Avoids us from overriding the font-size on Joomla 4 admin UIs
+}
+
 .k-ui-j3 {
   @import "icomoon";
 }
