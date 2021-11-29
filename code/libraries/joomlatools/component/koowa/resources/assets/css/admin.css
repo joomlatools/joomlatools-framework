@@ -1,69 +1,4 @@
 @charset "UTF-8";
-/* HTML
-   ========================================================================== */
-/**
- * 1. By using 100% we can work with full-height auto overflowing flexbox pages
- * 2. Remove all spacing
- * 3. Set basic font here. Other systems could set font on `<body>` element to override this.
- *    We're just making sure there's alwas a default font available
- */
-html {
-  min-height: 100%;
-  /* 1 */
-  height: 100%;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-  margin: 0;
-  /* 2 */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  /* 3 */
-  font-size: 13px;
-  /* 3 */
-  line-height: 20px;
-  /* 3 */
-  font-weight: 400;
-  /* 3 */
-  color: #222222;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Body
-   ========================================================================== */
-/**
- * 1. By using 100% we can work with full-height auto overflowing flexbox pages
- * 2. Remove all spacing
- * 3. Setting up flexbox
- * 4. Hide overflowing content on resizing to make sure we never get any weird jumping scrollbar issues
- */
-body {
-  min-height: 100%;
-  /* 1 */
-  height: 100%;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-  margin: 0;
-  /* 2 */
-  /**
-   * Setup flexbox
-   */
-  display: flex;
-  /* 3 */
-  flex-direction: column;
-  /* 3 */
-  flex: 1 1 auto;
-  /* 3 */
-  /**
-   * When resizing
-   */
-}
-body.k-is-resizing {
-  overflow: hidden;
-  /* 4 */
-}
-
 /* Custom icon font
    ========================================================================== */
 @font-face {
@@ -1669,14 +1604,6 @@ body.k-is-resizing {
   /**
    * Set to hidden to avoid blurry text after transitioning and transforming elements
    */
-  /* Body
-     ========================================================================== */
-  /**
-   * 1. By using 100% we can work with full-height auto overflowing flexbox pages
-   * 2. Remove all spacing
-   * 3. Setting up flexbox
-   * 4. Hide overflowing content on resizing to make sure we never get any weird jumping scrollbar issues
-   */
   /* Definition list
      ========================================================================== */
   /* Fieldset
@@ -1690,14 +1617,6 @@ body.k-is-resizing {
      ========================================================================== */
   /**
    * 1. Remove default top-margin
-   */
-  /* HTML
-     ========================================================================== */
-  /**
-   * 1. By using 100% we can work with full-height auto overflowing flexbox pages
-   * 2. Remove all spacing
-   * 3. Set basic font here. Other systems could set font on `<body>` element to override this.
-   *    We're just making sure there's alwas a default font available
    */
   /* Image
      ========================================================================== */
@@ -3545,32 +3464,6 @@ body.k-is-resizing {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }
-.k-ui-namespace body {
-  min-height: 100%;
-  /* 1 */
-  height: 100%;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-  margin: 0;
-  /* 2 */
-  /**
-   * Setup flexbox
-   */
-  display: flex;
-  /* 3 */
-  flex-direction: column;
-  /* 3 */
-  flex: 1 1 auto;
-  /* 3 */
-  /**
-   * When resizing
-   */
-}
-.k-ui-namespace body.k-is-resizing {
-  overflow: hidden;
-  /* 4 */
-}
 .k-ui-namespace dl {
   margin-top: 0;
   margin-bottom: 16px;
@@ -3645,27 +3538,6 @@ body.k-is-resizing {
 }
 .k-ui-namespace h1:last-child, .k-ui-namespace h2:last-child, .k-ui-namespace h3:last-child, .k-ui-namespace h4:last-child, .k-ui-namespace h5:last-child, .k-ui-namespace h6:last-child {
   margin-bottom: 0;
-}
-.k-ui-namespace html {
-  min-height: 100%;
-  /* 1 */
-  height: 100%;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-  margin: 0;
-  /* 2 */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  /* 3 */
-  font-size: 13px;
-  /* 3 */
-  line-height: 20px;
-  /* 3 */
-  font-weight: 400;
-  /* 3 */
-  color: #222222;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .k-ui-namespace img {
   max-width: 100%;
@@ -14872,8 +14744,50 @@ html .form-inline .select2-container--bootstrap {
     align-self: stretch !important;
   }
 }
-html.k-ui-j4-administrator {
-  font-size: initial;
+.k-ui-namespace {
+  min-height: 100%;
+  /* 1 */
+  height: 100%;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+  margin: 0;
+  /* 2 */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  /* 3 */
+  font-size: 13px;
+  /* 3 */
+  line-height: 20px;
+  /* 3 */
+  font-weight: 400;
+  /* 3 */
+  color: #222222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+  /* 1 */
+  height: 100%;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+  margin: 0;
+  /* 2 */
+  /**
+   * Setup flexbox
+   */
+  display: flex;
+  /* 3 */
+  flex-direction: column;
+  /* 3 */
+  flex: 1 1 auto;
+  /* 3 */
+  /**
+   * When resizing
+   */
+}
+.k-ui-namespace.k-is-resizing {
+  overflow: hidden;
+  /* 4 */
 }
 
 .k-ui-j3 {
@@ -15657,9 +15571,6 @@ html.k-ui-j4-administrator {
 .k-ui-j4-administrator .row {
   --gutter-x: 0rem;
   --gutter-y: 0.5rem;
-}
-.k-ui-j4-administrator .k-ui-namespace {
-  font-size: 13px;
 }
 
 .k-ui-j4-form .k-ui-namespace {
