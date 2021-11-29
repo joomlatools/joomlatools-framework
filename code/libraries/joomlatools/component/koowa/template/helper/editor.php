@@ -68,7 +68,7 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
             foreach ($fields as $field)
             {
                 $url = $this->getObject('lib:http.url');
-                $url->setPath([...$prepend_path, 'media', 'system', 'css', 'fields', sprintf('%s.css', $field)]);
+                $url->setPath(array_merge($prepend_path, ['media', 'system', 'css', 'fields', sprintf('%s.css', $field)]));
 
                 $result .= sprintf('<ktml:style src="%s" />', $url);
             }
