@@ -15658,6 +15658,9 @@ html.k-ui-j4-administrator {
   --gutter-x: 0rem;
   --gutter-y: 0.5rem;
 }
+.k-ui-j4-administrator .k-ui-namespace {
+  font-size: 13px;
+}
 
 .k-ui-j4-form .k-ui-namespace {
   /**
