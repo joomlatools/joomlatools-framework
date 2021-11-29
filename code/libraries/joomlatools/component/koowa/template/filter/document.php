@@ -155,6 +155,10 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                         $uri = $style->getUri(true);
                         $attributes = $script->getAttributes();
 
+                        if (isset($attributes['type']) && $attributes['type'] === 'module') {
+                            unset($attributes['type']);
+                        }
+
                         echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
                     }
                 }
