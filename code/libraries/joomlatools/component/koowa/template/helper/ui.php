@@ -123,12 +123,34 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                     document.documentElement.classList.add('.implode(", ",$classes).');
                     
                     // Hide sidebar
-                    document.addEventListener("DOMContentLoaded", function() {
+                    document.addEventListener("DOMContentLoaded", function()
+                    {
                       var wrapper = document.getElementById(\'wrapper\');
                       var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
                       wrapper.classList.add(\'closed\');
                       menuToggleIcon.classList.remove(\'fa-toggle-on\');
                       menuToggleIcon.classList.add(\'fa-toggle-off\');
+                      
+
+                      let menus = wrapper.querySelectorAll(\'li.mm-active\');
+                                            
+                      for (let menu of menus)
+                      {
+                        menu.classList.remove(\'active\');
+                        menu.classList.remove(\'open\');
+                        
+                        let arrow = menu.querySelector(\'a\');
+                        
+                        arrow.classList.add(\'mm-collapsed\');
+                        arrow.setAttribute(\'aria-expanded\', false);
+                        
+                        menu.classList.remove(\'mm-active\');
+                        menu.classList.remove(\'open\');
+                        
+                        menu.querySelector(\'ul\').classList.remove(\'mm-show\');
+                      }
+                      
+                      wrapper.querySelector(\'ul.main-nav.metismenu\').classList.add(\'child-open\');
                     });
                 </script>';
 
