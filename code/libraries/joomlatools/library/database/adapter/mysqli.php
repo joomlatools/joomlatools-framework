@@ -171,7 +171,11 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
      */
     public function isConnected()
     {
-        return ($this->_connection instanceof MySQLi) && @$this->_connection->ping();
+        try {
+            return ($this->_connection instanceof MySQLi) && @$this->_connection->ping();
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
