@@ -151,16 +151,19 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
 
                 if (isset($manager['style'])) {
-                    foreach ($manager['style'] as $style) {
-                        $uri = $style->getUri(true);
-                        $attributes = $script->getAttributes();
+                    foreach ($manager['style'] as $style)
+                    {
+                        if ($uri = $style->getUri(true))
+                        {
+                            $attributes = $script->getAttributes();
 
-                        if (isset($attributes['type']) && $attributes['type'] === 'module') {
-                            unset($attributes['type']);
+                            if (isset($attributes['type']) && $attributes['type'] === 'module') {
+                                unset($attributes['type']);
+                            }
+
+                            echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
                         }
-
-                        echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
-                    }
+                     }
                 }
 
             }
