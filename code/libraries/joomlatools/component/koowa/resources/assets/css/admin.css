@@ -14744,7 +14744,7 @@ html .form-inline .select2-container--bootstrap {
     align-self: stretch !important;
   }
 }
-.k-ui-namespace {
+.k-ui-joomla {
   min-height: 100%;
   /* 1 */
   height: 100%;
@@ -14785,7 +14785,55 @@ html .form-inline .select2-container--bootstrap {
    * When resizing
    */
 }
-.k-ui-namespace.k-is-resizing {
+.k-ui-joomla.k-is-resizing {
+  overflow: hidden;
+  /* 4 */
+}
+
+.k-ui-page {
+  min-height: 100%;
+  /* 1 */
+  height: 100%;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+  margin: 0;
+  /* 2 */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  /* 3 */
+  font-size: 13px;
+  /* 3 */
+  line-height: 20px;
+  /* 3 */
+  font-weight: 400;
+  /* 3 */
+  color: #222222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.k-ui-page body {
+  min-height: 100%;
+  /* 1 */
+  height: 100%;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+  margin: 0;
+  /* 2 */
+  /**
+   * Setup flexbox
+   */
+  display: flex;
+  /* 3 */
+  flex-direction: column;
+  /* 3 */
+  flex: 1 1 auto;
+  /* 3 */
+  /**
+   * When resizing
+   */
+}
+.k-ui-page body.k-is-resizing {
   overflow: hidden;
   /* 4 */
 }
