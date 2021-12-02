@@ -8,7 +8,7 @@ $k-atom-body: false;
 
 @import "../../../../../../../../../kodekit-ui/src/scss/admin-ui";
 
-.k-ui-namespace {
+.k-ui-joomla {
   @include k-html;
   @include k-body;
 }
