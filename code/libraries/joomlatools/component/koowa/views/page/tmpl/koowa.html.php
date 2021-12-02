@@ -16,7 +16,7 @@ $direction = $doc->direction;
 
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $language; ?>" dir="<?php echo $direction; ?>">
+<html class="k-ui-page" xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $language; ?>" dir="<?php echo $direction; ?>">
 <head>
     <base href="<?= url(); ?>" />
     <title><?= title() ?></title>
