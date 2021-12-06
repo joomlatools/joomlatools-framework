@@ -11,9 +11,6 @@ defined('KOOWA') or die; ?>
 
 <title content="replace"><?= translate('Error').' '.$code.' - '. KHttpResponse::$status_messages[$code]; ?></title>
 
-<ktml:style src="media://koowa/framework/css/debugger.css" />
-<ktml:script src="media://koowa/framework/js/debugger.js" />
-
 <script data-inline type="text/javascript">
 // Remove all classes from html and body
 document.body.className = ''; document.documentElement.className = '';

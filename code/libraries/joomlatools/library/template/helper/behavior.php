@@ -953,8 +953,8 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('debugger'))
         {
-            $html = '<ktml:script src="assets://js/debugger'.($config->debug ? '' : '.min').'.js" />';
-            $html = '<ktml:style src="assets://css/debugger'.($config->debug ? '' : '.min').'.css" />';
+            $html .= '<ktml:script src="assets://js/debugger'.($config->debug ? '' : '.min').'.js" />';
+            $html .= '<ktml:style src="assets://css/debugger'.($config->debug ? '' : '.min').'.css" />';
 
             static::setLoaded('debugger');
         }
