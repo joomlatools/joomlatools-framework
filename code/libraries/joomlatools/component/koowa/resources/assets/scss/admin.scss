@@ -49,4 +49,13 @@ $k-atom-body: false;
   }
 }
 
+.k-ui-j3-form {
+
+  .k-ui-namespace {
+
+    @import "form_j3";
+
+  }
+
+}
 @import "styles";
