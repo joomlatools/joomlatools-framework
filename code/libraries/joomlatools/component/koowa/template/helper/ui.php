@@ -160,7 +160,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                 }
             }
         }
-        elseif ($is_joomla4) $classes[] = sprintf('%s-form', $ui);
+        else $classes[] = sprintf('%s-form', $ui);
 
         if (!KTemplateHelperBehavior::isLoaded($ui))
         {
