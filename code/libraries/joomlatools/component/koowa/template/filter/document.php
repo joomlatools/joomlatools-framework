@@ -120,6 +120,8 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             // Generate script declarations
             foreach ($head['script'] as $type => $content)
             {
+                if (is_array($content)) $content = current($content);
+
                 // This is for full XHTML support.
                 if ($mime != 'text/html') {
                     $content = "<![CDATA[\n".$content."\n]]>";
