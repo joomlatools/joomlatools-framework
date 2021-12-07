@@ -49,11 +49,13 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $code = '500';
         }
 
+        $is_joomla4 = version_compare(JVERSION, 4, '>=');
+
         //Render the exception
         if(!JDEBUG)
         {
             //Render the Joomla error page if debug mode is disabled and format is html
-            if(class_exists('JErrorPage') && $request->getFormat() == 'html')
+            if(!$is_joomla4 && class_exists('JErrorPage') && $request->getFormat() == 'html')
             {
                 if(ini_get('display_errors')) {
                     $message = $exception->getMessage();
@@ -65,6 +67,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
 
                 $class = get_class($exception);
                 $error = new $class($message, $exception->getCode());
+
                 JErrorPage::render($error);
 
                 JFactory::getApplication()->close(0);
