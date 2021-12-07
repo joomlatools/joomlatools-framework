@@ -102,7 +102,6 @@ class PlgSystemJoomlatools extends JPlugin
                  * Framework Bootstrapping
                  */
                 Koowa::getInstance(array(
-                    'debug'           => JDEBUG,
                     'cache'           => false, //JFactory::getConfig()->get('caching')
                     'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getConfig()->get('secret')),
                     'root_path'       => JPATH_ROOT,
