@@ -46,12 +46,7 @@ class PlgSystemJoomlatools extends JPlugin
         }
 
         //Bootstrap the Koowa Framework
-        if ($this->bootstrap())
-        {
-            if (version_compare(JVERSION, '4', '>=') && Koowa::isDebug()) {
-                $subject->addListener('onError', array($this, 'onJ4Error'), Joomla\Event\Priority::ABOVE_NORMAL);
-            }
-        }
+        $this->bootstrap();
 
         $this->onAfterKoowaBootstrap();
 
@@ -107,6 +102,7 @@ class PlgSystemJoomlatools extends JPlugin
                  * Framework Bootstrapping
                  */
                 Koowa::getInstance(array(
+                    'debug' => false,
                     'cache'           => false, //JFactory::getConfig()->get('caching')
                     'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getConfig()->get('secret')),
                     'root_path'       => JPATH_ROOT,
@@ -244,10 +240,8 @@ class PlgSystemJoomlatools extends JPlugin
      * @see: https://github.com/joomla/joomla-cms/blob/4.0-dev/libraries/src/Application/CMSApplication.php#L296
      * @return void
      */
-    public function onJ4Error($event)
+    public function onError($exception)
     {
-        $exception = $event->getError();
-
         if ($exception instanceof \Throwable) {
             $this->_proxyEvent('onException', ['exception' => $exception]);
         }
