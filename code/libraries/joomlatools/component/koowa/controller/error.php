@@ -115,7 +115,7 @@ class ComKoowaControllerError extends KControllerView
         return $result;
     }
 
-    public function getBackTrace(Exception $exception)
+    public function getBackTrace(\Throwable $exception)
     {
         $traces = array();
 
