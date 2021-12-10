@@ -215,7 +215,7 @@ class Koowa
      * Enable or disable debug
      *
      * @param bool $debug True or false.
-     * @return Kodekit
+     * @return bool
      */
     public static function setDebug($debug)
     {
