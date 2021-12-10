@@ -77,7 +77,7 @@ class Koowa
         if(isset($config['debug'])) {
             self::$_debug = $config['debug'];
         } else {
-            self::$_debug = false;
+            self::$_debug = (getenv('KOOWA_DEBUG') !== false ? filter_var( getenv('KOOWA_DEBUG') , FILTER_VALIDATE_BOOLEAN) : false);
         }
 
         //Initialize the root path
