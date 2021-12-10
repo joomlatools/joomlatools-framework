@@ -554,7 +554,7 @@ details summary ~ * {
       @extend .k-button--default;
     }
 
-    [class^="icon"] {
+    [class^="icon-"], [class*=" icon-"] {
       margin-right: 0 !important;
     }
   }

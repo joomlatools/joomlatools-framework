@@ -11,8 +11,17 @@ $fa-font-path:                     "/media/vendor/fontawesome-free/webfonts" !de
 @import "vendor/fontawesome-free/scss/brands";
 
 .k-ui-j4-form {
+
   // B/C for Icomoon
   @import "vendor/joomla/fa-iconmoon";
+
+  [class^="icon-"], [class*=" icon-"] {
+
+    /* Avoid Bootstrap icon overrides */
+
+    background-image: none !important;
+    vertical-align: inherit !important;
+  }
 }
 
 // RTL override
