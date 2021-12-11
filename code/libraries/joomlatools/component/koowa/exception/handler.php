@@ -18,16 +18,16 @@
  *    - error types   : TYPE_ALL which will trigger an exception for : exceptions, errors and failures
  *    - error levels  : ERROR_DEVELOPMENT (E_ALL | E_STRICT | ~E_DEPRECATED)
  *
- * 2. Joomla debug
+ * 2. JDEBUG enabled
  *
- * If debug is enabled assume we are in none local debug mode
+ * If JDEBUG debug is enabled assume we are in none local debug mode
  *    - error types   : TYPE_ALL which will trigger an exception for : exceptions, errors and failures
  *    - error levels  : E_ERROR and E_PARSE
  *
  * 3. Joomla default
  *
- * Do not try to trigger errors or exceptions automatically. To trigger an exception the implementing code
- * should call {@link handleException()}
+ * Do not try to trigger errors automatically. Exception handling is still required to be able to recover
+ * from specific exceptions gracefully, like a 404 or 403 exception.
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Exception
@@ -44,20 +44,21 @@ final class ComKoowaExceptionHandler extends KExceptionHandler
      */
     protected function _initialize(KObjectConfig $config)
     {
-        if(Koowa::isDebug()) {
+        if(Koowa::isDebug())
+        {
             $config->append([
                 'exception_type'  => self::TYPE_ALL,
                 'error_reporting' => self::ERROR_DEVELOPMENT
             ]);
         }
-        elseif (JDEBUG) {
+        elseif (JDEBUG)
+        {
             $config->append([
                 'exception_type'  => self::TYPE_ALL,
                 'error_reporting' => E_ERROR | E_PARSE
             ]);
-        } else {
-            $config->append(['exception_type' => false]);
         }
+        else $config->append(['exception_type' => self::TYPE_EXCEPTION]);
 
         parent::_initialize($config);
     }
