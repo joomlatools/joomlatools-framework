@@ -355,36 +355,33 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
     {
         $result = false;
 
-        if($this->isEnabled(self::TYPE_EXCEPTION))
+        //Handle \Error Exceptions in PHP7
+        if ($exception instanceof \Error)
         {
-            //Handle \Error Exceptions in PHP7
-            if ($exception instanceof \Error)
-            {
-                $message = $exception->getMessage();
-                $file    = $exception->getFile();
-                $line    = $exception->getLine();
-                $type    = E_ERROR; //Set to E_ERROR by default
+            $message = $exception->getMessage();
+            $file    = $exception->getFile();
+            $line    = $exception->getLine();
+            $type    = E_ERROR; //Set to E_ERROR by default
 
-                if($exception instanceof \DivisionByZeroError) {
-                    $type = E_WARNING;
-                }
-
-                if($exception instanceof \AssertionError) {
-                    $type = E_WARNING;
-                }
-
-                if($exception instanceof \ParseError) {
-                    $type = E_PARSE;
-                }
-
-                if($exception instanceof \TypeError) {
-                    $type =  E_RECOVERABLE_ERROR;
-                }
-
-                $result = $this->_handleError($type, $message, $file, $line, null, $exception);
+            if($exception instanceof \DivisionByZeroError) {
+                $type = E_WARNING;
             }
-            else $result = $this->handleException($exception);
+
+            if($exception instanceof \AssertionError) {
+                $type = E_WARNING;
+            }
+
+            if($exception instanceof \ParseError) {
+                $type = E_PARSE;
+            }
+
+            if($exception instanceof \TypeError) {
+                $type =  E_RECOVERABLE_ERROR;
+            }
+
+            $result = $this->_handleError($type, $message, $file, $line, null, $exception);
         }
+        else $result = $this->handleException($exception);
 
         //Let the normal error flow continue
         return $result;
@@ -408,30 +405,27 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
     {
         $result = false;
 
-        if($this->isEnabled(self::TYPE_ERROR))
+        $is_suppressed_error = error_reporting() === 0 || (error_reporting() < ($this->getErrorReporting() < 0 ? E_ALL : $this->getErrorReporting()));
+
+        /*
+         * Do not handle suppressed errors.
+         *
+         * error_reporting returns 0 (or something lower than 4437 on PHP8) if the statement causing the error was prepended by the @ error-control operator.
+         * @see https://www.php.net/manual/en/language.operators.errorcontrol.php
+         * @see https://www.php.net/manual/en/language.operators.errorcontrol.php#125938
+         */
+        if (!($this->_error_operator && $is_suppressed_error))
         {
-            $is_suppressed_error = error_reporting() === 0 || (error_reporting() < ($this->getErrorReporting() < 0 ? E_ALL : $this->getErrorReporting()));
-
-            /*
-             * Do not handle suppressed errors.
-             *
-             * error_reporting returns 0 (or something lower than 4437 on PHP8) if the statement causing the error was prepended by the @ error-control operator.
-             * @see https://www.php.net/manual/en/language.operators.errorcontrol.php
-             * @see https://www.php.net/manual/en/language.operators.errorcontrol.php#125938
-             */
-            if (!($this->_error_operator && $is_suppressed_error))
+            if ($this->getErrorReporting() & $level)
             {
-                if ($this->getErrorReporting() & $level)
-                {
-                    $exception = new KExceptionError(
-                        $message, KHttpResponse::INTERNAL_SERVER_ERROR, $level, $file, $line, $previous
-                    );
+                $exception = new KExceptionError(
+                    $message, KHttpResponse::INTERNAL_SERVER_ERROR, $level, $file, $line, $previous
+                );
 
-                    $result = $this->handleException($exception);
-                }
+                $result = $this->handleException($exception);
             }
-            else $result = true;
         }
+        else $result = true;
 
         //Let the normal error flow continue
         return $result;
@@ -447,23 +441,20 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      */
     public function _handleFailure()
     {
-        if($this->isEnabled(self::TYPE_FAILURE))
+        $error = error_get_last();
+
+        // Make sure error happened after we started handling them
+        if ($error && md5(serialize($error)) !== $this->__last_unhandled_error)
         {
-            $error = error_get_last();
+            $level = $error['type'];
 
-            // Make sure error happened after we started handling them
-            if ($error && md5(serialize($error)) !== $this->__last_unhandled_error)
+            if ($this->getErrorReporting() & $level)
             {
-                $level = $error['type'];
+                $exception = new KExceptionFailure(
+                    $error['message'], KHttpResponse::INTERNAL_SERVER_ERROR, $level, $error['file'], $error['line']
+                );
 
-                if ($this->getErrorReporting() & $level)
-                {
-                    $exception = new KExceptionFailure(
-                        $error['message'], KHttpResponse::INTERNAL_SERVER_ERROR, $level, $error['file'], $error['line']
-                    );
-
-                    $this->handleException($exception);
-                }
+                $this->handleException($exception);
             }
         }
     }
