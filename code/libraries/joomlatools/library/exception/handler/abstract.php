@@ -270,10 +270,10 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      * If an exception callback returns TRUE the exception handling will be aborted, otherwise the next callback will be
      * called, until all callbacks have gotten a change to handle the exception.
      *
-     * @param  \Exception  $exception  The exception to be handled
+     * @param  \Throwable  $exception  The exception to be handled
      * @return bool  If the exception was handled return TRUE, otherwise false
      */
-    public function handleException(\Exception $exception)
+    public function handleException(\Throwable $exception)
     {
         try
         {
