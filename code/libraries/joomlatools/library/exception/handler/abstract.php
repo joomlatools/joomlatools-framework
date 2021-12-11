@@ -348,7 +348,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      * Do not call this method directly. Function visibility is public because set_exception_handler does not allow for
      * protected method callbacks.
      *
-     * @param  Exception $exception  The exception to be handled
+     * @param  \Throwable $exception  The exception to be handled
      * @return bool
      */
     public function _handleException($exception)
@@ -381,7 +381,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
                     $type =  E_RECOVERABLE_ERROR;
                 }
 
-                $result = $this->_handleError($type, $message, $file, $line, $exception);
+                $result = $this->_handleError($type, $message, $file, $line, null, $exception);
             }
             else $result = $this->handleException($exception);
         }
@@ -401,7 +401,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
      * @param string $file       The filename that the error was raised in
      * @param int    $line       The line number the error was raised at
      * @param array  $context    An array that points to the active symbol table at the point the error occurred
-     * @param object $previous   The previous exception used for the exception chaining
+     * @param \Throwable $previous   The previous exception used for the exception chaining
      * @return bool
      */
     public function _handleError($level, $message, $file, $line, $context = null, $previous = null)
