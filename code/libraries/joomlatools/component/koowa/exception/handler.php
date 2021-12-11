@@ -26,8 +26,8 @@
  *
  * 3. Joomla default
  *
- * Do not try to trigger errors automatically. Exception handling is still required to be able to recover
- * from specific exceptions gracefully, like a 404 or 403 exception.
+ * Do not try handle exceptions automatically. Either manually enable the exception type to handle using {@link enabled()}
+ * or call {@link handleException()} to forward an exception
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Exception
@@ -58,7 +58,7 @@ final class ComKoowaExceptionHandler extends KExceptionHandler
                 'error_reporting' => E_ERROR | E_PARSE
             ]);
         }
-        else $config->append(['exception_type' => self::TYPE_EXCEPTION]);
+        else $config->append(['exception_type' => false]);
 
         parent::_initialize($config);
     }
