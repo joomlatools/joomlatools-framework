@@ -175,6 +175,11 @@ class PlgSystemJoomlatools extends JPlugin
                 require_once $custom_vendor.'/autoload.php';
             }
 
+            //Catch all Joomla v3.x exceptions
+            if(class_exists('JError') && !version_compare(JVERSION, 4, '>=')) {
+                JError::setErrorHandling(E_ERROR, 'callback', array($this, 'onError'));
+            }
+
             return true;
         }
 
