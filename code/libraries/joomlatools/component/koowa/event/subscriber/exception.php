@@ -40,15 +40,12 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $level--;
         }
 
-        if(JDEBUG)
-        {
-            if (Koowa::isDebug()) {
-                $this->_renderKoowaError($event);
-            } else {
-                $this->_renderJoomlaError($event);
-            }
+        //Render debugger if Koowa or Joomla are running in debug mode, if not pass off to Joomla for handling
+        if(Koowa::isDebug() || JDEBUG) {
+            $this->_renderKoowaError($event);
+        } else {
+            $this->_renderJoomlaError($event);
         }
-        else $this->_renderJoomlaError($event);
     }
 
     protected function _renderKoowaError(KEvent $event)
@@ -63,7 +60,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $dispatcher = $this->getObject('com:koowa.dispatcher.http');
 
             //Set status code (before rendering the error)
-            $dispatcher->getResponse()->setStatus($this->_getCode($exception));
+            $dispatcher->getResponse()->setStatus($this->_getErrorCode($exception));
 
             $content = $this->getObject('com:koowa.controller.error', ['request' => $request])
                             ->layout('default')
@@ -81,7 +78,6 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
         $request    = $this->getObject('request');
 
         // Only render the Error ourselves if we are running Joomla 3 and format is HTML
-
         if(!$is_joomla4 && class_exists('JErrorPage') && $request->getFormat() == 'html')
         {
             $exception = $event->exception;
@@ -89,22 +85,19 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             if(ini_get('display_errors')) {
                 $message = $exception->getMessage();
             } else {
-                $message = KHttpResponse::$status_messages[$this->_getCode($exception)];
+                $message = KHttpResponse::$status_messages[$this->_getErrorCode($exception)];
             }
 
             $message = $this->getObject('translator')->translate($message);
-
             $class = get_class($exception);
-
             $error = new $class($message, $exception->getCode());
 
             JErrorPage::render($error);
-
             JFactory::getApplication()->close(0);
         }
     }
 
-    protected function _getCode(\Throwable $exception)
+    protected function _getErrorCode(\Throwable $exception)
     {
         //If the error code does not correspond to a status message, use 500
 
