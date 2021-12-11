@@ -9,6 +9,8 @@
 
 defined('KOOWA') or die; ?>
 
+<?= helper('behavior.debugger') ?>
+
 <title content="replace"><?= translate('Error').' '.$code.' - '. KHttpResponse::$status_messages[$code]; ?></title>
 
 <script data-inline type="text/javascript">
