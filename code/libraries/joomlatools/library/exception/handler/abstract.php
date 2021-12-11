@@ -358,7 +358,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
         if($this->isEnabled(self::TYPE_EXCEPTION))
         {
             //Handle \Error Exceptions in PHP7
-            if (class_exists('Error') && $exception instanceof \Error)
+            if ($exception instanceof \Error)
             {
                 $message = $exception->getMessage();
                 $file    = $exception->getFile();
