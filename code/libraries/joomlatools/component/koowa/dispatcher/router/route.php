@@ -90,10 +90,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
     {
         $app = JFactory::getApplication();
 
-        // Joomla 4 is not always pushing Itemid to the query
-        if (version_compare(JVERSION, '4', '>=') && !isset($query['Itemid']) && $app->input->exists('Itemid')) {
-            $query['Itemid'] = $app->input->getInt('Itemid');
-        }
+        $this->_appendItemid($query);
 
         $query = 'index.php?'.http_build_query($query, '', '&');
 
@@ -107,5 +104,35 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
         }
 
         return $query;
+    }
+
+    protected function _appendItemid(&$query)
+    {
+        if (!isset($query['Itemid']) && version_compare(JVERSION, '4', '>='))
+        {
+            // Mimic Joomla's 3 behavior on Joomla 4
+
+            $app = JFactory::getApplication();
+
+            $input = $app->getInput();
+
+            if ($input->exists('Itemid'))
+            {
+                $item_id = $input->getInt('Itemid');
+
+                $item = $app->getMenu()->getItem($item_id);
+
+                if (isset($item))
+                {
+                    if (isset($query['option']))
+                    {
+                        if ($query['option'] == $item->component) {
+                            $query['Itemid'] = $item_id;
+                        }
+                    }
+                    else $query['Itemid'] = $item_id;
+                }
+            }
+        }
     }
 }
