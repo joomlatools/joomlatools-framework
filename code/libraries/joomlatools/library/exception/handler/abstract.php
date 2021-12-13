@@ -405,7 +405,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
     {
         $result = false;
 
-        $is_suppressed_error = error_reporting() === 0 || (error_reporting() < ($this->getErrorReporting() < 0 ? E_ALL : $this->getErrorReporting()));
+        $is_suppressed_error = !(error_reporting() & $level);
 
         /*
          * Do not handle suppressed errors.
@@ -413,6 +413,7 @@ class KExceptionHandlerAbstract extends KObject implements KExceptionHandlerInte
          * error_reporting returns 0 (or something lower than 4437 on PHP8) if the statement causing the error was prepended by the @ error-control operator.
          * @see https://www.php.net/manual/en/language.operators.errorcontrol.php
          * @see https://www.php.net/manual/en/language.operators.errorcontrol.php#125938
+         * @see https://www.devbanana.me/php8/2021/08/04/changes-to-error-suppression-in-php-8.html
          */
         if (!($this->_error_operator && $is_suppressed_error))
         {
