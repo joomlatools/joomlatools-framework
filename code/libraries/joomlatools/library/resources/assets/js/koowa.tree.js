@@ -3725,7 +3725,10 @@ module.exports = '1.3.4';
 
         /* Selects a node while opening all parent nodes, requiring the node to have a 'path' property in its data */
         selectNode: function(node, element){
-
+            if (!node) {
+                return;
+            }
+            
             // the -1 value is the root node
             var nodes = [-1], state = element.tree('getState');
 

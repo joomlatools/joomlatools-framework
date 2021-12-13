@@ -15814,6 +15814,8 @@ module.exports = '1.3.4';
                     .val('')
                     .filter('select').trigger('change'); // For select2
 
+                box.find('.k-js-scopebar-clearable').val('');
+
                 var form = event.target.form;
 
                 if (form) {
@@ -16342,7 +16344,10 @@ $(function() {
 
         /* Selects a node while opening all parent nodes, requiring the node to have a 'path' property in its data */
         selectNode: function(node, element){
-
+            if (!node) {
+                return;
+            }
+            
             // the -1 value is the root node
             var nodes = [-1], state = element.tree('getState');
 
@@ -17064,6 +17069,7 @@ $(function() {
 
 			if (this.date < this.o.startDate) {
 				this.viewDate = new Date(this.o.startDate);
+				this.date = new Date(this.o.startDate);
 			} else if (this.date > this.o.endDate) {
 				this.viewDate = new Date(this.o.endDate);
 				this.date = new Date(this.o.endDate);
@@ -19591,14 +19597,16 @@ var Konami = function (callback) {
      * Footable
      */
     kodekitUI.initializeFootable = function() {
-        $('.k-js-responsive-table').removeClass('footable footable-loaded').footable({
-            toggleSelector: '.footable-toggle',
-            breakpoints: {
-                phone: 400,
-                tablet: 600,
-                desktop: 800
-            }
-        });
+        if ($.fn.footable) {
+            $('.k-js-responsive-table').removeClass('footable footable-loaded').footable({
+                toggleSelector: '.footable-toggle',
+                breakpoints: {
+                    phone: 400,
+                    tablet: 600,
+                    desktop: 800
+                }
+            });
+        }
     };
 
 
@@ -19606,9 +19614,11 @@ var Konami = function (callback) {
      * Select 2
      */
     kodekitUI.initializeSelect2 = function() {
-        $('.k-js-select2').select2({
-            theme: "bootstrap"
-        });
+        if ($.fn.select2) {
+            $('.k-js-select2').select2({
+                theme: "bootstrap"
+            });
+        }
     };
 
 
@@ -19616,7 +19626,9 @@ var Konami = function (callback) {
      * Datepicker
      */
     kodekitUI.initializeDatepicker = function datepicker() {
-        $('.k-js-datepicker').kdatepicker();
+        if ($.fn.kdatepicker) {
+            $('.k-js-datepicker').kdatepicker();
+        }
     };
 
 
@@ -19624,9 +19636,12 @@ var Konami = function (callback) {
      * Magnific popup
      */
     kodekitUI.initializeModal = function() {
-        $('.k-js-image-modal').magnificPopup({type: 'image'});
-        $('.k-js-inline-modal').magnificPopup({type: 'inline'});
-        $('.k-js-iframe-modal').magnificPopup({type: 'iframe'});
+        if ($.fn.magnificPopup) {
+            $('.k-js-image-modal').magnificPopup({type: 'image'});
+            $('.k-js-inline-modal').magnificPopup({type: 'inline'});
+            $('.k-js-iframe-modal').magnificPopup({type: 'iframe'});
+        }
+
     };
 
 
@@ -19635,12 +19650,15 @@ var Konami = function (callback) {
      */
 
     kodekitUI.initializeTooltip = function() {
-        $('.k-js-tooltip').ktooltip({
-            animation: true,
-            placement: 'top',
-            delay: {show: 200, hide: 50},
-            container: '.k-ui-container'
-        });
+        if ($.fn.ktooltip) {
+            $('.k-js-tooltip').ktooltip({
+                animation: true,
+                placement: 'top',
+                delay: {show: 200, hide: 50},
+                container: '.k-ui-container'
+            });
+        }
+
     };
 
     kodekitUI.initializeNavigation = function() {
