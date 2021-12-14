@@ -62,3 +62,12 @@ $k-atom-body: false;
 @import "icons_j4";
 
 @import "styles";
+
+.k-ui-namespace {
+
+  .k-tabs-container__scrollable {
+
+    overflow: auto !important;
+
+  }
+}
