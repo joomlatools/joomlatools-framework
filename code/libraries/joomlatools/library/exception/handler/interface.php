@@ -97,10 +97,10 @@ interface KExceptionHandlerInterface
      * If an exception handler returns TRUE the exception handling will be aborted, otherwise the next handler will be
      * called, until all handlers have gotten a change to handle the exception.
      *
-     * @param   Exception  $exception  The exception to be handled
+     * @param   Throwable  $exception  The exception to be handled
      * @return  void
      */
-    public function handleException(\Exception $exception);
+    public function handleException(\Throwable $exception);
 
     /**
      * Check if an exception type is enabled
