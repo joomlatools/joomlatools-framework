@@ -755,7 +755,7 @@ window.jQuery = window.kQuery;
                 box.find('select').each(function(i, select) {
                     var value = $(select).val();
 
-                    if (!value || value === '' || (typeof value === 'object' && value.length === 1 && value[0] === '')) {
+                    if (!value || value === '' || (typeof value === 'object' && value.length === 1 && value[0] === '') || (Array.isArray(value) && !value.length)) {
                         var name = $(select).attr('name');
                         name = name.replace('[]', '');
                         $(select).removeAttr('name');
