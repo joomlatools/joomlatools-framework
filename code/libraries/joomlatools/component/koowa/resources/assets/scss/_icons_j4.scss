@@ -1,0 +1,30 @@
+// Override the font path
+$fa-css-prefix:                    fa;
+$fa-font-path:                     "/media/vendor/fontawesome-free/webfonts" !default;
+
+// Font Awesome 5 Free
+@import "vendor/fontawesome-free/scss/fontawesome";
+@import "vendor/fontawesome-free/scss/regular";
+@import "vendor/fontawesome-free/scss/solid";
+
+// Brands must be imported last
+@import "vendor/fontawesome-free/scss/brands";
+
+.k-ui-j4-form {
+
+  // B/C for Icomoon
+  @import "vendor/joomla/fa-iconmoon";
+
+  [class^="icon-"], [class*=" icon-"] {
+
+    /* Avoid Bootstrap icon overrides */
+
+    background-image: none !important;
+    vertical-align: inherit !important;
+  }
+}
+
+// RTL override
+html[dir=rtl] .float-right {
+  float: left;
+}

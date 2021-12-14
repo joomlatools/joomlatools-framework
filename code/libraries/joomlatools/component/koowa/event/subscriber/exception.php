@@ -33,9 +33,6 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
      */
     public function onException(KEvent $event)
     {
-        $request   = $this->getObject('request');
-        $exception = $event->exception;
-
         //Make sure the output buffers are cleared
         $level = ob_get_level();
         while($level > 0) {
@@ -43,53 +40,73 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $level--;
         }
 
+        //Render debugger if Koowa or Joomla are running in debug mode, if not pass off to Joomla for handling
+        if(Koowa::isDebug() || JDEBUG) {
+            $this->_renderKoowaError($event);
+        } else {
+            $this->_renderJoomlaError($event);
+        }
+    }
+
+    protected function _renderKoowaError(KEvent $event)
+    {
+        $request   = $this->getObject('request');
+        $exception = $event->exception;
+
+        //Render the exception backtrace if debug mode is enabled and format is html or json
+
+        if(in_array($request->getFormat(), array('json', 'html')))
+        {
+            $dispatcher = $this->getObject('com:koowa.dispatcher.http');
+
+            //Set status code (before rendering the error)
+            $dispatcher->getResponse()->setStatus($this->_getErrorCode($exception));
+
+            $content = $this->getObject('com:koowa.controller.error', ['request' => $request])
+                            ->layout('default')
+                            ->render($exception);
+
+            //Set error in the response
+            $dispatcher->getResponse()->setContent($content);
+            $dispatcher->send();
+        }
+    }
+
+    protected function _renderJoomlaError(KEvent $event)
+    {
+        $is_joomla4 = version_compare(JVERSION, 4, '>=');
+        $request    = $this->getObject('request');
+
+        // Only render the Error ourselves if we are running Joomla 3 and format is HTML
+        if(!$is_joomla4 && class_exists('JErrorPage') && $request->getFormat() == 'html')
+        {
+            $exception = $event->exception;
+
+            if(ini_get('display_errors')) {
+                $message = $exception->getMessage();
+            } else {
+                $message = KHttpResponse::$status_messages[$this->_getErrorCode($exception)];
+            }
+
+            $message = $this->getObject('translator')->translate($message);
+            $class = get_class($exception);
+            $error = new $class($message, $exception->getCode());
+
+            JErrorPage::render($error);
+            JFactory::getApplication()->close(0);
+        }
+    }
+
+    protected function _getErrorCode(\Throwable $exception)
+    {
         //If the error code does not correspond to a status message, use 500
+
         $code = $exception->getCode();
+
         if(!isset(KHttpResponse::$status_messages[$code])) {
             $code = '500';
         }
 
-        //Render the exception
-        if(!JDEBUG)
-        {
-            //Render the Joomla error page if debug mode is disabled and format is html
-            if(class_exists('JErrorPage') && $request->getFormat() == 'html')
-            {
-                if(ini_get('display_errors')) {
-                    $message = $exception->getMessage();
-                } else {
-                    $message = KHttpResponse::$status_messages[$code];
-                }
-
-                $message = $this->getObject('translator')->translate($message);
-
-                $class = get_class($exception);
-                $error = new $class($message, $exception->getCode());
-                JErrorPage::render($error);
-
-                JFactory::getApplication()->close(0);
-            }
-
-            return false;
-        }
-        else
-        {
-            //Render the exception backtrace if debug mode is enabled and format is html or json
-            if(in_array($request->getFormat(), array('json', 'html')))
-            {
-                $dispatcher = $this->getObject('com:koowa.dispatcher.http');
-
-                //Set status code (before rendering the error)
-                $dispatcher->getResponse()->setStatus($code);
-
-                $content = $this->getObject('com:koowa.controller.error',  ['request'  => $request])
-                    ->layout('default')
-                    ->render($exception);
-
-                //Set error in the response
-                $dispatcher->getResponse()->setContent($content);
-                $dispatcher->send();
-            }
-        }
+        return $code;
     }
 }

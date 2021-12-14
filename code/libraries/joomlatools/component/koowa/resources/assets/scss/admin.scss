@@ -8,18 +8,24 @@ $k-atom-body: false;
 
 @import "../../../../../../../../../kodekit-ui/src/scss/admin-ui";
 
-.k-ui-namespace {
+.k-ui-joomla {
   @include k-html;
   @include k-body;
+}
+
+.k-ui-page {
+  @include k-html;
+
+  body {
+    @include k-body;
+  }
 }
 
 // ==========================================================================
 // Joomla styling
 // ==========================================================================
 
-.k-ui-j3 {
-  @import "icomoon";
-}
+@import "icomoon";
 
 .k-ui-j4-administrator {
 
@@ -42,5 +48,17 @@ $k-atom-body: false;
     height: 70vh;
   }
 }
+
+.k-ui-j3-form {
+
+  .k-ui-namespace {
+
+    @import "form_j3";
+
+  }
+
+}
+
+@import "icons_j4";
 
 @import "styles";

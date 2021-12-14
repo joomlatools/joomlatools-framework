@@ -102,7 +102,6 @@ class PlgSystemJoomlatools extends JPlugin
                  * Framework Bootstrapping
                  */
                 Koowa::getInstance(array(
-                    'debug'           => JDEBUG,
                     'cache'           => false, //JFactory::getConfig()->get('caching')
                     'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getConfig()->get('secret')),
                     'root_path'       => JPATH_ROOT,
@@ -176,6 +175,11 @@ class PlgSystemJoomlatools extends JPlugin
                 require_once $custom_vendor.'/autoload.php';
             }
 
+            //Catch all Joomla v3.x exceptions
+            if(class_exists('JError') && !version_compare(JVERSION, 4, '>=')) {
+                JError::setErrorHandling(E_ERROR, 'callback', array($this, 'onError'));
+            }
+
             return true;
         }
 
@@ -233,9 +237,10 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
-     * Proxy onError event in lieu of a working exception handler mechanism in Joomla 4
-     * 
-     * Joomla 4 catches every exception in CMSApplication::execute and converts into an internal event
+     * Proxy exceptions
+     *
+     * - Joomla 3 exceptions are forwarded through the registered an onError() callback
+     * - Joomla 4 catches exceptions in CMSApplication::execute and dispatches onError()
      *
      * @see: https://github.com/joomla/joomla-cms/blob/4.0-dev/libraries/src/Application/CMSApplication.php#L296
      * @return void
@@ -243,7 +248,7 @@ class PlgSystemJoomlatools extends JPlugin
     public function onError($exception)
     {
         if ($exception instanceof \Throwable) {
-            $this->_proxyEvent('onException', ['exception' => $exception]);
+            Koowa::getObject('exception.handler')->handleException($exception);
         }
     }
 
@@ -299,7 +304,7 @@ class PlgSystemJoomlatools extends JPlugin
 
         //Publish the event
         if (class_exists('Koowa')) {
-            $result = KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
+            $result = Koowa::getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
         }
 
         return $result;

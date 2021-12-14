@@ -529,4 +529,36 @@ details summary ~ * {
   @extend .k-form-control;
 }
 
+/**
+ * Editors
+ */
+
+.editor {
+
+  &.mb-2 {
+    margin-bottom: .5rem !important;
+  }
+
+}
+
+.editor-xtd-buttons {
+
+  margin-top: 10px;
+
+  .xtd-button {
+
+    &.btn {
+      @extend .k-button;
+      margin-bottom: 4px;
+    }
+
+    &.btn-secondary {
+      @extend .k-button--default;
+    }
+
+    [class^="icon-"], [class*=" icon-"] {
+      margin-right: 0 !important;
+    }
+  }
+}
 

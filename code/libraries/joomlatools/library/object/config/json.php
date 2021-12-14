@@ -65,7 +65,7 @@ class KObjectConfigJson extends KObjectConfigFormat
         }
 
         // Encode <, >, ', &, and " for RFC4627-compliant JSON, which may also be embedded into HTML.
-        $data = json_encode($data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        $data = json_encode($data, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
 
         if (JSON_ERROR_NONE !== json_last_error())
         {

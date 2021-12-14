@@ -97,6 +97,10 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
+        $is_joomla4 = version_compare(JVERSION, '4.0', '>=');
+        $ui         = sprintf('k-ui-j%s', $is_joomla4 ? 4 : 3);
+        $classes    = [$ui, sprintf('%s-%s', $ui, JFactory::getApplication()->getName())];
+
         if ($this->getTemplate()->decorator() == 'joomla')
         {
             $app      = JFactory::getApplication();
@@ -114,68 +118,57 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
 
-                if (version_compare(JVERSION, '4.0', '>='))
+                if ($is_joomla4)
                 {
-                    if (!KTemplateHelperBehavior::isLoaded('k-ui-j4'))
+                    if (!KTemplateHelperBehavior::isLoaded($ui))
                     {
-                        $classes = array_map('json_encode', ['k-ui-j4', 'k-ui-j4-'.JFactory::getApplication()->getName()]);
                         $html .= '<script data-inline type="text/javascript">
-                    document.documentElement.classList.add('.implode(", ",$classes).');
-                    
-                    // Hide sidebar
-                    document.addEventListener("DOMContentLoaded", function()
-                    {
-                      var wrapper = document.getElementById(\'wrapper\');
-                      var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
-                      wrapper.classList.add(\'closed\');
-                      menuToggleIcon.classList.remove(\'fa-toggle-on\');
-                      menuToggleIcon.classList.add(\'fa-toggle-off\');
-                      
+                            
+                            // Hide sidebar
 
-                      let menus = wrapper.querySelectorAll(\'li.mm-active\');
-                                            
-                      for (let menu of menus)
-                      {
-                        menu.classList.remove(\'active\');
-                        menu.classList.remove(\'open\');
-                        
-                        let arrow = menu.querySelector(\'a\');
-                        
-                        arrow.classList.add(\'mm-collapsed\');
-                        arrow.setAttribute(\'aria-expanded\', false);
-                        
-                        menu.classList.remove(\'mm-active\');
-                        menu.classList.remove(\'open\');
-                        
-                        menu.querySelector(\'ul\').classList.remove(\'mm-show\');
-                      }
-                      
-                      wrapper.querySelector(\'ul.main-nav.metismenu\').classList.add(\'child-open\');
-                    });
-                </script>';
-
-                        KTemplateHelperBehavior::setLoaded('k-ui-j4');
-                    }
-                } else { // Joomla 3
-                    if (!KTemplateHelperBehavior::isLoaded('k-ui-j3')) {
-                        $classes = array_map('json_encode', ['k-ui-j3', 'k-ui-j3-' . JFactory::getApplication()->getName()]);
-                        $html .= '<script data-inline type="text/javascript">document.documentElement.classList.add('.implode(", ",$classes).');</script>';
-
-                        KTemplateHelperBehavior::setLoaded('k-ui-j3');
+                            document.addEventListener("DOMContentLoaded", function()
+                            {
+                              var wrapper = document.getElementById(\'wrapper\');
+                              var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
+                              wrapper.classList.add(\'closed\');
+                              menuToggleIcon.classList.remove(\'fa-toggle-on\');
+                              menuToggleIcon.classList.add(\'fa-toggle-off\');
+                              
+        
+                              let menus = wrapper.querySelectorAll(\'li.mm-active\');
+                                                    
+                              for (let menu of menus)
+                              {
+                                menu.classList.remove(\'active\');
+                                menu.classList.remove(\'open\');
+                                
+                                let arrow = menu.querySelector(\'a\');
+                                
+                                arrow.classList.add(\'mm-collapsed\');
+                                arrow.setAttribute(\'aria-expanded\', false);
+                                
+                                menu.classList.remove(\'mm-active\');
+                                menu.classList.remove(\'open\');
+                                
+                                menu.querySelector(\'ul\').classList.remove(\'mm-show\');
+                              }
+                              
+                              wrapper.querySelector(\'ul.main-nav.metismenu\').classList.add(\'child-open\');
+                            });
+                        </script>';
                     }
                 }
             }
         }
-        elseif (version_compare(JVERSION, '4.0', '>='))
-        {
-            if (!KTemplateHelperBehavior::isLoaded('k-ui-j4-form'))
-            {
-                $classes = array_map('json_encode', ['k-ui-j4-form', 'k-ui-j4-' . JFactory::getApplication()->getName()]);
-                $html    .= '<script data-inline type="text/javascript">document.documentElement.classList.add(' .
-                            implode(", ", $classes) . ');</script>';
+        else $classes[] = sprintf('%s-form', $ui);
 
-                KTemplateHelperBehavior::setLoaded('k-ui-j4-form');
-            }
+        if (!KTemplateHelperBehavior::isLoaded($ui))
+        {
+            $classes = array_map('json_encode', $classes);
+            $html    .= '<script data-inline type="text/javascript">document.documentElement.classList.add(' .
+                        implode(", ", $classes) . ');</script>';
+
+            KTemplateHelperBehavior::setLoaded($ui);
         }
 
         $html .= parent::styles($config);

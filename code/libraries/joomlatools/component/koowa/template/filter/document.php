@@ -107,31 +107,6 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             }
 
             // Generate script file links
-            foreach ($head['scripts'] as $path => $attributes)
-            {
-                if (isset($attributes['mime'])) {
-                    $attributes['type'] = $attributes['mime'];
-                    unset($attributes['mime']);
-                }
-
-                echo sprintf('<ktml:script src="%s" %s />', $path, $this->buildAttributes($attributes));
-            }
-
-            // Generate script declarations
-            foreach ($head['script'] as $type => $content)
-            {
-                // This is for full XHTML support.
-                if ($mime != 'text/html') {
-                    $content = "<![CDATA[\n".$content."\n]]>";
-                }
-
-                echo sprintf('<script type="%s">%s</script>', $type, $content);
-            }
-
-            foreach ($head['custom'] as $custom) {
-                // Inject custom head scripts right before </head>
-                $text = str_replace('</head>', $custom."\n</head>", $text);
-            }
 
             if (isset($head['assetManager']) && isset($head['assetManager']['assets'])) {
                 $manager = $head['assetManager']['assets'];
@@ -151,18 +126,48 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
 
                 if (isset($manager['style'])) {
-                    foreach ($manager['style'] as $style) {
-                        $uri = $style->getUri(true);
-                        $attributes = $script->getAttributes();
+                    foreach ($manager['style'] as $style)
+                    {
+                        if ($uri = $style->getUri(true))
+                        {
+                            $attributes = $script->getAttributes();
 
-                        if (isset($attributes['type']) && $attributes['type'] === 'module') {
-                            unset($attributes['type']);
+                            if (isset($attributes['type']) && $attributes['type'] === 'module') {
+                                unset($attributes['type']);
+                            }
+
+                            echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
                         }
+                     }
+                }
+            }
 
-                        echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
-                    }
+            foreach ($head['scripts'] as $path => $attributes)
+            {
+                if (isset($attributes['mime'])) {
+                    $attributes['type'] = $attributes['mime'];
+                    unset($attributes['mime']);
                 }
 
+                echo sprintf('<ktml:script src="%s" %s />', $path, $this->buildAttributes($attributes));
+            }
+
+            // Generate script declarations
+            foreach ($head['script'] as $type => $content)
+            {
+                if (is_array($content)) $content = current($content);
+
+                // This is for full XHTML support.
+                if ($mime != 'text/html') {
+                    $content = "<![CDATA[\n".$content."\n]]>";
+                }
+
+                echo sprintf('<script type="%s">%s</script>', $type, $content);
+            }
+
+            foreach ($head['custom'] as $custom) {
+                // Inject custom head scripts right before </head>
+                $text = str_replace('</head>', $custom."\n</head>", $text);
             }
 
             $head = ob_get_clean();
