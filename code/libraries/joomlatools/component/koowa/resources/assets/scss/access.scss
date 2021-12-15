@@ -1,0 +1,143 @@
+.access-rules {
+
+  joomla-tab {
+    > section {
+      display: none !important;
+    }
+
+    > section[active] {
+      display: block !important;
+    }
+
+    ul, ol {
+      margin: 0;
+    }
+
+    > ul a[role=tab][active], > ul a[role=tab]:hover {
+      margin: 0;
+      border-bottom-color: rgb(222, 226, 230);
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+    }
+
+    a[role=tab] {
+      outline: 0;
+    }
+  }
+
+
+
+  // Core variables and mixins
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/mixins";
+
+  $iconSpritePath: "../../koowa/framework/img/glyphicons-halflings.png";
+  $iconWhiteSpritePath: "../../koowa/framework/img/glyphicons-halflings-white.png";
+
+  // CSS Reset
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/reset";
+
+  // Grid system and page structure
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/scaffolding";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/grid";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/layouts";
+
+  // Base CSS
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/type";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/forms";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/tables";
+
+  // Components: common
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/sprites";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/dropdowns";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/wells";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/component-animations";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/close";
+
+  // Components: Buttons & Alerts
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
+
+  // Components: Nav
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/navs";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/navbar";
+
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/tooltip";
+
+  // Components: Misc
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/media";
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/labels-badges";
+
+  // Utility classes
+  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/utilities"; // Has to be last to override when necessary
+}
+
+.k-ui-j4-form
+{
+  .k-joomla-permissions
+  {
+    max-width: 80vw;
+
+    #tip-rules {
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    details {
+      display: none;
+    }
+
+    th span {
+      font-size: 1rem !important;
+    }
+
+    .badge {
+      display:inline-block;
+      padding:.3rem .2rem;
+      font-size:.75rem;
+      font-weight:700;
+      line-height:1;
+      color:#fff;
+      text-align:center;
+      white-space:nowrap;
+      vertical-align:baseline;
+      border-radius:.2rem
+    }
+
+    .bg {
+
+      &-primary {
+        background-color:#132f53!important
+      }
+
+      &-secondary {
+        background-color:#495057!important
+      }
+
+      &-success {
+        background-color:#457d54!important
+      }
+
+      &-warning {
+        background-color:#ffb514!important
+      }
+
+      &-danger {
+        background-color:#c52827!important
+      }
+
+    }
+
+    joomla-tab[orientation=vertical] button[role=tab] {
+
+      &[aria-expanded=true] {
+        font-weight: 700;
+        background-color: #e6e6e6;
+      }
+
+      &:focus, &:hover {
+        background-color: #e6e6e6;
+      }
+
+    }
+  }
+}
