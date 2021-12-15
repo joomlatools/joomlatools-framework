@@ -23493,3 +23493,7 @@ html[dir=rtl] .float-right {
   margin-bottom: 0;
   height: auto;
 }
+
+.k-ui-namespace .k-tabs-container__scrollable {
+  overflow: auto !important;
+}
