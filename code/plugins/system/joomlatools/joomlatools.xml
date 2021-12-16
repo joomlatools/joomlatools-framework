@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.5.7" type="plugin" group="system" method="upgrade" overwrite="true">
+<extension version="3.5.8" type="plugin" group="system" method="upgrade" overwrite="true">
     <name>plg_system_joomlatools</name>
     <author>Joomlatools</author>
-    <creationDate>Nov 2021</creationDate>
+    <creationDate>December 2021</creationDate>
     <copyright>Copyright (C) 2007 Timble CVBA (http://www.timble.net)</copyright>
     <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
     <authorEmail>support@joomlatools.com</authorEmail>
     <authorUrl>www.joomlatools.com</authorUrl>
-    <version>3.5.7</version>
+    <version>3.5.8</version>
     <description />
 
     <scriptfile>script.php</scriptfile>
