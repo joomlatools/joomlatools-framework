@@ -70,13 +70,14 @@ class ComKoowaControllerError extends KControllerView
             {
                 if($trace['function'] != '__call')
                 {
-                    $message = "Call to undefined method : ".$trace['class'].$trace['type'].$trace['function'];
                     $file     = isset($trace['file']) ? $trace['file']  : '';
                     $line     = isset($trace['line']) ? $trace['line']  : '';
-                    $function = $trace['function'];
-                    $class    = $trace['class'];
+                    $function = isset($trace['function']) ? $trace['function'] : '';
+                    $class    = isset($trace['class']) ? $trace['class'] : '';
                     $args     = isset($trace['args'])  ? $trace['args']  : '';
                     $info     = isset($trace['info'])  ? $trace['info']  : '';
+                    $type     = isset($trace['type'])  ? $trace['type']  : '';
+                    $message = "Call to undefined method : ".$class.$type.$function;
                     break;
                 }
             }
