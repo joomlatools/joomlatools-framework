@@ -9,4 +9,6 @@
 
 defined('KOOWA') or die; ?>
 
-<ktml:content>
+<div class="k-ui-joomla">
+    <ktml:content>
+</div>

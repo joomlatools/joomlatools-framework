@@ -48,7 +48,7 @@ final class KObjectManager implements KObjectInterface, KObjectManagerInterface,
      *
      * Prevent creating instances of this class by making the constructor private
      */
-    final private function __construct(KObjectConfig $config)
+    private function __construct(KObjectConfig $config)
     {
         //Initialise the object
         $this->_initialize($config);
@@ -110,7 +110,7 @@ final class KObjectManager implements KObjectInterface, KObjectManagerInterface,
      *
      * @throws Exception
      */
-    final private function __clone()
+    private function __clone()
     {
         trigger_error("The object manager cannot be cloned.", E_USER_WARNING);
     }

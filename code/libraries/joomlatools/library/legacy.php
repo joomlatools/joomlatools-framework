@@ -7,26 +7,6 @@
  * @link        https://github.com/joomlatools/joomlatools-framework for the canonical source repository
  */
 
-/**
- * APC 3.1.4 compatibility
- */
-if(extension_loaded('apc') && !function_exists('apc_exists'))
-{
-    /**
-     * Check if an APC key exists
-     *
-     * @param  mixed  $keys A string, or an array of strings, that contain keys.
-     * @return boolean Returns TRUE if the key exists, otherwise FALSE
-     */
-    function apc_exists($keys)
-    {
-        $result = null;
-
-        apc_fetch($keys,$result);
-
-        return $result;
-    }
-}
 
 /**
  * PHP5.4 compatibility
@@ -400,4 +380,24 @@ if (!function_exists('is_countable')) {
     }
 }
 
+/**
+ * New string functions from PHP 8
+ */
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($haystack, $needle) {
+        return 0 === strncmp($haystack, $needle, strlen($needle));
+    }
+}
+
+if (!function_exists('str_ends_with')) {
+    function str_ends_with($haystack, $needle) {
+        return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -strlen($needle)));
+    }
+}
+
+if (!function_exists('str_contains')) {
+    function str_contains($haystack, $needle) {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+}
 

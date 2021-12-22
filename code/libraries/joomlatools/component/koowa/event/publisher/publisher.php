@@ -16,6 +16,18 @@
 final class ComKoowaEventPublisher extends KEventPublisher
 {
     /**
+     * Constructor.
+     *
+     * @param KObjectConfig $config  An optional ObjectConfig object with configuration options
+     */
+    public function __construct(KObjectConfig $config)
+    {
+        parent::__construct($config);
+
+        $this->getObject('exception.handler')->addExceptionCallback(array($this, 'publishException'));
+    }
+
+    /**
      * Publish an event by calling all listeners that have registered to receive it.
      *
      * If an event target is specified try to import the plugin group based on the package name of the target
@@ -32,7 +44,7 @@ final class ComKoowaEventPublisher extends KEventPublisher
     public function publishEvent($event, $attributes = array(), $target = null)
     {
         //Try to load the plugin group
-        if($target instanceof KObject)
+        if(class_exists('JPluginHelper') && $target instanceof KObject)
         {
             $identifier = $target->getIdentifier()->toArray();
             $package    = $identifier['package'];
@@ -52,16 +64,10 @@ final class ComKoowaEventPublisher extends KEventPublisher
      * @param  Exception           $exception  The exception to be published.
      * @param  array|Traversable    $attributes An associative array or a Traversable object
      * @param  mixed                $target     The event target
-     * @return  KEventException
+     * @return  KEvent
      */
-    public function publishException(Exception $exception, $attributes = array(), $target = null)
+    public function publishException(Exception $exception)
     {
-        //Make sure we have an event object
-        $event = new KEventException('onException', $attributes, $target);
-        $event->setException($exception);
-
-        parent::publishEvent($event);
-
-        return $event;
+        return parent::publishEvent('onException', ['exception' => $exception]);
     }
 }

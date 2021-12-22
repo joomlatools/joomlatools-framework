@@ -110,7 +110,7 @@ class KTranslatorCache extends KObjectDecorator implements KTranslatorInterface
             $translations = array();
             $prefix       = $this->getNamespace().'-translator-'.$this->getLocale();
 
-            if(!apc_exists($prefix.'_'.$url))
+            if(!apcu_exists($prefix.'_'.$url))
             {
                 foreach($this->find($url) as $file)
                 {
@@ -123,9 +123,9 @@ class KTranslatorCache extends KObjectDecorator implements KTranslatorInterface
                     $translations = array_merge($translations, $loaded);
                 }
 
-                apc_store($prefix.'_'.$url, $translations);
+                apcu_store($prefix.'_'.$url, $translations);
             }
-            else $translations = apc_fetch($prefix.'_'.$url);
+            else $translations = apcu_fetch($prefix.'_'.$url);
 
             //Add the translations to the catalogue
             $this->getCatalogue()->add($translations, $override);
@@ -244,6 +244,27 @@ class KTranslatorCache extends KObjectDecorator implements KTranslatorInterface
     public static function isSupported()
     {
         return extension_loaded('apc');
+    }
+
+    /**
+     * Sets a url as loaded.
+     *
+     * @param mixed $url The url.
+     * @return KTranslatorInterface
+     */
+    public function setLoaded($url)
+    {
+        return $this->getDelegate()->setLoaded($url);
+    }
+
+    /**
+     * Returns a list of loaded urls.
+     *
+     * @return array The loaded urls.
+     */
+    public function getLoaded()
+    {
+        return $this->getDelegate()->getLoaded();
     }
 
     /**

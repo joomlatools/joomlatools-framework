@@ -107,7 +107,7 @@ class KEventSubscriberFactory extends KObject implements KObjectSingleton
 
         if (!isset($this->__subscribers[(string)$identifier]))
         {
-            $listeners = call_user_func(array($class, 'getEventListeners'));/*$class::getEventListeners();*/
+            $listeners = $class::getEventListeners();
 
             if (!empty($listeners))
             {

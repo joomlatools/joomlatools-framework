@@ -27,7 +27,15 @@ class Koowa
      *
      * @var string
      */
-    const VERSION = '3.4.16';
+    const VERSION = '3.5.8';
+
+
+    /**
+     * Debug state
+     *
+     * @var boolean
+     */
+    protected static $_debug;
 
     /**
      * The root path
@@ -51,14 +59,27 @@ class Koowa
     protected $_vendor_path;
 
     /**
+     * The object manager
+     *
+     * @var KObjectManager
+     */
+    private static $__object_manager;
+
+    /**
      * Constructor
      *
      * Prevent creating instances of this class by making the constructor private
      *
      * @param  array  $config An optional array with configuration options.
      */
-    final private function __construct($config = array())
+    private function __construct($config = array())
     {
+        if(isset($config['debug'])) {
+            self::$_debug = $config['debug'];
+        } else {
+            self::$_debug = (getenv('KOOWA_DEBUG') !== false ? filter_var( getenv('KOOWA_DEBUG') , FILTER_VALIDATE_BOOLEAN) : false);
+        }
+
         //Initialize the root path
         if(isset($config['root_path'])) {
             $this->_root_path = $config['root_path'];
@@ -121,6 +142,9 @@ class Koowa
 
         //Warm-up the stream factory
         $manager->getObject('lib:filesystem.stream.factory');
+
+        //Store the object manager
+        self::$__object_manager = $manager;
     }
 
     /**
@@ -128,7 +152,7 @@ class Koowa
      *
      * Prevent creating clones of this class
      */
-    final private function __clone() { }
+    private function __clone() { }
 
     /**
      * Singleton instance
@@ -185,5 +209,42 @@ class Koowa
     public function getBasePath()
     {
         return $this->_base_path;
+    }
+
+    /**
+     * Enable or disable debug
+     *
+     * @param bool $debug True or false.
+     * @return bool
+     */
+    public static function setDebug($debug)
+    {
+        return self::$_debug = (bool) $debug;
+    }
+
+    /**
+     * Check if debug is enabled
+     *
+     * @return bool
+     */
+    public static function isDebug()
+    {
+        return self::$_debug;
+    }
+
+    /**
+     * Proxy static method calls to the object manager
+     *
+     * @param  string     $method    The function name
+     * @param  array      $arguments The function arguments
+     * @throws \BadMethodCallException  If method is called statically before Kodekit has been instantiated.
+     * @return mixed The result of the method
+     */
+    public static function __callStatic($method, $arguments)
+    {
+        if(self::$__object_manager instanceof KObjectManager) {
+            return self::$__object_manager->$method(...$arguments);
+        }
+        else throw new \BadMethodCallException('Cannot call method: $s. Koowa has not been instantiated', $method);
     }
 }

@@ -41,7 +41,7 @@ class PlgSystemJoomlatools extends JPlugin
         }
 
         //Bugfix: Set display_errors accordingly
-        if(JFactory::getApplication()->getCfg('error_reporting') == 'none') {
+        if(JFactory::getConfig()->get('error_reporting') == 'none') {
             @ini_set('display_errors', 0);
         }
 
@@ -102,9 +102,8 @@ class PlgSystemJoomlatools extends JPlugin
                  * Framework Bootstrapping
                  */
                 Koowa::getInstance(array(
-                    'debug'           => JDEBUG,
-                    'cache'           => false, //JFactory::getApplication()->getCfg('caching')
-                    'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getApplication()->getCfg('secret')),
+                    'cache'           => false, //JFactory::getConfig()->get('caching')
+                    'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getConfig()->get('secret')),
                     'root_path'       => JPATH_ROOT,
                     'base_path'       => JPATH_BASE,
                     'vendor_path'     => $vendor_path
@@ -115,8 +114,8 @@ class PlgSystemJoomlatools extends JPlugin
                  */
                 $bootstrapper = KObjectManager::getInstance()->getObject('object.bootstrapper')
                     ->registerComponents(JPATH_LIBRARIES . '/joomlatools/component', 'koowa')
-                    ->registerApplication('site', JPATH_SITE . '/components', JFactory::getApplication()->isSite())
-                    ->registerApplication('admin', JPATH_ADMINISTRATOR . '/components', JFactory::getApplication()->isAdmin());
+                    ->registerApplication('site', JPATH_SITE . '/components', JFactory::getApplication()->isClient('site'))
+                    ->registerApplication('admin', JPATH_ADMINISTRATOR . '/components', JFactory::getApplication()->isClient('administrator'));
 
                 if (is_dir(JPATH_LIBRARIES . '/joomlatools-components')) {
                     $bootstrapper->registerComponents(JPATH_LIBRARIES . '/joomlatools-components', 'koowa');
@@ -159,15 +158,10 @@ class PlgSystemJoomlatools extends JPlugin
             $request = $manager->getObject('request');
 
             // Get the URL from Joomla if live_site is set
-            if (JFactory::getApplication()->getCfg('live_site'))
+            if (JFactory::getConfig()->get('live_site'))
             {
                 $request->setBasePath(rtrim(JURI::base(true), '/\\'));
                 $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(JURI::base(), '/\\'))));
-            }
-
-            //Exception Handling
-            if (PHP_SAPI !== 'cli') {
-                $manager->getObject('event.publisher')->addListener('onException', array($this, 'onException'), KEvent::PRIORITY_LOW);
             }
 
             /**
@@ -181,22 +175,15 @@ class PlgSystemJoomlatools extends JPlugin
                 require_once $custom_vendor.'/autoload.php';
             }
 
+            //Catch all Joomla v3.x exceptions
+            if(class_exists('JError') && !version_compare(JVERSION, 4, '>=')) {
+                JError::setErrorHandling(E_ERROR, 'callback', array($this, 'onError'));
+            }
+
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Low priority catch-all exception listener
-     *
-     * Catch exceptions if no other event listener has handled them yet and direct them to the http dispatcher.
-     *
-     * @param KEventException $event
-     */
-    public function onException(KEventException $event)
-    {
-        KObjectManager::getInstance()->getObject('com:koowa.dispatcher.http')->fail($event);
     }
 
     /**
@@ -250,6 +237,22 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
+     * Proxy exceptions
+     *
+     * - Joomla 3 exceptions are forwarded through the registered an onError() callback
+     * - Joomla 4 catches exceptions in CMSApplication::execute and dispatches onError()
+     *
+     * @see: https://github.com/joomla/joomla-cms/blob/4.0-dev/libraries/src/Application/CMSApplication.php#L296
+     * @return void
+     */
+    public function onError($exception)
+    {
+        if ($exception instanceof \Throwable) {
+            Koowa::getObject('exception.handler')->handleException($exception);
+        }
+    }
+
+    /**
      * Proxy onBeforeRender
      *
      * @return void
@@ -290,96 +293,6 @@ class PlgSystemJoomlatools extends JPlugin
     }
 
     /**
-     * Proxy onInstallerBeforeInstallation
-     *
-     * @return void
-     */
-    public function onInstallerBeforeInstallation($model, &$package)
-    {
-        $result = $this->_proxyEvent('onBeforeInstallerDownload', array(
-            'model'   => $model,
-            'package' => $package
-        ));
-
-        //Passback result by reference
-        $package = $result->package;
-    }
-
-    /**
-     * Proxy onInstallerBeforeInstall
-     *
-     * @return void
-     */
-    public function onInstallerBeforeInstall($model, &$package)
-    {
-        $result = $this->_proxyEvent('onBeforeInstallerInstall', array(
-            'model'   => $model,
-            'package' => $package
-        ));
-
-        //Passback result by reference
-        $package = $result->package;
-    }
-
-    /**
-     * Proxy  onInstallerBeforeInstallation
-     *
-     * @return void
-     */
-    public function onInstallerAfterInstall($model, &$package, $installer, &$success, &$message)
-    {
-        $result = $this->_proxyEvent('onAfterInstallerInstall',  array(
-            'model'     => $model,
-            'package'   => $package,
-            'installer' => $installer,
-            'success'   => $success,
-            'message'   => $message,
-        ));
-
-        //Passback result by reference
-        $package = $result->package;
-        $success = $result->success;
-        $message = $result->message;
-    }
-
-    /**
-     * Proxy onPrepareModuleList
-     *
-     * @return void
-     */
-    public function onPrepareModuleList(&$modules)
-    {
-        $result = $this->_proxyEvent('onBeforeTemplateModules', ['modules' => $modules]);
-
-        //Passback result by reference
-        $modules = KObjectConfig::unbox($result->modules);
-    }
-
-    /**
-     * Proxy onAfterModuleList
-     *
-     * @return void
-     */
-    public function onAfterModuleList(&$modules)
-    {
-        $result = $this->_proxyEvent('onAfterTemplateModules', ['modules' => $modules]);
-
-        //Passback result by reference
-        $modules = KObjectConfig::unbox($result->modules);
-    }
-
-    /**
-     * Update user object on login
-     *
-     * @param   array  login event data
-     * @return void
-     */
-    public function onUserAfterLogin($data)
-    {
-        $this->_proxyEvent('onAfterUserLogin', $data);
-    }
-
-    /**
      * Proxy all Joomla events
      *
      * @param   array  &$args  Arguments
@@ -391,7 +304,7 @@ class PlgSystemJoomlatools extends JPlugin
 
         //Publish the event
         if (class_exists('Koowa')) {
-            $result = KObjectManager::getInstance()->getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
+            $result = Koowa::getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
         }
 
         return $result;

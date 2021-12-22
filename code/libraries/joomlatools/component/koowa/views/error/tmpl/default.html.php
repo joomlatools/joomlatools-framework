@@ -9,10 +9,9 @@
 
 defined('KOOWA') or die; ?>
 
-<title content="replace"><?= translate('Error').' '.$code.' - '. KHttpResponse::$status_messages[$code]; ?></title>
+<?= helper('behavior.debugger') ?>
 
-<ktml:style src="media://koowa/framework/css/debugger.css" />
-<ktml:script src="media://koowa/framework/js/debugger.js" />
+<title content="replace"><?= translate('Error').' '.$code.' - '. KHttpResponse::$status_messages[$code]; ?></title>
 
 <script data-inline type="text/javascript">
 // Remove all classes from html and body

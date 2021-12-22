@@ -3,13 +3,71 @@
 // ==========================================================================
 
 $k-icon-path: '../../framework/fonts' !default;
+$k-atom-html: false;
+$k-atom-body: false;
 
 @import "../../../../../../../../../kodekit-ui/src/scss/admin-ui";
 
+.k-ui-joomla {
+  @include k-html;
+  @include k-body;
+}
+
+.k-ui-page {
+  @include k-html;
+
+  body {
+    @include k-body;
+  }
+}
 
 // ==========================================================================
 // Joomla styling
 // ==========================================================================
 
 @import "icomoon";
+
+.k-ui-j4-administrator {
+
+  @import "admin_j4";
+}
+
+.k-ui-j4-form {
+
+  .k-ui-namespace {
+
+    .fade.show {
+      opacity: 1;
+    }
+
+    @import "form_j4";
+  }
+
+  .k-editor-modal .mfp-content {
+    width: 80vw;
+    height: 70vh;
+  }
+}
+
+.k-ui-j3-form {
+
+  .k-ui-namespace {
+
+    @import "form_j3";
+
+  }
+
+}
+
+@import "icons_j4";
+
 @import "styles";
+
+.k-ui-namespace {
+
+  .k-tabs-container__scrollable {
+
+    overflow: auto !important;
+
+  }
+}

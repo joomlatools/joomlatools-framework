@@ -79,7 +79,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
             $new = $new <= 0 ? 1 : $new;
 
             $table = $this->getTable();
-            $query = $this->getObject('lib:database.query.update')
+            $query = $this->getObject('lib:database.query.update', ['adapter' => $table->getAdapter()])
                 ->table($table->getBase());
 
             //Build the where query
@@ -127,7 +127,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
         $db     = $table->getAdapter();
         $db->execute('SET @order = '.$base);
         
-        $query = $this->getObject('lib:database.query.update')
+        $query = $this->getObject('lib:database.query.update', ['adapter' => $db])
             ->table($table->getBase())
             ->values('ordering = (@order := @order + 1)')
             ->order('ordering', 'ASC');
@@ -154,7 +154,7 @@ class KDatabaseBehaviorOrderable extends KDatabaseBehaviorAbstract
         $table  = $this->getTable();
         $db     = $table->getAdapter();
         
-        $query = $this->getObject('lib:database.query.select')
+        $query = $db->getQuery('select')
             ->columns('MAX(ordering)')
             ->table($table->getName());
 

@@ -59,7 +59,8 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority'   => self::PRIORITY_NORMAL,
+            'priority' => self::PRIORITY_NORMAL,
+            'enabled'   => true,
         ));
 
         parent::_initialize($config);
@@ -78,7 +79,7 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
         $handle    = $publisher->getHandle();
         $listeners = [];
 
-        if(!$this->isSubscribed($publisher))
+        if($this->isEnabled() && !$this->isSubscribed($publisher))
         {
             $listeners = $this->getEventListeners();
 
@@ -122,6 +123,16 @@ abstract class KEventSubscriberAbstract extends KObject implements KEventSubscri
     {
         $handle = $publisher->getHandle();
         return isset($this->__publishers[$handle]);
+    }
+
+    /**
+     * Check if the subscriber is enabled
+     *
+     * @return boolean TRUE if the subscriber is enabled. FALSE otherwise.
+     */
+    public function isEnabled()
+    {
+        return $this->getConfig()->enabled;
     }
 
     /**

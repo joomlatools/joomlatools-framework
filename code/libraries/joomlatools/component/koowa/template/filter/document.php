@@ -92,10 +92,31 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
             if (version_compare(JVERSION, '3.7.0', '>=')) {
                 $document = JFactory::getDocument();
+
+                // Copied from \Joomla\CMS\Document\Renderer\Html\MetasRenderer::render
+                if (version_compare(JVERSION, '4.0', '>=')) {
+                    $wa  = $document->getWebAssetManager();
+                    $wc  = [];
+                    foreach ($wa->getAssets('script', true) as $asset) {
+                        if ($asset instanceof \Joomla\CMS\WebAsset\WebAssetAttachBehaviorInterface) {
+                            $asset->onAttachCallback($document);
+                        }
+
+                        if ($asset->getOption('webcomponent')) {
+                            $wc[] = $asset->getUri();
+                        }
+                    }
+
+                    if ($wc) {
+                        $document->addScriptOptions('webcomponents', array_unique($wc));
+                    }
+                }
+
+
                 $options  = $document->getScriptOptions();
 
                 $buffer  = '<script type="application/json" class="joomla-script-options new">';
-                $buffer .= $options ? json_encode($options) : '{}';
+                $buffer .= $options ? json_encode($options, JSON_PRETTY_PRINT) : '{}';
                 $buffer .= '</script>';
 
                 echo $buffer;
@@ -119,6 +140,41 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             }
 
             // Generate script file links
+
+            if (isset($head['assetManager']) && isset($head['assetManager']['assets'])) {
+                $manager = $head['assetManager']['assets'];
+
+                if (isset($manager['script'])) {
+                    /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
+                    foreach ($manager['script'] as $script) {
+                        if ($script->getOption('webcomponent')) {
+                            continue; // they are loaded by Joomla in core.js
+                        }
+                        $uri = $script->getUri(true);
+                        $attributes = $script->getAttributes();
+
+                        echo sprintf('<ktml:script src="%s" %s />', $uri, $this->buildAttributes($attributes));
+                    }
+                }
+
+
+                if (isset($manager['style'])) {
+                    foreach ($manager['style'] as $style)
+                    {
+                        if ($uri = $style->getUri(true))
+                        {
+                            $attributes = $script->getAttributes();
+
+                            if (isset($attributes['type']) && $attributes['type'] === 'module') {
+                                unset($attributes['type']);
+                            }
+
+                            echo sprintf('<ktml:style src="%s" %s />', $uri, $this->buildAttributes($attributes));
+                        }
+                     }
+                }
+            }
+
             foreach ($head['scripts'] as $path => $attributes)
             {
                 if (isset($attributes['mime'])) {
@@ -132,6 +188,8 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
             // Generate script declarations
             foreach ($head['script'] as $type => $content)
             {
+                if (is_array($content)) $content = current($content);
+
                 // This is for full XHTML support.
                 if ($mime != 'text/html') {
                     $content = "<![CDATA[\n".$content."\n]]>";

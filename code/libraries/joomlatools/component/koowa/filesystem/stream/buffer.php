@@ -35,7 +35,7 @@ class ComKoowaFilesystemStreamBuffer extends KFilesystemStreamBuffer
             $result     = false;
             $candidates = array(
                 ini_get('upload_tmp_dir'),
-                JFactory::getApplication()->getCfg('tmp_path'),
+                JFactory::getConfig()->get('tmp_path'),
                 JPATH_ROOT.'/tmp'
             );
 

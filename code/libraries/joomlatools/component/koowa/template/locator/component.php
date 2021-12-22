@@ -44,9 +44,9 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
      */
     protected function _initialize(KObjectConfig $config)
     {
-        if(!defined('JOOMLATOOLS_PLATFORM'))
+        if(defined('JPATH_THEMES'))
         {
-            $query = $this->getObject('lib:database.query.select')
+            $query = $this->getObject('database')->getQuery('select')
                 ->table('template_styles')
                 ->columns('template')
                 ->where('client_id = :client_id AND home = :home')
@@ -54,16 +54,15 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
                     'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
                 ));
 
-            $template = $this->getObject('lib:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
-        }
-        else $template = JFactory::getApplication()->getTemplate();
+            $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
 
-        $config->append([
-            'override_paths' => [
-                JPATH_THEMES.'/'.$template.'/html',
-                JPATH_THEMES.'/system/html'         // #117: For backwards compatibility purposes
-            ]
-        ]);
+            $config->append([
+                'override_paths' => [
+                    JPATH_THEMES.'/'.$template.'/html',
+                    JPATH_THEMES.'/system/html'         // #117: For backwards compatibility purposes
+                ]
+            ]);
+        }
 
         parent::_initialize($config);
     }

@@ -110,7 +110,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
         {
             $class = $manager->getClass('lib:template.cache');
 
-            if(call_user_func(array($class, 'isSupported'))/*$class::isSupported()*/)
+            if($class::isSupported())
             {
                 $instance = $instance->decorate('lib:template.cache');
                 $instance->setNamespace($config->cache_namespace);

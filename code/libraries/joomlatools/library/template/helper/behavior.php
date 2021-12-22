@@ -935,7 +935,6 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('alpine')) {
             $html .= '<ktml:script src="assets://js/alpine'.($config->debug ? '' : '.min').'.js" type="module" />';
-            $html .= '<ktml:script src="assets://js/alpine-ie11'.($config->debug ? '' : '.min').'.js" nomodule defer />';
 
             static::setLoaded('alpine');
         }
@@ -954,8 +953,8 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
 
         if (!static::isLoaded('debugger'))
         {
-            $html = '<ktml:script src="assets://js/debugger'.($config->debug ? '' : '.min').'.js" />';
-            $html = '<ktml:style src="assets://css/debugger'.($config->debug ? '' : '.min').'.css" />';
+            $html .= '<ktml:script src="assets://js/debugger'.($config->debug ? '' : '.min').'.js" />';
+            $html .= '<ktml:style src="assets://css/debugger'.($config->debug ? '' : '.min').'.css" />';
 
             static::setLoaded('debugger');
         }

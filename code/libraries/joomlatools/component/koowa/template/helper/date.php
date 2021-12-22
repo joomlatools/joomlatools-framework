@@ -26,10 +26,15 @@ class ComKoowaTemplateHelperDate extends KTemplateHelperDate
         $config = new KObjectConfigJson($config);
         $config->append(array(
             'date'     => 'now',
-            'timezone' => true,
             'format'   => $this->getObject('translator')->translate('DATE_FORMAT_LC3')
         ));
 
-        return JHtml::_('date', $config->date, $config->format, $config->timezone);
+        if(class_exists('JHtml')) {
+            $result = JHtml::_('date', $config->date, $config->format, $config->timezone ? $config->timezone : true);
+        } else {
+            $result = parent::format($config);
+        }
+
+        return $result;
     }
 }

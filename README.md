@@ -1,12 +1,10 @@
 # Joomlatools Framework
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ba6e3e1390b488ca40f3d7458332345)](https://www.codacy.com/gh/joomlatools/joomlatools-pages?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=joomlatools/joomlatools-pages&amp;utm_campaign=Badge_Grade)
-
 ## What is Joomlatools Framework?
 
-Joomlatools Framework (codename 'Koowa') is a open-source **extension framework** for **[Joomla](http://www.joomla.org)**. Developed and maintained by [Joomlatools](http://joomlatoolls.com) with the help of passionate developers from all over the world.
+Joomlatools Framework (codename 'Koowa') is a open-source **component framework**. Developed and maintained by [Joomlatools](http://joomlatoolls.com) with the help of passionate developers from all over the world.
 
-Joomlatools Framework can be installed in Joomla as a plugin and lets you focus on the "business" logic of your extension. By doing most of the repetitive work for you [boilerplate code][boilerplate] is eliminated which greatly reduces the time
+Joomlatools Framework can be installed in Joomla as a plugin and lets you focus on the "business" logic of your extension or can be used standalone. By doing most of the repetitive work for you [boilerplate code][boilerplate] is eliminated which greatly reduces the time
 to develop Joomla extensions.
 
 The design pattern based architecture makes your extension more flexible: your extension becomes more **re-usable**,
@@ -30,7 +28,7 @@ Joomlatools Framework is for developers creating custom Joomla extensions. The f
 ## Production Ready
 
 The framework uses a conservative development approach focused on the lowest common denominator, at time of writing this
-is Joomla 3.x and PHP 5.4. The framework is fully forwards compatible with PHP 7.4.
+is Joomla 3.x and PHP 5.6. The framework is fully forwards compatible with PHP 8.0.
 
 The framework follows the [semantic versioning standard](http://semver.org/). Rest assured : it's designed for stability
 and compatibility. We promise that all minor versions will be 100% backwards compatible. Only in major versions backwards
@@ -39,7 +37,7 @@ compatibility is not guaranteed.
 ## Requirements
 
 * Joomla 3.6 or newer
-* PHP 5.4 or newer
+* PHP 7.3 or newer
 * MySQL 5.x
 
 ## Installation
@@ -68,7 +66,6 @@ Joomlatools Framework is open-source software licensed under the [GPLv3 license]
 Keep track of development and community news.
 
 * Follow [@joomlatoolsdev on Twitter](https://twitter.com/joomlatoolsdev)
-* Join [joomlatools/dev on Gitter](http://gitter.im/joomlatools/dev)
 * Read the [Joomlatools Developer Blog](https://www.joomlatools.com/developer/blog/)
 * Subscribe to the [Joomlatools Developer Newsletter](https://www.joomlatools.com/developer/newsletter/)
 

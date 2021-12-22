@@ -257,19 +257,43 @@ class KDate extends KObject implements KDateInterface
         switch ($matches[0])
         {
             case 'D':
-                $replacement = $translator->translate(strtoupper($this->_date->format('D')));
+
+                if($translator->isTranslatable(strtoupper($this->_date->format('D')))) {
+                    $replacement = $translator->translate(strtoupper($this->_date->format('D')));
+                } else {
+                    $replacement = $this->_date->format('D');
+                }
+
                 break;
 
             case 'l':
-                $replacement = $translator->translate(strtoupper($this->_date->format('l')));
+
+                if($translator->isTranslatable(strtoupper($this->_date->format('l')))) {
+                    $replacement = $translator->translate(strtoupper($this->_date->format('l')));
+                } else {
+                    $replacement = $this->_date->format('l');
+                }
+
                 break;
 
             case 'F':
-                $replacement = $translator->translate(strtoupper($this->_date->format('F')));
+
+                if($translator->isTranslatable(strtoupper($this->_date->format('F')))) {
+                    $replacement = $translator->translate(strtoupper($this->_date->format('F')));
+                } else {
+                    $replacement = $this->_date->format('F');
+                }
+
                 break;
 
             case 'M':
-                $replacement = $translator->translate(strtoupper($this->_date->format('F').'_SHORT'));
+
+                if($translator->isTranslatable(strtoupper($this->_date->format('F').'_SHORT'))) {
+                    $replacement = $translator->translate(strtoupper($this->_date->format('F').'_SHORT'));
+                } else {
+                    $replacement = $this->_date->format('M');
+                }
+
                 break;
         }
 

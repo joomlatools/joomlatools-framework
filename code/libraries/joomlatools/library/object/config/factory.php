@@ -60,7 +60,6 @@ final class KObjectConfigFactory extends KObject implements KObjectSingleton
                 'php'  => 'lib:object.config.php',
                 'ini'  => 'lib:object.config.ini',
                 'json' => 'lib:object.config.json',
-                'xml'  => 'lib:object.config.xml',
                 'yml'  => 'lib:object.config.yaml',
                 'yaml' => 'lib:object.config.yaml'
             )

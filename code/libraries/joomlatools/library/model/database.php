@@ -215,7 +215,7 @@ class KModelDatabase extends KModelAbstract
     public function getContext()
     {
         $context        = parent::getContext();
-        $context->query = $this->getObject('lib:database.query.select');
+        $context->query = $this->getTable()->getAdapter()->getQuery('select');
 
         return $context;
     }

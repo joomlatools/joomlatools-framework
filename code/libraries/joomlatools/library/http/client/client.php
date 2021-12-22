@@ -51,7 +51,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
 
         $context = stream_context_create(array('http' => array(
             'user_agent'       => $this->getConfig()->user_agent,
-            'protocol_version' => $request->getVersion(),
+            //'protocol_version' => $request->getVersion(),
             'header'           => (string) $headers,
             'follow_location ' => $this->getConfig()->follow_location,
             'method'           => $request->getMethod(),
@@ -62,7 +62,7 @@ class KHttpClient extends KObject implements KHttpClientInterface
         $content = @file_get_contents($url, false, $context);
 
         if($content === false) {
-            throw new KHttpExceptionError(sprintf('Failed to establish connectiion to: "%s"', $url));
+            throw new KHttpExceptionError(sprintf('Failed to establish connection to: "%s"', $url));
         }
 
         $response = $this->_createResponse($http_response_header);

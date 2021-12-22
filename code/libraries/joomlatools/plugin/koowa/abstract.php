@@ -110,6 +110,10 @@ abstract class PlgKoowaAbstract extends JPlugin implements PlgKoowaInterface
         if($dispatcher instanceof JDispatcher || $dispatcher instanceof JEventDispatcher) {
             $dispatcher->attach($this);
         }
+        elseif ($this instanceof \Joomla\Event\DispatcherAwareInterface) {
+            $this->setDispatcher($dispatcher);
+            $this->registerListeners();
+        }
     }
 
     /**

@@ -755,7 +755,7 @@ window.jQuery = window.kQuery;
                 box.find('select').each(function(i, select) {
                     var value = $(select).val();
 
-                    if (!value || value === '' || (typeof value === 'object' && value.length === 1 && value[0] === '')) {
+                    if (!value || value === '' || (typeof value === 'object' && value.length === 1 && value[0] === '') || (Array.isArray(value) && !value.length)) {
                         var name = $(select).attr('name');
                         name = name.replace('[]', '');
                         $(select).removeAttr('name');
@@ -780,6 +780,8 @@ window.jQuery = window.kQuery;
                     .not(':checkbox, :radio')
                     .val('')
                     .filter('select').trigger('change'); // For select2
+
+                box.find('.k-js-scopebar-clearable').val('');
 
                 var form = event.target.form;
 
@@ -1352,7 +1354,7 @@ Koowa.Controller = Koowa.Class.extend({
             this.options.url = this.form.attr('action');
         }
 
-        this.toolbar = $(this.options.toolbar);
+        this.toolbar = this.form.parents('.k-ui-namespace').find(this.options.toolbar);
         this.form.data('controller', this);
 
         this.on('execute', function(){

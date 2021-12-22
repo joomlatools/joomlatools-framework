@@ -171,7 +171,11 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
      */
     public function isConnected()
     {
-        return ($this->_connection instanceof MySQLi) && @$this->_connection->ping();
+        try {
+            return ($this->_connection instanceof MySQLi) && @$this->_connection->ping();
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -200,7 +204,7 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
     {
         if(!isset($this->_database))
         {
-            $query = $this->getObject('lib:database.query.select')
+            $query = $this->getObject('lib:database.query.select', ['adapter' => $this])
                 ->columns('DATABASE()');
 
             $this->_database = $this->select($query, KDatabase::FETCH_FIELD);
@@ -435,7 +439,7 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
     protected function _fetchTableInfo($table)
     {
         $return = null;
-        $query  = $this->getObject('lib:database.query.show')
+        $query  = $this->getObject('lib:database.query.show', ['adapter' => $this])
             ->show('TABLE STATUS')
             ->like(':like')
             ->bind(array('like' => $table));
@@ -456,7 +460,7 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
     protected function _fetchTableColumns($table)
     {
         $return = array();
-        $query  = $this->getObject('lib:database.query.show')
+        $query  = $this->getObject('lib:database.query.show', ['adapter' => $this])
             ->show('FULL COLUMNS')
             ->from($table);
 
@@ -484,7 +488,7 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
     protected function _fetchTableIndexes($table)
     {
         $return = array();
-        $query  = $this->getObject('lib:database.query.show')
+        $query  = $this->getObject('lib:database.query.show', ['adapter' => $this])
             ->show('INDEX')
             ->from($table);
 

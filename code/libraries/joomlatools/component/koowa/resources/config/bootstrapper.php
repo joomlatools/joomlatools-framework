@@ -19,6 +19,7 @@ return array(
         'date'              => 'com:koowa.date',
         'event.publisher'   => 'com:koowa.event.publisher',
         'user.provider'     => 'com:koowa.user.provider',
+        'database'          => 'com:koowa.database',
 
         'lib:database.adapter.mysqli'      => 'com:koowa.database.adapter.mysqli',
         'lib:dispatcher.router.route'      => 'com:koowa.dispatcher.router.route',
@@ -51,9 +52,9 @@ return array(
         'event.subscriber.factory' => array(
             'subscribers' => array(
                 'com:koowa.event.subscriber.application',
-                'com:koowa.event.subscriber.user'
+                'com:koowa.event.subscriber.user',
+                'com:koowa.event.subscriber.exception'
             )
         )
-
     )
 );

@@ -56,7 +56,7 @@ class ComKoowaDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorJwt
             'secret'  => JFactory::getConfig()->get('secret'),
             'max_age' => JFactory::getConfig()->get('lifetime') * 60,
             'options' => array(
-                'action'       => JFactory::getApplication()->isSite() ? 'core.login.site' : 'core.login.admin',
+                'action'       => JFactory::getApplication()->isClient('site') ? 'core.login.site' : 'core.login.admin',
                 'autoregister' => false,
                 'type'         => 'jwt'
             ),
@@ -76,8 +76,8 @@ class ComKoowaDispatcherAuthenticatorJwt extends KDispatcherAuthenticatorJwt
     {
         $data['username'] = $username;
 
-        $parameter        = JFactory::getApplication()->isAdmin() ? 'admin_language' : 'language';
-        $data['language'] = $this->getObject('user.provider')->load($username)->get($parameter);
+        $parameter        = JFactory::getApplication()->isClient('administrator') ? 'admin_language' : 'language';
+        $data['language'] = $this->getUser($username)->get($parameter);
 
         $options = $this->_options;
 

@@ -25,35 +25,40 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
     {
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug'),
+            'debug' => JFactory::getConfig()->get('debug'),
             'wrapper_class' => array(
                 JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
             )
         ));
-        
+
+        $html = '';
+
         if($this->getTemplate()->decorator() === 'koowa')
         {
             $layout = $this->getTemplate()->getParameters()->layout;
 
-            if (JFactory::getApplication()->isSite() && $layout === 'form') {
+            if (JFactory::getApplication()->isClient('site') && $layout === 'form') {
                 $config->domain = 'admin';
             }
         }
 
         $identifier = $this->getTemplate()->getIdentifier();
-        $menu       = JFactory::getApplication()->getMenu()->getActive();
-
-        if ($identifier->type === 'com' && $menu)
+        if($menu = JFactory::getApplication()->getMenu())
         {
-            if ($suffix = htmlspecialchars($menu->params->get('pageclass_sfx')))
+            $menu = $menu->getActive();
+
+            if ($identifier->type === 'com' && $menu)
             {
-                $config->append(array(
-                    'wrapper_class' => array($suffix)
-                ));
+                if ($suffix = htmlspecialchars($menu->getParams()->get('pageclass_sfx')))
+                {
+                    $config->append(array(
+                        'wrapper_class' => array($suffix)
+                    ));
+                }
             }
         }
 
-        $html = parent::load($config);
+        $html .= parent::load($config);
 
         return $html;
     }
@@ -70,13 +75,13 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         $config = new KObjectConfigJson($config);
         $config->append(array(
-            'debug' => JFactory::getApplication()->getCfg('debug'),
+            'debug' => JFactory::getConfig()->get('debug'),
             'package' => $identifier->package,
             'domain'  => $identifier->domain
         ))->append(array(
             'folder' => 'com_'.$config->package,
             'file'   => ($identifier->type === 'mod' ? 'module' : $config->domain) ?: 'admin',
-            'media_path' => (defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media'
+            'media_path' => JPATH_ROOT . '/media'
         ));
 
         $html = '';
@@ -92,23 +97,78 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
+        $is_joomla4 = version_compare(JVERSION, '4.0', '>=');
+        $ui         = sprintf('k-ui-j%s', $is_joomla4 ? 4 : 3);
+        $classes    = [$ui, sprintf('%s-%s', $ui, JFactory::getApplication()->getName())];
+
         if ($this->getTemplate()->decorator() == 'joomla')
         {
             $app      = JFactory::getApplication();
             $template = $app->getTemplate();
 
             // Load Bootstrap file if it's explicitly asked for
-            if ($app->isSite() && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
+            if ($app->isClient('site') && file_exists(JPATH_THEMES.'/'.$template.'/enable-koowa-bootstrap.txt')) {
                 $html .= $this->getTemplate()->helper('behavior.bootstrap', ['javascript' => false, 'css' => true]);
             }
 
             // Load overrides for the current admin template
-            if ($app->isAdmin() && $config->file === 'admin')
+            if ($app->isClient('administrator') && $config->file === 'admin')
             {
-                if (file_exists((defined('JOOMLATOOLS_PLATFORM') ? JPATH_WEB : JPATH_ROOT) . '/media/koowa/com_koowa/css/'.$template.'.css')) {
+                if (file_exists( JPATH_ROOT . '/media/koowa/com_koowa/css/'.$template.'.css')) {
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
+
+                if ($is_joomla4)
+                {
+                    if (!KTemplateHelperBehavior::isLoaded($ui))
+                    {
+                        $html .= '<script data-inline type="text/javascript">
+                            
+                            // Hide sidebar
+
+                            document.addEventListener("DOMContentLoaded", function()
+                            {
+                              var wrapper = document.getElementById(\'wrapper\');
+                              var menuToggleIcon = document.getElementById(\'menu-collapse-icon\'); 
+                              wrapper.classList.add(\'closed\');
+                              menuToggleIcon.classList.remove(\'fa-toggle-on\');
+                              menuToggleIcon.classList.add(\'fa-toggle-off\');
+                              
+        
+                              let menus = wrapper.querySelectorAll(\'li.mm-active\');
+                                                    
+                              for (let menu of menus)
+                              {
+                                menu.classList.remove(\'active\');
+                                menu.classList.remove(\'open\');
+                                
+                                let arrow = menu.querySelector(\'a\');
+                                
+                                arrow.classList.add(\'mm-collapsed\');
+                                arrow.setAttribute(\'aria-expanded\', false);
+                                
+                                menu.classList.remove(\'mm-active\');
+                                menu.classList.remove(\'open\');
+                                
+                                menu.querySelector(\'ul\').classList.remove(\'mm-show\');
+                              }
+                              
+                              wrapper.querySelector(\'ul.main-nav.metismenu\').classList.add(\'child-open\');
+                            });
+                        </script>';
+                    }
+                }
             }
+        }
+        else $classes[] = sprintf('%s-form', $ui);
+
+        if (!KTemplateHelperBehavior::isLoaded($ui))
+        {
+            $classes = array_map('json_encode', $classes);
+            $html    .= '<script data-inline type="text/javascript">document.documentElement.classList.add(' .
+                        implode(", ", $classes) . ');</script>';
+
+            KTemplateHelperBehavior::setLoaded($ui);
         }
 
         $html .= parent::styles($config);

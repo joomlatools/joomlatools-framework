@@ -276,18 +276,16 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
     protected function _compile($source)
     {
         //Convert PHP tags
-        if (!ini_get('short_open_tag'))
-        {
-            // convert "<?=" to "<?php echo"
-            $find = '/\<\?\s*=\s*(.*?)/';
-            $replace = "<?php echo \$1";
-            $source = preg_replace($find, $replace, $source);
 
-            // convert "<?" to "<?php"
-            $find = '/\<\?(?:php)?\s*(.*?)/';
-            $replace = "<?php \$1";
-            $source = preg_replace($find, $replace, $source);
-        }
+        // convert "<?=" to "<?php echo"
+        $find = '/\<\?\s*=\s*(.*?)/';
+        $replace = "<?php echo \$1";
+        $source = preg_replace($find, $replace, $source);
+
+        // convert "<?" to "<?php"
+        $find = '/\<\?(?:php)?\s*(.*?)/';
+        $replace = "<?php \$1";
+        $source = preg_replace($find, $replace, $source);
 
         //Compile to valid PHP
         $tokens   = token_get_all($source);
@@ -302,6 +300,7 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
                 switch ($token)
                 {
                     //Proxy registered functions through __call()
+                    case T_EMPTY:
                     case T_STRING :
 
                         if(isset($this->_functions[$content]) )

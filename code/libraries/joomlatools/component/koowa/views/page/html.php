@@ -27,7 +27,7 @@ class ComKoowaViewPageHtml extends ComKoowaViewHtml
     {
         $config->append(array(
             'layout'           => 'joomla',
-            'template_filters' => ['module', 'style', 'link', 'meta', 'script', 'title', 'message'],
+            'template_filters' => ['style', 'link', 'meta', 'script', 'title', 'message'],
         ))->append(array(
             'decorator' => $config->layout
         ));
@@ -38,7 +38,7 @@ class ComKoowaViewPageHtml extends ComKoowaViewHtml
     protected function _fetchData(KViewContext $context)
     {
         //Set the language information
-        $language = JFactory::getApplication()->getCfg('language');
+        $language = JFactory::getConfig()->get('language');
 
         $context->data->language  = $language ? $language : 'en-GB';
         $context->data->direction = JFactory::getLanguage()->isRTL() ? 'rtl' : 'ltr';

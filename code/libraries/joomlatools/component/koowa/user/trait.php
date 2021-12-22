@@ -86,7 +86,7 @@ trait ComKoowaUserTrait
             if(is_numeric($role)) {
                 $result = in_array($role, $this->getRoles());
             } else {
-                $result = in_array($role, $this->getRoles(true));
+                $result = in_array(strtolower($role), $this->getRoles(true));
             }
 
             if(!$strict) {
@@ -143,7 +143,7 @@ trait ComKoowaUserTrait
             if(is_numeric($group)) {
                 $result = in_array($group, $this->getGroups());
             } else {
-                $result = in_array($group, $this->getGroups(true));
+                $result = in_array(strtolower($group), $this->getGroups(true));
             }
 
             if(!$strict) {

@@ -44,24 +44,23 @@ class ComKoowaTemplateLocatorFile extends KTemplateLocatorFile
      */
     protected function _initialize(KObjectConfig $config)
     {
-        if(!defined('JOOMLATOOLS_PLATFORM'))
+        if(defined('JPATH_THEMES'))
         {
-            $query = $this->getObject('lib:database.query.select')
+            $query = $this->getObject('database')->getQuery('select')
                 ->table('template_styles')
                 ->columns('template')
                 ->where('client_id = :client_id AND home = :home')
                 ->bind(array('client_id' => 0, 'home' => 1));
 
-            $template = $this->getObject('lib:database.adapter.mysqli')->select($query, KDatabase::FETCH_FIELD);
-        }
-        else  $template = JFactory::getApplication()->getTemplate();
+            $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
 
-        $config->append(array(
-            'override_paths' => [
-                JPATH_ROOT.'/templates/'.$template.'/html',
-                JPATH_ROOT.'/templates/system/html'
-            ]
-        ));
+            $config->append(array(
+                'override_paths' => [
+                    JPATH_ROOT.'/templates/'.$template.'/html',
+                    JPATH_ROOT.'/templates/system/html'
+                ]
+            ));
+        }
 
         parent::_initialize($config);
     }

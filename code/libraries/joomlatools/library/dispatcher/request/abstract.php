@@ -427,8 +427,9 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     /**
      * Returns the port on which the request is made.
      *
-     * This method can read the client port from the "X-Forwarded-Port" header when the request is proxied and the proxy
-     * is trusted. The "X-Forwarded-Port" header must contain the client port.
+     * This method can read the client port from the "X-Forwarded-Port" header when the request is proxied .
+     * The "X-Forwarded-Port" header must contain the client port. If the X-Forwarded-Port header is not present
+     * return default ports based on the protocol used.
      *
      * @link http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#section-5.5
      *
@@ -436,11 +437,15 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     public function getPort()
     {
-        if ($this->isProxied() && $this->_headers->has('X-Forwarded-Port')) {
-            $port = $this->_headers->get('X-Forwarded-Port');
-        } else {
-            $port = @$_SERVER['SERVER_PORT'];
+        if ($this->isProxied())
+        {
+            if($this->_headers->has('X-Forwarded-Port')) {
+                $port = $this->_headers->get('X-Forwarded-Port');
+            } else {
+                $port = $this->isSecure() ? '443' : '80';
+            }
         }
+        else $port = @$_SERVER['SERVER_PORT'];
 
         return $port;
     }
@@ -687,7 +692,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
 
             $address   = $addresses[0];
         }
-        else $address = $_SERVER['REMOTE_ADDR'];
+        else $address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
 
         return $address;
     }
@@ -756,7 +761,8 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     public function setBasePath($path)
     {
-        $this->_base_path = $path;
+        $this->_base_path = !empty($path) ? rtrim($path, '/\\') : $path;
+
         return $this;
     }
 
@@ -885,7 +891,7 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
             //Remove the encoding from the etag
             //
             //RFC-7232 explicitly states that ETags should be content-coding aware
-            $result = str_replace('-gzip', '', $result);
+            $result = str_replace(['-gzip', '-br'], '', $result);
         }
 
         return $result;
@@ -903,11 +909,11 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
      */
     public function isSecure()
     {
-        // Some servers are configured to return as X-Forwarded-Proto but they are missing X-Forwarded-By.
         if ($this->isProxied() && $this->_headers->has('X-Forwarded-Proto')) {
             $scheme = $this->_headers->get('X-Forwarded-Proto');
         } else {
-            $scheme = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) : 'http';
+            $scheme = isset($_SERVER['HTTPS']) ? strtolower($_SERVER['HTTPS']) :
+                     (isset($_SERVER['REQUEST_SCHEME']) ? strtolower($_SERVER['REQUEST_SCHEME']) : 'http');
         }
 
         return in_array(strtolower($scheme), array('https', 'on', '1'));
@@ -916,42 +922,55 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     /**
      * Checks whether the request is proxied or not.
      *
-     * This method reads the proxy IP from the "X-Forwarded-By" header. The "X-Forwarded-By" header must contain the
-     * proxy IP address and, potentially, a port number). If no "X-Forwarded-By" header can be found, or the header
-     * IP address doesn't match the list of trusted proxies the function will return false.
+     * The request is considered to be proxied if the X-Forwarded-For is provided.
+     *
+     * If one or more trusted proxies are defined this method reads the proxy IP from the "X-Forwarded-By" header.
+     * If no "X-Forwarded-By" header can be found, or the header IP address doesn't match the list of trusted proxies
+     * the function will return false. The "X-Forwarded-By" header must contain the proxy IP address and, potentially,
+     * a port number).
      *
      * @link http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#page-7
      *
-     * @return  boolean Returns TRUE if the request is proxied and the proxy is trusted. FALSE otherwise.
+     * @return  boolean Returns TRUE if the request is proxied (and trusted). FALSE otherwise.
      */
     public function isProxied()
     {
-        if(!empty($this->_proxies) && $this->_headers->has('X-Forwarded-By'))
+        if($this->_headers->has('X-Forwarded-For'))
         {
-            $ip      = $this->_headers->get('X-Forwarded-By');
-            $proxies = $this->getProxies();
-
-            //Validates the proxied IP-address against the list of trusted proxies.
-            foreach ($proxies as $proxy)
+            if(!empty($this->_proxies))
             {
-                if (strpos($proxy, '/') !== false)
+                if($this->_headers->has('X-Forwarded-By'))
                 {
-                    list($address, $netmask) = explode('/', $proxy, 2);
+                    $ip      = $this->_headers->get('X-Forwarded-By');
+                    $proxies = $this->getProxies();
 
-                    if ($netmask < 1 || $netmask > 32) {
-                        return false;
+                    //Validates the proxied IP-address against the list of trusted proxies.
+                    foreach ($proxies as $proxy)
+                    {
+                        if (strpos($proxy, '/') !== false)
+                        {
+                            list($address, $netmask) = explode('/', $proxy, 2);
+
+                            if ($netmask < 1 || $netmask > 32) {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            $address = $proxy;
+                            $netmask = 32;
+                        }
+
+                        if(substr_compare(sprintf('%032b', ip2long($ip)), sprintf('%032b', ip2long($address)), 0, $netmask) === 0) {
+                            return true;
+                        }
                     }
                 }
-                else
-                {
-                    $address = $proxy;
-                    $netmask = 32;
-                }
 
-                if(substr_compare(sprintf('%032b', ip2long($ip)), sprintf('%032b', ip2long($address)), 0, $netmask) === 0) {
-                    return true;
-                }
+                return false;
             }
+
+            return true;
         }
 
         return false;

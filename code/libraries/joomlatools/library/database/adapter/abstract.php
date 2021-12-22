@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Database\Adapter
  */
-abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdapterInterface, KObjectMultiton
+abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdapterInterface
 {
     /**
      * Active state of the connection
@@ -475,6 +475,27 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
         $context->setSubject($this);
 
         return $context;
+    }
+
+    /**
+     * Returns a query object with the current adapter set
+     *
+     * @param string|KObjectIdentifier $identifier
+     * @return KDatabaseQueryInterface
+     */
+    public function getQuery($identifier)
+    {
+        if (is_string($identifier) && !str_contains($identifier, '.')) {
+            $name               = $identifier;
+            $identifier         = $this->getIdentifier()->toArray();
+            $identifier['path'] = isset($identifier['package']) && $identifier['package'] === 'database' ? ['query'] : ['database', 'query'];
+            $identifier['name'] = $name;
+
+            $identifier = $this->getIdentifier($identifier);
+        }
+        else $identifier = $this->getIdentifier($identifier);
+
+        return $this->getObject($identifier, ['adapter' => $this]);
     }
 
     /**

@@ -56,7 +56,7 @@ class KClassLoader implements KClassLoaderInterface
      *
      * Prevent creating instances of this class by making the constructor private
      */
-    final private function __construct($config = array())
+    private function __construct($config = array())
     {
         //Create the class registry
         if(isset($config['cache']) && $config['cache'] && KClassRegistryCache::isSupported())
@@ -89,7 +89,7 @@ class KClassLoader implements KClassLoaderInterface
      *
      * Prevent creating clones of this class
      */
-    final private function __clone()
+    private function __clone()
     {
         throw new Exception("An instance of KClassLoader cannot be cloned.");
     }

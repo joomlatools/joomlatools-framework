@@ -12,22 +12,22 @@
  *
  * Setup error handler for Joomla context.
  *
- * 1. xdebug enabled
+ * 1. KOOWA_DEBUG enabled
  *
- * If xdebug is enabled assume we are in local development mode
+ * If KOOWA_DEBUG is enabled assume we are in local development mode
  *    - error types   : TYPE_ALL which will trigger an exception for : exceptions, errors and failures
  *    - error levels  : ERROR_DEVELOPMENT (E_ALL | E_STRICT | ~E_DEPRECATED)
  *
- * 2. Joomla debug
+ * 2. JDEBUG enabled
  *
- * If debug is enabled assume we are in none local debug mode
+ * If JDEBUG debug is enabled assume we are in none local debug mode
  *    - error types   : TYPE_ALL which will trigger an exception for : exceptions, errors and failures
  *    - error levels  : E_ERROR and E_PARSE
  *
  * 3. Joomla default
  *
- * Do not try to trigger errors or exceptions automatically. To trigger an exception the implementing code
- * should call {@link handleException()}
+ * Do not try handle exceptions automatically. Either manually enable the exception type to handle using {@link enabled()}
+ * or call {@link handleException()} to forward an exception
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Component\Koowa\Exception
@@ -44,21 +44,21 @@ final class ComKoowaExceptionHandler extends KExceptionHandler
      */
     protected function _initialize(KObjectConfig $config)
     {
-        if(extension_loaded('xdebug'))
+        if(Koowa::isDebug())
         {
-            $level = self::ERROR_DEVELOPMENT;
-            $type  = self::TYPE_ALL;
+            $config->append([
+                'exception_type'  => self::TYPE_ALL,
+                'error_reporting' => self::ERROR_DEVELOPMENT
+            ]);
         }
-        else
+        elseif (JDEBUG)
         {
-            $level = JDEBUG ? E_ERROR | E_PARSE : self::ERROR_REPORTING;
-            $type  = JDEBUG ? self::TYPE_ALL : false;
+            $config->append([
+                'exception_type'  => self::TYPE_ALL,
+                'error_reporting' => E_ERROR | E_PARSE
+            ]);
         }
-
-        $config->append(array(
-            'exception_type'  => $type,
-            'error_reporting' => $level
-        ));
+        else $config->append(['exception_type' => false]);
 
         parent::_initialize($config);
     }

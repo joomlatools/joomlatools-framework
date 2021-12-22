@@ -12,7 +12,7 @@
  *
  * Filter to handle form html elements
  *
- * For forms that use a post method this filter adds a token to prevent CSRF. For forms that use a get method this
+ * For forms that use a get method this
  * filter adds the action url query params as hidden fields to comply with the html form standard.
  *
  * @author  Johan Janssens <https://github.com/johanjanssens>
@@ -22,51 +22,6 @@
 class KTemplateFilterForm extends KTemplateFilterAbstract
 {
     /**
-     * The form token value
-     *
-     * @var string
-     */
-    protected $_token_value;
-
-    /**
-     * The form token name
-     *
-     * @var string
-     */
-    protected $_token_name;
-
-    /**
-     * Constructor.
-     *
-     * @param   KObjectConfig $config Configuration options
-     */
-    public function __construct( KObjectConfig $config = null)
-    {
-        parent::__construct($config);
-
-        $this->_token_value = $this->getObject('user')->getSession()->getToken();
-        $this->_token_name  = $config->token_name;
-    }
-
-    /**
-     * Initializes the options for the object
-     *
-     * Called from {@link __construct()} as a first step of object instantiation.
-     *
-     * @param   KObjectConfig $config Configuration options
-     * @return  void
-     */
-    protected function _initialize(KObjectConfig $config)
-    {
-        $config->append(array(
-            'token_value'   => '',
-            'token_name'    => 'csrf_token',
-        ));
-
-        parent::_initialize($config);
-    }
-
-    /**
      * Handle form replacements
      *
      * @param string
@@ -74,37 +29,11 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
      */
     public function filter(&$text)
     {
-        if($this->getObject('user')->isAuthentic())
-        {
-            //$this->_addMetatag($text);
-            $this->_addToken($text);
-        }
-
         $this->_addAction($text);
         $this->_addQueryParameters($text);
 
         return $this;
     }
-
-    /**
-     * Adds the CSRF token to a meta tag to be used in JavaScript
-     *
-     * @param string $text Template text
-     * @return $this
-     */
-    protected function _addMetatag(&$text)
-    {
-        if (!empty($this->_token_value))
-        {
-            $string = '<meta content="'.$this->_token_value.'" name="csrf-token" />';
-            if (stripos($text, $string) === false) {
-                $text = $string.$text;
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * Add the action if left empty
      *
@@ -123,32 +52,6 @@ class KTemplateFilterForm extends KTemplateFilterAbstract
                 $str = str_replace('action=""', 'action="' . $action . '"', $match[0]);
                 $text = str_replace($match[0], $str, $text);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add the token to the form
-     *
-     * @param string $text Template text
-     * @return $this
-     */
-    protected function _addToken(&$text)
-    {
-        if (!empty($this->_token_value))
-        {
-            // POST: Add token
-            $text    = preg_replace('#(<\s*form[^>]+method="post"[^>]*>)#si',
-                '\1'.PHP_EOL.'<input type="hidden" name="'.$this->_token_name.'" value="'.$this->_token_value.'" />',
-                $text
-            );
-
-            // GET: Add token to .k-js-grid-controller forms
-            $text    = preg_replace('#(<\s*form[^>]+class=(?:\'|")[^\'"]*?k-js-grid-controller.*?(?:\'|")[^>]*)>#si',
-                '\1 data-token-name="'.$this->_token_name.'" data-token-value="'.$this->_token_value.'">',
-                $text
-            );
         }
 
         return $this;

@@ -43,9 +43,36 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
         $options = KObjectConfig::unbox($config->options);
 
         $result = $editor->display($config->name, $config->value, $config->width, $config->height, $config->cols, $config->rows, KObjectConfig::unbox($config->buttons), $config->name, null, null, $options);
-        
+
         // Some editors like CKEditor return inline JS. 
         $result = str_replace('<script', '<script data-inline', $result);
+
+        if (version_compare(JVERSION, '4.0', '>='))
+        {
+            $fields = array(
+                'joomla-field-media',
+                'joomla-field-permissions',
+                'joomla-field-simple-color',
+                'joomla-media-select',
+                'switcher'
+            );
+
+            if (JFactory::getLanguage()->isRtl()) {
+                $fields[] = 'calendar-rtl';
+            } else {
+                $fields[] = 'calendar';
+            }
+
+            $prepend_path = $this->getObject('request')->getSiteUrl()->getPath(true) ?: [''];
+
+            foreach ($fields as $field)
+            {
+                $url = $this->getObject('lib:http.url');
+                $url->setPath(array_merge($prepend_path, ['media', 'system', 'css', 'fields', sprintf('%s.css', $field)]));
+
+                $result .= sprintf('<ktml:style src="%s" />', $url);
+            }
+        }
 
         return $result;
     }

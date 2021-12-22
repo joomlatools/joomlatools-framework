@@ -41,7 +41,7 @@ class KClassRegistryCache extends KClassRegistry
      */
     public static function isSupported()
     {
-        return extension_loaded('apc');
+        return extension_loaded('apcu') && apcu_enabled();
     }
 
     /**
@@ -75,7 +75,7 @@ class KClassRegistryCache extends KClassRegistry
     {
         if(!parent::offsetExists($offset))
         {
-            if($result = apc_fetch($this->getNamespace().'-class_'.$offset)) {
+            if($result = apcu_fetch($this->getNamespace().'-class_'.$offset)) {
                 parent::offsetSet($offset, $result);
             }
         }
@@ -93,7 +93,7 @@ class KClassRegistryCache extends KClassRegistry
      */
     public function offsetSet($offset, $value)
     {
-        apc_store($this->getNamespace().'-class_'.$offset, $value);
+        apcu_store($this->getNamespace().'-class_'.$offset, $value);
 
         parent::offsetSet($offset, $value);
     }
@@ -107,7 +107,7 @@ class KClassRegistryCache extends KClassRegistry
     public function offsetExists($offset)
     {
         if(false === $result = parent::offsetExists($offset)) {
-            $result = apc_exists($this->getNamespace().'-class_'.$offset);
+            $result = apcu_exists($this->getNamespace().'-class_'.$offset);
         }
 
         return $result;
@@ -121,7 +121,7 @@ class KClassRegistryCache extends KClassRegistry
      */
     public function offsetUnset($offset)
     {
-        apc_delete($this->getNamespace().'-class_'.$offset);
+        apcu_delete($this->getNamespace().'-class_'.$offset);
         parent::offsetUnset($offset);
     }
 
@@ -133,7 +133,7 @@ class KClassRegistryCache extends KClassRegistry
     public function clear()
     {
         // Clear user cache
-        apc_clear_cache('user');
+        apcu_clear_cache();
 
         return parent::clear();
     }

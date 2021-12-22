@@ -115,6 +115,8 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
      */
     public function onFinderAfterDelete($context, $table)
     {
+        if (!class_exists('Koowa')) return;
+
         if ($context === $this->extension.'.'.$this->entity) {
             $id = $table->id;
         }
@@ -140,6 +142,8 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
      */
     public function onFinderAfterSave($context, $entity, $isNew)
     {
+        if (!class_exists('Koowa')) return;
+
         if ($context == $this->extension.'.'.$this->entity) {
             $this->reindex($entity->id);
         }
@@ -158,6 +162,8 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
      */
     public function onFinderChangeState($context, $pks, $value)
     {
+        if (!class_exists('Koowa')) return;
+
         // Handle when the plugin is disabled
         if ($context == 'com_plugins.plugin' && $value === 0) {
             $this->pluginDisable($pks);
@@ -224,7 +230,11 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
 
             JPluginHelper::importPlugin('system');
 
-            JEventDispatcher::getInstance()->trigger('onAfterInitialiase');
+            if (class_exists('JEventDispatcher')) {
+                $results = JEventDispatcher::getInstance()->trigger('onAfterInitialiase');
+            } else {
+                $results = JFactory::getApplication()->triggerEvent('onAfterInitialiase');
+            }
         }
 
         return class_exists('Koowa');
@@ -309,11 +319,18 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         $data = $entity->getProperties();
 
         //Get the indexer result item
-        $item = JArrayHelper::toObject($data, 'FinderIndexerResult');
+        if (class_exists('JArrayHelper')) {
+            $item = JArrayHelper::toObject($data, 'FinderIndexerResult');
+        } else {
+            $item = \Joomla\Utilities\ArrayHelper::toObject($data, 'FinderIndexerResult');
+        }
 
         $item->url = $this->getURL($item->id, $this->extension, $this->layout);
         $item->route = $this->getLink($entity);
-        $item->path = FinderIndexerHelper::getContentPath($item->route);
+
+        if (method_exists('FinderIndexerHelper', 'getContentPath')) {
+            $item->path = FinderIndexerHelper::getContentPath($item->route);
+        }
 
         // Trigger the onContentPrepare event.
         if ($item->description) {

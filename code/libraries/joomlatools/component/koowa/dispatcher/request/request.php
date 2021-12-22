@@ -24,13 +24,16 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
     {
         $url = clone $this->getBaseUrl();
 
-        if(JFactory::getApplication()->getName() == 'administrator')
+        if(class_exists('JUri'))
         {
-            // Replace the application name only once since it's possible that
-            // we can run from http://localhost/administrator/administrator
-            $i    = 1;
-            $path = str_ireplace('/administrator', '', $url->getPath(), $i);
-            $url->setPath($path);
+            if(JFactory::getApplication()->getName() == 'administrator')
+            {
+                // Replace the application name only once since it's possible that
+                // we can run from http://localhost/administrator/administrator
+                $i    = 1;
+                $path = str_ireplace('/administrator', '', $url->getPath(), $i);
+                $url->setPath($path);
+            }
         }
 
         return $url;
@@ -43,8 +46,11 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function setFormat($format)
     {
-        if (JFactory::getApplication()->getCfg('sef_suffix') && $format === 'feed') {
-            $format = 'rss';
+        if(class_exists('JUri'))
+        {
+            if (JFactory::getConfig()->get('sef_suffix') && $format === 'feed') {
+                $format = 'rss';
+            }
         }
 
         return parent::setFormat($format);
@@ -57,11 +63,19 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function getPort()
     {
-        $port = parent::getPort();
+        if(class_exists('JUri'))
+        {
+            if ($this->_headers->has('X-Forwarded-Port')) {
+                $port = $this->_headers->get('X-Forwarded-Port');
+            } else {
+                $port = @$_SERVER['SERVER_PORT'];
+            }
 
-        if (JUri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
-            $port = '443';
+            if (JUri::getInstance()->isSsl() || ($this->isSecure() && in_array($port, ['80', '8080']))) {
+                $port = '443';
+            }
         }
+        else $port = parent::getPort();
 
         return $port;
     }
@@ -73,7 +87,13 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function isSecure()
     {
-        return JUri::getInstance()->isSsl() ? true : parent::isSecure();
+        if(class_exists('JUri')) {
+            $result =  JUri::getInstance()->isSsl();
+        } else {
+            $result = false;
+        }
+
+        return $result ? true : parent::isSecure();
     }
 
     /**
@@ -88,6 +108,12 @@ final class ComKoowaDispatcherRequest extends KDispatcherRequest
      */
     public function isProxied()
     {
-        return true;
+        if(class_exists('JUri')) {
+            $result = true;
+        } else {
+            $result = parent::isProxied();
+        }
+
+        return $result;
     }
 }

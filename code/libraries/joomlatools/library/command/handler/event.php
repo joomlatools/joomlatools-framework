@@ -145,20 +145,29 @@ final class KCommandHandlerEvent extends KCommandHandlerAbstract implements KObj
         $event_generic  = 'on'.ucfirst($when).ucfirst($type).$name;
 
         // Clone the context
-        if($this->_immutable) {
+        if($this->isImmutable()) {
             $event = clone($command);
         } else {
             $event = $command;
         }
 
+        //Get the event attributes
+        $attributes = $event->getAttributes();
+        $attributes['result'] = $event->getResult();
+
         // Create event object to check for propagation
-        $event = $this->getEventPublisher()->publishEvent($event_specific, $event->getAttributes(), $event->getSubject());
+        $event = $this->getEventPublisher()->publishEvent($event_specific, $attributes, $event->getSubject());
 
         // Ensure event can be propagated and event name is different
         if ($event->canPropagate() && $event_specific != $event_generic)
         {
             $event->setName($event_generic);
             $this->getEventPublisher()->publishEvent($event);
+        }
+
+        // Replace the attributes
+        if(!$this->isImmutable() && is_scalar($event->result)) {
+            $command->setResult($event->result);
         }
     }
 

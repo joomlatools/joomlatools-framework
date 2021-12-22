@@ -27,7 +27,9 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
         KObject::__construct($config);
 
         //Set the user properties and attributes
-        $this->setData(JFactory::getUser());
+        if(class_exists('JUser') || class_exists('\Joomla\CMS\User\User')) {
+            $this->setData(JFactory::getUser());
+        }
     }
 
     /**
@@ -40,6 +42,11 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
     {
         if($user instanceof JUser || $user instanceof \Joomla\CMS\User\User)
         {
+            // Get params from the protected property
+            $getParams   = Closure::bind(function() {
+                return $this->_params->toArray();
+            }, $user, $user);
+
             $data = array(
                 'id'         => $user->id,
                 'email'      => $user->email,
@@ -52,7 +59,7 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
                 'authentic'  => !$user->guest,
                 'enabled'    => !$user->block,
                 'expired'    => !$user->activation,
-                'attributes' => $user->getParameters()->toArray()
+                'attributes' => $getParams()
             );
         }
         else $data = $user;

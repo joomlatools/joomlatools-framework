@@ -2,7 +2,7 @@
     "name": "joomlatools/framework",
     "type": "joomlatools-extension",
     "license": "GPL-3.0-only",
-    "description": "Joomlatools Framework is an open-source extension framework for Joomla",
+    "description": "Joomlatools Framework is an open-source extension framework (for Joomla)",
     "keywords": [
         "joomla",
         "extension",
@@ -23,15 +23,15 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.3",
         "ext-mbstring": "*",
-        "joomlatools/composer": "*",
-        "symfony/yaml": "^2.8|^3.0|^4.0"
+        "joomlatools/composer": "*"
     },
     "suggest": {
         "twig/twig": "Allows building templates using the Twig template engine",
         "mustache/mustache": "Allows building logic less templates using the Mustache syntax",
-        "erusev/parsedown-extra" : "Allows using Markddown in templates"
+        "erusev/parsedown-extra" : "Allows using Markddown in templates",
+        "symfony/yaml": "Allows using Yaml config files"
     },
     "extra": {
         "manifest": "code/plugins/system/joomlatools/joomlatools.xml"
