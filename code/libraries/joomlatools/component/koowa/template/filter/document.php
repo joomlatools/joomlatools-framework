@@ -15,10 +15,40 @@
  */
 class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 {
+    /**
+     * List of known blacklisted scripts
+     * 
+     * Supports both full string matching (e.g. `/media/jui/js/jquery.js`) or regular expressions.
+     * 
+     * Please note that you CANNOT use / as the delimiter for regular expressions. 
+     * You can use any other delimiter such as # or ~
+     */
+    protected $_strip_assets = []; // ['/media/jui/js/jquery.js', '#.*com_content.*#']
+
+    /**
+     * Constructor.
+     *
+     * @param KObjectConfig $config An optional ObjectConfig object with configuration options
+     */
+    public function __construct(KObjectConfig $config)
+    {
+        parent::__construct($config);
+
+        $this->_strip_assets = array_unique(KObjectConfig::unbox($config->strip_assets));
+    }
+
+    /** 
+     * Initializes the options for the object
+     *
+     * Called from {@link __construct()} as a first step of object instantiation.
+     *
+     * @param  KObjectConfig $config An optional ObjectConfig object with configuration options
+     */
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority' => self::PRIORITY_HIGH
+            'priority'  => self::PRIORITY_HIGH,
+            'strip_assets' => []
         ));
 
         parent::_initialize($config);
@@ -30,6 +60,9 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
         {
             $head = JFactory::getDocument()->getHeadData();
             $mime = JFactory::getDocument()->getMimeEncoding();
+
+            $head['scripts'] = $this->_filterAssets($head['scripts']);
+            $head['styleSheets'] = $this->_filterAssets($head['styleSheets']);
 
             ob_start();
 
@@ -174,5 +207,37 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
             $text = $head.$text;
         }
+    }
+
+    /**
+     * Filter blacklisted scripts
+     *
+     * @param $scripts
+     * @return array|mixed
+     */
+    protected function _filterAssets($assets)
+    {
+        if ($this->_strip_assets)
+        {
+            $regexps = array_filter($this->_strip_assets, function($path) {
+                return isset($path[0]) && in_array($path[0], ['#', '~', '+', '%', '{', '<', '(', '[']);
+            });
+
+            $assets = array_filter($assets, function($value, $path) use($regexps) {
+                if (in_array($path, $this->_strip_assets)) {
+                    return false;
+                }
+
+                if ($regexps) {
+                    foreach ($regexps as $regexp) {
+                        if (preg_match($regexp, $path)) return false;
+                    }
+                }
+
+                return $value;
+            }, ARRAY_FILTER_USE_BOTH);
+        }
+
+        return $assets;
     }
 }
