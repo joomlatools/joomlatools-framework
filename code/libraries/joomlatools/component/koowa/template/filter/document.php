@@ -34,7 +34,7 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
     {
         parent::__construct($config);
 
-        $this->_strip_assets = KObjectConfig::unbox($config->strip_assets);
+        $this->_strip_assets = array_unique(KObjectConfig::unbox($config->strip_assets));
     }
 
     /** 
