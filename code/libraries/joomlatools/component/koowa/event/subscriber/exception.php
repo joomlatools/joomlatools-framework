@@ -18,7 +18,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'priority' => KEvent::PRIORITY_LOW
+            'priority' => KEvent::PRIORITY_LOWEST
         ));
 
         parent::_initialize($config);
