@@ -61,12 +61,12 @@ final class ComKoowaEventPublisher extends KEventPublisher
      * Function will avoid a recursive loop when an exception is thrown during even publishing and output a generic
      * exception instead.
      *
-     * @param  Exception           $exception  The exception to be published.
+     * @param  Throwable           $exception  The exception to be published.
      * @param  array|Traversable    $attributes An associative array or a Traversable object
      * @param  mixed                $target     The event target
      * @return  KEvent
      */
-    public function publishException(Exception $exception)
+    public function publishException(Throwable $exception)
     {
         return parent::publishEvent('onException', ['exception' => $exception]);
     }
