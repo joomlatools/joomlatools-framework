@@ -5,7 +5,7 @@ components:
   activities:
     branch: "v3.1.8"
   scheduler:
-    branch: "v1.3.1"
+    branch: "v1.3.2"
   migrator:
     branch: "v1.2.1"
   tags:
