@@ -173,7 +173,7 @@ class KDatabaseAdapterMysqli extends KDatabaseAdapterAbstract
     {
         try {
             return ($this->_connection instanceof MySQLi) && @$this->_connection->ping();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return false;
         }
     }
