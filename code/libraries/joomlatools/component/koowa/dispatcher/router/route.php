@@ -150,7 +150,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             $client = 'administrator';
         }
 
-        $router_class = sprintf('JRouter%s', ucfirst($client));
+        $router_class = sprintf('\Joomla\CMS\Router\%sRouter', ucfirst($client));
 
         if (version_compare(JVERSION, '4', '>='))
         {
@@ -169,8 +169,11 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
         }
         else
         {
-            $app        = JFactory::getApplication($client);
-            $menu_class = 'JMenu' . ucfirst($client);
+            $app_class = sprintf('\Joomla\CMS\Application\%sApplication', ucfirst($client));
+
+            $app = new $app_class();
+
+            $menu_class = sprintf('\Joomla\CMS\Menu\%sMenu', ucfirst($client));
 
             $menu = new $menu_class(array('app' => $app));
 
