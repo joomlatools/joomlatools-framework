@@ -177,10 +177,8 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             $menu_class = sprintf('\Joomla\CMS\Menu\%sMenu', ucfirst($client));
 
             $menu = new $menu_class(array('app' => $app));
-
-            $mode = JFactory::getConfig()->get('sef');
-
-            $router = new $router_class(array('mode' => $mode), $app, $menu);
+            
+            $router = new $router_class(array('mode' => $app->getCfg('sef')), $app, $menu);
         }
 
         $uri = new Joomla\Uri\Uri(parent::toString());
