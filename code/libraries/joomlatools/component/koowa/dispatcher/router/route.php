@@ -174,7 +174,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             $router = new $router_class(array('mode' => $mode), $app, $menu);
         }
 
-        $uri = JURI::getInstance(parent::toString());
+        $uri = new Joomla\Uri\Uri(parent::toString());
 
         return $router->parse($uri, false);
     }
