@@ -144,10 +144,11 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
     public function parse()
     {
         $admin_path = sprintf('%s/%s', $this->getObject('request')->getSiteUrl()->getPath(), 'administrator/');
-        $client     = 'site';
 
         if (strpos($this->getPath(), $admin_path) === 0) {
             $client = 'administrator';
+        } else {
+            $client = 'site';
         }
 
         $router_class = sprintf('\Joomla\CMS\Router\%sRouter', ucfirst($client));
