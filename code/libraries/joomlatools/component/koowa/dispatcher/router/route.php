@@ -155,7 +155,12 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
         if (version_compare(JVERSION, '4', '>='))
         {
             $container = \Joomla\CMS\Factory::getContainer();
-            $app       = $container->get(\Joomla\CMS\Application\SiteApplication::class);
+
+            if ($client == 'site') {
+                $app = $container->get(\Joomla\CMS\Application\SiteApplication::class);
+            } else {
+                $app = $container->get(\Joomla\CMS\Application\AdministratorApplication::class);
+            }
 
             $menu = $container->get(Joomla\CMS\Menu\MenuFactoryInterface::class)
                               ->createMenu($client, array('app' => $app));
