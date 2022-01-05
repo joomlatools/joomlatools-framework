@@ -135,4 +135,47 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             }
         }
     }
+
+    /**
+     * Parses a route contained within the current URL object
+     *
+     * @param array An array containing query variables of the parsed route
+     */
+    public function parse()
+    {
+        $admin_path = sprintf('%s/%s', $this->getObject('request')->getSiteUrl()->getPath(), 'administrator/');
+        $client     = 'site';
+
+        if (strpos($this->getPath(), $admin_path) === 0) {
+            $client = 'administrator';
+        }
+
+        $router_class = sprintf('JRouter%s', ucfirst($client));
+
+        if (version_compare(JVERSION, '4', '>='))
+        {
+            $container = \Joomla\CMS\Factory::getContainer();
+            $app       = $container->get(\Joomla\CMS\Application\SiteApplication::class);
+
+            $menu = $container->get(Joomla\CMS\Menu\MenuFactoryInterface::class)
+                              ->createMenu($client, array('app' => $app));
+
+            $router = new $router_class($app, $menu);
+        }
+        else
+        {
+            $app        = JFactory::getApplication($client);
+            $menu_class = 'JMenu' . ucfirst($client);
+
+            $menu = new $menu_class(array('app' => $app));
+
+            $mode = JFactory::getConfig()->get('sef');
+
+            $router = new $router_class(array('mode' => $mode), $app, $menu);
+        }
+
+        $uri = JURI::getInstance(parent::toString());
+
+        return $router->parse($uri, false);
+    }
 }
