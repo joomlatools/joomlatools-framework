@@ -135,4 +135,54 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
             }
         }
     }
+
+    /**
+     * Parses a route contained within the current URL object
+     *
+     * @param array An array containing query variables of the parsed route
+     */
+    public function parse()
+    {
+        $admin_path = sprintf('%s/%s', $this->getObject('request')->getSiteUrl()->getPath(), 'administrator/');
+
+        if (strpos($this->getPath(), $admin_path) === 0) {
+            $client = 'administrator';
+        } else {
+            $client = 'site';
+        }
+
+        $router_class = sprintf('\Joomla\CMS\Router\%sRouter', ucfirst($client));
+
+        if (version_compare(JVERSION, '4', '>='))
+        {
+            $container = \Joomla\CMS\Factory::getContainer();
+
+            if ($client == 'site') {
+                $app = $container->get(\Joomla\CMS\Application\SiteApplication::class);
+            } else {
+                $app = $container->get(\Joomla\CMS\Application\AdministratorApplication::class);
+            }
+
+            $menu = $container->get(Joomla\CMS\Menu\MenuFactoryInterface::class)
+                              ->createMenu($client, array('app' => $app));
+
+            $router = new $router_class($app, $menu);
+        }
+        else
+        {
+            $app_class = sprintf('\Joomla\CMS\Application\%sApplication', ucfirst($client));
+
+            $app = new $app_class();
+
+            $menu_class = sprintf('\Joomla\CMS\Menu\%sMenu', ucfirst($client));
+
+            $menu = new $menu_class(array('app' => $app));
+            
+            $router = new $router_class(array('mode' => $app->getCfg('sef')), $app, $menu);
+        }
+
+        $uri = new Joomla\Uri\Uri(parent::toString());
+
+        return $router->parse($uri, false);
+    }
 }
