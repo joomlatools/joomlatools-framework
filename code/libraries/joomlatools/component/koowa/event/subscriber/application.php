@@ -39,6 +39,7 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
             if ($authenticator->getAuthToken())
             {
                 $dispatcher = $this->getObject('com:koowa.dispatcher.http');
+                $authenticator->setMixer($dispatcher);
                 $authenticator->authenticateRequest($dispatcher->getContext());
             }
         }
