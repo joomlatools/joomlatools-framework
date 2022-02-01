@@ -81,23 +81,6 @@ async function build({ config = {} }) {
             githubToken: null,
             branch: 'master',
             includeComponents: true,
-            components: {
-                files: {
-                    repo: 'joomlatools/joomlatools-framework-files',
-                },
-                activities: {
-                    repo: 'joomlatools/joomlatools-framework-activities',
-                },
-                scheduler: {
-                    repo: 'joomlatools/joomlatools-framework-scheduler',
-                },
-                migrator: {
-                    repo: 'joomlatools/joomlatools-framework-migrator',
-                },
-                tags: {
-                    repo: 'joomlatools/joomlatools-framework-tags',
-                },
-            },
         },
         config
     );
@@ -119,19 +102,9 @@ async function build({ config = {} }) {
         });
     }
 
-    if (buildConfig.includeComponents) {
-        let promises = [];
-        for (let [name, { repo, branch }] of Object.entries(buildConfig.components)) {
-            promises.push(
-                mason.github.download({
-                    repo,
-                    branch,
-                    destination: `${frameworkCodeFolder}/libraries/joomlatools-components/${name}`,
-                })
-            );
-        }
-
-        await Promise.all(promises);
+    if (!buildConfig.includeComponents) {
+        await fs.rm(`${frameworkCodeFolder}/libraries/joomlatools-components/`, { recursive: true, force: true })
+        await mason.fs.ensureDir(`${frameworkCodeFolder}/libraries/joomlatools-components/`)
     }
 
     await fs.copyFile(`${framework}/LICENSE.txt`, `${frameworkCodeFolder}/LICENSE`);
