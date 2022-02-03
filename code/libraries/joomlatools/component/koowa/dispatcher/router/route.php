@@ -174,10 +174,15 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 
             $app = new $app_class();
 
-            $menu_class = sprintf('\Joomla\CMS\Menu\%sMenu', ucfirst($client));
+			// Set application language
+			$params = Joomla\CMS\Component\ComponentHelper::getParams('com_languages');
+			$language = $params->get('site', $app->get('language', 'en-GB'));
+			$app->loadLanguage(Joomla\CMS\Language\Language::getInstance($app->get('language'), $app->get('debug_lang')));
+
+			$menu_class = sprintf('\Joomla\CMS\Menu\%sMenu', ucfirst($client));
 
             $menu = new $menu_class(array('app' => $app));
-            
+
             $router = new $router_class(array('mode' => $app->getCfg('sef')), $app, $menu);
         }
 
