@@ -3524,7 +3524,7 @@
 }
 
 .k-ui-j4-form .k-joomla-permissions {
-  width: 80vw;
+  max-width: 80vw;
 }
 .k-ui-j4-form .k-joomla-permissions #tip-rules {
   font-size: 0.8rem;
