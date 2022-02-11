@@ -199,7 +199,7 @@ class PlgSystemJoomlatools extends JPlugin
 	/**
 	 * On after logout event handler
 	 *
-	 * @param [type] $options
+	 * @param array $options
 	 * @return void
 	 */
 	public function onUserAfterLogout($options)
