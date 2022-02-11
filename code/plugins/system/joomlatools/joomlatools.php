@@ -196,6 +196,17 @@ class PlgSystemJoomlatools extends JPlugin
         $this->_proxyEvent('onAfterKoowaBootstrap');
     }
 
+	/**
+	 * On after logout event handler
+	 *
+	 * @param [type] $options
+	 * @return void
+	 */
+	public function onUserAfterLogout($options)
+	{
+		if (isset($_SESSION['__koowa'])) unset($_SESSION['__koowa']); // Joomla 4 only unsets its session data on logout
+	}
+
     /**
      * Proxy onAfterInitialise
      *
