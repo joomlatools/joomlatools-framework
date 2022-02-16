@@ -204,7 +204,7 @@ class PlgSystemJoomlatools extends JPlugin
 	 */
 	public function onUserAfterLogout($options)
 	{
-		if (isset($_SESSION['__koowa'])) unset($_SESSION['__koowa']); // Joomla 4 only unsets its session data on logout
+		$this->_proxyEvent('onUserAfterLogout', $options);
 	}
 
     /**

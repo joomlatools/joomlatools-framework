@@ -38,4 +38,15 @@ class ComKoowaEventSubscriberUser extends KEventSubscriberAbstract
 
         $set_user($event->user);
     }
+
+	/**
+	 * On after logout event handler
+	 *
+	 * @param array $options
+	 * @return void
+	 */
+	public function onUserAfterLogout($options)
+	{
+		if (isset($_SESSION['__koowa'])) unset($_SESSION['__koowa']); // Joomla 4 only unsets its session data on logout
+	}
 }
