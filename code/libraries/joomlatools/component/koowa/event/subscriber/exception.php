@@ -74,7 +74,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
 
     protected function _renderJoomlaError(KEvent $event)
     {
-        $is_joomla4 = version_compare(JVERSION, 4, '>=');
+        $is_joomla4 = defined('JVERSION') ? version_compare(JVERSION, 4, '>=') : false;
         $request    = $this->getObject('request');
 
         // Only render the Error ourselves if we are running Joomla 3 and format is HTML
