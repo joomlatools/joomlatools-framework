@@ -92,7 +92,7 @@ final class Imagine extends AbstractImagine
 
         $resource = @imagecreatefromstring($data);
 
-        if (!is_resource($resource)) {
+        if (!is_resource($resource) && (!$resource instanceof \GdImage)) {
             throw new RuntimeException(sprintf('Unable to open image %s', $path));
         }
 
