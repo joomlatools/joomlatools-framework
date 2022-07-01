@@ -47,11 +47,13 @@ class ComKoowaEventSubscriberApplication extends KEventSubscriberAbstract
         /*
          * Joomla 4: Router sets the results of the router in $_REQUEST and not in $_GET.
          *
-         * So we hook into router postprocess and set the results in our request object
+         * So we hook into router postprocess and set the results in our request object. 
+         * We only run this for SEF mode since in non-SEF mode Joomla merges the default menu item query
+         * into the router results. 
          */
         if (class_exists('JUri') && JFactory::getApplication()->isClient('site'))
         {
-            if (version_compare(JVERSION, '4.0', '>='))
+            if (version_compare(JVERSION, '4.0', '>=') && JFactory::getApplication()->get('sef'))
             {
                 try
                 {
