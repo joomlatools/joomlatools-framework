@@ -425,7 +425,7 @@ class KTemplate extends KTemplateAbstract implements KTemplateFilterable, KTempl
         }
         else $identifier = $this->getIdentifier($filter);
 
-        return isset($this->__filters[(string)$filter]);
+        return isset($this->__filters[(string)$identifier]);
     }
 
     /**
