@@ -40,8 +40,12 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $level--;
         }
 
+        $request   = $this->getObject('request');
+        $exception = $event->exception;
+        $isDebug   = Koowa::isDebug() || JDEBUG;
+
         //Render debugger if Koowa or Joomla are running in debug mode, if not pass off to Joomla for handling
-        if(Koowa::isDebug() || JDEBUG) {
+        if($isDebug || ($exception instanceof KException && $request->getFormat() === 'json')) {
             $this->_renderKoowaError($event);
         } else {
             $this->_renderJoomlaError($event);
