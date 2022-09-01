@@ -145,6 +145,8 @@ class ComMigratorMigratorBehaviorImportInsert extends KControllerBehaviorAbstrac
 
             $this->_unsetOffsets($row, $unset);
 
+            $this->_convertNullDates($row);
+
             $query->values($row);
             $total_count++;
             $queue_count++;
@@ -169,6 +171,14 @@ class ComMigratorMigratorBehaviorImportInsert extends KControllerBehaviorAbstrac
         return $total_count;
     }
 
+    protected function _convertNullDates(&$row) 
+    {
+        foreach ($row as $i => $value) {
+            if ($value === '0000-00-00' || $value === '0000-00-00 00:00:00') {
+                $row[$i] = null;
+            }
+        }
+    }
 
     /**
      * Returns a list of array offsets to be ignored
