@@ -196,6 +196,17 @@ class PlgSystemJoomlatools extends JPlugin
         $this->_proxyEvent('onAfterKoowaBootstrap');
     }
 
+	/**
+	 * On after logout event handler
+	 *
+	 * @param array $options
+	 * @return void
+	 */
+	public function onUserAfterLogout($options)
+	{
+		$this->_proxyEvent('onUserAfterLogout', $options);
+	}
+
     /**
      * Proxy onAfterInitialise
      *

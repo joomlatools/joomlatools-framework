@@ -22237,8 +22237,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("/media/vendor/fontawesome-free/webfonts/fa-regular-400.eot");
-  src: url("/media/vendor/fontawesome-free/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("/media/vendor/fontawesome-free/webfonts/fa-regular-400.woff2") format("woff2"), url("/media/vendor/fontawesome-free/webfonts/fa-regular-400.woff") format("woff"), url("/media/vendor/fontawesome-free/webfonts/fa-regular-400.ttf") format("truetype"), url("/media/vendor/fontawesome-free/webfonts/fa-regular-400.svg#fontawesome") format("svg");
+  src: url("../scss/vendor/fontawesome-free/webfonts/fa-regular-400.eot");
+  src: url("../scss/vendor/fontawesome-free/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../scss/vendor/fontawesome-free/webfonts/fa-regular-400.woff2") format("woff2"), url("../scss/vendor/fontawesome-free/webfonts/fa-regular-400.woff") format("woff"), url("../scss/vendor/fontawesome-free/webfonts/fa-regular-400.ttf") format("truetype"), url("../scss/vendor/fontawesome-free/webfonts/fa-regular-400.svg#fontawesome") format("svg");
 }
 .k-ui-j4-form .far {
   font-family: "Font Awesome 5 Free";
@@ -22254,8 +22254,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("/media/vendor/fontawesome-free/webfonts/fa-solid-900.eot");
-  src: url("/media/vendor/fontawesome-free/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("/media/vendor/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2"), url("/media/vendor/fontawesome-free/webfonts/fa-solid-900.woff") format("woff"), url("/media/vendor/fontawesome-free/webfonts/fa-solid-900.ttf") format("truetype"), url("/media/vendor/fontawesome-free/webfonts/fa-solid-900.svg#fontawesome") format("svg");
+  src: url("../scss/vendor/fontawesome-free/webfonts/fa-solid-900.eot");
+  src: url("../scss/vendor/fontawesome-free/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../scss/vendor/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2"), url("../scss/vendor/fontawesome-free/webfonts/fa-solid-900.woff") format("woff"), url("../scss/vendor/fontawesome-free/webfonts/fa-solid-900.ttf") format("truetype"), url("../scss/vendor/fontawesome-free/webfonts/fa-solid-900.svg#fontawesome") format("svg");
 }
 .k-ui-j4-form .fa,
 .k-ui-j4-form .fas,
@@ -22274,8 +22274,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("/media/vendor/fontawesome-free/webfonts/fa-brands-400.eot");
-  src: url("/media/vendor/fontawesome-free/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("/media/vendor/fontawesome-free/webfonts/fa-brands-400.woff2") format("woff2"), url("/media/vendor/fontawesome-free/webfonts/fa-brands-400.woff") format("woff"), url("/media/vendor/fontawesome-free/webfonts/fa-brands-400.ttf") format("truetype"), url("/media/vendor/fontawesome-free/webfonts/fa-brands-400.svg#fontawesome") format("svg");
+  src: url("../scss/vendor/fontawesome-free/webfonts/fa-brands-400.eot");
+  src: url("../scss/vendor/fontawesome-free/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../scss/vendor/fontawesome-free/webfonts/fa-brands-400.woff2") format("woff2"), url("../scss/vendor/fontawesome-free/webfonts/fa-brands-400.woff") format("woff"), url("../scss/vendor/fontawesome-free/webfonts/fa-brands-400.ttf") format("truetype"), url("../scss/vendor/fontawesome-free/webfonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 .k-ui-j4-form .fab, .k-ui-j4-form .icon-joomla {
   font-family: "Font Awesome 5 Brands";

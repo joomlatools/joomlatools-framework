@@ -40,8 +40,12 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $level--;
         }
 
+        $request   = $this->getObject('request');
+        $exception = $event->exception;
+        $isDebug   = Koowa::isDebug() || JDEBUG;
+
         //Render debugger if Koowa or Joomla are running in debug mode, if not pass off to Joomla for handling
-        if(Koowa::isDebug() || JDEBUG) {
+        if($isDebug || ($exception instanceof KException && $request->getFormat() === 'json')) {
             $this->_renderKoowaError($event);
         } else {
             $this->_renderJoomlaError($event);
@@ -74,7 +78,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
 
     protected function _renderJoomlaError(KEvent $event)
     {
-        $is_joomla4 = version_compare(JVERSION, 4, '>=');
+        $is_joomla4 = defined('JVERSION') ? version_compare(JVERSION, 4, '>=') : false;
         $request    = $this->getObject('request');
 
         // Only render the Error ourselves if we are running Joomla 3 and format is HTML

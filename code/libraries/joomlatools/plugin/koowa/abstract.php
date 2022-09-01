@@ -107,14 +107,29 @@ abstract class PlgKoowaAbstract extends JPlugin implements PlgKoowaInterface
     public function connect($dispatcher)
     {
         // Self attach the plugin to the joomla event dispatcher
-        if($dispatcher instanceof JDispatcher || $dispatcher instanceof JEventDispatcher) {
+
+        if($dispatcher instanceof JDispatcher || $dispatcher instanceof JEventDispatcher)
+		{
             $dispatcher->attach($this);
         }
-        elseif ($this instanceof \Joomla\Event\DispatcherAwareInterface) {
+		elseif ($this instanceof \Joomla\Event\DispatcherAwareInterface)
+		{
             $this->setDispatcher($dispatcher);
-            $this->registerListeners();
+            parent::registerListeners();
         }
     }
+
+    /**
+     * Register listeners into the Joomla 4 dispatcher
+	 *
+	 * Method overridden as to avoid the Joomla plugin helper from automatically registering the plugin listeners when importing plugins.
+	 *
+     * @return $void
+     */
+	public function registerListeners()
+	{
+		// Do nothing
+	}
 
     /**
      * Get the object configuration

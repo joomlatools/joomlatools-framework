@@ -1,6 +1,6 @@
 // Override the font path
 $fa-css-prefix:                    fa;
-$fa-font-path:                     "/media/vendor/fontawesome-free/webfonts" !default;
+$fa-font-path:                     "../scss/vendor/fontawesome-free/webfonts" !default;
 
 // Font Awesome 5 Free
 @import "vendor/fontawesome-free/scss/fontawesome";
