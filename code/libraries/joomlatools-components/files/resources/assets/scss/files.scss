@@ -1,0 +1,20 @@
+// Core variables and mixins
+// Core variables and mixins without output available outside .k-ui-namespace scope
+
+@import "../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/variables";
+@import "../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/mixins";
+
+// Path variable
+$koowaPath: '../../../koowa/framework';
+
+// Import user interface
+@import "../../../../kodekit-ui/src/scss/admin-ui";
+
+@import "koowa/general";
+
+.k-ui-namespace {
+  @import "koowa/modal";
+}
+
+@import "attachments";
+

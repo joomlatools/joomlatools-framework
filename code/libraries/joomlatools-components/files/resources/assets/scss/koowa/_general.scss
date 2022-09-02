@@ -1,0 +1,1430 @@
+// Custom mixins
+
+//Set a base color first, this will then be turned into a semi-transparent color used in gradients that blend with the background
+$rowBackgroundColor: hsl(0, 0%, 95%);
+$rowBackgroundColorHSLA: change-color($rowBackgroundColor, $alpha: (100 - lightness($rowBackgroundColor) ) / 100, $lightness: 0%);
+
+$comFilesLocation: '../../../media/koowa/com_files';
+
+@mixin linear-gradient($from: hsla(0, 0%, 100%, 0.5), $to: hsla(0, 0%, 0%, 0.5)) {
+  background-image: -moz-linear-gradient(top, $from, $to); // FF 3.6+
+  background-image: -ms-linear-gradient(top, $from, $to); // IE10
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($from), to($to)); // Safari 4+, Chrome 2+
+  background-image: -webkit-linear-gradient(top, $from, $to); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(top, $from, $to); // Opera 11.10
+  background-image: linear-gradient(top, $from, $to); // The standard
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($from)}', endColorstr='#{ie-hex-str($to)}');
+}
+
+@mixin radial-elliptical-gradient($innerColor, $centerColor, $outerColor: false, $fallbackColor: whiteSmoke, $canvasColor: white) {
+  $gradient: $innerColor, $centerColor, $outerColor;
+  @if $outerColor == false {
+    $gradient: $innerColor, $centerColor;
+  }
+  background-color: $fallbackColor;
+  background: $canvasColor -webkit-radial-gradient(ellipse closest-corner, $gradient);
+  background: $canvasColor -moz-radial-gradient(ellipse closest-corner, $gradient);
+  background: $canvasColor -o-radial-gradient(ellipse closest-corner, $gradient);
+  background: $canvasColor -ms-radial-gradient(ellipse closest-corner, $gradient);
+  background: $canvasColor radial-gradient(ellipse closest-corner, $gradient);
+  background-repeat: no-repeat;
+}
+
+@mixin image-set($url, $retina) {
+  background-image: url($url);
+  background-image: -webkit-image-set(url($url) 1x, url($retina) 2x);
+  background-image: -moz-image-set(url($url) 1x, url($retina) 2x);
+  background-image: -o-image-set(url($url) 1x, url($retina) 2x);
+  background-image: -ms-image-set(url($url) 1x, url($retina) 2x);
+}
+
+#files-sidebar {
+  border-bottom: 1px solid $tableBorder;
+
+  .sidebar-inner {
+    border-right: 1px solid $tableBorder;
+  }
+
+  h3 {
+    background-color: $grayLighter;
+    padding: 3px 8px;
+    line-height: 18px;
+    border-bottom: 1px solid $tableBorder;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #666;
+    text-shadow: white 0 1px 0;
+    margin: 0;
+  }
+}
+
+#files-app {
+  #files-tree {
+    position: relative;
+    overflow: auto;
+  }
+
+  #files-grid {
+    min-height: 300px;
+
+    thead {
+      //Checkall box, we need it to expand to fill the th element
+      th:first-child {
+        padding: 0;
+
+        .btn.dropdown-toggle {
+          @include buttonBackground(hsl(0, 0%, 95%), hsl(0, 0%, 90%));
+        }
+      }
+      th:nth-child(3) {
+        padding-left: 0px;
+      }
+    }
+  }
+
+  #files-canvas {
+    float: none;
+
+    @media screen and (min-width: 600px) {
+      margin-left: 260px;
+    }
+
+    border-left: 1px solid #dddddd;
+
+    /* Some admin templates give this unwanted styling */
+    .navigate .spinner {
+      display: none;
+    }
+    .thumbnails {
+      margin-left: 0px; //This is due to a small conflict with bootstrap/thumbnails.less
+    }
+
+    .path {
+      border-bottom: 1px solid #D9D9D9;
+      background-color: $grayLighter;
+      height: 24px;
+      overflow: visible;
+      padding: 0;
+      @include clearfix();
+      @include gradient-vertical(#f7f7f7, #F2F2F2);
+
+      #files-pathway {
+        color: #333;
+        text-shadow: white 0 1px 0;
+        float: left;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 25px;
+        margin: 0;
+
+        .breadcrumb {
+          background-color: inherit;
+        }
+
+        .divider {
+          display: inline-block;
+          height: 18px;
+          padding: 0 6px;
+          background: no-repeat 30% center;
+          @include image-set('#{$comFilesLocation}/images/arrow.png', '#{$comFilesLocation}/images/arrow@2x.png');
+        }
+      }
+
+      .files-layout-controls {
+        float: right;
+
+        .files-layout-switcher {
+          padding: 4px 10px 5px;
+          border-top: none;
+          border-bottom: none;
+          @include border-radius(0);
+          margin: 0;
+          font-size: 14px;
+          height: 24px;
+
+          i {
+            opacity: 0.6;
+          }
+
+          &.active i, &:active i {
+            opacity: 1;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+
+          & + .btn {
+            margin-left: -1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+$pluploadLocation: '../../../../media/koowa/com_files/images/plupload/';
+
+.plupload_button {
+  display: inline-block;
+  font: normal 12px sans-serif;
+  text-decoration: none;
+  color: #42454a;
+  border: 1px solid #bababa;
+  padding: 2px 8px 3px 20px;
+  margin-right: 4px;
+  background: #f3f3f3 url('#{$pluploadLocation}buttons.png') no-repeat 0 center;
+  outline: 0;
+
+  @include border-radius(3px);
+}
+
+.plupload_button:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.plupload_disabled, a.plupload_disabled:hover {
+  color: #737373;
+  border-color: #c5c5c5;
+  background: #ededed url('#{$pluploadLocation}buttons-disabled.png') no-repeat 0 center;
+  cursor: default;
+}
+
+.plupload_add {
+  background-position: -181px center;
+}
+
+.plupload_wrapper {
+  font: normal 11px Verdana, sans-serif;
+  width: 100%;
+}
+
+.plupload_container {
+  padding: 8px;
+
+  /*-moz-border-radius: 5px;*/
+}
+
+.plupload_container input {
+  border: 1px solid #DDD;
+  font: normal 11px Verdana, sans-serif;
+  width: 98%;
+}
+
+.plupload_header {
+  background: #2A2C2E url('#{$pluploadLocation}backgrounds.gif') repeat-x;
+}
+
+.plupload_header_content {
+  background: url('#{$pluploadLocation}backgrounds.gif') no-repeat 0 -317px;
+  min-height: 56px;
+  padding-left: 60px;
+  color: #FFF;
+}
+
+.plupload_header_title {
+  font: normal 18px sans-serif;
+  padding: 6px 0 3px;
+}
+
+.plupload_header_text {
+  font: normal 12px sans-serif;
+}
+
+.plupload_filelist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plupload_scroll .plupload_filelist {
+  background: #F5F5F5;
+  overflow-y: scroll;
+  height: 185px;
+}
+
+.plupload_filelist li {
+  padding: 10px 8px;
+  background: #F5F5F5 url('#{$pluploadLocation}backgrounds.gif') repeat-x 0 -156px;
+  border-bottom: 1px solid #DDD;
+}
+
+.plupload_filelist_header, .plupload_filelist_footer {
+  background: #DFDFDF;
+  padding: 8px 8px;
+  color: #42454A;
+}
+
+.plupload_filelist_header {
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #CDCDCD;
+}
+
+.plupload_filelist_footer {
+  border-top: 1px solid #FFF;
+  height: 22px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.plupload_file_name {
+  float: left;
+  overflow: hidden
+}
+
+.plupload_file_status {
+  color: #777;
+}
+
+.plupload_file_status span {
+  color: #42454A;
+}
+
+.plupload_file_size, .plupload_file_status, .plupload_progress {
+  float: right;
+  width: 80px;
+}
+
+.plupload_file_size, .plupload_file_status, .plupload_file_action {
+  text-align: right;
+}
+
+.plupload_filelist .plupload_file_name {
+  width: 205px
+}
+
+.plupload_file_action {
+  float: right;
+  width: 16px;
+  height: 16px;
+  margin-left: 15px;
+}
+
+.plupload_file_action * {
+  display: none;
+  width: 16px;
+  height: 16px;
+}
+
+li.plupload_uploading {
+  background: #ECF3DC url('#{$pluploadLocation}backgrounds.gif') repeat-x 0 -238px;
+}
+
+li.plupload_done {
+  color: #AAA
+}
+
+li.plupload_delete a {
+  background: url('#{$pluploadLocation}delete.gif');
+}
+
+li.plupload_failed a {
+  background: url('#{$pluploadLocation}error.gif');
+  cursor: default;
+}
+
+li.plupload_done a {
+  background: url('#{$pluploadLocation}done.gif');
+  cursor: default;
+}
+
+.plupload_progress, .plupload_upload_status {
+  display: none;
+}
+
+.plupload_progress_container {
+  margin-top: 3px;
+  border: 1px solid #CCC;
+  background: #FFF;
+  padding: 1px;
+}
+
+.plupload_progress_bar {
+  width: 0px;
+  height: 7px;
+  background: #CDEB8B;
+}
+
+.plupload_scroll .plupload_filelist_header .plupload_file_action, .plupload_scroll .plupload_filelist_footer .plupload_file_action {
+  margin-right: 17px;
+}
+
+/* Floats */
+
+.plupload_clear, .plupload_clearer {
+  clear: both;
+}
+
+.plupload_clearer, .plupload_progress_bar {
+  display: block;
+  font-size: 0;
+  line-height: 0;
+}
+
+li.plupload_droptext {
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  border: 0;
+  line-height: 165px;
+}
+
+/* For drag and drop */
+.dragover {
+  opacity: 0.5;
+}
+
+#uploads .upload {
+  padding: 4px;
+}
+
+/**
+ * Upload Widget CSS
+ */
+#files-upload {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  h3 {
+    padding: 15px 0 0 15px;
+    margin: 0 !important;
+    display: block;
+    float: left;
+    font-size: 18px;
+  }
+}
+
+#files-upload-controls {
+  .upload-buttons {
+    padding: 0;
+    list-style: none;
+    float: left;
+    margin: 10px 0 0 20px;
+
+    li {
+      display: inline;
+      font-size: 12px;
+
+      &:first-child {
+        padding-right: 5px;
+      }
+
+      a {
+        font-weight: bold;
+        padding: 5px 10px 10px;
+        display: inline-block;
+        position: relative;
+
+        &.active,
+        &.active:hover {
+          color: #3c3c3c;
+        }
+
+        &,
+        &:hover,
+        &:visited {
+          color: $linkColor;
+        }
+
+        &,
+        &:hover,
+        &:active,
+        &.active {
+          text-decoration: none;
+          background: none;
+        }
+
+        &.active::after,
+        &.active::before {
+          content: '.';
+          color: transparent;
+          border-color: transparent transparent hsl(0, 0%, 99%) transparent;
+          border-style: solid;
+          border-width: 8px;
+          height: 0;
+          width: 0;
+          position: absolute;
+          bottom: -1px;
+          left: 50%;
+          margin-left: -8px;
+          z-index: 1;
+        }
+
+        &.active::before {
+          bottom: 0;
+          border-bottom-color: #E6E6E6;
+        }
+      }
+    }
+  }
+}
+
+.uploader-files-queued #files-upload-controls .upload-buttons li a.active.target-computer::after {
+  border-bottom-color: white;
+}
+
+.upload-form {
+  margin-bottom: 10px;
+  position: relative;
+
+}
+
+.uploader-files-queued #files-upload-multi, #files-uploader-web form, .dropzone {
+  padding: 0;
+  background-color: hsl(0, 0%, 99%);
+  border-radius: 5px;
+  margin: 0 10px;
+  border: 1px solid hsl(0, 0%, 90%);
+
+  z-index: 0;
+}
+
+.uploader-files-queued .dropzone, .uploader-files-queued .nodropzone {
+  display: none !important;
+}
+
+.dropzone h2 {
+  text-align: center;
+  font-weight: 100;
+  color: #595959;
+  font-size: 30px;
+  margin: 100px 0;
+}
+
+#files-upload .nodropzone {
+  display: inline-block;
+  float: none;
+  position: relative;
+  top: -9px;
+  padding: 0;
+  font-weight: normal;
+  color: #595959;
+  font-size: 15px;
+}
+
+.uploader-files-empty .upload-form {
+  text-align: center;
+}
+
+.uploader-files-empty #files-upload-multi {
+  display: inline-block;
+}
+
+#files-upload-multi .warning {
+  display: block;
+  float: none;
+  padding: 1em 0.4em;
+  font-size: 1.4em;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+#files-uploader-web form {
+  padding: 2px;
+}
+
+#files-upload-multi .plupload_container {
+  padding: 0px;
+}
+
+/* blur focus fix */
+#files-uploader-web input:focus {
+  z-index: 1;
+  position: relative;
+}
+
+#files-uploader-web input.success {
+  @include placeholder($successText);
+}
+
+#files-upload-multi .plupload_filelist_header, #files-upload-multi .plupload_filelist_footer {
+  background: none;
+}
+
+#files-upload-multi .plupload_filelist_header {
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top: none;
+  box-shadow: hsl(0, 0%, 97%) 0 -1px 0 inset;
+  border-bottom: 1px solid hsl(0, 0%, 90%);
+  @include linear-gradient(white, whitesmoke);
+}
+
+#files-upload-multi .plupload_filelist_footer {
+  -moz-border-radius-bottomleft: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom: none;
+  border-top: none;
+  box-shadow: 0 -1px 0 hsl(0, 0%, 90%);
+}
+
+.uploader-files-empty #files-upload-multi .plupload_filelist_footer {
+  border: 0 hidden transparent;
+  box-shadow: none;
+}
+
+#files-upload-multi .plupload_scroll .plupload_filelist {
+  background: none;
+}
+
+#files-upload-multi .plupload_filelist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#files-upload-multi .plupload_filelist li {
+  background: none;
+  line-height: normal;
+  margin: 0;
+  padding: 10px 8px;
+}
+
+#files-upload-multi .plupload_filelist .plupload_file_name {
+  /*width: 471px;*/
+  width: 453px;
+}
+
+#upload-max {
+  font-size: 11px !important;
+  padding-top: 6px;
+  margin-left: 30px;
+  color: #444;
+}
+
+#upload-progress {
+  float: right;
+  margin: 8px 20px 0 0;
+}
+
+#upload-queue {
+  list-style: none;
+  clear: both;
+  padding: 0;
+  margin: 0;
+  background-color: #FFF;
+  width: 100%;
+}
+
+#upload-queue tr.validation-error {
+  background-color: #E6C0C0;
+  color: #c00;
+  border-top: 1px solid #E1E1E1;
+  border-bottom: 1px solid #E1E1E1;
+  padding: 4px;
+}
+
+#upload-queue tr.file {
+  overflow: auto;
+  padding: 4px;
+  border-bottom: 1px solid #E1E1E1;
+  height: 20px;
+}
+
+#upload-queue tr.file:nth-child(2) {
+  border-top: 1px solid #E1E1E1;
+}
+
+#upload-queue tr.file:nth-child(odd) {
+  background-color: #F9F9F9;
+}
+
+#upload-queue tr.file.file-uploading {
+  background-color: #D9DDE9;
+}
+
+#upload-queue tr.file.file-success {
+  background-color: #C3D2E5;
+}
+
+#upload-queue tr.file.file-failed {
+  background-color: #E6C0C0;
+}
+
+#upload-queue tr.file .file-name {
+
+  font-weight: bold;
+}
+
+#upload-queue tr.file .file-remove {
+  width: 75px;
+  text-align: center;
+}
+
+#upload-queue tr.file .file-size {
+  width: 75px;
+  text-align: right;
+}
+
+#upload-queue tr.file .file-info {
+
+}
+
+div#files-noimages {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: #CCCCCC;
+}
+
+div#upload-queue-wrapper {
+  background-color: #CCC;
+  border-radius: 5px;
+}
+
+.files-modal {
+  padding: 5px;
+
+  .upload-files-to {
+    margin-bottom: 5px;
+  }
+
+  form {
+    margin-bottom: 0px;
+  }
+}
+
+#files-upload.uploader-files-queued {
+  .plupload_filelist_footer {
+    height: auto;
+    padding-bottom: 54px;
+    position: relative;
+
+    .plupload_buttons {
+      position: absolute;
+      box-shadow: 0 -1px 0 hsl(0, 0%, 90%);
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      padding: 10px;
+    }
+  }
+
+  .plupload_start, .plupload_clear {
+    float: right;
+    clear: none;
+  }
+  .plupload_clear {
+    margin-right: 10px;
+  }
+
+  .plupload_start {
+    &.plupload_disabled {
+      cursor: default;
+      background-color: darken($white, 10%);
+      background-image: none;
+      @include opacity(65);
+      @include box-shadow(none);
+      background-color: $btnPrimaryBackgroundHighlight;
+      *background-color: darken($btnPrimaryBackgroundHighlight, 5%);
+    }
+  }
+}
+
+#files-upload.uploader-files-empty {
+  /* No files state, this is the initial state */
+  .plupload_filelist_header,
+  .plupload_start,
+  .plupload_clear,
+  .plupload_filelist,
+  .plupload_file_action,
+  .plupload_file_status,
+  .plupload_file_size,
+  .plupload_progress {
+    display: none;
+  }
+
+  .plupload_add {
+  }
+}
+
+#remote-url, #remote-name {
+  @include box-sizing(border-box);
+  display: block;
+  float: left;
+  margin: 0;
+  border-style: none;
+  height: $baseLineHeight + 8px; // bottom + top paddding
+  @include border-radius(0px);
+}
+
+#remote-url {
+  width: 75%;
+  border-right-color: #e6e6e6;
+}
+
+#remote-name {
+  width: 25%;
+  border-left-color: #e6e6e6;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-left-color: inherit;
+}
+
+.remote-wrap {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border: 1px solid hsl(0, 0%, 90%);
+  border-right-width: 0;
+}
+
+.remote-wrap::after {
+  content: '.';
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+#files-uploader-web .remote-submit {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  bottom: 2px;
+  margin: 0;
+  overflow: hidden;
+  display: inline-block;
+  height: $baseLineHeight + 10px; // bottom + top paddding and borders
+  @include border-radius(0px);
+  @include border-top-right-radius(2px);
+  @include border-bottom-right-radius(2px);
+}
+
+#files-uploader-web input.remote-submit:focus {
+  position: absolute;
+}
+
+#files-uploader-web form {
+  position: relative;
+}
+
+.files-preview {
+  display: inline-block;
+  overflow: hidden;
+  padding: 10px;
+
+  .preview, .details, ul {
+    display: block;
+    float: left;
+  }
+
+  ul {
+    clear: left;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .name {
+    max-width: 400px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+  }
+
+  h3, a {
+    margin: 11px 0;
+    display: block;
+  }
+
+  .label {
+    display: inline-block;
+    text-align: right;
+    width: 60px;
+    text-transform: capitalize;
+
+    &::after {
+      content: ':';
+    }
+  }
+}
+
+$modalWidth: 690px;
+
+table td.file-count, table th.file-count {
+  text-align: center;
+  width: 10px;
+}
+
+table th.file-count {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.files-modal {
+  margin: 0;
+  padding: 3px;
+
+  .input-append {
+    margin-bottom: 0;
+  }
+  .span2 {
+    width: 120px;
+  }
+
+  &.well {
+    padding: 10px;
+
+    h3 {
+      padding: 0 0 0 0;
+      margin: 10px 0 !important;
+      display: block;
+      float: left;
+      font-size: 18px;
+      line-height: 20px;
+
+      width: 447px; //To avoid issues when opening and closing the modal multiple times
+      word-break: break-word;
+    }
+  }
+}
+
+#files-compact {
+  & {
+    width: $modalWidth; /* Mozilla needs this */
+    overflow: hidden;
+  }
+
+  & > * {
+    background-color: #F9F9F9;
+  }
+
+  #insert {
+    & {
+      border: 1px solid #E1E1E1;
+      background-color: #FFF;
+      overflow: hidden;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    #details {
+      overflow: hidden;
+      height: 389px;
+      background-color: #F4F4F4;
+      position: relative;
+    }
+
+    #files-tree-container {
+      width: 200px;
+    }
+    #files-grid {
+      width: 264px;
+    }
+    #files-container {
+      width: 200px;
+    }
+
+    #details,
+    #files-preview {
+      width: 200px;
+
+      tr:last-child td {
+        border-bottom: 1px #E1E1E1 solid;
+      }
+      img.icon {
+        margin: 10px;
+      }
+    }
+
+    #files-tree-container,
+    #files-grid {
+      border-right: 1px solid #E1E1E1;
+      height: 389px;
+      overflow: auto;
+    }
+
+    #files-preview {
+      background: white;
+      margin-bottom: 10px;
+    }
+    ul {
+      list-style-type: none;
+    }
+
+  }
+
+  #files-uploader-web {
+    form {
+      $padding: 5px;
+      padding: $padding;
+
+      #remote-url, #remote-name {
+        height: 28px;
+        @include box-sizing(border-box);
+      }
+      #remote-url {
+        @include border-radius($inputBorderRadius 0 0 $inputBorderRadius);
+      }
+      #remote-name {
+        @include border-radius(0);
+      }
+      .remote-submit {
+        top: $padding;
+        right: $padding;
+        bottom: $padding;
+
+        @include border-radius(0 $inputBorderRadius $inputBorderRadius 0);
+
+      }
+    }
+  }
+
+  /* tabs */
+
+  dl.tabs {
+    float: left;
+    margin: 10px 0 0 0;
+    z-index: 50;
+    background: none;
+
+    dt {
+      float: left;
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      margin-left: 6px;
+      background: #f0f0f0;
+      color: #666;
+      margin-bottom: -1px;
+      @include border-radius(5px 5px 0 0);
+
+      &:hover {
+        background: #F6F6F6;
+        z-index: 100;
+        color: #333;
+      }
+
+      &:active,
+      &.open,
+      &.open:active {
+        background: #F9F9F9;
+        z-index: 100;
+        color: #333;
+        border-bottom-color: #F9F9F9;
+        @include box-shadow(inset hsla(0, 0%, 55%, 0.20) 0px 2px 2px);
+      }
+
+      &:active {
+        background: #EEE;
+        border-bottom-color: #CCC;
+      }
+    }
+  }
+
+  div.current {
+    clear: both;
+    border: 1px solid #CCC;
+    padding: 10px 10px;
+  }
+
+  div.current dd {
+    padding: 0;
+    margin: 0;
+    line-height: normal !important;
+  }
+
+  /** Joomla fixes */
+  div.current input, div.current textarea, div.current select {
+    margin: 0;
+  }
+
+  .parameters .detail-label {
+    text-align: right;
+    color: gray;
+  }
+}
+
+#files-app {
+
+  #files-grid {
+    min-height: 120px;
+    overflow: hidden;
+  }
+
+  #files-grid > div {
+    padding: 10px;
+    @include clearfix();
+  }
+  .spinner {
+    padding: 0px !important;
+  }
+
+  .files-node-shadow {
+    float: left;
+    text-align: center;
+  }
+  div.imgOutline {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px;
+
+    padding: 11px;
+    margin: 5px;
+    border: 1px solid hsl(0, 0%, 90%);
+    border-radius: 3px;
+    @include transition(opacity 150ms ease-out);
+  }
+  #files-grid .loading {
+    opacity: 0.6;
+  }
+
+  #files-grid .loaded {
+    opacity: 1;
+  }
+  div.imgOutline img {
+    opacity: 0;
+    @include transition(opacity 150ms ease-out);
+  }
+  div.imgOutline img.loaded {
+    opacity: 1;
+  }
+  div.imgOutline .ellipsis {
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 17px;
+  }
+
+  div.imgOutline.selected {
+    color: white;
+    border-color: mix($btnPrimaryBackground, $btnPrimaryBackgroundHighlight, 50%);
+    border-color: hsla(0, 0%, 0%, .1);
+    background-color: mix($btnPrimaryBackground, $btnPrimaryBackgroundHighlight, 50%);
+    background-clip: border-box;
+    background-origin: border-box;
+    @include box-shadow(hsla(0, 0%, 100%, 0.2) 0 1px 0 inset);
+    @include gradient-vertical($btnPrimaryBackground, $btnPrimaryBackgroundHighlight);
+  }
+
+  div.imgTotal {
+    position: relative;
+    margin: 0 0 8px 0;
+    overflow: hidden;
+    width: 200px;
+    height: 150px;
+    @include radial-elliptical-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.1) 1%, rgba(0, 0, 0, 0.1));
+  }
+  div.imgOutline.selected div.imgTotal {
+    @include radial-elliptical-gradient(rgba(255, 255, 255, 0.2), hsla(hue($linkColor), saturation($linkColor), 50%, 0.2));
+  }
+
+  div.imgTotal a.navigate {
+    [class^="koowa_icon--"],
+    [class*=" koowa_icon--"] {
+      padding: 31px 0 0;
+    }
+
+    display: block;
+    background: no-repeat center center;
+    position: relative;
+    overflow: hidden;
+    width: inherit;
+    height: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+    &:before {
+      display: inline-block;
+    }
+  }
+  div.imgTotal a.navigate::after {
+    @include box-shadow(0 0 2px rgba(0, 0, 0, .20) inset);
+    content: '';
+    height: inherit;
+    display: block;
+    position: absolute;
+    top: 0;
+    width: inherit;
+  }
+  div.imgOutline.selected div.imgTotal a.navigate::after {
+    @include box-shadow(0 0 3px rgba(0, 0, 0, 0.3) inset);
+  }
+  div.imgTotal a.navigate img {
+    width: 100%;
+  }
+  .files-image.thumbnails div.imgTotal a.navigate {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    background: url('#{$comFilesLocation}/images/checker.png') repeat left top white;
+  }
+  div.imgTotal a.navigate[class*="koowa_icon--"] {
+    &:before {
+      position: relative;
+      margin-top: 34px;
+    }
+  }
+  div.imgBorder {
+    height: 72px;
+    vertical-align: middle;
+    width: 88px;
+    overflow: hidden;
+  }
+
+  div.imgBorder a {
+    height: 72px;
+    width: 88px;
+    display: block;
+  }
+
+  div.imgBorder a:hover {
+    height: 72px;
+    width: 88px;
+    background-color: #f0f0f0;
+    color: #FF6600;
+  }
+
+  .imgBorderHover {
+    background: #FFFFCC;
+    cursor: hand;
+  }
+
+  div.controls {
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    background: #f9fcf9;
+    border-top: 1px solid #ddd;
+
+    input {
+      vertical-align: middle;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+
+    &:hover {
+      display: block;
+    }
+  }
+
+  div.imginfoBorder {
+    background: #f9f9f9;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    display: block;
+    height: 15px;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    padding: 0 8px;
+  }
+
+  div.imgBorder a {
+    cursor: pointer;
+  }
+
+  .imgCaption {
+    font-size: 9pt;
+    text-align: center;
+  }
+
+  .dirField {
+    font-size: 9pt;
+    width: 110px;
+  }
+
+  div.image {
+    padding-top: 10px;
+  }
+
+  .imgBorder a.navigate {
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+  }
+
+  #files-grid {
+    // Sortables
+    table > thead > tr > th.files__sortable:hover {
+      cursor: pointer;
+    }
+
+    //table > thead > tr > th.files__sortable--sorted > span.files__sortable--indicator {
+    //  @extend .koowa_icon_font;
+    //  @extend .koowa_icon--12;
+    //
+    //  &:before {
+    //    content: '\e616';
+    //  }
+    //}
+    //
+    //table > thead > tr > th.files__sortable--sorted-desc > span.files__sortable--indicator {
+    //  @extend .koowa_icon_font;
+    //  @extend .koowa_icon--12;
+    //
+    //  &:before {
+    //    content: "\e617";
+    //  }
+    //}
+
+  }
+
+  .scopebar-search-container {
+    float: right;
+    max-width: 50%;
+    max-height: 24px;
+
+    input, input[type=search] {
+      margin: 0;
+      border-radius: 0;
+      border: none;
+      border-left: 1px solid #ccc;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      height: 24px;
+      padding-left: 24px;
+      width: 300px;
+    }
+
+    label {
+      left: 5px;
+    }
+  }
+
+}
+
+
+///* $group Modal styling for file details */
+.modal-inspector {
+  position: relative;
+  background-color: white;
+  margin: 20px auto;
+  max-width: 400px;
+
+  .docman_file_modal {
+    padding: 10px;
+  }
+
+  hr {
+    border-top-color: lighten($textColor, 60%);
+    //$TODO make mixin of mask css
+    -webkit-mask-box-image: -webkit-linear-gradient(left, transparent, black, black, transparent);
+    margin: 10px 0 0;
+  }
+  hr.last {
+    margin: 0 0 10px;
+  }
+
+  .preview {
+    text-align: center;
+    padding: 0;
+  }
+  .parameters,
+  .documents {
+    border: none;
+
+    tr, td {
+      border: none;
+      color: $textColor;
+      white-space: normal !important;
+    }
+
+    td.detail-label {
+      font-weight: bold;
+    }
+
+    .detail-label {
+      text-align: right;
+      color: lighten($textColor, 30%);
+      white-space: nowrap !important;
+    }
+  }
+  .documents {
+    thead, thead tr, thead tr td {
+      background: none;
+    }
+  }
+  h3 {
+    font-size: 12px;
+    color: lighten($textColor, 15%);
+    margin: 0;
+    line-height: 27px;
+  }
+}
+
+///* $end */
+
+// Give the files modal a nice font
+.com_files {
+  font-family: sans-serif;
+
+  h3 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  ///* $group Breadcrumb customization */
+  .breadcrumb-resizable {
+    overflow: hidden;
+    margin: 0;
+    padding: 2.5px 0px;
+    line-height: 18px;
+
+    li {
+      max-height: 23px;
+      display: inline-block;
+      overflow: hidden;
+      @include user-select(none);
+      cursor: pointer;
+      padding: 0;
+
+      span {
+        display: inline-block;
+        overflow: visible;
+        vertical-align: top;
+        padding: 0 2px;
+      }
+
+      //For later
+      //-webkit-mask: -webkit-linear-gradient(right, rgba(0, 0, 0, 0), black 10px);
+
+      &.active {
+        cursor: default;
+      }
+
+      span.divider {
+        padding: 0 2px 0 0;
+      }
+
+      &.overflow-ellipsis {
+        text-overflow: ellipsis;
+      }
+
+      &:active {
+        color: $grayLight;
+      }
+
+      &:first-child span {
+        padding-left: 0px;
+      }
+      &:last-child span {
+        padding-right: 0px;
+      }
+    }
+  }
+  ///* $end */
+
+  #files-app {
+    background-color: #FFF;
+    border: 1px solid darken(#F4F4F4, 10%);
+    @include border-radius(2px);
+    @include clearfix();
+  }
+
+  /* fixing a width problem */
+  #files-paginator-container {
+    width: auto;
+  }
+}

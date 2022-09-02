@@ -1,0 +1,178 @@
+@font-face {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('PT Sans'), local('PTSans-Regular'), url(http://themes.googleusercontent.com/static/fonts/ptsans/v5/7YGmE4Ls5b94ct65u07hVQLUuEpTyoUstqEm5AMlJo4.woff) format('woff')
+}
+
+.k-ui-namespace.k-ui-namespace {
+    background: #eee
+}
+
+html, body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #eeeeee;
+}
+
+.k-ui-namespace .migrator {
+    font-family: 'PT Sans', Arial, sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    color: #313131;
+    font-size: 16px
+}
+
+.k-ui-namespace .migrator__header {
+    padding: 10px 0 20px;
+    font-size: 1.375em;
+    line-height: 2.5em
+}
+
+.k-ui-namespace .joomlatools_logo {
+    width: 41px;
+    height: 40px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px
+}
+
+.k-ui-namespace .migrator__steps {
+    background: #313131;
+    padding: 10px
+}
+
+.k-ui-namespace .migrator__steps__list {
+    list-style: none;
+    margin: 0
+}
+
+.k-ui-namespace .migrator__steps__list__item {
+    display: inline-block;
+    color: #fff;
+    padding: 10px 20px;
+    position: relative
+}
+
+.k-ui-namespace .migrator__steps__list__item.item--active {
+    background: #4b4b4b
+}
+
+.k-ui-namespace .migrator__steps__list__item.item--active:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #4b4b4b;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    margin-left: -20px;
+    z-index: 9
+}
+
+.k-ui-namespace .migrator__wrapper {
+    background: #fff;
+    padding: 40px
+}
+
+.k-ui-namespace .migrator__wrapper h1,
+.k-ui-namespace .migrator__wrapper h2,
+.k-ui-namespace .migrator__wrapper h3 {
+    line-height: 1.2em;
+    margin: 0 0 10px
+}
+
+.k-ui-namespace .migrator__wrapper h1 {
+    color: #00aeef;
+    font-size: 1.5em;
+    font-weight: bold
+}
+
+.k-ui-namespace .migrator__wrapper h2 {
+    color: #4b4b4b;
+    text-transform: uppercase;
+    font-size: .875em;
+    font-weight: normal
+}
+
+.k-ui-namespace .migrator__wrapper h3 {
+    font-size: 1em;
+    font-weight: bold
+}
+
+.k-ui-namespace .migrator__wrapper a {
+    color: #00aeef
+}
+
+.k-ui-namespace .migrator__wrapper a:hover {
+    color: #0089bc
+}
+
+.k-ui-namespace .migrator__wrapper .migrator_button {
+    display: inline-block;
+    background: #00aeef;
+    border: 1px solid #0089bc;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+
+.k-ui-namespace .migrator__wrapper .migrator_button:hover {
+    background: #0090c6;
+    border-color: #007aa8;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #0089bc
+}
+
+.k-ui-namespace .migrator__content,
+.k-ui-namespace .migrator_alert, .k-ui-namespace .migrator_success {
+    margin: 30px 0
+}
+
+.k-ui-namespace .migrator__content:last-child,
+.k-ui-namespace .migrator_alert:last-child,
+.k-ui-namespace .migrator_success:last-child {
+    margin-bottom: 0
+}
+
+.k-ui-namespace .migrator_selected_file, .k-ui-namespace .migrator_change_file {
+    font-size: .875em
+}
+
+.k-ui-namespace .migrator_selected_file {
+    display: inline-block;
+    margin: 0 20px
+}
+
+.k-ui-namespace .migrator_alert, .k-ui-namespace .migrator_success {
+    border: 1px solid;
+    padding: 20px
+}
+
+.k-ui-namespace .migrator_alert {
+    background: #fff0b4;
+    border-color: #ffe681;
+    color: #816700
+}
+
+.k-ui-namespace .migrator_success {
+    background: #c0eeb3;
+    border-color: #9de589;
+    color: #245b14
+}
+
+.k-ui-namespace .migrator__footer {
+    padding: 10px 0;
+    font-size: .875em;
+    text-align: center;
+    color: #4b4b4b
+}
