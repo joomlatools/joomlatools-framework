@@ -2,12 +2,12 @@
 <extension version="3.5" type="plugin" group="system" method="upgrade" overwrite="true">
     <name>plg_system_joomlatools</name>
     <author>Joomlatools</author>
-    <creationDate>February 2022</creationDate>
+    <creationDate>September 2022</creationDate>
     <copyright>Copyright (C) 2007 Timble CVBA (http://www.timble.net)</copyright>
     <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
     <authorEmail>support@joomlatools.com</authorEmail>
     <authorUrl>www.joomlatools.com</authorUrl>
-    <version>4.0.4</version>
+    <version>4.0.5</version>
     <description />
 
     <scriptfile>script.php</scriptfile>
