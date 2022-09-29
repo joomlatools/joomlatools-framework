@@ -797,15 +797,18 @@ img.mfp-img {
 }
 @media all and (max-width: 900px) {
   .mfp-arrow {
-    transform: scale(0.75);
+    -webkit-transform: scale(0.75);
+            transform: scale(0.75);
   }
 
   .mfp-arrow-left {
-    transform-origin: 0;
+    -webkit-transform-origin: 0;
+            transform-origin: 0;
   }
 
   .mfp-arrow-right {
-    transform-origin: 100%;
+    -webkit-transform-origin: 100%;
+            transform-origin: 100%;
   }
 
   .mfp-container {
@@ -1113,12 +1116,14 @@ html .select2-close-mask {
 html .select2-hidden-accessible {
   border: 0 !important;
   clip: rect(0 0 0 0) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
   height: 1px !important;
-  margin: -1px !important;
   overflow: hidden !important;
   padding: 0 !important;
   position: absolute !important;
   width: 1px !important;
+  white-space: nowrap !important;
 }
 html .select2-container--default .select2-selection--single {
   background-color: #fff;
@@ -1190,17 +1195,13 @@ html .select2-container--default .select2-selection--multiple .select2-selection
 html .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
   list-style: none;
 }
-html .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
-  color: #999;
-  margin-top: 5px;
-  float: left;
-}
 html .select2-container--default .select2-selection--multiple .select2-selection__clear {
   cursor: pointer;
   float: right;
   font-weight: bold;
   margin-top: 5px;
   margin-right: 10px;
+  padding: 1px;
 }
 html .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #e4e4e4;
@@ -1222,7 +1223,7 @@ html .select2-container--default .select2-selection--multiple .select2-selection
 html .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
   color: #333;
 }
-html .select2-container--default[dir=rtl] .select2-selection--multiple .select2-selection__choice, html .select2-container--default[dir=rtl] .select2-selection--multiple .select2-selection__placeholder, html .select2-container--default[dir=rtl] .select2-selection--multiple .select2-search--inline {
+html .select2-container--default[dir=rtl] .select2-selection--multiple .select2-selection__choice, html .select2-container--default[dir=rtl] .select2-selection--multiple .select2-search--inline {
   float: right;
 }
 html .select2-container--default[dir=rtl] .select2-selection--multiple .select2-selection__choice {
@@ -1441,8 +1442,6 @@ html .select2-container--classic .select2-selection--multiple .select2-selection
 }
 html .select2-container--classic[dir=rtl] .select2-selection--multiple .select2-selection__choice {
   float: right;
-}
-html .select2-container--classic[dir=rtl] .select2-selection--multiple .select2-selection__choice {
   margin-left: 5px;
   margin-right: auto;
 }
