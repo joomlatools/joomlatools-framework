@@ -71,6 +71,7 @@ class KClassRegistryCache extends KClassRegistry
      * @param   int     $offset The offset
      * @return  mixed   The item from the array
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if(!parent::offsetExists($offset))
@@ -91,6 +92,7 @@ class KClassRegistryCache extends KClassRegistry
      * @param   mixed   $value  The item's value
      * @return  object  ObjectArray
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         apcu_store($this->getNamespace().'-class_'.$offset, $value);
@@ -104,6 +106,7 @@ class KClassRegistryCache extends KClassRegistry
      * @param   int   $offset The offset
      * @return  bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         if(false === $result = parent::offsetExists($offset)) {
@@ -119,6 +122,7 @@ class KClassRegistryCache extends KClassRegistry
      * @param   int     $offset
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         apcu_delete($this->getNamespace().'-class_'.$offset);

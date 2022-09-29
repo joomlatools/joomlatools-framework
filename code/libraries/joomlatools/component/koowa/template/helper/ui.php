@@ -49,7 +49,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
             if ($identifier->type === 'com' && $menu)
             {
-                if ($suffix = htmlspecialchars($menu->getParams()->get('pageclass_sfx')))
+                if ($suffix = htmlspecialchars($menu->getParams()->get('pageclass_sfx', '')))
                 {
                     $config->append(array(
                         'wrapper_class' => array($suffix)

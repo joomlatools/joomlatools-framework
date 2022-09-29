@@ -58,7 +58,7 @@ class KObjectLocatorComponent extends KObjectLocatorAbstract
         $class = KStringInflector::implode($identifier->path).ucfirst($identifier->name);
 
         if(empty($identifier->domain)) {
-            $domain  = ucfirst($this->getObject('object.bootstrapper')->getComponentDomain($identifier->package));
+            $domain  = ucfirst($this->getObject('object.bootstrapper')->getComponentDomain($identifier->package) ?: '');
         } else {
             $domain = ucfirst($identifier->domain);
         }

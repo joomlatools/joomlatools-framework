@@ -131,6 +131,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      * @return  bool Returns TRUE if the object exists in the storage, and FALSE otherwise
      * @throws  \InvalidArgumentException if the object doesn't implement KObjectHandlable
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($object)
     {
         if (!$object instanceof KObjectHandlable) {
@@ -149,6 +150,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      * @return  KObjectHandlable
      * @throws  \InvalidArgumentException if the object doesn't implement KObjectHandlable
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($object)
     {
         if (!$object instanceof KObjectHandlable) {
@@ -168,6 +170,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      * @throws InvalidArgumentException
      * @return  KObjectSet
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($object, $value)
     {
         if (!$object instanceof KObjectHandlable) {
@@ -187,6 +190,7 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
      * @return  KObjectSet
      * @throws  \InvalidArgumentException if the object doesn't implement the KObjectHandlable interface
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($object)
     {
         if (!$object instanceof KObjectHandlable) {
@@ -200,7 +204,9 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
     /**
      * Return a string representation of the set
      *
-     * Required by interface \Serializable
+     * Required by interface Serializable
+     * Note: Remove when required PHP version is 7.4+
+     * See: https://php.watch/versions/8.1/serializable-deprecated
      *
      * @return  string  A serialized object
      */
@@ -210,9 +216,21 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
     }
 
     /**
+     * PHP 8.1 compatible serialize method
+     *
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return $this->_data;
+    }
+    
+    /**
      * Unserializes a set from its string representation
      *
      * Required by interface \Serializable
+     * Note: Remove when required PHP version is 7.4+
+     * See: https://php.watch/versions/8.1/serializable-deprecated
      *
      * @param   string  $serialized The serialized data
      */
@@ -222,12 +240,23 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
     }
 
     /**
+     * PHP 8.1 compatible unserialize method
+     *
+     * @return void
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->_data = $data;
+    }
+
+    /**
      * Returns the number of elements in the collection.
      *
      * Required by the Countable interface
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->_data);
@@ -251,10 +280,12 @@ class KObjectSet extends KObject implements IteratorAggregate, ArrayAccess, Coun
     }
 
     /**
+     * 
      * Defined by IteratorAggregate
      *
      * @return \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->_data);

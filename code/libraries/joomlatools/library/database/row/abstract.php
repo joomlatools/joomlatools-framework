@@ -459,6 +459,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      *
      * @return  \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator(array($this));
@@ -599,6 +600,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      * @param   mixed   $value      The property value.
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     final public function offsetSet($property, $value)
     {
         $this->setProperty($property, $value);
@@ -610,6 +612,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      * @param   string  $property   The property name.
      * @return  mixed The property value
      */
+    #[\ReturnTypeWillChange]
     final public function offsetGet($property)
     {
         return $this->getProperty($property);
@@ -621,6 +624,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      * @param   string  $property   The property name.
      * @return  boolean
      */
+    #[\ReturnTypeWillChange]
     final public function offsetExists($property)
     {
         return $this->hasProperty($property);
@@ -632,6 +636,7 @@ abstract class KDatabaseRowAbstract extends KObjectArray implements KDatabaseRow
      * @param   string  $property The property name.
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     final public function offsetUnset($property)
     {
         $this->removeProperty($property);

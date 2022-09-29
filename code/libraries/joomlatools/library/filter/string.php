@@ -24,7 +24,7 @@ class KFilterString extends KFilterAbstract implements KFilterTraversable
     public function validate($value)
     {
         $value = trim($value);
-        return (is_string($value) && ($value === filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES)));
+        return (is_string($value) && ($value === $this->__filter_string_polyfill($value, false)));
     }
 
     /**
@@ -35,7 +35,24 @@ class KFilterString extends KFilterAbstract implements KFilterTraversable
      */
     public function sanitize($value)
     {
-        return filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        return $this->__filter_string_polyfill($value, false);
+    }
+
+    /**
+     * Polyfill function for FILTER_SANITIZE_STRING
+     * 
+     * FILTER_SANITIZE_STRING is deprecated in PHP8.1. This polyfill replicates the exact behavior of the filter.
+     * 
+     * 
+     *
+     * @param string $string
+     * @return string
+     */
+    private function __filter_string_polyfill(?string $string, bool $encode_quotes = true): string
+    {
+        $str = preg_replace('/\x00|<[^>]*>?/', '', $string ?: '');
+    
+        return $encode_quotes ? str_replace(["'", '"'], ['&#39;', '&#34;'], $str) : $str;
     }
 }
 
