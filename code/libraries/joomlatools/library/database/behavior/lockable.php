@@ -135,7 +135,7 @@ class KDatabaseBehaviorLockable extends KDatabaseBehaviorAbstract
         {
             if(isset($this->locked_on) && isset($this->locked_by))
             {
-                $locked  = strtotime($this->locked_on);
+                $locked  = strtotime($this->locked_on ?: '');
                 $current = strtotime(gmdate('Y-m-d H:i:s'));
 
                 //Check if the lock has gone stale

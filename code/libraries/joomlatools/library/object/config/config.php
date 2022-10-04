@@ -203,6 +203,7 @@ class KObjectConfig implements KObjectConfigInterface
      * @param int $mode Either COUNT_NORMAL or COUNT_RECURSIVE. Default is COUNT_NORMAL
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count($mode = COUNT_NORMAL)
     {
         if($mode == COUNT_RECURSIVE)
@@ -244,6 +245,7 @@ class KObjectConfig implements KObjectConfigInterface
      *
      * @return  \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new \RecursiveArrayIterator($this->__options);
@@ -257,6 +259,7 @@ class KObjectConfig implements KObjectConfigInterface
      * @param   int  $offset   The offset
      * @return  bool
      */
+    #[\ReturnTypeWillChange]
     final public function offsetExists($offset)
     {
         return $this->has($offset);
@@ -270,6 +273,7 @@ class KObjectConfig implements KObjectConfigInterface
      * @param   int  $offset   The offset
      * @return  mixed   The item from the array
      */
+    #[\ReturnTypeWillChange]
     final public function offsetGet($offset)
     {
         return self::unbox($this->get($offset));
@@ -284,6 +288,7 @@ class KObjectConfig implements KObjectConfigInterface
      * @param   mixed  $value    The item's value
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     final public function offsetSet($offset, $value)
     {
         $this->set($offset, $value);
@@ -299,6 +304,7 @@ class KObjectConfig implements KObjectConfigInterface
      * @param   int     $offset The offset of the item
      * @return  void
      */
+    #[\ReturnTypeWillChange]
     final public function offsetUnset($offset)
     {
         $this->remove($offset);

@@ -142,6 +142,7 @@ class KControllerToolbarCommand extends KObjectConfig implements KControllerTool
      *
      * @return  integer
      */
+    #[\ReturnTypeWillChange]
     public function count($mode = COUNT_NORMAL)
     {
         return count($this->_commands);
@@ -152,6 +153,7 @@ class KControllerToolbarCommand extends KObjectConfig implements KControllerTool
      *
      * @return  RecursiveArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new RecursiveArrayIterator($this->getCommands());

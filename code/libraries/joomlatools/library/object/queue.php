@@ -197,6 +197,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->__object_list);
@@ -209,6 +210,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
      *
      * @return  object KObjectQueue
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         reset($this->__object_list);
@@ -224,6 +226,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
      *
      * @return  boolean
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return !is_null(key($this->__priority_list));
@@ -236,6 +239,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
      *
      * @return	mixed
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->__priority_list);
@@ -248,6 +252,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
      *
      * @return  mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->__object_list[$this->key()];
@@ -260,6 +265,7 @@ class KObjectQueue extends KObject implements Iterator, Countable
      *
      * @return	mixed
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->__priority_list);

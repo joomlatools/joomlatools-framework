@@ -699,7 +699,7 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
             'offset_seconds' => 0,
             'value'	  => gmdate("M d Y H:i:s"),
             'name'    => '',
-            'format'  => '%Y-%m-%d %H:%M:%S',
+            'format'  => 'Y-m-d H:i:s',
             'first_week_day' => 0,
             'attribs'        => array(
                 'size'        => 25,
@@ -717,6 +717,13 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
             )
         ));
 
+        // Backwards compatibility fix: As PHP8.1 deprecates strftime we switched to date function
+        $config->format = str_replace(
+            array('%Y', '%y', '%m', '%d', '%H', '%M', '%S'),
+            array('Y', 'y', 'm', 'd', 'H', 'i', 's'),
+            $config->format
+        );
+
         if ($config->offset)
         {
             if (strtoupper($config->offset) === 'SERVER_UTC') {
@@ -733,12 +740,12 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
         if ($config->value && $config->value != '0000-00-00 00:00:00' && $config->value != '0000-00-00')
         {
             if (strtoupper($config->value) == 'NOW') {
-                $config->value = strftime($config->format);
+                $config->value = date($config->format);
             }
 
             $date = new DateTime($config->value, new DateTimeZone('UTC'));
 
-            $config->value = gmstrftime($config->format, ((int)$date->format('U')) + $config->offset_seconds);
+            $config->value = gmdate($config->format, ((int)$date->format('U')) + $config->offset_seconds);
         } else {
             $config->value = '';
         }
@@ -791,10 +798,9 @@ class KTemplateHelperBehavior extends KTemplateHelperAbstract
                 static::setLoaded('calendar-triggers'.$config->id);
             }
 
-            $format = str_replace(
-                array('%Y', '%y', '%m', '%d', '%H', '%M', '%S'),
-                array('yyyy', 'yy', 'mm', 'dd', 'hh', 'ii', 'ss'),
-                $config->format
+            $format = strtr(
+                $config->format,
+                array('Y' => 'yyyy', 'y' => 'yy', 'm' => 'mm', 'd' => 'dd', 'H' => 'hh', 'i' => 'ii', 's' => 'ss')
             );
 
             $html .= '<div class="k-input-group date" data-date-format="'.$format.'" id="'.$config->id.'">';

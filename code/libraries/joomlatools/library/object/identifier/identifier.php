@@ -129,6 +129,9 @@ class KObjectIdentifier implements KObjectIdentifierInterface
 
     /**
      * Serialize the identifier
+     * 
+     * Note: Remove when required PHP version is 7.4+
+     * See: https://php.watch/versions/8.1/serializable-deprecated
      *
      * @return string 	The serialised identifier
      */
@@ -146,14 +149,47 @@ class KObjectIdentifier implements KObjectIdentifierInterface
     }
 
     /**
-     * Unserialize the identifier
+     * PHP 8.1 compatible serialize method
      *
-     * @return string $data	The serialised identifier
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        $data['_type']       = $this->_type;
+        $data['_domain']     = $this->_domain;
+        $data['_package']    = $this->_package;
+        $data['_path']       = $this->_path;
+        $data['_name']       = $this->_name;
+        $data['_identifier'] = $this->_identifier;
+        $data['__config']    = $this->__config;
+
+        return $data;
+    }
+
+    /**
+     * Unserialize the identifier
+     * 
+     * Note: Remove when required PHP version is 7.4+
+     * See: https://php.watch/versions/8.1/serializable-deprecated
+     * 
+     * @param  string|array $data 
      */
     public function unserialize($data)
     {
         $data = unserialize($data);
 
+        foreach($data as $property => $value) {
+            $this->{$property} = $value;
+        }
+    }
+
+    /**
+     * PHP 8.1 compatible unserialize method
+     *
+     * @return void
+     */
+    public function __unserialize(array $data): void
+    {
         foreach($data as $property => $value) {
             $this->{$property} = $value;
         }

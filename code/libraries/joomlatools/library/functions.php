@@ -19,7 +19,7 @@ namespace Koowa {
      * @param  string  $suffix If the name component ends in suffix this will also be cut off.
      * @return string  Returns the base name of the given path.
      */
-    function basename($path, $suffix = null)
+    function basename($path, $suffix = '')
     {
         return substr(\basename(' '.strtr($path, array('/' => '/ ', '\\' => '\\ ')), $suffix), 1);
     }

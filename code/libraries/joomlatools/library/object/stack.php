@@ -67,6 +67,7 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      * 
      * @return integer	The number of elements
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->__object_stack);
@@ -79,6 +80,7 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      *
      * @return	object KObjectQueue
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         reset($this->__object_stack);
@@ -92,6 +94,7 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      *
      * @return	boolean
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return !is_null(key($this->__object_stack));
@@ -104,6 +107,7 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      *
      * @return	mixed
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->__object_stack);
@@ -116,6 +120,7 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      *
      * @return	mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->__object_stack[$this->key()];
@@ -128,6 +133,7 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      *
      * @return	mixed
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->__object_stack);
@@ -137,6 +143,8 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
      * Serialize
      *
      * Required by the Serializable interface
+     * Note: Remove when required PHP version is 7.4+
+     * See: https://php.watch/versions/8.1/serializable-deprecated
      *
      * @return string
      */
@@ -146,9 +154,21 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
     }
 
     /**
+     * PHP 8.1 compatible serialize method
+     *
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return $this->toArray();
+    }
+
+    /**
      * Unserialize
      *
      * Required by the Serializable interface
+     * Note: Remove when required PHP version is 7.4+
+     * See: https://php.watch/versions/8.1/serializable-deprecated
      *
      * @param  string $data
      * @return void
@@ -164,6 +184,20 @@ class KObjectStack extends KObject implements Iterator, Countable, Serializable
             foreach ($data as $item) {
                 $this->push($item);
             }
+        }
+    }
+
+    /**
+     * PHP 8.1 compatible unserialize method
+     *
+     * @return void
+     */
+    public function __unserialize(array $data): void
+    {
+        $data = array_reverse($data);
+
+        foreach ($data as $item) {
+            $this->push($item);
         }
     }
 

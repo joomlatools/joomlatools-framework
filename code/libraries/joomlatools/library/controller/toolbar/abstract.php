@@ -216,6 +216,7 @@ abstract class KControllerToolbarAbstract extends KCommandHandlerAbstract implem
      *
      * @return  RecursiveArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new RecursiveArrayIterator($this->getCommands());
@@ -240,6 +241,7 @@ abstract class KControllerToolbarAbstract extends KCommandHandlerAbstract implem
      *
      * @return  integer
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->_commands);
