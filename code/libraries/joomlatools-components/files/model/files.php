@@ -65,7 +65,7 @@ class ComFilesModelFiles extends ComFilesModelNodes
             $files = array_reverse($files);
         }
 
-        $results = array_slice($files, $state->offset, $state->limit ? $state->limit : $this->_count);
+        $results = array_slice($files, $state->offset ?: 0, $state->limit ? $state->limit : $this->_count);
         $files   = array();
 
         foreach ($results as $result) {

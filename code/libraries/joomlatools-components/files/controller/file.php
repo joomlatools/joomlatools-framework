@@ -92,7 +92,8 @@ class ComFilesControllerFile extends ComFilesControllerAbstract
                 $container = $this->getModel()->getContainer();
 
                 // Note: PHP converts dots to underscores in cookie names
-                $cookie = json_decode($this->getObject('request')->cookies['com_files_container_'.$container->slug.'_state'], true);
+                $cookie = $this->getObject('request')->cookies['com_files_container_'.$container->slug.'_state'];
+                $cookie = $cookie ? json_decode($cookie, true) : null;
 
                 if (strpos($query->layout, 'compact') === false && is_array($cookie))
                 {
