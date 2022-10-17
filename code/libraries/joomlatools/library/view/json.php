@@ -296,7 +296,7 @@ class KViewJson extends KViewAbstract
     {
         $matches = array();
 
-        preg_match_all("/(href|src)=\"(?!http|ftp|https|mailto|data)([^\"]*)\"/", $text, $matches, PREG_SET_ORDER);
+        preg_match_all("/(href|src)=\"(?!http|ftp|https|mailto|data)([^\"]*)\"/", $text ?: '', $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match)
         {

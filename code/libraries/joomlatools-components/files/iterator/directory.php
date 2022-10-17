@@ -195,7 +195,7 @@ class ComFilesIteratorDirectory extends DirectoryIterator
         return $return;
     }
 
-    public function getExtension()
+    public function getExtension(): string
     {
         $filename  = $this->getFilename();
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
