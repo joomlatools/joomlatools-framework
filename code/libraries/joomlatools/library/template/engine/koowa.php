@@ -213,7 +213,7 @@ class KTemplateEngineKoowa extends KTemplateEngineAbstract
      * @param  \Exception  $exception
      * @return void
      */
-    public function handleException(Exception &$exception)
+    public function handleException(Throwable &$exception)
     {
         if($template = end($this->_stack))
         {
