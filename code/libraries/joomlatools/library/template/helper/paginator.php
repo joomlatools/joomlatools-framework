@@ -107,7 +107,7 @@ class KTemplateHelperPaginator extends KTemplateHelperSelect
             $options[] = $this->option(array('label' => $this->getObject('translator')->translate('All'), 'value' => 0));
         }
 
-        $html .= '<label><span class="visually-hidden"> ' . $this->getObject('translator')->translate('Select the number of documents per page') . '</span>';
+        $html .= '<label><span class="k-visually-hidden"> ' . $this->getObject('translator')->translate('Select the number of documents per page') . '</span>';
         $html .= $this->optionlist(array('options' => $options, 'name' => 'limit', 'attribs' => $config->attribs, 'selected' => $selected));
         $html .= '</label>';
         
