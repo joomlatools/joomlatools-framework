@@ -87,6 +87,14 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                     $content = "<![CDATA[\n".$content."\n]]>";
                 }
 
+                if (is_array($content)) {
+                    $c = '';
+                    foreach ($content as $value) {
+                        $c .= "\n".$value."\n";
+                    }
+                    $content = $c;
+                }
+
                 echo sprintf('<style type="%s">%s</style>', $type, $content);
             }
 
