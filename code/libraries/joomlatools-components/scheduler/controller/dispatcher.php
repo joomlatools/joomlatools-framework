@@ -33,7 +33,10 @@ class ComSchedulerControllerDispatcher extends KControllerAbstract implements Co
 
         @set_time_limit(60);
         @ini_set('memory_limit', '256M');
-        @ignore_user_abort(true);
+
+        if (function_exists('ignore_user_abort')) {
+            @ignore_user_abort(true);
+        }
 
         // Set the model identifier
         $this->_model = $config->model;
