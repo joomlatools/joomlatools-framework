@@ -68,6 +68,8 @@ trait ComKoowaEventTrait
                 $allResults[]    = $result;
                 $event['result'] = $allResults;
             };
+
+            JFactory::getApplication()->getDispatcher()->addListener($event, $this->__event_handlers[$this->__getEventHandlerHash($handler)]);
         }
         else  JEventDispatcher::getInstance()->attach(['event' => $event, 'handler' => $handler]);
 

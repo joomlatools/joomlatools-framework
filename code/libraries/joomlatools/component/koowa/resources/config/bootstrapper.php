@@ -52,6 +52,7 @@ return array(
         'event.subscriber.factory' => array(
             'subscribers' => array(
                 'com:koowa.event.subscriber.application',
+                'com:koowa.event.subscriber.eventdispatcher',
                 'com:koowa.event.subscriber.user',
                 'com:koowa.event.subscriber.exception'
             )
