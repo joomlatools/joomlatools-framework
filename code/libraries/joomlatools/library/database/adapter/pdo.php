@@ -133,6 +133,7 @@ class KDatabaseAdapterPdo extends KDatabaseAdapterAbstract
      * Connect to the db
      *
      * @throws RuntimeException
+     * @throws KDatabaseException
      * @return $this
      */
      public function connect()
@@ -192,7 +193,7 @@ class KDatabaseAdapterPdo extends KDatabaseAdapterAbstract
              ));
              $this->_connected = true;
          } catch (\PDOException $exception) {
-             throw new RuntimeException('Connect failed: (' . $exception->getCode() . ') ' . $exception->getMessage(), $exception->getCode(), $exception);
+             throw new \KDatabaseException('Connect failed: (' . $exception->getCode() . ') ' . $exception->getMessage(), $exception->getCode(), $exception);
          }
 
          return $this;
@@ -329,7 +330,7 @@ class KDatabaseAdapterPdo extends KDatabaseAdapterAbstract
 
             return $result;
         } catch (\PDOException $e) {
-            throw new \RuntimeException($e->getMessage() . ' of the following query : ' . $query, null, $e);
+            throw new \KDatabaseException($e->getMessage() . ' of the following query : ' . $query, null, $e);
         }
     }
 

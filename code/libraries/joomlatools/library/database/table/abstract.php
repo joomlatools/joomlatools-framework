@@ -63,7 +63,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
      * Object constructor
      *
      * @param KObjectConfig $config  An optional KObjectConfig object with configuration options.
-     * @throws \RuntimeException If the table does not exist.
+     * @throws \KDatabaseException If the table does not exist.
      */
     public function __construct(KObjectConfig $config)
     {
@@ -75,7 +75,7 @@ abstract class KDatabaseTableAbstract extends KObject implements KDatabaseTableI
 
         //Check if the table exists
         if (!$info = $this->getSchema()) {
-            throw new RuntimeException('Table ' . $this->_name . ' does not exist');
+            throw new KDatabaseException('Table ' . $this->_name . ' does not exist');
         }
 
         // Set the identity column

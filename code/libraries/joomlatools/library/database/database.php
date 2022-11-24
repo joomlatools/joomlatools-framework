@@ -217,7 +217,7 @@ class KDatabase extends KObjectDecorator implements KObjectSingleton, KDatabaseA
      *                  depending on the desired behavior. By default, KDatabase::RESULT_STORE is used. If you
      *                  use KDatabase::RESULT_USE all subsequent calls will return error Commands out of sync
      *                  unless you free the result first.
-     * @throws \RuntimeException If the query could not be executed
+     * @throws \KDatabaseException If the query could not be executed
      * @return boolean  For SELECT, SHOW, DESCRIBE or EXPLAIN will return a result object.
      *                  For other successful queries  return TRUE.
      */

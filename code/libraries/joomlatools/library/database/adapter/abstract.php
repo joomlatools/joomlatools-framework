@@ -403,7 +403,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
      *                     depending on the desired behavior. By default, KDatabase::RESULT_STORE is used. If you
      *                     use KDatabase::RESULT_USE all subsequent calls will return error Commands out of sync
      *                     unless you free the result first.
-     * @throws \RuntimeException If the query could not be executed
+     * @throws \KDatabaseException If the query could not be executed
      * @return mixed       For SELECT, SHOW, DESCRIBE or EXPLAIN will return a result object.
      *                     For other successful queries  return TRUE.
      */
@@ -418,7 +418,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
 
         if ($result === false)
         {
-            throw new RuntimeException(
+            throw new KDatabaseException(
                 $this->getConnection()->error . ' of the following query : ' . $query, $this->getConnection()->errno
             );
         }
