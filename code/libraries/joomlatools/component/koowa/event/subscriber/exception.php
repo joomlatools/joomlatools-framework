@@ -87,7 +87,7 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
             $exception = $event->exception;
             $is_db_error = ($exception instanceof KDatabaseException) || ($exception instanceof mysqli_sql_exception);
 
-            if ($is_db_error) {
+            if ($is_db_error && !JDEBUG) {
                 $exception = new \RuntimeException('A database error has occurred. Please enable debug mode for more information.', 500, $exception);
             }
 
