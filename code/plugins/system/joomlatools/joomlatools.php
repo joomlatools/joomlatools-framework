@@ -177,7 +177,7 @@ class PlgSystemJoomlatools extends JPlugin
 
             //Catch all Joomla v3.x exceptions
             if(class_exists('JError') && !version_compare(JVERSION, 4, '>=')) {
-                JError::setErrorHandling(E_ERROR, 'callback', array($this, 'onError'));
+                JError::setErrorHandling(E_ERROR, 'callback', array($this, 'onErrorJ3'));
             }
 
             return true;
@@ -250,13 +250,35 @@ class PlgSystemJoomlatools extends JPlugin
     /**
      * Proxy exceptions
      *
-     * - Joomla 3 exceptions are forwarded through the registered an onError() callback
-     * - Joomla 4 catches exceptions in CMSApplication::execute and dispatches onError()
+     * Joomla 4 catches exceptions in CMSApplication::execute and dispatches onError()
      *
      * @see: https://github.com/joomla/joomla-cms/blob/4.0-dev/libraries/src/Application/CMSApplication.php#L296
      * @return void
      */
-    public function onError($exception)
+    public function onError(Joomla\CMS\Event\ErrorEvent $event)
+    {
+        $exception = $event->getError();
+        $is_db_error = ($exception instanceof KDatabaseException) || ($exception instanceof mysqli_sql_exception);
+
+        if ($is_db_error && !JDEBUG) {
+            $exception = new \RuntimeException('A database error has occurred. Please enable debug mode for more information.', 500, $exception);
+            $event->setError($exception);
+        }
+        
+        if ($exception instanceof \Throwable) {
+            Koowa::getObject('exception.handler')->handleException($exception);
+        }
+    }
+
+    /**
+     * Proxy exceptions
+     *
+     * Joomla 3 exceptions are forwarded through the onError() callback 
+     * registered in the bootstrap method
+     *
+     * @return void
+     */
+    public function onErrorJ3($exception)
     {
         if ($exception instanceof \Throwable) {
             Koowa::getObject('exception.handler')->handleException($exception);

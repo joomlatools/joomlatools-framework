@@ -85,6 +85,11 @@ class ComKoowaEventSubscriberException extends KEventSubscriberAbstract
         if(!$is_joomla4 && class_exists('JErrorPage') && $request->getFormat() == 'html')
         {
             $exception = $event->exception;
+            $is_db_error = ($exception instanceof KDatabaseException) || ($exception instanceof mysqli_sql_exception);
+
+            if ($is_db_error && !JDEBUG) {
+                $exception = new \RuntimeException('A database error has occurred. Please enable debug mode for more information.', 500, $exception);
+            }
 
             if(ini_get('display_errors')) {
                 $message = $exception->getMessage();
