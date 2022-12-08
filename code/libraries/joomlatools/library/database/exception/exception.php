@@ -13,4 +13,4 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Library\Controller\Exception
  */
-class KDatabaseException extends KException {}
+class KDatabaseException extends Exception implements KException {}
