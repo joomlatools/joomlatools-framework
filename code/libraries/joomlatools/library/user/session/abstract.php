@@ -124,7 +124,7 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'handler'    => 'file',
+            'handler'    => 'native',
             'user'       => null,
             'name'       => 'KSESSIONID',
             'id'         => '',
