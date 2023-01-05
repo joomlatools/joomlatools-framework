@@ -330,7 +330,7 @@ class KDatabaseAdapterPdo extends KDatabaseAdapterAbstract
 
             return $result;
         } catch (\PDOException $e) {
-            throw new \KDatabaseException($e->getMessage() . ' of the following query : ' . $query, null, $e);
+            throw new \KDatabaseException($e->getMessage() . ' of the following query : ' . $query, 0, $e);
         }
     }
 

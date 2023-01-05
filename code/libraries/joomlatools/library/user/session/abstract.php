@@ -124,10 +124,10 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'handler'    => 'file',
+            'handler'    => 'native',
             'user'       => null,
-            'name'       => '',
-            'id'         => 'KSESSIONID',
+            'name'       => 'KSESSIONID',
+            'id'         => '',
             'lifetime'   => ini_get('session.gc_maxlifetime'),
             'namespace'  => '__koowa',
             'options' => array(
@@ -457,7 +457,7 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
             }
 
             //Re-load the session containers
-            $this->refesh();
+            $this->refresh();
 
             // Destroy an expired session
             if ($this->getContainer('metadata')->isExpired()) {
