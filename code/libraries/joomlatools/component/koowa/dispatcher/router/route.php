@@ -140,6 +140,7 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
      * Parses a route contained within the current URL object
      *
      * @param array An array containing query variables of the parsed route
+     * @retun array|boolean
      */
     public function parse()
     {
@@ -188,6 +189,14 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
 
         $uri = new Joomla\Uri\Uri(parent::toString());
 
-        return $router->parse($uri, false);
+        $result = null;
+
+        try {
+            $result = $router->parse($uri, false);
+        } catch (\Joomla\CMS\Router\Exception\RouteNotFoundException $e) {
+            $result = false;
+        }
+
+        return $result;
     }
 }
