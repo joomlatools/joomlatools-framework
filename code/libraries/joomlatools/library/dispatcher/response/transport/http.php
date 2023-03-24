@@ -69,7 +69,7 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         //Make sure we do not have body content for 204, 205 and 305 status codes
         $codes = array(KHttpResponse::NO_CONTENT, KHttpResponse::NOT_MODIFIED, KHttpResponse::RESET_CONTENT);
         if (!in_array($response->getStatusCode(), $codes)) {
-            echo $response->getStream()->toString();
+            readfile($response->getStream()->getPath());
         }
 
         return $this;
