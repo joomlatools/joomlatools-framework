@@ -15,6 +15,37 @@
  */
 abstract class ComKoowaControllerPermissionAbstract extends KControllerPermissionAbstract
 {
+    public function getMixableMethods($exclude = array())
+    {
+        if(!$this->_mixable_methods)
+        {
+            $methods = parent::getMixableMethods($exclude);
+
+            $mixer = $this->getMixer();
+
+            if ($mixer->isRestrictable())
+            {
+                $overridden = [];
+
+                foreach ($methods as $name => $method)
+                {
+                    if ($mixer->isRestrictedAction($name) && $mixer->isRestricted())
+                    {
+                        // Deny restricted actions upon permissions checks
+
+                        $overridden[$name] = function(...$arguments) {
+                            return false;
+                        };
+                    }
+                }
+
+                $this->_mixable_methods = array_merge($this->_mixable_methods, $overridden);
+            }
+        }
+
+        return $this->_mixable_methods;
+    }
+
     /**
      * {@inheritdoc}
      */
