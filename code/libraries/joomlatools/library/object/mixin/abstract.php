@@ -37,7 +37,7 @@ abstract class KObjectMixinAbstract implements KObjectMixinInterface
      *
      * @var array
      */
-    private $__mixable_methods;
+    protected $_mixable_methods;
 
     /**
      * Object constructor
@@ -155,7 +155,7 @@ abstract class KObjectMixinAbstract implements KObjectMixinInterface
      */
     public function getMixableMethods($exclude = array())
     {
-        if(!$this->__mixable_methods)
+        if(!$this->_mixable_methods)
         {
             $methods = array();
 
@@ -174,10 +174,10 @@ abstract class KObjectMixinAbstract implements KObjectMixinInterface
                 }
             }
 
-            $this->__mixable_methods = $methods;
+            $this->_mixable_methods = $methods;
         }
 
-        return array_diff_key($this->__mixable_methods, array_fill_keys($exclude, $exclude));
+        return array_diff_key($this->_mixable_methods, array_fill_keys($exclude, $exclude));
     }
 
     /**
