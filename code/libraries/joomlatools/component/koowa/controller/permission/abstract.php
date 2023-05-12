@@ -23,24 +23,19 @@ abstract class ComKoowaControllerPermissionAbstract extends KControllerPermissio
 
             $mixer = $this->getMixer();
 
-            if ($mixer->isRestrictable())
+            $overridden = [];
+
+            foreach ($methods as $name => $method)
             {
-                $overridden = [];
-
-                foreach ($methods as $name => $method)
+                $overridden[$name] = function(...$arguments) use ($mixer, $name, $method)
                 {
-                    if ($mixer->isRestrictedAction($name) && $mixer->isRestricted())
-                    {
-                        // Deny restricted actions upon permissions checks
+                    $is_restricted = $mixer->isRestrictable() && $mixer->isRestricted() && $mixer->isRestrictedAction($name);
 
-                        $overridden[$name] = function(...$arguments) {
-                            return false;
-                        };
-                    }
-                }
-
-                $this->_mixable_methods = array_merge($this->_mixable_methods, $overridden);
+                    return $is_restricted ? false : $method->{$name}(...$arguments);
+                };
             }
+
+            $this->_mixable_methods = array_merge($this->_mixable_methods, $overridden);
         }
 
         return $this->_mixable_methods;
