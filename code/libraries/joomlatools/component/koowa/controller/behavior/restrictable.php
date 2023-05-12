@@ -9,7 +9,7 @@
 /**
  * Assigns and removes users from groups
  */
-class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract implements KObjectMultiton
+class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract implements KObjectSingleton
 {
     protected $_component_map = ['docman' => 'DOCman'];
 
