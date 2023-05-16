@@ -44,22 +44,33 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
 
     }
 
-    protected function _redirect(KControllerContextInterface $context)
+    protected function _getComponent()
     {
-        $request  = $context->getRequest();
-        $response = $context->getResponse();
-
-        $referrer = $request->getReferrer();
-
-        $url = $referrer ?: $request->getSiteUrl();
-
         $identifier = $this->getMixer()->getIdentifier();
 
         $component = $identifier->getPackage();
 
         if (isset($this->_component_map[$component])) $component = $this->_component_map[$component];
 
-        $response->setRedirect($url, $this->getObject('translator')->translate('license expiry', $component), KControllerResponseInterface::FLASH_WARNING);
+        return $component;
+    }
+
+    protected function _redirect(KControllerContextInterface $context)
+    {
+        $request  = $context->getRequest();
+        $response = $context->getResponse();
+
+        $config = $this->getConfig();
+
+        if (!$config->redirect_url)
+        {
+            $referrer = $request->getReferrer();
+
+            $url = $referrer ?: $request->getSiteUrl();
+        }
+        else $url = $config->redirect_url;
+
+        $response->setRedirect($url, $this->getObject('translator')->translate('license expiry', ['component' => $this->_getComponent()]), KControllerResponseInterface::FLASH_WARNING);
     }
 
     public function getRestrictedActions()
@@ -83,12 +94,8 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         try
         {
             $license = $this->getObject('license');
-
-            $expiry = $license->getExpiry();
             
-            if ($expiry == 0) {
-                $result = false;
-            } 
+            $result = !$license->hasFeature($this->_getComponent());
         }
         catch(Exception $e)
         {
