@@ -37,20 +37,51 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         {
             $result = $this->isRestricted();
 
-            if ($result) $this->_redirect($context);    
+            $license = $this->_getLicense();
+
+            if ($result)
+            {
+                if ($subscription = $license->getSubscription($this->_getComponent(true), false))
+                {
+                    $past = ($subscription['end'] - time())/86400;
+
+                    if ($past <= 7)
+                    {
+                        $message = $this->getObject('translator')->translate('license recent expiry', ['component' => $this->_getComponent()]);
+
+                        $context->getResponse()->addMessage($message,KControllerResponseInterface::FLASH_WARNING);
+                    }
+                    else $this->_redirect($context);   
+                }
+            }
+            elseif ($subscription = $license->getSubscription($this->_getComponent(true)))
+            {
+                if (isset($subscription['cancelled']) && $subscription['cancelled'])
+                {
+                    $remaining = ($subscription['end'] - time())/604800;
+
+                    if ($remaining <= 4) // A month before
+                    {
+                        $message = $this->getObject('translator')->translate('subscription cancelled', ['component' => $this->_getComponent()]);
+
+                        $context->getResponse()->addMessage($message,KControllerResponseInterface::FLASH_WARNING);
+                    }                        
+                }
+            }
         }
 
         return !$result;
-
     }
 
-    protected function _getComponent()
+    protected function _getComponent($raw = false)
     {
         $identifier = $this->getMixer()->getIdentifier();
 
         $component = $identifier->getPackage();
 
-        if (isset($this->_component_map[$component])) $component = $this->_component_map[$component];
+        if (!$raw) {
+            if (isset($this->_component_map[$component])) $component = $this->_component_map[$component];
+        }
 
         return $component;
     }
@@ -70,7 +101,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         }
         else $url = $config->redirect_url;
 
-        $response->setRedirect($url, $this->getObject('translator')->translate('license expiry', ['component' => $this->_getComponent()]), KControllerResponseInterface::FLASH_WARNING);
+        $response->setRedirect($url, $this->getObject('translator')->translate('license expiry', ['component' => $this->_getComponent()]), KControllerResponseInterface::FLASH_ERROR);
     }
 
     public function getRestrictedActions()
@@ -87,13 +118,18 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         return in_array($action, $this->_actions);
     }
 
+    protected function _getLicense()
+    {
+        return $this->getObject('license');
+    }
+
     public function isRestricted()
     {
         $result = true;
 
         try
         {
-            $license = $this->getObject('license');
+            $license = $this->_getLicense();
             
             $result = !$license->hasFeature($this->_getComponent());
         }
@@ -104,6 +140,39 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
             $result = false;
         }
 
+        if ($this->_isLocal()) $result = false;
+
         return $result;
+    }
+
+    protected function _isLocal()
+    {
+        static $local_hosts = array('localhost', '127.0.0.1', '::1');
+
+        $url  = $this->getObject('request')->getUrl();
+        $host = $url->host;
+
+        if (in_array($host, $local_hosts)) {
+            return true;
+        }
+
+        // Returns true if host is an IP address
+        if (ip2long($host))
+        {
+            return (filter_var($host, FILTER_VALIDATE_IP,
+                    FILTER_FLAG_IPV4 |
+                    FILTER_FLAG_IPV6 |
+                    FILTER_FLAG_NO_PRIV_RANGE |
+                    FILTER_FLAG_NO_RES_RANGE) === false);
+        }
+        else
+        {
+            // If no TLD is present, it's definitely local
+            if (strpos($host, '.') === false) {
+                return true;
+            }
+
+            return preg_match('/(?:\.)(local|localhost|test|example|invalid|dev|box|intern|internal)$/', $host) === 1;
+        }
     }
 }
