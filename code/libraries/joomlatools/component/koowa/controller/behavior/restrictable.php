@@ -9,50 +9,97 @@
 /**
  * Assigns and removes users from groups
  */
-class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract implements KObjectSingleton
+class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract implements KObjectMultiton
 {
     protected $_component_map = ['docman' => 'DOCman'];
 
+    protected $_grace_period;
+
     protected $_actions;
+
+    protected $_restricted;
 
     public function __construct(KObjectConfig $config)
     {   
         parent::__construct($config);
 
         $this->_actions = $config->actions->toArray();
+
+        $this->_grace_period = $config->grace_period;
+
+        if ($this->isRestricted()) {
+            $this->_setRestrictable($config->tables);
+        }
     }
 
     protected function _initialize(KObjectConfig $config)
     {
-        $config->append(['actions' => []]);
+        $config->append(['actions' => [], 'grace_period' => 7, 'tables' => []]);
 
         parent::_initialize($config);
     }
 
+    protected function _setRestrictable($tables)
+    {
+        $identifier = $this->getIdentifier();
+
+        $manager = $this->getObject('manager');
+
+        $behavior = 'com:koowa.database.behavior.restrictable';
+
+        foreach ($tables as $table)
+        {
+            if (!$table instanceof KObjectIdentifierInterface)
+            {
+                $table = (string) $table;
+
+                if (strpos($table, '.') === false) {
+                    $table = sprintf('com://%s/%s.database.table.%s', $identifier->getDomain(), $identifier->getPackage(), KStringInflector::pluralize($table));
+                }
+            }
+
+            if ($manager->isRegistered($table)) {
+                $this->getObject($table)->addBehavior($behavior, ['actions' => $this->_actions]);
+            } else {
+                $manager->getIdentifier($table)->getConfig()->append(['behaviors' => [$behavior => ['actions' => $this->_actions]]]);
+            }
+        }
+    }
+
     protected function _beforeRender(KControllerContextInterface $context)
     {
-        $result = false;
+        $result = true;
 
-        if (JFactory::getApplication()->isClient('administrator'))
+        if (JFactory::getApplication()->isClient('administrator') && $context->getRequest()->getFormat() == 'html')
         {
-            $result = $this->isRestricted();
-
             $license = $this->_getLicense();
 
-            if ($result)
+            $translator = $this->getObject('translator');
+
+            if ($license->hasError())
             {
-                if ($subscription = $license->getSubscription($this->_getComponent(true), false))
+                $context->_message = $translator->translate('license error', ['error' => $translator->translate($license->getError()), 'url' => 'https://dashboard.joomlatools.com']);
+                
+                $this->_redirect($context);
+
+                $result = false;
+            } 
+            elseif ($this->isRestricted(true))
+            {
+                if ($this->_isWihtinGracePeriod($license))
                 {
-                    $past = ($subscription['end'] - time())/86400;
+                    $message = $this->getObject('translator')->translate('license recent expiry', ['component' => $this->_getComponent()]);
 
-                    if ($past <= 7)
-                    {
-                        $message = $this->getObject('translator')->translate('license recent expiry', ['component' => $this->_getComponent()]);
-
-                        $context->getResponse()->addMessage($message,KControllerResponseInterface::FLASH_WARNING);
-                    }
-                    else $this->_redirect($context);   
+                    $context->getResponse()->addMessage($message, KControllerResponseInterface::FLASH_WARNING);
                 }
+                else 
+                {
+                    $context->_message = $translator->translate('license expiry', ['component' => $this->_getComponent()]);
+
+                    $this->_redirect($context);
+                    
+                    $result = false;
+                } 
             }
             elseif ($subscription = $license->getSubscription($this->_getComponent(true)))
             {
@@ -64,13 +111,29 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
                     {
                         $message = $this->getObject('translator')->translate('subscription cancelled', ['component' => $this->_getComponent()]);
 
-                        $context->getResponse()->addMessage($message,KControllerResponseInterface::FLASH_WARNING);
+                        $context->getResponse()->addMessage($message, KControllerResponseInterface::FLASH_WARNING);
                     }                        
                 }
             }
         }
 
-        return !$result;
+        return $result;
+    }
+
+    protected function _isWihtinGracePeriod($license)
+    {
+        $result = false;
+
+        if ($subscription = $license->getSubscription($this->_getComponent(true), false))
+        {
+            $past = (time() - $subscription['end'])/86400;
+
+            if ($past <= $this->_grace_period) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 
     protected function _getComponent($raw = false)
@@ -101,7 +164,11 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         }
         else $url = $config->redirect_url;
 
-        $response->setRedirect($url, $this->getObject('translator')->translate('license expiry', ['component' => $this->_getComponent()]), KControllerResponseInterface::FLASH_ERROR);
+        $type = $context->_message_type ?? KControllerResponseInterface::FLASH_ERROR;
+
+        if (!$context->_message) throw \RuntimeException('Restrictable re-direct call is missing a message');
+
+        $response->setRedirect($url, $context->_message, $type);
     }
 
     public function getRestrictedActions()
@@ -123,24 +190,34 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         return $this->getObject('license');
     }
 
-    public function isRestricted()
+    public function isRestricted($strict = false)
     {
-        $result = true;
-
-        try
+        if (!isset($this->_restricted))
         {
-            $license = $this->_getLicense();
-            
-            $result = !$license->hasFeature($this->_getComponent());
-        }
-        catch(Exception $e)
-        {
-            // Exceptions are handled as expired subs
+            $result = true;
 
-            $result = false;
+            try
+            {
+                $license = $this->_getLicense();
+                
+                $result = !$license->hasFeature($this->_getComponent(true));
+    
+                if ($result && !$strict && $this->_grace_period) {
+                    $result = !$this->_isWihtinGracePeriod($license);
+                }
+            }
+            catch(\Exception $e)
+            {
+                // Exceptions are handled as expired subs
+    
+                $result = true;
+            }
+    
+            if ($this->_isLocal()) $result = false;
+//$result = true;
+            $this->_restricted = $result;
         }
-
-        if ($this->_isLocal()) $result = false;
+        else $result = $this->_restricted;
 
         return $result;
     }
