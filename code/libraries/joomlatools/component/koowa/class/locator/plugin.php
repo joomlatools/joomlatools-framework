@@ -49,6 +49,8 @@ class ComKoowaClassLocatorPlugin extends KClassLocatorAbstract
      */
     public function locate($classname, $basepath = null)
     {
+        $result = false;
+
         if (substr($classname, 0, 3) === 'Plg')
         {
             /*
@@ -67,37 +69,38 @@ class ComKoowaClassLocatorPlugin extends KClassLocatorAbstract
 
             array_shift($parts);
             $package   = array_shift($parts);
-            $namespace = ucfirst($package);
 
-            if(count($parts)) {
-                $file = array_pop($parts);
-            } else {
-                $file = $package;
+            if ($package)
+            {
+                $namespace = ucfirst($package);
+
+                if(count($parts)) {
+                    $file = array_pop($parts);
+                } else {
+                    $file = $package;
+                }
+
+                //Switch basepath
+                if(!$this->getNamespace($namespace)) {
+                    $basepath = $this->getNamespace('\\');
+                } else {
+                    $basepath = $this->getNamespace($namespace);
+                }
+
+                $path = '';
+
+                if (!empty($parts)) {
+                    $path = implode('/', $parts) . '/';
+                }
+
+                $result = $basepath.'/'.$package.'/'.$path . $file.'.php';
+
+                if(!is_file($result)) {
+                    $result = $basepath.'/'.$package.'/'.$path . $file.'/'.$file.'.php';
+                }
             }
-
-            //Switch basepath
-            if(!$this->getNamespace($namespace)) {
-                $basepath = $this->getNamespace('\\');
-            } else {
-                $basepath = $this->getNamespace($namespace);
-            }
-
-            $path = '';
-
-            if (!empty($parts)) {
-                $path = implode('/', $parts) . '/';
-            }
-
-            $result = $basepath.'/'.$package.'/'.$path . $file.'.php';
-
-            if(!is_file($result)) {
-                $result = $basepath.'/'.$package.'/'.$path . $file.'/'.$file.'.php';
-            }
-
-            return $result;
         }
 
-        return false;
-
+        return $result;
     }
 }
