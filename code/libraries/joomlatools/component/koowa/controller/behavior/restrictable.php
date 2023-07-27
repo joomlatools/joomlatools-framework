@@ -70,7 +70,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
     {
         $result = true;
 
-        if (JFactory::getApplication()->isClient('administrator') && $context->getRequest()->getFormat() == 'html')
+        if (!$this->_isLocal() && JFactory::getApplication()->isClient('administrator') && $context->getRequest()->getFormat() == 'html')
         {
             $license = $this->_getLicense();
 
