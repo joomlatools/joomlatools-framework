@@ -276,6 +276,8 @@ class KViewJson extends KViewAbstract
             }
             elseif ($key === 'href')
             {
+                $value = $value ?? ''; // Replace with empty string if null
+                
                 if (substr($value, 0, 4) !== 'http') {
                     $array[$key] = $base.$value;
                 }
