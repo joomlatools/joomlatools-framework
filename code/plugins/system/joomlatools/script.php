@@ -40,9 +40,13 @@ class PlgSystemJoomlatoolsInstallerScript
                             }
                             else if ($listener instanceof Closure) {
                                 $fn = new ReflectionFunction($listener);
-                                $closureThis = get_class($fn->getClosureThis());
-                                if (substr($closureThis, 0, 9) === 'PlgLogman' || $closureThis === 'PlgSystemKoowa') {
-                                    $this->removeListener($event, $listener);
+                                $closureThis = $fn->getClosureThis();
+                                if ($closureThis)
+                                {
+                                    $class = get_class($fn->getClosureThis());
+                                    if (substr($class, 0, 9) === 'PlgLogman' || $class === 'PlgSystemKoowa') {
+                                        $this->removeListener($event, $listener);
+                                    }
                                 }
                             }
                         }
