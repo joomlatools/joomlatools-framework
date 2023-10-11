@@ -250,7 +250,7 @@ class ComMigratorMigratorBehaviorImportDatabase extends KControllerBehaviorAbstr
         // Update component IDs
         $sql = /** @lang text */
         "UPDATE #__%1\$s AS m
-        LEFT JOIN j_extensions AS e ON e.element = CONCAT('com_', SUBSTRING_INDEX(SUBSTRING_INDEX(m.link, 'com_', -1), '&', 1)) AND e.type = 'component'
+        LEFT JOIN #__extensions AS e ON e.element = CONCAT('com_', SUBSTRING_INDEX(SUBSTRING_INDEX(m.link, 'com_', -1), '&', 1)) AND e.type = 'component'
         SET m.component_id = e.extension_id
         ";
 
