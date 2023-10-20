@@ -149,20 +149,15 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                     $filename = str_replace('#', '_', $filename);
                 }
 
-                $directives = array('filename' => '"'.$filename.'"');
-
-                // IE accepts percent encoded file names as the filename value
-                // Other browsers (except Safari) use filename* header starting with UTF-8''
                 $encoded_name = rawurlencode($filename);
-
-                if($encoded_name !== $filename)
-                {
-                    if (preg_match('/(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:)(\d+)/i', $user_agent)) {
-                        $directives['filename'] = '"'.$encoded_name.'"';
-                    }
-                    elseif (!stripos($user_agent, 'AppleWebkit')) {
-                        $directives['filename*'] = 'UTF-8\'\''.$encoded_name;
-                    }
+                
+                // For non-ASCII filenames we use the filename* directive without including filename =>
+                // Even though the specs say that filename* is to be prioritized when filename is also included,
+                // Chrome does not seems to honor the priority
+                if($encoded_name !== $filename) {
+                    $directives['filename*'] = 'UTF-8\'\''.$encoded_name;
+                } else {
+                    $directives = array('filename' => '"'.$filename.'"');
                 }
 
                 $disposition = $response->isAttachable() ? 'attachment' : 'inline';
