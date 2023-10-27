@@ -65,6 +65,13 @@ final class KObjectBootstrapper extends KObject implements KObjectBootstrapperIn
     protected $_aliases;
 
     /**
+     * List of identifiers
+     *
+     * @var array
+     */
+    protected $_identifiers;
+
+    /**
      * Bootstrapped status.
      *
      * @var bool
