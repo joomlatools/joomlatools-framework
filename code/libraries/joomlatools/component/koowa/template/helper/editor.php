@@ -47,7 +47,7 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
         // Some editors like CKEditor return inline JS. 
         $result = str_replace('<script', '<script data-inline', $result);
 
-        if (version_compare(JVERSION, '4.0', '>='))
+        if (version_compare(JVERSION, '4', '>='))
         {
             $fields = array(
                 'joomla-field-media',
@@ -71,6 +71,28 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
                 $url->setPath(array_merge($prepend_path, ['media', 'system', 'css', 'fields', sprintf('%s.css', $field)]));
 
                 $result .= sprintf('<ktml:style src="%s" />', $url);
+            }
+        }
+        
+        if (version_compare(JVERSION, '5', '>='))
+        {
+            $document = Joomla\CMS\Factory::getApplication()->getDocument();
+
+            $assets_manager = $document->getWebAssetManager();
+
+            //$assets_manager = new Joomla\CMS\WebAsset\WebAssetManager(\Joomla\CMS\Factory::getContainer()->get('webassetregistry'));
+            $assets = $assets_manager->getAssets('script', true);
+
+            $scripts_renderer = new Joomla\CMS\Document\Renderer\Html\ScriptsRenderer($document);
+
+            $get_importmap = Closure::bind(function ($assets) {
+                return $this->renderImportMap($assets);
+            }, $scripts_renderer, $scripts_renderer);
+
+            $import_map = $get_importmap($assets);
+
+            if ($import_map) {
+                $result .= $import_map;
             }
         }
 

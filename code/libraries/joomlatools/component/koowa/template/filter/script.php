@@ -20,6 +20,8 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
      */
     protected $_loaded = array();
 
+    protected $_import_map = null;
+
     /**
      * Find any virtual tags and render them
      *
@@ -31,11 +33,12 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
     {
         $scripts = $this->_parseTags($text);
 
-        if($this->getTemplate()->decorator() == 'koowa') {
+        if($this->getTemplate()->decorator() == 'koowa')
+        {
+            $text = str_replace('<ktml:importmap>', $this->_import_map ?? '', $text);
             $text = str_replace('<ktml:script>', $scripts, $text);
-        } else  {
-            $text = $scripts.$text;
         }
+        else $text = $scripts.$text;
     }
 
     /**
@@ -47,6 +50,8 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
      */
     protected function _renderTag($attribs = array(), $content = null)
     {
+        $result = '';
+
         if($this->getTemplate()->decorator() == 'joomla')
         {
             $link = isset($attribs['src']) ? $attribs['src'] : false;
@@ -87,6 +92,16 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
                 JFactory::getDocument()->addScript($link, $options, $attribs);
             }
         }
-        else return parent::_renderTag($attribs, $content);
+        else
+        {
+            if (isset($attribs['type']) && $attribs['type'] == 'importmap') {
+                $this->_import_map = parent::_renderTag($attribs, $content);
+            } else {
+                $result = parent::_renderTag($attribs, $content);
+            }
+           
+        }
+
+        return $result;
     }
 }
