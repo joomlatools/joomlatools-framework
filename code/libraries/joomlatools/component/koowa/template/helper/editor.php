@@ -78,12 +78,19 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
         {
             $document = Joomla\CMS\Factory::getApplication()->getDocument();
 
+            $scripts_renderer = new Joomla\CMS\Document\Renderer\Html\ScriptsRenderer($document);
+
+            // Method 1 - Begin
+
+            $result .= $scripts_renderer->render(null, [], null);
+
+            // Method 1 - End
+
+            // Method 2 - Begin
+            /*
             $assets_manager = $document->getWebAssetManager();
 
-            //$assets_manager = new Joomla\CMS\WebAsset\WebAssetManager(\Joomla\CMS\Factory::getContainer()->get('webassetregistry'));
             $assets = $assets_manager->getAssets('script', true);
-
-            $scripts_renderer = new Joomla\CMS\Document\Renderer\Html\ScriptsRenderer($document);
 
             $get_importmap = Closure::bind(function ($assets) {
                 return $this->renderImportMap($assets);
@@ -94,6 +101,9 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
             if ($import_map) {
                 $result .= $import_map;
             }
+            */
+
+            // Method 2 - End
         }
 
         return $result;
