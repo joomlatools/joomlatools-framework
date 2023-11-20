@@ -44,7 +44,7 @@ class ComFilesModelFolders extends ComFilesModelNodes
             $folders = array_reverse($folders);
         }
 
-        $folders = array_slice($folders, $state->offset, $state->limit ? $state->limit : $this->_count);
+        $folders = array_slice($folders, $state->offset ?? 0, $state->limit ? $state->limit : $this->_count);
 
         $identifier         = $this->getIdentifier()->toArray();
         $identifier['path'] = array('model', 'entity');

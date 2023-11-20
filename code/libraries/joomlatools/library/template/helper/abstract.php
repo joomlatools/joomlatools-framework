@@ -149,7 +149,7 @@ abstract class KTemplateHelperAbstract extends KObject implements KTemplateHelpe
                     $item = $key;
                 }
 
-                $output[] = $key.'="'.str_replace('"', '&quot;', $item).'"';
+                $output[] = $key.'="'.str_replace('"', '&quot;', $item ?? '').'"';
             }
         }
 
