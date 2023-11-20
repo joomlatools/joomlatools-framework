@@ -15,7 +15,7 @@
 }
 .access-rules joomla-tab > ul a[role=tab][active], .access-rules joomla-tab > ul a[role=tab]:hover {
   margin: 0;
-  border-bottom-color: #dee2e6;
+  border-bottom-color: rgb(222, 226, 230);
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
@@ -73,12 +73,9 @@
 }
 .access-rules img {
   /* Responsive images (ensure images don't scale beyond their parents) */
-  max-width: 100%;
-  /* Part 1: Set a maxium relative to the parent */
-  width: auto\9 ;
-  /* IE7-8 need help adjusting responsive images */
-  height: auto;
-  /* Part 2: Scale the height according to the width, otherwise you get stretching */
+  max-width: 100%; /* Part 1: Set a maxium relative to the parent */
+  width: auto\9 ; /* IE7-8 need help adjusting responsive images */
+  height: auto; /* Part 2: Scale the height according to the width, otherwise you get stretching */
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;
@@ -142,7 +139,7 @@
     box-shadow: none !important;
   }
   .access-rules a,
-.access-rules a:visited {
+  .access-rules a:visited {
     text-decoration: underline;
   }
   .access-rules a[href]:after {
@@ -152,12 +149,12 @@
     content: " (" attr(title) ")";
   }
   .access-rules .ir a:after,
-.access-rules a[href^="javascript:"]:after,
-.access-rules a[href^="#"]:after {
+  .access-rules a[href^="javascript:"]:after,
+  .access-rules a[href^="#"]:after {
     content: "";
   }
   .access-rules pre,
-.access-rules blockquote {
+  .access-rules blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
@@ -165,7 +162,7 @@
     display: table-header-group;
   }
   .access-rules tr,
-.access-rules img {
+  .access-rules img {
     page-break-inside: avoid;
   }
   .access-rules img {
@@ -177,13 +174,13 @@
     }
   }
   .access-rules p,
-.access-rules h2,
-.access-rules h3 {
+  .access-rules h2,
+  .access-rules h3 {
     orphans: 3;
     widows: 3;
   }
   .access-rules h2,
-.access-rules h3 {
+  .access-rules h3 {
     page-break-after: avoid;
   }
 }
@@ -661,8 +658,7 @@
 .access-rules ul.inline > li,
 .access-rules ol.inline > li {
   display: inline-block;
-  *display: inline;
-  /* IE7 inline-block hack */
+  *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
   padding-left: 5px;
   padding-right: 5px;
@@ -882,17 +878,14 @@
 .access-rules .uneditable-input:focus {
   border-color: rgba(82, 168, 236, 0.8);
   outline: 0;
-  outline: thin dotted \9 ;
-  /* IE6-9 */
+  outline: thin dotted \9 ; /* IE6-9 */
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 .access-rules input[type=radio],
 .access-rules input[type=checkbox] {
   margin: 4px 0 0;
-  *margin-top: 0;
-  /* IE7 */
-  margin-top: 1px \9 ;
-  /* IE8-9 */
+  *margin-top: 0; /* IE7 */
+  margin-top: 1px \9 ; /* IE8-9 */
   line-height: normal;
 }
 .access-rules input[type=file],
@@ -906,10 +899,8 @@
 }
 .access-rules select,
 .access-rules input[type=file] {
-  height: 30px;
-  /* In IE7, the height of the select element cannot be changed by height, only font-size */
-  *margin-top: 4px;
-  /* For IE7, add top margin to align select with labels */
+  height: 30px; /* In IE7, the height of the select element cannot be changed by height, only font-size */
+  *margin-top: 4px; /* For IE7, add top margin to align select with labels */
   line-height: 30px;
 }
 .access-rules select {
@@ -1283,8 +1274,7 @@
 }
 .access-rules .help-inline {
   display: inline-block;
-  *display: inline;
-  /* IE7 inline-block hack */
+  *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
   vertical-align: middle;
   padding-left: 5px;
@@ -1413,8 +1403,7 @@
   padding-right: 14px;
   padding-right: 4px \9 ;
   padding-left: 14px;
-  padding-left: 4px \9 ;
-  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+  padding-left: 4px \9 ; /* IE7-8 doesn't have border-radius, so don't indent the padding */
   margin-bottom: 0;
   border-radius: 15px;
 }
@@ -1456,8 +1445,7 @@
 .access-rules .form-horizontal .input-prepend,
 .access-rules .form-horizontal .input-append {
   display: inline-block;
-  *display: inline;
-  /* IE7 inline-block hack */
+  *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
   margin-bottom: 0;
   vertical-align: middle;
@@ -2446,7 +2434,7 @@
   font-weight: bold;
   line-height: 20px;
   color: #000;
-  text-shadow: 0 1px 0 white;
+  text-shadow: 0 1px 0 rgb(255, 255, 255);
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
@@ -3065,8 +3053,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFF2F2F2", endColorstr="#FFE6E6E6", GradientType=0);
   border-color: #e6e6e6 #e6e6e6 #bfbfbf;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #e6e6e6;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  *background-color: #e6e6e6; /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
 }
@@ -3266,8 +3253,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FF151515", endColorstr="#FF040404", GradientType=0);
   border-color: #040404 #040404 black;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #040404;
-  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  *background-color: #040404; /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .access-rules .navbar-inverse .btn-navbar:hover, .access-rules .navbar-inverse .btn-navbar:focus, .access-rules .navbar-inverse .btn-navbar:active, .access-rules .navbar-inverse .btn-navbar.active, .access-rules .navbar-inverse .btn-navbar.disabled, .access-rules .navbar-inverse .btn-navbar[disabled] {

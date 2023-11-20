@@ -28,47 +28,47 @@
 
 
   // Core variables and mixins
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/mixins";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/mixins";
 
   $iconSpritePath: "../../koowa/framework/img/glyphicons-halflings.png";
   $iconWhiteSpritePath: "../../koowa/framework/img/glyphicons-halflings-white.png";
 
   // CSS Reset
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/reset";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/reset";
 
   // Grid system and page structure
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/scaffolding";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/grid";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/layouts";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/scaffolding";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/grid";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/layouts";
 
   // Base CSS
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/type";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/forms";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/tables";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/type";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/forms";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/tables";
 
   // Components: common
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/sprites";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/dropdowns";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/wells";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/component-animations";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/close";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/sprites";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/dropdowns";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/wells";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/component-animations";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/close";
 
   // Components: Buttons & Alerts
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
 
   // Components: Nav
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/navs";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/navbar";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/navs";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/navbar";
 
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/tooltip";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/tooltip";
 
   // Components: Misc
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/media";
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/labels-badges";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/media";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/labels-badges";
 
   // Utility classes
-  @import "../../../../../../../../../kodekit-ui/src/scss/sass-twitter-bootstrap/utilities"; // Has to be last to override when necessary
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/sass-twitter-bootstrap/utilities"; // Has to be last to override when necessary
 }
 
 .k-ui-j4-form

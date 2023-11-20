@@ -1,0 +1,201 @@
+joomla-dialog dialog {
+    width: 96vw;
+    max-width: 1700px;
+    height: 96vh;
+    padding: 0;
+    border: 1px solid var(--border-color-translucent);
+    border-radius: 0.3rem;
+    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  @media (min-width: 1400px) {
+    joomla-dialog dialog {
+      width: 80vw;
+      height: 80vh;
+    }
+  }
+  joomla-dialog dialog[open] {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  joomla-dialog[type=image] dialog {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  joomla-dialog[type=iframe] dialog {
+    overflow: hidden;
+  }
+  joomla-dialog iframe.iframe-content {
+    width: 100%;
+    height: 100%;
+  }
+  joomla-dialog[type=iframe].loading dialog:after, joomla-dialog[type=ajax].loading dialog:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 66px;
+    height: 66px;
+    content: "";
+    background: url("../../../../system/images/ajax-loader.gif?v=144b8c") no-repeat center;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  
+  joomla-dialog dialog[open] {
+    -webkit-animation: dialog-show 0.4s ease normal;
+            animation: dialog-show 0.4s ease normal;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    joomla-dialog dialog[open] {
+      -webkit-animation: none;
+              animation: none;
+    }
+  }
+  
+  @-webkit-keyframes dialog-show {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(-50px);
+              transform: translateY(-50px);
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+    }
+  }
+  
+  @keyframes dialog-show {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(-50px);
+              transform: translateY(-50px);
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+    }
+  }
+  .joomla-dialog-container {
+    position: relative;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    width: 100%;
+  }
+  .joomla-dialog-container .buttons-holder {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-margin-start: auto;
+            margin-inline-start: auto;
+  }
+  .joomla-dialog-container .buttons-holder button {
+    margin-inline: 0.375rem;
+  }
+  
+  .joomla-dialog-header {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .joomla-dialog-header h3, .joomla-dialog-header .h3 {
+    margin: 0;
+  }
+  .joomla-dialog-header .header-icon {
+    -webkit-margin-end: 0.375rem;
+            margin-inline-end: 0.375rem;
+    font-size: 1.25rem;
+  }
+  .joomla-dialog-header.empty {
+    display: none;
+  }
+  
+  .joomla-dialog-body {
+    position: relative;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+  }
+  .joomla-dialog-body .buttons-holder {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .joomla-dialog-body joomla-dialog[type=inline], joomla-dialog[type=ajax] .joomla-dialog-body {
+    overflow: auto;
+  }
+  joomla-dialog.loading .joomla-dialog-body {
+    opacity: 0;
+  }
+  joomla-dialog.loaded .joomla-dialog-body {
+    opacity: 1;
+    -webkit-transition: opacity 0.4s ease;
+    transition: opacity 0.4s ease;
+  }
+  
+  .joomla-dialog-footer {
+    position: relative;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+  .joomla-dialog-footer .buttons-holder button {
+    padding-inline: 22px;
+  }
+  .joomla-dialog-footer.empty {
+    display: none;
+  }
+  
+  .joomla-dialog-alert dialog,
+  .joomla-dialog-confirm dialog {
+    width: 600px;
+    max-width: 80vw;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .joomla-dialog-alert .joomla-dialog-body,
+  .joomla-dialog-confirm .joomla-dialog-body {
+    padding: 1rem;
+  }
+  
+  @media (min-width: 1400px) {
+    .joomla-dialog-content-select-field dialog {
+      width: 90vw;
+      height: 90vh;
+    }
+  }

@@ -6,7 +6,7 @@ $k-icon-path: '../../framework/fonts' !default;
 $k-atom-html: false;
 $k-atom-body: false;
 
-@import "../../../../../../../../../kodekit-ui/src/scss/admin-ui";
+@import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin-ui";
 
 .k-ui-joomla {
   @include k-html;
@@ -25,11 +25,16 @@ $k-atom-body: false;
 // Joomla styling
 // ==========================================================================
 
-@import "icomoon";
-
 .k-ui-j4-administrator {
 
-  @import "admin_j4";
+  @import "joomla4/admin";
+
+}
+
+.k-ui-j5-administrator {
+
+  //@import "joomla4/admin";
+
 }
 
 .k-ui-j4-form {
@@ -40,7 +45,8 @@ $k-atom-body: false;
       opacity: 1;
     }
 
-    @import "form_j4";
+    @import "joomla4/form";
+
   }
 
   .k-editor-modal .mfp-content {
@@ -49,19 +55,29 @@ $k-atom-body: false;
   }
 }
 
+.k-ui-j5-form {
+
+  .k-ui-namespace {
+
+    @import "joomla5/form";
+
+  }
+}
+
 .k-ui-j3-form {
 
   .k-ui-namespace {
 
-    @import "form_j3";
+    @import "joomla3/form";
 
   }
-
 }
 
-@import "icons_j4";
-
 @import "styles";
+
+@import "joomla3/icons";
+@import "joomla4/icons";
+@import "joomla5/icons";
 
 .k-ui-namespace {
 
