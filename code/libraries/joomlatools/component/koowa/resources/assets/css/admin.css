@@ -32602,7 +32602,7 @@ html[dir=rtl] .float-right {
 .k-ui-j5-form [class^=icon-], .k-ui-j5-form [class*=" icon-"] {
   /* Avoid Bootstrap icon overrides */
   background-image: none !important;
-  vertical-align: inherit !important;
+  margin: 0px !important;
 }
 
 html[dir=rtl] .float-right {
