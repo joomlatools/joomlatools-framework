@@ -97,8 +97,9 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
             }
         }
 
-        $is_joomla4 = version_compare(JVERSION, '4.0', '>=');
-        $ui         = sprintf('k-ui-j%s', $is_joomla4 ? 4 : 3);
+        $version = explode('.', JVERSION)[0];
+
+        $ui         = sprintf('k-ui-j%s', $version);
         $classes    = [$ui, sprintf('%s-%s', $ui, JFactory::getApplication()->getName())];
 
         if ($this->getTemplate()->decorator() == 'joomla')
@@ -118,7 +119,7 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
                     $html .= '<ktml:style src="assets://koowa/css/'.$template.'.css" />';
                 }
 
-                if ($is_joomla4)
+                if ($version >= 4)
                 {
                     if (!KTemplateHelperBehavior::isLoaded($ui))
                     {
