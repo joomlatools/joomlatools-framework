@@ -155,7 +155,7 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 if (isset($manager['script'])) {
                     /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
                     foreach ($manager['script'] as $script) {
-                        if ($script->getOption('webcomponent')) {
+                        if ($script->getOption('webcomponent') || $script->getOption('importmap')) {
                             continue; // they are loaded by Joomla in core.js
                         }
                         $uri = $script->getUri(true);
