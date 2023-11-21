@@ -1,6 +1,9 @@
 & {
   --hue: 214;
+  --template-bg-dark-3: hsl(var(--hue), 40%, 97%);
+  --template-bg-dark-10: hsl(var(--hue), 40%, 90%);
   --template-bg-dark-60: hsl(var(--hue), 40%, 40%);
+  --template-link-color: var(--link-color);
   --card-bg: rgba(255, 255, 255, 0.7);
   --card-color: var(--template-bg-dark-60);
   --bluegray: #b2bfcd;
@@ -460,6 +463,12 @@
   .modal-fullscreen-xxl-down .modal-body {
     overflow-y: auto;
   }
+}
+
+.fade {
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+  opacity: 100%;
 }
 
 /**
@@ -1323,35 +1332,28 @@ details summary ~ * {
  * Viewports
  */
 
+/**
+ * Iframes
+ */
+
  iframe {
   border: 0;
 }
+
+.modal iframe {
+  width: 100%;
+}
+
+/**
+ * Iframes
+ */
 
  /**
  * Editors
  */
 /*
-joomla-dialog {
 
-  h3 {
-    font-weight: 700;
-    font-size: 2rem;
-  }
 
-  .joomla-dialog-header .header-icon {
-    font-size: 2rem;
-  }
-
-}
-
-.editor-xtd-buttons {
-
-  [class^="icon-"], [class*=" icon-"] {
-    margin: 0px !important;
-  }
-
-} 
-*/
 
 /**
  * Editors
