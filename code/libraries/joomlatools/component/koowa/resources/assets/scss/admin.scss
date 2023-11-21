@@ -46,6 +46,7 @@ $k-atom-body: false;
     }
 
     @import "joomla4/form";
+    @import "joomla4/styles";
 
   }
 
@@ -57,11 +58,8 @@ $k-atom-body: false;
 
 .k-ui-j5-form {
 
-  .k-ui-namespace {
+  @import "joomla5/form";
 
-    @import "joomla5/form";
-
-  }
 }
 
 .k-ui-j3-form {
@@ -69,11 +67,10 @@ $k-atom-body: false;
   .k-ui-namespace {
 
     @import "joomla3/form";
+    @import "joomla3/styles";
 
   }
 }
-
-@import "styles";
 
 @import "joomla3/icons";
 @import "joomla4/icons";

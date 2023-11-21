@@ -2847,7 +2847,7 @@
   z-index: 3;
 }
 
-.k-ui-namespace .k-show-subcontent-area .k-button.k-subcontent-toggle, .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-show-subcontent-area .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-show-subcontent-area .k-subcontent-toggle.xtd-button.btn {
+.k-ui-namespace .k-show-subcontent-area .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn {
   opacity: 1;
 }
 .k-ui-namespace .k-show-subcontent-area .k-content-area__child {
@@ -2878,7 +2878,7 @@
 .k-ui-namespace .k-is-opened-subcontent .k-content-area {
   z-index: 3;
 }
-.k-ui-namespace .k-is-opened-subcontent .k-button.k-subcontent-toggle, .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-is-opened-subcontent .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-opened-subcontent .k-subcontent-toggle.xtd-button.btn {
+.k-ui-namespace .k-is-opened-subcontent .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn {
   visibility: visible;
   z-index: 10;
 }
@@ -3290,7 +3290,7 @@
   }
 }
 @media screen and (min-width: 1024px) {
-  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
     display: none;
   }
 }
@@ -3308,7 +3308,7 @@
 .k-ui-namespace .k-subcontent__child:not(:only-child).k-is-active {
   display: flex;
 }
-.k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+.k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
   position: absolute;
   visibility: hidden;
   opacity: 0;
@@ -3323,11 +3323,11 @@
   -webkit-backface-visibility: hidden;
 }
 @media screen and (min-width: 1024px) {
-  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
     display: none;
   }
 }
-[dir=rtl] .k-ui-namespace .k-button.k-subcontent-toggle, [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+[dir=rtl] .k-ui-namespace .k-button.k-subcontent-toggle, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn {
   margin: 0;
   right: auto;
   left: 8px;
@@ -3918,7 +3918,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.k-ui-namespace .k-button, .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
+.k-ui-namespace .k-button, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
   display: inline-block;
   margin-bottom: 0; /* 1 */
   font-weight: 400;
@@ -3944,109 +3944,109 @@
   /* Align single icon buttons */
   /* Properly align dropdown button in button */
 }
-.k-ui-namespace .k-button:last-child, .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:last-child {
+.k-ui-namespace .k-button:last-child, .k-ui-j3-form .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:last-child {
   margin-right: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button, [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
+[dir=rtl] .k-ui-namespace .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
   margin-right: 0;
   margin-left: 4px;
 }
-[dir=rtl] .k-ui-namespace .k-button:last-child, [dir=rtl] .k-ui-namespace .btn:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:last-child {
+[dir=rtl] .k-ui-namespace .k-button:last-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn:last-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn:last-child {
   margin-left: 0;
 }
 
-.k-ui-namespace .k-button, .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-namespace .k-button:hover, .k-ui-namespace .btn:hover, .k-ui-namespace .k-button:focus, .k-ui-namespace .btn:focus, .k-ui-namespace .k-button:active, .k-ui-namespace .btn:active {
+.k-ui-namespace .k-button, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-namespace .k-button:hover, .k-ui-namespace .k-button:focus, .k-ui-namespace .k-button:active {
   text-decoration: none;
 }
-.k-ui-namespace .k-button:focus, .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus, .k-ui-namespace .k-button:active:focus, .k-ui-namespace .btn:active:focus, .k-ui-namespace .k-button.k-is-active:focus, .k-ui-namespace .k-is-active.btn:focus {
+.k-ui-namespace .k-button:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus, .k-ui-namespace .k-button:active:focus, .k-ui-namespace .k-button.k-is-active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.k-ui-namespace .k-button:hover, .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:hover, .k-ui-namespace .k-button:focus, .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus {
+.k-ui-namespace .k-button:hover, .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:hover, .k-ui-namespace .k-button:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus {
   color: #222222;
 }
-.k-ui-namespace .k-button:active, .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:active, .k-ui-namespace .k-button.k-is-active, .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn {
+.k-ui-namespace .k-button:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:active, .k-ui-namespace .k-button.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn {
   outline: 0;
   background-image: none;
 }
-.k-ui-namespace .k-button[disabled], .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons [disabled].xtd-button.btn, .k-ui-namespace .k-button.k-is-disabled, .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-disabled.xtd-button.btn {
+.k-ui-namespace .k-button[disabled], .k-ui-j3-form .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons [disabled].xtd-button.btn, .k-ui-namespace .k-button.k-is-disabled, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-disabled.xtd-button.btn {
   cursor: not-allowed;
   opacity: 0.65;
   pointer-events: none;
 }
-.k-ui-namespace .k-button.k-button input[type=checkbox], .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn input[type=checkbox] {
+.k-ui-namespace .k-button.k-button input[type=checkbox], .k-ui-j3-form .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn input[type=checkbox] {
   margin: 0 -1px;
   vertical-align: top;
 }
-.k-ui-namespace .k-button [class^=k-icon], .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class^=k-icon] {
+.k-ui-namespace .k-button [class^=k-icon], .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class^=k-icon] {
   display: inline-block;
 }
-.k-ui-namespace .k-button [class^=k-icon]:first-child, .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class^=k-icon]:first-child {
+.k-ui-namespace .k-button [class^=k-icon]:first-child, .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:first-child {
   margin: 0 0.25em 0 0.1em;
 }
-[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:first-child, [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child {
+[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child {
   margin: 0 0.1em 0 0.25em;
 }
 
-.k-ui-namespace .k-button [class^=k-icon]:last-child, .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class^=k-icon]:last-child {
+.k-ui-namespace .k-button [class^=k-icon]:last-child, .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:last-child {
   margin: 0 0.1em 0 0.25em;
 }
-[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:last-child, [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child {
+[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:last-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child {
   margin: 0 0.25em 0 0.1em;
 }
 
-.k-ui-namespace .k-button [class*=icon-]:only-child, .k-ui-namespace .btn [class*=icon-]:only-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class*=icon-]:only-child,
+.k-ui-namespace .k-button [class*=icon-]:only-child, .k-ui-j3-form .k-ui-namespace .btn [class*=icon-]:only-child, .k-ui-j4-form .k-ui-namespace .btn [class*=icon-]:only-child,
 .k-ui-namespace .k-button .k-visually-hidden + [class*=icon-],
-.k-ui-namespace .btn .k-visually-hidden + [class*=icon-],
-.k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-visually-hidden + [class*=icon-] {
+.k-ui-j3-form .k-ui-namespace .btn .k-visually-hidden + [class*=icon-],
+.k-ui-j4-form .k-ui-namespace .btn .k-visually-hidden + [class*=icon-] {
   display: inline-block;
   margin: -4px;
   width: 14px;
 }
-.k-ui-namespace .k-button .k-dropdown, .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-dropdown {
+.k-ui-namespace .k-button .k-dropdown, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-dropdown {
   /* Pullback so whole button becomes clickable */
   /* Pull back to toggle button */
 }
-.k-ui-namespace .k-button .k-dropdown .k-dropdown__toggle, .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-dropdown .k-dropdown__toggle {
+.k-ui-namespace .k-button .k-dropdown .k-dropdown__toggle, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle {
   text-decoration: none;
   margin: -6px -12px;
   padding: 6px 12px;
 }
-.k-ui-namespace .k-button .k-dropdown .k-dropdown__menu, .k-ui-namespace .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-dropdown .k-dropdown__menu {
+.k-ui-namespace .k-button .k-dropdown .k-dropdown__menu, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu {
   margin-top: 4px;
   left: -6px;
 }
-.k-ui-namespace .k-button--default, .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .btn-secondary {
+.k-ui-namespace .k-button--default, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .btn-secondary {
   color: #222222;
   background-color: white;
   border-color: #cdcdcd;
 }
-.k-ui-namespace .k-button--default:focus, .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-namespace .k-button--default.k-has-focus, .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary {
+.k-ui-namespace .k-button--default:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-namespace .k-button--default.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary {
   color: #222222;
   background-color: #e6e6e6;
   border-color: #8d8d8d;
 }
-.k-ui-namespace .k-button--default:hover, .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:hover {
+.k-ui-namespace .k-button--default:hover, .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:hover {
   color: #222222;
   background-color: #e6e6e6;
   border-color: #aeaeae;
 }
-.k-ui-namespace .k-button--default:active, .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
+.k-ui-namespace .k-button--default:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
   color: #222222;
   background-color: #e6e6e6;
   border-color: #aeaeae;
   box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.125);
 }
-.k-ui-namespace .k-button--default:active:hover, .k-ui-namespace .btn:active:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:hover, .k-ui-namespace .k-button--default:active:focus, .k-ui-namespace .btn:active:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:focus, .k-ui-namespace .k-button--default:active.k-has-focus, .k-ui-namespace .btn:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active.k-has-focus, .k-ui-namespace .k-button--default.k-is-active:hover, .k-ui-namespace .k-is-active.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-active:focus, .k-ui-namespace .k-is-active.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-active.k-has-focus, .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:hover, .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:hover, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:focus, .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:focus, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle.k-has-focus, .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn-secondary {
+.k-ui-namespace .k-button--default:active:hover, .k-ui-j3-form .k-ui-namespace .btn:active:hover, .k-ui-j4-form .k-ui-namespace .btn:active:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:hover, .k-ui-namespace .k-button--default:active:focus, .k-ui-j3-form .k-ui-namespace .btn:active:focus, .k-ui-j4-form .k-ui-namespace .btn:active:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:focus, .k-ui-namespace .k-button--default:active.k-has-focus, .k-ui-j3-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active.k-has-focus, .k-ui-namespace .k-button--default.k-is-active:hover, .k-ui-j3-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-active:focus, .k-ui-j3-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-active.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:hover, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:hover, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:focus, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:focus, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle.k-has-focus, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn-secondary {
   color: #222222;
   background-color: #d4d4d4;
   border-color: #8d8d8d;
 }
-.k-ui-namespace .k-button--default:active, .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
+.k-ui-namespace .k-button--default:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
   background-image: none;
 }
-.k-ui-namespace .k-button--default.k-is-disabled:hover, .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-disabled:focus, .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-disabled.k-has-focus, .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn-secondary, .k-ui-namespace .k-button--default[disabled]:hover, .k-ui-namespace [disabled].btn:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:hover, .k-ui-namespace .k-button--default[disabled]:focus, .k-ui-namespace [disabled].btn:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:focus, .k-ui-namespace .k-button--default[disabled].k-has-focus, .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn-secondary, fieldset[disabled] .k-ui-namespace .k-button--default:hover, fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:hover, fieldset[disabled] .k-ui-namespace .k-button--default:focus, fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:focus, fieldset[disabled] .k-ui-namespace .k-button--default.k-has-focus, fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn-secondary {
+.k-ui-namespace .k-button--default.k-is-disabled:hover, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-disabled:focus, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-disabled.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn-secondary, .k-ui-namespace .k-button--default[disabled]:hover, .k-ui-j3-form .k-ui-namespace [disabled].btn:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:hover, .k-ui-namespace .k-button--default[disabled]:focus, .k-ui-j3-form .k-ui-namespace [disabled].btn:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:focus, .k-ui-namespace .k-button--default[disabled].k-has-focus, .k-ui-j3-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn-secondary, fieldset[disabled] .k-ui-namespace .k-button--default:hover, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:hover, fieldset[disabled] .k-ui-namespace .k-button--default:focus, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:focus, fieldset[disabled] .k-ui-namespace .k-button--default.k-has-focus, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .k-has-focus.btn, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn-secondary {
   background-color: white;
   border-color: #cdcdcd;
 }
@@ -4284,7 +4284,7 @@
    * Prevent double borders when buttons are next to each other
    */
 }
-.k-ui-namespace .k-button-group > .k-button, .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn {
+.k-ui-namespace .k-button-group > .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn {
   position: relative;
   float: left;
   margin: 0;
@@ -4292,96 +4292,108 @@
    * Bring the "active" button to the front
    */
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button, [dir=rtl] .k-ui-namespace .k-button-group > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn {
   float: right;
 }
 
-.k-ui-namespace .k-button-group > .k-button:hover, .k-ui-namespace .k-button-group > .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn:hover, .k-ui-namespace .k-button-group > .k-button:focus, .k-ui-namespace .k-button-group > .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn:focus, .k-ui-namespace .k-button-group > .k-button:active, .k-ui-namespace .k-button-group > .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn:active, .k-ui-namespace .k-button-group > .k-button.k-is-active, .k-ui-namespace .k-button-group > .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .k-is-active.xtd-button.btn {
+.k-ui-namespace .k-button-group > .k-button:hover, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-namespace .k-button-group > .k-button:focus, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-namespace .k-button-group > .k-button:active, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-namespace .k-button-group > .k-button.k-is-active, .k-ui-j3-form .k-ui-namespace .k-button-group > .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-button-group > .k-is-active.btn {
   z-index: 2;
 }
-.k-ui-namespace .k-button-group .k-button + .k-button, .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .editor-xtd-buttons .xtd-button.btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-button-group .editor-xtd-buttons .xtd-button.btn + .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group .xtd-button.btn + .k-button, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group .xtd-button.btn + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .editor-xtd-buttons .k-button + .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .k-button-group .editor-xtd-buttons .btn + .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group .k-button + .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group .btn + .xtd-button.btn,
+.k-ui-namespace .k-button-group .k-button + .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn,
 .k-ui-namespace .k-button-group .k-button + .k-button-group,
-.k-ui-namespace .k-button-group .btn + .k-button-group,
-.k-ui-j4-form .k-ui-namespace .k-button-group .editor-xtd-buttons .xtd-button.btn + .k-button-group,
-.k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group .xtd-button.btn + .k-button-group,
+.k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group,
+.k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group,
 .k-ui-namespace .k-button-group .k-button-group + .k-button,
-.k-ui-namespace .k-button-group .k-button-group + .btn,
-.k-ui-j4-form .k-ui-namespace .k-button-group .editor-xtd-buttons .k-button-group + .xtd-button.btn,
-.k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group .k-button-group + .xtd-button.btn,
+.k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn,
+.k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn,
 .k-ui-namespace .k-button-group .k-button-group + .k-button-group {
   margin-left: -1px;
 }
-.k-ui-namespace .k-button-group .k-button + .k-button:first-child, .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-namespace .k-button-group .btn + .btn:first-child,
+.k-ui-namespace .k-button-group .k-button + .k-button:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn:first-child,
 .k-ui-namespace .k-button-group .k-button + .k-button-group:first-child,
-.k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+.k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+.k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 .k-ui-namespace .k-button-group .k-button-group + .k-button:first-child,
-.k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+.k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+.k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 .k-ui-namespace .k-button-group .k-button-group + .k-button-group:first-child {
   margin-left: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button, [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn,
+[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button-group,
-[dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button,
-[dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button-group {
   margin-left: 0;
   margin-right: -1px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button:first-child, [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child,
+[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button-group:first-child,
-[dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button:first-child,
-[dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button-group:first-child {
   margin-right: 0;
 }
 
-.k-ui-namespace .k-button-group > .k-button:not(:first-child):not(:last-child), .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child) {
+.k-ui-namespace .k-button-group > .k-button:not(:first-child):not(:last-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
-.k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
+.k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
 }
 
-.k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
+.k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
 }
@@ -4852,7 +4864,7 @@
 .k-ui-namespace .k-empty-state p small {
   font-size: 80%;
 }
-.k-ui-namespace .k-form-control, .k-ui-j4-form .k-ui-namespace .form-control, .k-ui-j4-form .k-ui-namespace select {
+.k-ui-namespace .k-form-control, .k-ui-j4-form .k-ui-namespace .form-control, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select, .k-ui-j4-form .k-ui-namespace select {
   display: block;
   width: 100%; /* 1 */
   max-width: 100%; /* 1 */
@@ -4881,17 +4893,17 @@
   outline: 0;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(52, 152, 219, 0.6);
 }
-.k-ui-namespace .k-form-control::-moz-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-moz-placeholder, .k-ui-j4-form .k-ui-namespace select::-moz-placeholder {
+.k-ui-namespace .k-form-control::-moz-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-moz-placeholder, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-moz-placeholder, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-moz-placeholder, .k-ui-j4-form .k-ui-namespace select::-moz-placeholder {
   color: #9a9a9a;
   opacity: 1;
 }
 .k-ui-namespace .k-form-control:-ms-input-placeholder, .k-ui-j4-form .k-ui-namespace .form-control:-ms-input-placeholder, .k-ui-j4-form .k-ui-namespace select:-ms-input-placeholder {
   color: #9a9a9a;
 }
-.k-ui-namespace .k-form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder {
+.k-ui-namespace .k-form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder {
   color: #9a9a9a;
 }
-.k-ui-namespace .k-form-control::-ms-expand, .k-ui-j4-form .k-ui-namespace .form-control::-ms-expand, .k-ui-j4-form .k-ui-namespace select::-ms-expand {
+.k-ui-namespace .k-form-control::-ms-expand, .k-ui-j4-form .k-ui-namespace .form-control::-ms-expand, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-ms-expand, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-ms-expand, .k-ui-j4-form .k-ui-namespace select::-ms-expand {
   border: 0;
   background-color: transparent;
 }
@@ -5171,17 +5183,17 @@
 .k-ui-namespace .k-input-group .k-form-control:focus, .k-ui-j4-form .k-ui-namespace .k-input-group .form-control:focus, .k-ui-j4-form .k-ui-namespace .k-input-group select:focus {
   z-index: 3; /* 5 */
 }
-.k-ui-namespace .k-input-group .k-input-group__button .k-button, .k-ui-namespace .k-input-group .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group .k-input-group__button .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group .k-input-group__button .xtd-button.btn {
+.k-ui-namespace .k-input-group .k-input-group__button .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group .k-input-group__button .btn {
   height: 32px;
 }
-.k-ui-namespace .k-input-group--large > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--large > .k-input-group__addon, .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group--large > .k-input-group__button > .xtd-button.btn {
+.k-ui-namespace .k-input-group--large > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--large > .k-input-group__addon, .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
   height: 40px;
   padding: 8px 16px;
   font-size: 17px;
   line-height: 24px;
   border-radius: 6px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group--large > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > select, [dir=rtl] .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
+[dir=rtl] .k-ui-namespace .k-input-group--large > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > select, [dir=rtl] .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
   border-radius: 6px;
 }
 
@@ -5201,14 +5213,14 @@
 .k-ui-j4-form .k-ui-namespace .k-input-group--large select[multiple] {
   height: auto;
 }
-.k-ui-namespace .k-input-group--small > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--small > .k-input-group__addon, .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group--small > .k-input-group__button > .xtd-button.btn {
+.k-ui-namespace .k-input-group--small > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--small > .k-input-group__addon, .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
   height: 28px;
   padding: 4px 8px;
   font-size: 11px;
   line-height: 20px;
   border-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group--small > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > select, [dir=rtl] .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
+[dir=rtl] .k-ui-namespace .k-input-group--small > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > select, [dir=rtl] .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
   border-radius: 3px;
 }
 
@@ -5279,16 +5291,26 @@
 html:not([dir=rtl]) .k-input-group .k-form-control:first-child, html:not([dir=rtl]) .k-input-group .k-ui-j4-form .k-ui-namespace .form-control:first-child, html:not([dir=rtl]) .k-input-group .k-ui-j4-form .k-ui-namespace select:first-child, .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group .form-control:first-child, .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group select:first-child,
 html:not([dir=rtl]) .k-input-group__addon:first-child,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button,
-html:not([dir=rtl]) .k-input-group__button:first-child > .btn,
-html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button:first-child > .xtd-button.btn,
-.k-ui-j4-form .k-ui-namespace .editor-xtd-buttons html:not([dir=rtl]) .k-input-group__button:first-child > .xtd-button.btn,
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn,
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn,
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .k-button,
-html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .btn,
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .btn,
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .btn,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-dropdown__toggle,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button:not(:last-child):not(.k-dropdown__toggle),
-html:not([dir=rtl]) .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .k-button,
-html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn {
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -5296,14 +5318,26 @@ html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:las
 [dir=rtl] .k-ui-namespace .k-input-group .k-form-control:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group .form-control:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group select:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group .form-control:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group select:last-child,
 [dir=rtl] .k-ui-namespace .k-input-group__addon:last-child,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button,
-[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .k-button,
-[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-dropdown__toggle,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button:not(:first-child):not(.k-dropdown__toggle),
-[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .k-button,
-[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn {
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -5319,16 +5353,26 @@ html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:las
 html:not([dir=rtl]) .k-input-group .k-form-control:last-child, html:not([dir=rtl]) .k-input-group .k-ui-j4-form .k-ui-namespace .form-control:last-child, html:not([dir=rtl]) .k-input-group .k-ui-j4-form .k-ui-namespace select:last-child, .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group .form-control:last-child, .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group select:last-child,
 html:not([dir=rtl]) .k-input-group__addon:last-child,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button,
-html:not([dir=rtl]) .k-input-group__button:last-child > .btn,
-html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button:last-child > .xtd-button.btn,
-.k-ui-j4-form .k-ui-namespace .editor-xtd-buttons html:not([dir=rtl]) .k-input-group__button:last-child > .xtd-button.btn,
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn,
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn,
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .k-button,
-html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .btn,
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .btn,
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .btn,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-dropdown__toggle,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button:not(:first-child),
-html:not([dir=rtl]) .k-input-group__button:first-child > .btn:not(:first-child),
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child),
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn:not(:first-child),
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child),
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn:not(:first-child),
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .k-button,
-html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn {
+html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+.k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+.k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5336,14 +5380,26 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
 [dir=rtl] .k-ui-namespace .k-input-group .k-form-control:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group .form-control:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group select:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group .form-control:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group select:first-child,
 [dir=rtl] .k-ui-namespace .k-input-group__addon:first-child,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button,
-[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .k-button,
-[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-dropdown__toggle,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button:not(:last-child),
-[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .k-button,
-[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn {
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+.k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+.k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5364,38 +5420,38 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   /* 2 */
   /* 4 */
 }
-.k-ui-namespace .k-input-group__button .k-button, .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button .xtd-button.btn,
+.k-ui-namespace .k-input-group__button .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button .xtd-button.btn,
 .k-ui-namespace .k-input-group__button .k-dropdown__menu {
   font-size: 13px;
 }
-.k-ui-namespace .k-input-group__button > .k-button, .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn {
+.k-ui-namespace .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn {
   position: relative;
   font-size: 13px;
   margin: 0;
   /* 3 */
 }
-.k-ui-namespace .k-input-group__button > .k-button + .k-button, .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-namespace .k-input-group__button > .btn + .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn + .k-button, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn + .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .k-button + .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .btn + .xtd-button.btn {
+.k-ui-namespace .k-input-group__button > .k-button + .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn + .btn {
   margin-left: -1px;
 }
-.k-ui-namespace .k-input-group__button > .k-button:hover, .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn:hover, .k-ui-namespace .k-input-group__button > .k-button:focus, .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn:focus, .k-ui-namespace .k-input-group__button > .k-button:active, .k-ui-namespace .k-input-group__button > .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn:active {
+.k-ui-namespace .k-input-group__button > .k-button:hover, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-namespace .k-input-group__button > .k-button:focus, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-namespace .k-input-group__button > .k-button:active, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:active, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:active {
   z-index: 2;
 }
-.k-ui-namespace .k-input-group__button:first-child > .k-button, .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button:first-child > .xtd-button.btn,
+.k-ui-namespace .k-input-group__button:first-child > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
 .k-ui-namespace .k-input-group__button:first-child > .k-button-group {
   margin-right: -1px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button, [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
+[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group {
   margin-right: 0;
   margin-left: -1px;
 }
 
-.k-ui-namespace .k-input-group__button:last-child > .k-button, .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button:last-child > .xtd-button.btn,
+.k-ui-namespace .k-input-group__button:last-child > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
 .k-ui-namespace .k-input-group__button:last-child > .k-button-group {
   z-index: 2;
   margin-left: -1px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button, [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
+[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group {
   margin-left: 0;
   margin-right: -1px;
@@ -6517,7 +6573,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   transform: scaleX(-1);
 }
 
-.k-ui-namespace .k-button .k-loader-container, .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container,
+.k-ui-namespace .k-button .k-loader-container, .k-ui-j3-form .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container,
 .k-ui-namespace .k-tabs .k-loader-container {
   background: inherit; /* 1 */
   color: inherit; /* 1 */
@@ -6527,7 +6583,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   transform: scale(0.001); /* 2 */
   transform-origin: 50% 50%;
 }
-.k-ui-namespace .k-button .k-loader-container:before, .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container:before,
+.k-ui-namespace .k-button .k-loader-container:before, .k-ui-j3-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container:before,
 .k-ui-namespace .k-tabs .k-loader-container:before {
   position: absolute;
   content: " ";
@@ -6542,28 +6598,28 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   transform-origin: 50% 50%;
   border-radius: inherit;
 }
-.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader,
+.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-j3-form .k-ui-namespace .btn .k-loader-container .k-loader, .k-ui-j3-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-j4-form .k-ui-namespace .btn .k-loader-container .k-loader, .k-ui-j4-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader,
 .k-cssanimations.k-boxshadow .k-ui-namespace .k-tabs .k-loader-container .k-loader {
   color: inherit;
   transform: scale(1000);
   transform-origin: 50% 50%;
   top: -1000em; /* 4 */
 }
-.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n),
+.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-j3-form .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j3-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-j4-form .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j4-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n),
 .k-cssanimations.k-boxshadow .k-ui-namespace .k-tabs .k-loader-container .k-loader:nth-child(n) {
   margin-left: 1.5em;
   margin-right: 1.5em;
 }
 
-.k-ui-namespace .k-button .k-loader:first-child, .k-ui-namespace .btn .k-loader:first-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader:first-child,
+.k-ui-namespace .k-button .k-loader:first-child, .k-ui-j3-form .k-ui-namespace .btn .k-loader:first-child, .k-ui-j4-form .k-ui-namespace .btn .k-loader:first-child,
 .k-ui-namespace .k-tabs .k-loader:first-child {
   margin-right: 3em;
 }
-.k-ui-namespace .k-button .k-loader:not(first-child), .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader:not(first-child),
+.k-ui-namespace .k-button .k-loader:not(first-child), .k-ui-j3-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader:not(first-child),
 .k-ui-namespace .k-tabs .k-loader:not(first-child) {
   margin-left: 3em;
 }
-.k-ui-namespace .k-button .k-loader:last-child, .k-ui-namespace .btn .k-loader:last-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader:last-child,
+.k-ui-namespace .k-button .k-loader:last-child, .k-ui-j3-form .k-ui-namespace .btn .k-loader:last-child, .k-ui-j4-form .k-ui-namespace .btn .k-loader:last-child,
 .k-ui-namespace .k-tabs .k-loader:last-child {
   margin-right: 1.5em;
   margin-left: 3em;
@@ -8904,7 +8960,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
    * Position the icons
    */
 }
-.k-ui-namespace .k-toolbar .k-button, .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn {
+.k-ui-namespace .k-toolbar .k-button, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn {
   margin: 7px 0 0 8px;
   padding: 7px;
   min-width: 32px;
@@ -8919,7 +8975,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
    * Properly align dropdown button in button
    */
 }
-.k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn:not(.k-toolbar-fullbutton) {
+.k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) {
   /**
    * Icon on the toolbar button
    */
@@ -8928,7 +8984,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
    */
 }
 @media screen and (min-width: 0) and (max-width: 768px) {
-  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn:not(.k-toolbar-fullbutton) {
+  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) {
     overflow: hidden;
     width: 32px;
     height: 32px;
@@ -8936,7 +8992,7 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   }
 }
 @media screen and (min-width: 0) and (max-width: 768px) {
-  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon] {
+  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon] {
     display: block;
     margin: 0 0 8px;
     width: 17px;
@@ -8946,13 +9002,13 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   }
 }
 @media screen and (min-width: 0) and (max-width: 768px) {
-  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text {
+  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text {
     position: relative;
     z-index: -1;
     visibility: hidden;
   }
 }
-.k-ui-namespace .k-toolbar .k-button .k-dropdown, .k-ui-namespace .k-toolbar .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn .k-dropdown {
+.k-ui-namespace .k-toolbar .k-button .k-dropdown, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown {
   /**
    * Pullback so whole button becomes clickable
    */
@@ -8960,21 +9016,21 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
    * Pull back to toggle button
    */
 }
-.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__toggle, .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle {
+.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__toggle, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle {
   text-decoration: none;
   margin: -7px;
   padding: 7px;
 }
-.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
+.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
   margin-top: 6px;
   left: -8px;
 }
-[dir=rtl] .k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
+[dir=rtl] .k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
   left: auto;
   right: -8px;
 }
 
-[dir=rtl] .k-ui-namespace .k-toolbar .k-button, [dir=rtl] .k-ui-namespace .k-toolbar .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn {
+[dir=rtl] .k-ui-namespace .k-toolbar .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-toolbar .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-toolbar .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .btn {
   margin-left: 0;
   margin-right: 8px;
 }
@@ -11828,7 +11884,7 @@ html .select2-container--bootstrap .select2-selection {
   font-size: 13px;
   outline: 0;
 }
-html .select2-container--bootstrap .select2-selection.form-control, html .select2-container--bootstrap select.select2-selection {
+html .select2-container--bootstrap .select2-selection.form-control, html .select2-container--bootstrap .k-ui-j3-form .k-ui-namespace select.select2-selection, .k-ui-j3-form .k-ui-namespace html .select2-container--bootstrap select.select2-selection, html .select2-container--bootstrap .k-ui-j4-form .k-ui-namespace select.select2-selection, .k-ui-j4-form .k-ui-namespace html .select2-container--bootstrap select.select2-selection {
   border-radius: 4px;
 }
 html .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
@@ -12292,7 +12348,7 @@ html .select2-bootstrap-prepend .input-group-btn,
 html .select2-bootstrap-prepend .input-group-btn .btn {
   vertical-align: top;
 }
-html .form-control.select2-hidden-accessible, html select.select2-hidden-accessible {
+html .form-control.select2-hidden-accessible, html .k-ui-j3-form .k-ui-namespace select.select2-hidden-accessible, .k-ui-j3-form .k-ui-namespace html select.select2-hidden-accessible, html .k-ui-j4-form .k-ui-namespace select.select2-hidden-accessible, .k-ui-j4-form .k-ui-namespace html select.select2-hidden-accessible {
   position: absolute !important;
   width: 1px !important;
 }
@@ -14182,6 +14238,9 @@ html .form-inline .select2-container--bootstrap {
    * Modals
    */
   /**
+   * Modals
+   */
+  /**
    * Buttons
    */
   /**
@@ -14196,9 +14255,93 @@ html .form-inline .select2-container--bootstrap {
   /**
    * Editors
    */
+  /**
+   * Default select is not styled outside Joomla scope (for example in koowa template)
+   */
+  /**
+   * Joomla utilities
+   * ----------------
+   * these are not available outside Joomla scope (for example in koowa template)
+   */
 }
 .k-ui-j4-form .k-ui-namespace .fade.show {
   opacity: 1;
+}
+.k-ui-j4-form .k-ui-namespace {
+  --template-text-dark: #495057;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --bluegray: #b2bfcd;
+  --lightbluegray: #f6f9fc;
+  --toolbar-bg: #fff;
+  --success-border: var(--success);
+  --info-border: var(--info);
+  --warning-border: var(--warning);
+  --danger-border: var(--danger);
+  --login-main-bg: #0b1c32;
+  --border: #cdcdcd;
+  --white: #fff;
+  --white-offset: #fefefe;
+  --focus: #39f;
+  --focus-shadow: #eaeaea;
+  --toggle-color: #fff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e8e8e8;
+  --gray-300: #dee2e6;
+  --gray-400: #cdcdcd;
+  --gray-500: #adb5bd;
+  --gray-600: #666e76;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --primary: #132f53;
+  --secondary: #495057;
+  --success: #457d54;
+  --info: #2a69b8;
+  --warning: #ffb514;
+  --danger: #c52827;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --action: #132f53;
+  --error: #3b0d0c;
+  --alert-success: #0f2f21;
+  --primary-rgb: 19, 47, 83;
+  --secondary-rgb: 73, 80, 87;
+  --success-rgb: 69, 125, 84;
+  --info-rgb: 42, 105, 184;
+  --warning-rgb: 255, 181, 20;
+  --danger-rgb: 197, 40, 39;
+  --light-rgb: 248, 249, 250;
+  --dark-rgb: 33, 37, 41;
+  --action-rgb: 19, 47, 83;
+  --error-rgb: 59, 13, 12;
+  --alert-success-rgb: 15, 47, 33;
+  --white-rgb: 255, 255, 255;
+  --black-rgb: 0, 0, 0;
+  --body-color-rgb: 33, 37, 41;
+  --body-bg-rgb: 255, 255, 255;
+  --font-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --body-font-family: var(--font-sans-serif);
+  --body-font-size: 1rem;
+  --body-font-weight: 400;
+  --body-line-height: 1.5;
+  --body-color: #212529;
+  --body-bg: #fff;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: #dee2e6;
+  --border-color-translucent: rgba(0, 0, 0, 0.175);
+  --border-radius: 0.25rem;
+  --border-radius-sm: 0.2rem;
+  --border-radius-lg: 0.3rem;
+  --border-radius-xl: 0.3rem;
+  --border-radius-2xl: 0.3rem;
+  --border-radius-pill: 50rem;
+  --link-color: var(--template-link-color);
+  --link-hover-color: var(--template-link-hover-color);
+  --code-color: #971250;
+  --highlight-bg: #fff0d0;
 }
 .k-ui-j4-form .k-ui-namespace .modal {
   position: fixed;
@@ -14531,6 +14674,85 @@ html .form-inline .select2-container--bootstrap {
   width: 100vw;
   max-width: none;
 }
+.k-ui-j4-form .k-ui-namespace .modal .btn {
+  padding: 0 22px;
+  -webkit-margin-end: 0.5rem;
+  margin-inline-end: 0.5rem;
+  font-size: 1rem;
+  line-height: 2.3rem;
+  color: var(--template-text-dark);
+  background: var(--white);
+  border-color: var(--whiteoffset);
+  box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.25);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn-primary:not([href]),
+.k-ui-j4-form .k-ui-namespace .modal .btn-success:not([href]),
+.k-ui-j4-form .k-ui-namespace .modal .btn-danger:not([href]),
+.k-ui-j4-form .k-ui-namespace .modal .btn-secondary:not([href]) {
+  color: var(--template-text-dark);
+  background: var(--white);
+  border: 1px solid var(--template-text-dark);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn-primary:not([href]):hover, .k-ui-j4-form .k-ui-namespace .modal .btn-primary:not([href]):focus {
+  color: var(--white);
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn-secondary:not([href]):hover, .k-ui-j4-form .k-ui-namespace .modal .btn-secondary:not([href]):focus {
+  color: var(--white);
+  background: var(--secondary);
+  border-color: var(--secondary);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn-success:not([href]):hover, .k-ui-j4-form .k-ui-namespace .modal .btn-success:not([href]):focus {
+  color: var(--white);
+  background: var(--success);
+  border-color: var(--success);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn-danger:not([href]):hover, .k-ui-j4-form .k-ui-namespace .modal .btn-danger:not([href]):focus {
+  color: var(--white);
+  background: var(--danger);
+  border-color: var(--danger);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-danger [class^=icon-],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-danger [class*=" icon-"],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-danger [class^=fa-],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-danger [class*=" fa-"],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-danger span {
+  display: inline-block;
+  width: 2.375rem;
+  height: 100%;
+  margin: 0 16px;
+  -webkit-margin-start: -22px;
+  margin-inline-start: -22px;
+  line-height: 2.375rem;
+  color: hsla(0, 0%, 100%, 0.9);
+  background-color: var(--danger);
+}
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-success [class^=icon-],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-success [class*=" icon-"],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-success [class^=fa-],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-success [class*=" fa-"],
+.k-ui-j4-form .k-ui-namespace .modal .btn.btn-success span {
+  display: inline-block;
+  width: 2.375rem;
+  height: 100%;
+  margin: 0 16px;
+  -webkit-margin-start: -22px;
+  margin-inline-start: -22px;
+  line-height: 2.375rem;
+  color: hsla(0, 0%, 100%, 0.9);
+  background-color: var(--success);
+}
+.k-ui-j4-form .k-ui-namespace .modal-header {
+  padding: 0 15px;
+}
+.k-ui-j4-form .k-ui-namespace .modal-body {
+  overflow-y: initial;
+}
+.k-ui-j4-form .k-ui-namespace .modal-title {
+  font-weight: 400;
+  line-height: 2.875rem;
+}
 .k-ui-j4-form .k-ui-namespace .btn-close {
   box-sizing: content-box;
   width: 1em;
@@ -14617,12 +14839,521 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button [class^=icon-], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button [class*=" icon-"] {
   margin-right: 0 !important;
 }
+.k-ui-j4-form .k-ui-namespace .btn-toolbar {
+  margin: 1em 0 0;
+}
+.k-ui-j4-form .k-ui-namespace .pull-left {
+  float: left;
+}
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .pull-left {
+  float: right;
+}
+
+.k-ui-j4-form .k-ui-namespace .pull-right {
+  float: right;
+}
+[dir=rtl] .k-ui-j4-form .k-ui-namespace .pull-right {
+  float: left;
+}
+
+.k-ui-j4-form .k-ui-namespace .clearfix:before, .k-ui-j4-form .k-ui-namespace .clearfix:after {
+  display: table;
+  content: " ";
+}
+.k-ui-j4-form .k-ui-namespace .clearfix:after {
+  clear: both;
+}
+.k-ui-j4-form .k-ui-namespace .editor:before, .k-ui-j4-form .k-ui-namespace .editor:after {
+  display: table;
+  content: " ";
+}
+.k-ui-j4-form .k-ui-namespace .editor:after {
+  clear: both;
+}
+.k-ui-j4-form .k-ui-namespace .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+  margin-bottom: 0;
+  height: auto;
+}
 .k-ui-j4-form .k-editor-modal .mfp-content {
   width: 80vw;
   height: 70vh;
 }
 
-.k-ui-j5-form .k-ui-namespace joomla-dialog dialog {
+.k-ui-j5-form {
+  /**
+   * Modals
+   */
+  /**
+   * Modals
+   */
+  /**
+   * Dialogs
+   */
+  /**
+   * Dialogs
+   */
+  /**
+   * Buttons
+   */
+  /**
+   * Buttons
+   */
+  /**
+   * Details
+   */
+  /**
+   * Details
+   */
+  /**
+   * Viewports
+   */
+  /**
+   * Viewports
+   */
+  /**
+  * Editors
+  */
+  /*
+  joomla-dialog {
+
+    h3 {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    .joomla-dialog-header .header-icon {
+      font-size: 2rem;
+    }
+
+  }
+
+  .editor-xtd-buttons {
+
+    [class^="icon-"], [class*=" icon-"] {
+      margin: 0px !important;
+    }
+
+  } 
+  */
+  /**
+   * Editors
+   */
+}
+.k-ui-j5-form {
+  --hue: 214;
+  --template-bg-dark-60: hsl(var(--hue), 40%, 40%);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-color: var(--template-bg-dark-60);
+  --bluegray: #b2bfcd;
+  --lightbluegray: #f6f9fc;
+  --toolbar-bg: #fff;
+  --success-border: var(--success);
+  --info-border: var(--info);
+  --warning-border: var(--warning);
+  --danger-border: var(--danger);
+  --login-main-bg: #0b1c32;
+  --border: #cdcdcd;
+  --white: #fff;
+  --white-offset: #fefefe;
+  --focus: #39f;
+  --focus-shadow: #eaeaea;
+  --toggle-color: #fff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e8e8e8;
+  --gray-300: #dee2e6;
+  --gray-400: #cdcdcd;
+  --gray-500: #adb5bd;
+  --gray-600: #666e76;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --primary: #132f53;
+  --secondary: #495057;
+  --success: #457d54;
+  --info: #2a69b8;
+  --warning: #ffb514;
+  --danger: #c52827;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --action: #132f53;
+  --error: #3b0d0c;
+  --primary-rgb: 19, 47, 83;
+  --secondary-rgb: 73, 80, 87;
+  --success-rgb: 69, 125, 84;
+  --info-rgb: 42, 105, 184;
+  --warning-rgb: 255, 181, 20;
+  --danger-rgb: 197, 40, 39;
+  --light-rgb: 248, 249, 250;
+  --dark-rgb: 33, 37, 41;
+  --action-rgb: 19, 47, 83;
+  --error-rgb: 59, 13, 12;
+  --action-text-emphasis: #081321;
+  --error-text-emphasis: #180505;
+  --primary-text-emphasis: #112a49;
+  --secondary-text-emphasis: #292c2f;
+  --success-text-emphasis: #1c3222;
+  --info-text-emphasis: #112a4a;
+  --warning-text-emphasis: #664808;
+  --danger-text-emphasis: #4f1010;
+  --light-text-emphasis: #495057;
+  --dark-text-emphasis: #495057;
+  --action-bg-subtle: #d0d5dd;
+  --error-bg-subtle: #d8cfce;
+  --primary-bg-subtle: #d4e1f1;
+  --secondary-bg-subtle: #e0e2e4;
+  --success-bg-subtle: #dae5dd;
+  --info-bg-subtle: #d4e1f1;
+  --warning-bg-subtle: #fff0d0;
+  --danger-bg-subtle: #f3d4d4;
+  --light-bg-subtle: #fcfcfd;
+  --dark-bg-subtle: #cdcdcd;
+  --action-border-subtle: #a1acba;
+  --error-border-subtle: #b19e9e;
+  --primary-border-subtle: #aac3e2;
+  --secondary-border-subtle: #c2c5c8;
+  --success-border-subtle: #b5cbbb;
+  --info-border-subtle: #aac3e3;
+  --warning-border-subtle: #ffe1a1;
+  --danger-border-subtle: #e8a9a9;
+  --light-border-subtle: #e8e8e8;
+  --dark-border-subtle: #adb5bd;
+  --white-rgb: 255, 255, 255;
+  --black-rgb: 0, 0, 0;
+  --font-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --body-font-family: var(--font-sans-serif);
+  --body-font-size: 1rem;
+  --body-font-weight: 400;
+  --body-line-height: 1.5;
+  --body-color: #212529;
+  --body-color-rgb: 33, 37, 41;
+  --body-bg: #fff;
+  --body-bg-rgb: 255, 255, 255;
+  --emphasis-color: #000;
+  --emphasis-color-rgb: 0, 0, 0;
+  --secondary-color: rgba(33, 37, 41, 0.75);
+  --secondary-color-rgb: 33, 37, 41;
+  --secondary-bg: #e8e8e8;
+  --secondary-bg-rgb: 232, 232, 232;
+  --tertiary-color: rgba(33, 37, 41, 0.5);
+  --tertiary-color-rgb: 33, 37, 41;
+  --tertiary-bg: #f8f9fa;
+  --tertiary-bg-rgb: 248, 249, 250;
+  --heading-color: var(--template-bg-dark);
+  --link-color: #2a69b8;
+  --link-color-rgb: 42, 105, 184;
+  --link-decoration: none;
+  --link-hover-color: #173a65;
+  --link-hover-color-rgb: 23, 58, 101;
+  --code-color: #971250;
+  --highlight-color: #212529;
+  --highlight-bg: #fff0d0;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: #dee2e6;
+  --border-color-translucent: rgba(0, 0, 0, 0.175);
+  --border-radius: 0.25rem;
+  --border-radius-sm: 0.2rem;
+  --border-radius-lg: 0.3rem;
+  --border-radius-xl: 0.3rem;
+  --border-radius-xxl: 2rem;
+  --border-radius-2xl: var(--border-radius-xxl);
+  --border-radius-pill: 50rem;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  --box-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  --focus-ring-width: 0.25rem;
+  --focus-ring-opacity: 0.25;
+  --focus-ring-color: rgba(42, 105, 183, 0.25);
+  --form-valid-color: #457d54;
+  --form-valid-border-color: #457d54;
+  --form-invalid-color: #c52827;
+  --form-invalid-border-color: #c52827;
+}
+.k-ui-j5-form .modal {
+  --modal-zindex: 1050;
+  --modal-width: 500px;
+  --modal-padding: 1rem;
+  --modal-margin: 0.5rem;
+  --modal-color: ;
+  --modal-bg: var(--body-bg);
+  --modal-border-color: var(--border-color-translucent);
+  --modal-border-width: var(--border-width);
+  --modal-border-radius: var(--border-radius-lg);
+  --modal-box-shadow: var(--box-shadow-sm);
+  --modal-inner-border-radius: calc(var(--border-radius-lg) - (var(--border-width)));
+  --modal-header-padding-x: 1rem;
+  --modal-header-padding-y: 1rem;
+  --modal-header-padding: 1rem 1rem;
+  --modal-header-border-color: var(--border-color);
+  --modal-header-border-width: var(--border-width);
+  --modal-title-line-height: 1.5;
+  --modal-footer-gap: 0.5rem;
+  --modal-footer-bg: ;
+  --modal-footer-border-color: var(--border-color);
+  --modal-footer-border-width: var(--border-width);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--modal-zindex);
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+}
+.k-ui-j5-form .modal-dialog {
+  position: relative;
+  width: auto;
+  margin: var(--modal-margin);
+  pointer-events: none;
+}
+.k-ui-j5-form .modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-ui-j5-form .modal.fade .modal-dialog {
+    transition: none;
+  }
+}
+.k-ui-j5-form .modal.show .modal-dialog {
+  transform: none;
+}
+.k-ui-j5-form .modal.modal-static .modal-dialog {
+  transform: scale(1.02);
+}
+.k-ui-j5-form .modal-dialog-scrollable {
+  height: calc(100% - var(--modal-margin) * 2);
+}
+.k-ui-j5-form .modal-dialog-scrollable .modal-content {
+  max-height: 100%;
+  overflow: hidden;
+}
+.k-ui-j5-form .modal-dialog-scrollable .modal-body {
+  overflow-y: auto;
+}
+.k-ui-j5-form .modal-dialog-centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - var(--modal-margin) * 2);
+}
+.k-ui-j5-form .modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--modal-color);
+  pointer-events: auto;
+  background-color: var(--modal-bg);
+  background-clip: padding-box;
+  border: var(--modal-border-width) solid var(--modal-border-color);
+  border-radius: var(--modal-border-radius);
+  outline: 0;
+}
+.k-ui-j5-form .modal-backdrop {
+  --backdrop-zindex: 1040;
+  --backdrop-bg: #000;
+  --backdrop-opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--backdrop-zindex);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--backdrop-bg);
+}
+.k-ui-j5-form .modal-backdrop.fade {
+  opacity: 0;
+}
+.k-ui-j5-form .modal-backdrop.show {
+  opacity: var(--backdrop-opacity);
+}
+.k-ui-j5-form .modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--modal-header-padding);
+  border-bottom: var(--modal-header-border-width) solid var(--modal-header-border-color);
+  border-top-left-radius: var(--modal-inner-border-radius);
+  border-top-right-radius: var(--modal-inner-border-radius);
+}
+.k-ui-j5-form .modal-header .btn-close {
+  padding: calc(var(--modal-header-padding-y) * 0.5) calc(var(--modal-header-padding-x) * 0.5);
+  margin: calc(-0.5 * var(--modal-header-padding-y)) calc(-0.5 * var(--modal-header-padding-x)) calc(-0.5 * var(--modal-header-padding-y)) auto;
+}
+.k-ui-j5-form .modal-title {
+  margin-bottom: 0;
+  line-height: var(--modal-title-line-height);
+}
+.k-ui-j5-form .modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: var(--modal-padding);
+}
+.k-ui-j5-form .modal-footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: calc(var(--modal-padding) - var(--modal-footer-gap) * 0.5);
+  background-color: var(--modal-footer-bg);
+  border-top: var(--modal-footer-border-width) solid var(--modal-footer-border-color);
+  border-bottom-right-radius: var(--modal-inner-border-radius);
+  border-bottom-left-radius: var(--modal-inner-border-radius);
+}
+.k-ui-j5-form .modal-footer > * {
+  margin: calc(var(--modal-footer-gap) * 0.5);
+}
+@media (min-width: 576px) {
+  .k-ui-j5-form .modal {
+    --modal-margin: 1.75rem;
+    --modal-box-shadow: var(--box-shadow);
+  }
+  .k-ui-j5-form .modal-dialog {
+    max-width: var(--modal-width);
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .k-ui-j5-form .modal-sm {
+    --modal-width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  .k-ui-j5-form .modal-lg,
+  .k-ui-j5-form .modal-xl {
+    --modal-width: 800px;
+  }
+}
+@media (min-width: 1200px) {
+  .k-ui-j5-form .modal-xl {
+    --modal-width: 1140px;
+  }
+}
+.k-ui-j5-form .modal-fullscreen {
+  width: 100vw;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+.k-ui-j5-form .modal-fullscreen .modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+.k-ui-j5-form .modal-fullscreen .modal-header,
+.k-ui-j5-form .modal-fullscreen .modal-footer {
+  border-radius: 0;
+}
+.k-ui-j5-form .modal-fullscreen .modal-body {
+  overflow-y: auto;
+}
+@media (max-width: 575.98px) {
+  .k-ui-j5-form .modal-fullscreen-sm-down {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-sm-down .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-sm-down .modal-header,
+  .k-ui-j5-form .modal-fullscreen-sm-down .modal-footer {
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-sm-down .modal-body {
+    overflow-y: auto;
+  }
+}
+@media (max-width: 767.98px) {
+  .k-ui-j5-form .modal-fullscreen-md-down {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-md-down .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-md-down .modal-header,
+  .k-ui-j5-form .modal-fullscreen-md-down .modal-footer {
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-md-down .modal-body {
+    overflow-y: auto;
+  }
+}
+@media (max-width: 991.98px) {
+  .k-ui-j5-form .modal-fullscreen-lg-down {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-lg-down .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-lg-down .modal-header,
+  .k-ui-j5-form .modal-fullscreen-lg-down .modal-footer {
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-lg-down .modal-body {
+    overflow-y: auto;
+  }
+}
+@media (max-width: 1199.98px) {
+  .k-ui-j5-form .modal-fullscreen-xl-down {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-xl-down .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-xl-down .modal-header,
+  .k-ui-j5-form .modal-fullscreen-xl-down .modal-footer {
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-xl-down .modal-body {
+    overflow-y: auto;
+  }
+}
+@media (max-width: 1399.98px) {
+  .k-ui-j5-form .modal-fullscreen-xxl-down {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-xxl-down .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-xxl-down .modal-header,
+  .k-ui-j5-form .modal-fullscreen-xxl-down .modal-footer {
+    border-radius: 0;
+  }
+  .k-ui-j5-form .modal-fullscreen-xxl-down .modal-body {
+    overflow-y: auto;
+  }
+}
+.k-ui-j5-form joomla-dialog dialog {
   width: 96vw;
   max-width: 1700px;
   height: 96vh;
@@ -14632,28 +15363,28 @@ html .form-inline .select2-container--bootstrap {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 @media (min-width: 1400px) {
-  .k-ui-j5-form .k-ui-namespace joomla-dialog dialog {
+  .k-ui-j5-form joomla-dialog dialog {
     width: 80vw;
     height: 80vh;
   }
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog dialog[open] {
+.k-ui-j5-form joomla-dialog dialog[open] {
   display: flex;
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog[type=image] dialog {
+.k-ui-j5-form joomla-dialog[type=image] dialog {
   width: -moz-fit-content;
   width: fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog[type=iframe] dialog {
+.k-ui-j5-form joomla-dialog[type=iframe] dialog {
   overflow: hidden;
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog iframe.iframe-content {
+.k-ui-j5-form joomla-dialog iframe.iframe-content {
   width: 100%;
   height: 100%;
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog[type=iframe].loading dialog:after, .k-ui-j5-form .k-ui-namespace joomla-dialog[type=ajax].loading dialog:after {
+.k-ui-j5-form joomla-dialog[type=iframe].loading dialog:after, .k-ui-j5-form joomla-dialog[type=ajax].loading dialog:after {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -14664,11 +15395,11 @@ html .form-inline .select2-container--bootstrap {
   background: url("../../../../system/images/ajax-loader.gif?v=144b8c") no-repeat center;
   transform: translate(-50%, -50%);
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog dialog[open] {
+.k-ui-j5-form joomla-dialog dialog[open] {
   animation: dialog-show 0.4s ease normal;
 }
 @media (prefers-reduced-motion: reduce) {
-  .k-ui-j5-form .k-ui-namespace joomla-dialog dialog[open] {
+  .k-ui-j5-form joomla-dialog dialog[open] {
     animation: none;
   }
 }
@@ -14684,24 +15415,24 @@ html .form-inline .select2-container--bootstrap {
     transform: translateY(0);
   }
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-container {
+.k-ui-j5-form .joomla-dialog-container {
   position: relative;
   box-sizing: border-box;
   display: flex;
   flex-flow: column;
   width: 100%;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-container .buttons-holder {
+.k-ui-j5-form .joomla-dialog-container .buttons-holder {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   -webkit-margin-start: auto;
   margin-inline-start: auto;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-container .buttons-holder button {
+.k-ui-j5-form .joomla-dialog-container .buttons-holder button {
   margin-inline: 0.375rem;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-header {
+.k-ui-j5-form .joomla-dialog-header {
   position: relative;
   display: flex;
   align-items: center;
@@ -14709,69 +15440,658 @@ html .form-inline .select2-container--bootstrap {
   padding: 1rem;
   border-bottom: 1px solid var(--border-color);
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-header h3, .k-ui-j5-form .k-ui-namespace .joomla-dialog-header .h3 {
+.k-ui-j5-form .joomla-dialog-header h3, .k-ui-j5-form .joomla-dialog-header .h3 {
   margin: 0;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-header .header-icon {
+.k-ui-j5-form .joomla-dialog-header .header-icon {
   -webkit-margin-end: 0.375rem;
   margin-inline-end: 0.375rem;
   font-size: 1.25rem;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-header.empty {
+.k-ui-j5-form .joomla-dialog-header.empty {
   display: none;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-body {
+.k-ui-j5-form .joomla-dialog-body {
   position: relative;
   box-sizing: border-box;
   flex: 1 1 auto;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-body .buttons-holder {
+.k-ui-j5-form .joomla-dialog-body .buttons-holder {
   position: absolute;
   top: 1rem;
   right: 1rem;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-body joomla-dialog[type=inline], .k-ui-j5-form .k-ui-namespace joomla-dialog[type=ajax] .joomla-dialog-body {
+.k-ui-j5-form .joomla-dialog-body joomla-dialog[type=inline], .k-ui-j5-form joomla-dialog[type=ajax] .joomla-dialog-body {
   overflow: auto;
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog.loading .joomla-dialog-body {
+.k-ui-j5-form joomla-dialog.loading .joomla-dialog-body {
   opacity: 0;
 }
-.k-ui-j5-form .k-ui-namespace joomla-dialog.loaded .joomla-dialog-body {
+.k-ui-j5-form joomla-dialog.loaded .joomla-dialog-body {
   opacity: 1;
   transition: opacity 0.4s ease;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-footer {
+.k-ui-j5-form .joomla-dialog-footer {
   position: relative;
   padding: 1rem;
   border-top: 1px solid var(--border-color);
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-footer .buttons-holder button {
+.k-ui-j5-form .joomla-dialog-footer .buttons-holder button {
   padding-inline: 22px;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-footer.empty {
+.k-ui-j5-form .joomla-dialog-footer.empty {
   display: none;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-alert dialog,
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-confirm dialog {
+.k-ui-j5-form .joomla-dialog-alert dialog,
+.k-ui-j5-form .joomla-dialog-confirm dialog {
   width: 600px;
   max-width: 80vw;
   height: -moz-fit-content;
   height: fit-content;
 }
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-alert .joomla-dialog-body,
-.k-ui-j5-form .k-ui-namespace .joomla-dialog-confirm .joomla-dialog-body {
+.k-ui-j5-form .joomla-dialog-alert .joomla-dialog-body,
+.k-ui-j5-form .joomla-dialog-confirm .joomla-dialog-body {
   padding: 1rem;
 }
 @media (min-width: 1400px) {
-  .k-ui-j5-form .k-ui-namespace .joomla-dialog-content-select-field dialog {
+  .k-ui-j5-form .joomla-dialog-content-select-field dialog {
     width: 90vw;
     height: 90vh;
   }
+}
+.k-ui-j5-form .btn {
+  --btn-padding-x: 1rem;
+  --btn-padding-y: 0.5rem;
+  --btn-font-family: ;
+  --btn-font-size: 1rem;
+  --btn-font-weight: 400;
+  --btn-line-height: 1.5;
+  --btn-color: var(--body-color);
+  --btn-bg: transparent;
+  --btn-border-width: var(--border-width);
+  --btn-border-color: transparent;
+  --btn-border-radius: 0.25rem;
+  --btn-hover-border-color: transparent;
+  --btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+  --btn-disabled-opacity: 0.4;
+  --btn-focus-box-shadow: 0 0 0 0.2rem rgba(var(--btn-focus-shadow-rgb), .5);
+  display: inline-block;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  color: var(--btn-color);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: var(--btn-border-width) solid var(--btn-border-color);
+  border-radius: var(--btn-border-radius);
+  background-color: var(--btn-bg);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-ui-j5-form .btn {
+    transition: none;
+  }
+}
+.k-ui-j5-form .btn:hover {
+  color: var(--btn-hover-color);
+  background-color: var(--btn-hover-bg);
+  border-color: var(--btn-hover-border-color);
+}
+.k-ui-j5-form .btn-check + .btn:hover {
+  color: var(--btn-color);
+  background-color: var(--btn-bg);
+  border-color: var(--btn-border-color);
+}
+.k-ui-j5-form .btn:focus-visible {
+  color: var(--btn-hover-color);
+  background-color: var(--btn-hover-bg);
+  border-color: var(--btn-hover-border-color);
+  outline: 0;
+  box-shadow: var(--btn-focus-box-shadow);
+}
+.k-ui-j5-form .btn-check:focus-visible + .btn {
+  border-color: var(--btn-hover-border-color);
+  outline: 0;
+  box-shadow: var(--btn-focus-box-shadow);
+}
+.k-ui-j5-form .btn-check:checked + .btn, .k-ui-j5-form :not(.btn-check) + .btn:active, .k-ui-j5-form .btn:first-child:active, .k-ui-j5-form .btn.active, .k-ui-j5-form .btn.show {
+  color: var(--btn-active-color);
+  background-color: var(--btn-active-bg);
+  border-color: var(--btn-active-border-color);
+}
+.k-ui-j5-form .btn-check:checked + .btn:focus-visible, .k-ui-j5-form :not(.btn-check) + .btn:active:focus-visible, .k-ui-j5-form .btn:first-child:active:focus-visible, .k-ui-j5-form .btn.active:focus-visible, .k-ui-j5-form .btn.show:focus-visible {
+  box-shadow: var(--btn-focus-box-shadow);
+}
+.k-ui-j5-form .btn:disabled, .k-ui-j5-form .btn.disabled, .k-ui-j5-form fieldset:disabled .btn {
+  color: var(--btn-disabled-color);
+  pointer-events: none;
+  background-color: var(--btn-disabled-bg);
+  border-color: var(--btn-disabled-border-color);
+  opacity: var(--btn-disabled-opacity);
+}
+.k-ui-j5-form .btn-primary {
+  --btn-color: #fff;
+  --btn-bg: #132f53;
+  --btn-border-color: #132f53;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #102847;
+  --btn-hover-border-color: #0f2642;
+  --btn-focus-shadow-rgb: 54, 78, 109;
+  --btn-active-color: #fff;
+  --btn-active-bg: #0f2642;
+  --btn-active-border-color: #0e233e;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #132f53;
+  --btn-disabled-border-color: #132f53;
+}
+.k-ui-j5-form .btn-secondary {
+  --btn-color: #fff;
+  --btn-bg: #495057;
+  --btn-border-color: #495057;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #3e444a;
+  --btn-hover-border-color: #3a4046;
+  --btn-focus-shadow-rgb: 100, 106, 112;
+  --btn-active-color: #fff;
+  --btn-active-bg: #3a4046;
+  --btn-active-border-color: #373c41;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #495057;
+  --btn-disabled-border-color: #495057;
+}
+.k-ui-j5-form .btn-success {
+  --btn-color: #fff;
+  --btn-bg: #457d54;
+  --btn-border-color: #457d54;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #3b6a47;
+  --btn-hover-border-color: #376443;
+  --btn-focus-shadow-rgb: 97, 145, 110;
+  --btn-active-color: #fff;
+  --btn-active-bg: #376443;
+  --btn-active-border-color: #345e3f;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #457d54;
+  --btn-disabled-border-color: #457d54;
+}
+.k-ui-j5-form .btn-info {
+  --btn-color: #fff;
+  --btn-bg: #2a69b8;
+  --btn-border-color: #2a69b8;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #24599c;
+  --btn-hover-border-color: #225493;
+  --btn-focus-shadow-rgb: 74, 128, 195;
+  --btn-active-color: #fff;
+  --btn-active-bg: #225493;
+  --btn-active-border-color: #204f8a;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #2a69b8;
+  --btn-disabled-border-color: #2a69b8;
+}
+.k-ui-j5-form .btn-warning {
+  --btn-color: #000;
+  --btn-bg: #ffb514;
+  --btn-border-color: #ffb514;
+  --btn-hover-color: #000;
+  --btn-hover-bg: #ffc037;
+  --btn-hover-border-color: #ffbc2c;
+  --btn-focus-shadow-rgb: 217, 154, 17;
+  --btn-active-color: #000;
+  --btn-active-bg: #ffc443;
+  --btn-active-border-color: #ffbc2c;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #000;
+  --btn-disabled-bg: #ffb514;
+  --btn-disabled-border-color: #ffb514;
+}
+.k-ui-j5-form .btn-danger {
+  --btn-color: #fff;
+  --btn-bg: #c52827;
+  --btn-border-color: #c52827;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #a72221;
+  --btn-hover-border-color: #9e201f;
+  --btn-focus-shadow-rgb: 206, 72, 71;
+  --btn-active-color: #fff;
+  --btn-active-bg: #9e201f;
+  --btn-active-border-color: #941e1d;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #c52827;
+  --btn-disabled-border-color: #c52827;
+}
+.k-ui-j5-form .btn-light {
+  --btn-color: #000;
+  --btn-bg: #f8f9fa;
+  --btn-border-color: #f8f9fa;
+  --btn-hover-color: #000;
+  --btn-hover-bg: #d3d4d5;
+  --btn-hover-border-color: #c6c7c8;
+  --btn-focus-shadow-rgb: 211, 212, 213;
+  --btn-active-color: #000;
+  --btn-active-bg: #c6c7c8;
+  --btn-active-border-color: #babbbc;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #000;
+  --btn-disabled-bg: #f8f9fa;
+  --btn-disabled-border-color: #f8f9fa;
+}
+.k-ui-j5-form .btn-dark {
+  --btn-color: #fff;
+  --btn-bg: #212529;
+  --btn-border-color: #212529;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #424649;
+  --btn-hover-border-color: #373b3e;
+  --btn-focus-shadow-rgb: 66, 70, 73;
+  --btn-active-color: #fff;
+  --btn-active-bg: #4d5154;
+  --btn-active-border-color: #373b3e;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #212529;
+  --btn-disabled-border-color: #212529;
+}
+.k-ui-j5-form .btn-action {
+  --btn-color: #fff;
+  --btn-bg: #132f53;
+  --btn-border-color: #132f53;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #102847;
+  --btn-hover-border-color: #0f2642;
+  --btn-focus-shadow-rgb: 54, 78, 109;
+  --btn-active-color: #fff;
+  --btn-active-bg: #0f2642;
+  --btn-active-border-color: #0e233e;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #132f53;
+  --btn-disabled-border-color: #132f53;
+}
+.k-ui-j5-form .btn-error {
+  --btn-color: #fff;
+  --btn-bg: #3b0d0c;
+  --btn-border-color: #3b0d0c;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #320b0a;
+  --btn-hover-border-color: #2f0a0a;
+  --btn-focus-shadow-rgb: 88, 49, 48;
+  --btn-active-color: #fff;
+  --btn-active-bg: #2f0a0a;
+  --btn-active-border-color: #2c0a09;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #fff;
+  --btn-disabled-bg: #3b0d0c;
+  --btn-disabled-border-color: #3b0d0c;
+}
+.k-ui-j5-form .btn-outline-primary {
+  --btn-color: #132f53;
+  --btn-border-color: #132f53;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #132f53;
+  --btn-hover-border-color: #132f53;
+  --btn-focus-shadow-rgb: 19, 47, 83;
+  --btn-active-color: #fff;
+  --btn-active-bg: #132f53;
+  --btn-active-border-color: #132f53;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #132f53;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #132f53;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-secondary {
+  --btn-color: #495057;
+  --btn-border-color: #495057;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #495057;
+  --btn-hover-border-color: #495057;
+  --btn-focus-shadow-rgb: 73, 80, 87;
+  --btn-active-color: #fff;
+  --btn-active-bg: #495057;
+  --btn-active-border-color: #495057;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #495057;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #495057;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-success {
+  --btn-color: #457d54;
+  --btn-border-color: #457d54;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #457d54;
+  --btn-hover-border-color: #457d54;
+  --btn-focus-shadow-rgb: 69, 125, 84;
+  --btn-active-color: #fff;
+  --btn-active-bg: #457d54;
+  --btn-active-border-color: #457d54;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #457d54;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #457d54;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-info {
+  --btn-color: #2a69b8;
+  --btn-border-color: #2a69b8;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #2a69b8;
+  --btn-hover-border-color: #2a69b8;
+  --btn-focus-shadow-rgb: 42, 105, 184;
+  --btn-active-color: #fff;
+  --btn-active-bg: #2a69b8;
+  --btn-active-border-color: #2a69b8;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #2a69b8;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #2a69b8;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-warning {
+  --btn-color: #ffb514;
+  --btn-border-color: #ffb514;
+  --btn-hover-color: #000;
+  --btn-hover-bg: #ffb514;
+  --btn-hover-border-color: #ffb514;
+  --btn-focus-shadow-rgb: 255, 181, 20;
+  --btn-active-color: #000;
+  --btn-active-bg: #ffb514;
+  --btn-active-border-color: #ffb514;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #ffb514;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #ffb514;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-danger {
+  --btn-color: #c52827;
+  --btn-border-color: #c52827;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #c52827;
+  --btn-hover-border-color: #c52827;
+  --btn-focus-shadow-rgb: 197, 40, 39;
+  --btn-active-color: #fff;
+  --btn-active-bg: #c52827;
+  --btn-active-border-color: #c52827;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #c52827;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #c52827;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-light {
+  --btn-color: #f8f9fa;
+  --btn-border-color: #f8f9fa;
+  --btn-hover-color: #000;
+  --btn-hover-bg: #f8f9fa;
+  --btn-hover-border-color: #f8f9fa;
+  --btn-focus-shadow-rgb: 248, 249, 250;
+  --btn-active-color: #000;
+  --btn-active-bg: #f8f9fa;
+  --btn-active-border-color: #f8f9fa;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #f8f9fa;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #f8f9fa;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-dark {
+  --btn-color: #212529;
+  --btn-border-color: #212529;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #212529;
+  --btn-hover-border-color: #212529;
+  --btn-focus-shadow-rgb: 33, 37, 41;
+  --btn-active-color: #fff;
+  --btn-active-bg: #212529;
+  --btn-active-border-color: #212529;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #212529;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #212529;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-action {
+  --btn-color: #132f53;
+  --btn-border-color: #132f53;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #132f53;
+  --btn-hover-border-color: #132f53;
+  --btn-focus-shadow-rgb: 19, 47, 83;
+  --btn-active-color: #fff;
+  --btn-active-bg: #132f53;
+  --btn-active-border-color: #132f53;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #132f53;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #132f53;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-outline-error {
+  --btn-color: #3b0d0c;
+  --btn-border-color: #3b0d0c;
+  --btn-hover-color: #fff;
+  --btn-hover-bg: #3b0d0c;
+  --btn-hover-border-color: #3b0d0c;
+  --btn-focus-shadow-rgb: 59, 13, 12;
+  --btn-active-color: #fff;
+  --btn-active-bg: #3b0d0c;
+  --btn-active-border-color: #3b0d0c;
+  --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --btn-disabled-color: #3b0d0c;
+  --btn-disabled-bg: transparent;
+  --btn-disabled-border-color: #3b0d0c;
+  --gradient: none;
+}
+.k-ui-j5-form .btn-link {
+  --btn-font-weight: 400;
+  --btn-color: var(--link-color);
+  --btn-bg: transparent;
+  --btn-border-color: transparent;
+  --btn-hover-color: var(--link-hover-color);
+  --btn-hover-border-color: transparent;
+  --btn-active-color: var(--link-hover-color);
+  --btn-active-border-color: transparent;
+  --btn-disabled-color: #666e76;
+  --btn-disabled-border-color: transparent;
+  --btn-box-shadow: 0 0 0 #000;
+  --btn-focus-shadow-rgb: 74, 128, 195;
+  text-decoration: none;
+}
+.k-ui-j5-form .btn-link:focus-visible {
+  color: var(--btn-color);
+}
+.k-ui-j5-form .btn-link:hover {
+  color: var(--btn-hover-color);
+}
+.k-ui-j5-form .btn-lg, .k-ui-j5-form .btn-group-lg > .btn {
+  --btn-padding-y: 0.5rem;
+  --btn-padding-x: 1rem;
+  --btn-font-size: 1.25rem;
+  --btn-border-radius: var(--border-radius-lg);
+}
+.k-ui-j5-form .btn-sm, .k-ui-j5-form .btn-group-sm > .btn {
+  --btn-padding-y: 0.25rem;
+  --btn-padding-x: 0.5rem;
+  --btn-font-size: 0.8rem;
+  --btn-border-radius: var(--border-radius-sm);
+}
+.k-ui-j5-form .btn-close {
+  --btn-close-color: #000;
+  --btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+  --btn-close-opacity: 0.5;
+  --btn-close-hover-opacity: 0.75;
+  --btn-close-focus-shadow: 0 0 0 0.25rem rgba(42, 105, 183, 0.25);
+  --btn-close-focus-opacity: 1;
+  --btn-close-disabled-opacity: 0.25;
+  --btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em 0.25em;
+  color: var(--btn-close-color);
+  background: transparent var(--btn-close-bg) center/1em auto no-repeat;
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: var(--btn-close-opacity);
+}
+.k-ui-j5-form .btn-close:hover {
+  color: var(--btn-close-color);
+  text-decoration: none;
+  opacity: var(--btn-close-hover-opacity);
+}
+.k-ui-j5-form .btn-close:focus {
+  outline: 0;
+  box-shadow: var(--btn-close-focus-shadow);
+  opacity: var(--btn-close-focus-opacity);
+}
+.k-ui-j5-form .btn-close:disabled, .k-ui-j5-form .btn-close.disabled {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  opacity: var(--btn-close-disabled-opacity);
+}
+.k-ui-j5-form .btn-close-white {
+  filter: var(--btn-close-white-filter);
+}
+.k-ui-j5-form .btn-primary {
+  color: var(--template-text-light);
+  background-color: var(--template-bg-dark-60);
+  border-color: var(--template-bg-dark-60);
+}
+.k-ui-j5-form .btn-primary:hover, .k-ui-j5-form .btn-primary:focus, .k-ui-j5-form .btn-primary:active {
+  background-color: var(--template-bg-dark-70);
+  border-color: var(--template-bg-dark-90);
+}
+.k-ui-j5-form .btn-primary:not(:disabled):not(.disabled):active, .k-ui-j5-form .btn-primary:not(:disabled):not(.disabled).active, .k-ui-j5-form .show > .btn-primary.dropdown-toggle {
+  background-color: var(--template-bg-dark);
+  border-color: var(--template-bg-dark);
+}
+.k-ui-j5-form .btn-secondary {
+  background-color: var(--template-bg-dark-60);
+  border-color: var(--template-bg-dark-60);
+}
+.k-ui-j5-form details {
+  padding: 0.5rem 1rem;
+  margin: 0 0 2rem;
+  background: var(--template-bg-dark-3);
+  border: 1px solid var(--template-bg-dark-10);
+  border-radius: 0.25rem;
+}
+.k-ui-j5-form details summary {
+  color: var(--template-link-color);
+}
+.k-ui-j5-form details summary ~ * {
+  margin-top: 1rem;
+}
+.k-ui-j5-form .jviewport-height10 {
+  height: 10vh;
+}
+.k-ui-j5-form .jviewport-height20 {
+  height: 20vh;
+}
+.k-ui-j5-form .jviewport-height30 {
+  height: 30vh;
+}
+.k-ui-j5-form .jviewport-height40 {
+  height: 40vh;
+}
+.k-ui-j5-form .jviewport-height50 {
+  height: 50vh;
+}
+.k-ui-j5-form .jviewport-height60 {
+  height: 60vh;
+}
+.k-ui-j5-form .jviewport-height70 {
+  height: 70vh;
+}
+.k-ui-j5-form .jviewport-height80 {
+  height: 80vh;
+}
+.k-ui-j5-form .jviewport-height90 {
+  height: 90vh;
+}
+.k-ui-j5-form .jviewport-height100 {
+  height: 100vh;
+}
+.k-ui-j5-form [class*=jviewport-height] iframe {
+  height: 100%;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width10 {
+  width: 10vw;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width20 {
+  width: 20vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width30 {
+  width: 30vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width40 {
+  width: 40vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width50 {
+  width: 50vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width60 {
+  width: 60vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width70 {
+  width: 70vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width80 {
+  width: 80vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width90 {
+  width: 90vw;
+  max-width: none;
+}
+.k-ui-j5-form .modal-dialog.jviewport-width100 {
+  width: 100vw;
+  max-width: none;
+}
+@media (max-width: 767.98px) {
+  .k-ui-j5-form .modal-dialog {
+    margin: 1.75rem auto;
+  }
+}
+.k-ui-j5-form .modal-dialog .modal-body {
+  padding: 0;
+}
+.k-ui-j5-form iframe {
+  border: 0;
 }
 
 .k-ui-j3-form .k-ui-namespace {
   /**
    * Editor
+   */
+  /**
+   * Default select is not styled outside Joomla scope (for example in koowa template)
+   */
+  /**
+   * Joomla utilities
+   * ----------------
+   * these are not available outside Joomla scope (for example in koowa template)
    */
 }
 .k-ui-j3-form .k-ui-namespace #editor-xtd-buttons .btn {
@@ -14784,50 +16104,38 @@ html .form-inline .select2-container--bootstrap {
   background-image: none !important;
   vertical-align: inherit !important;
 }
-
-/**
- * Default select is not styled outside Joomla scope (for example in koowa template)
- */
-/**
- * Joomla utilities
- * ----------------
- * these are not available outside Joomla scope (for example in koowa template)
- */
-.btn-toolbar {
+.k-ui-j3-form .k-ui-namespace .btn-toolbar {
   margin: 1em 0 0;
 }
-
-.pull-left {
+.k-ui-j3-form .k-ui-namespace .pull-left {
   float: left;
 }
-[dir=rtl] .pull-left {
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .pull-left {
   float: right;
 }
 
-.pull-right {
+.k-ui-j3-form .k-ui-namespace .pull-right {
   float: right;
 }
-[dir=rtl] .pull-right {
+[dir=rtl] .k-ui-j3-form .k-ui-namespace .pull-right {
   float: left;
 }
 
-.clearfix:before, .clearfix:after {
+.k-ui-j3-form .k-ui-namespace .clearfix:before, .k-ui-j3-form .k-ui-namespace .clearfix:after {
   display: table;
   content: " ";
 }
-.clearfix:after {
+.k-ui-j3-form .k-ui-namespace .clearfix:after {
   clear: both;
 }
-
-.editor:before, .editor:after {
+.k-ui-j3-form .k-ui-namespace .editor:before, .k-ui-j3-form .k-ui-namespace .editor:after {
   display: table;
   content: " ";
 }
-.editor:after {
+.k-ui-j3-form .k-ui-namespace .editor:after {
   clear: both;
 }
-
-.select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+.k-ui-j3-form .k-ui-namespace .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
   margin-bottom: 0;
   height: auto;
 }
@@ -32602,7 +33910,6 @@ html[dir=rtl] .float-right {
 .k-ui-j5-form [class^=icon-], .k-ui-j5-form [class*=" icon-"] {
   /* Avoid Bootstrap icon overrides */
   background-image: none !important;
-  margin: 0px !important;
 }
 
 html[dir=rtl] .float-right {
