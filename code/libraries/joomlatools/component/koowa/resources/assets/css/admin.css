@@ -14233,6 +14233,37 @@ html .form-inline .select2-container--bootstrap {
   --gutter-y: 0.5rem;
 }
 
+.k-ui-j5-administrator {
+  /* Make content full height */
+}
+.k-ui-j5-administrator #subhead {
+  display: none;
+}
+.k-ui-j5-administrator #content > .row {
+  min-height: calc(100vh - 60px) !important;
+}
+.k-ui-j5-administrator #content > .row main {
+  height: 100% !important;
+  flex-direction: column !important;
+  display: flex !important;
+}
+.k-ui-j5-administrator #content > .row > .col-md-12 {
+  padding: 0;
+}
+.k-ui-j5-administrator .container-main {
+  padding-bottom: 0;
+}
+.k-ui-j5-administrator section.content {
+  padding: 0;
+}
+.k-ui-j5-administrator #subhead-container {
+  display: none;
+}
+.k-ui-j5-administrator .row {
+  --gutter-x: 0rem;
+  --gutter-y: 0.5rem;
+}
+
 .k-ui-j4-form .k-ui-namespace {
   /**
    * Modals
