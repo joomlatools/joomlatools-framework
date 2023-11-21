@@ -47,10 +47,13 @@ class ComKoowaTemplateHelperActionbar extends KTemplateHelperActionbar
 
             $command = $config->command;
 
-            $command->attribs->class->append(array('btn'));
+            if ($this->getTemplate()->decorator() == 'joomla')
+            {
+                $command->attribs->class->append(array('btn'));
 
-            if ($command->id === 'new' || $command->id === 'apply') {
-                $command->attribs->class->append(array('btn-success'));
+                if ($command->id === 'new' || $command->id === 'apply') {
+                    $command->attribs->class->append(array('btn-success'));
+                }
             }
         }
 
