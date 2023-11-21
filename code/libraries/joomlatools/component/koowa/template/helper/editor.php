@@ -73,38 +73,6 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
                 $result .= sprintf('<ktml:style src="%s" />', $url);
             }
         }
-        
-        if (version_compare(JVERSION, '5', '>='))
-        {
-            $document = Joomla\CMS\Factory::getApplication()->getDocument();
-
-            $scripts_renderer = new Joomla\CMS\Document\Renderer\Html\ScriptsRenderer($document);
-
-            // Method 1 - Begin
-
-            $result .= $scripts_renderer->render(null, [], null);
-
-            // Method 1 - End
-
-            // Method 2 - Begin
-            /*
-            $assets_manager = $document->getWebAssetManager();
-
-            $assets = $assets_manager->getAssets('script', true);
-
-            $get_importmap = Closure::bind(function ($assets) {
-                return $this->renderImportMap($assets);
-            }, $scripts_renderer, $scripts_renderer);
-
-            $import_map = $get_importmap($assets);
-
-            if ($import_map) {
-                $result .= $import_map;
-            }
-            */
-
-            // Method 2 - End
-        }
 
         return $result;
     }

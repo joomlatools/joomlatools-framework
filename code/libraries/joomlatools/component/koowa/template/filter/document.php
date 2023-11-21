@@ -98,9 +98,10 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 echo sprintf('<style type="%s">%s</style>', $type, $content);
             }
 
-            if (version_compare(JVERSION, '3.7.0', '>=')) {
-                $document = JFactory::getDocument();
+            $document = JFactory::getDocument();
 
+            if (version_compare(JVERSION, '3.7.0', '>='))
+            {
                 // Copied from \Joomla\CMS\Document\Renderer\Html\MetasRenderer::render
                 if (version_compare(JVERSION, '4.0', '>=')) {
                     $wa  = $document->getWebAssetManager();
@@ -149,29 +150,40 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
 
             // Generate script file links
 
-            if (isset($head['assetManager']) && isset($head['assetManager']['assets'])) {
+            if (isset($head['assetManager']) && isset($head['assetManager']['assets']))
+            {
                 $manager = $head['assetManager']['assets'];
 
-                if (isset($manager['script'])) {
-                    /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
-                    foreach ($manager['script'] as $script) {
-                        if ($script->getOption('webcomponent') || $script->getOption('importmap')) {
-                            continue; // they are loaded by Joomla in core.js
+                if (version_compare(JVERSION, 5.0, '<'))
+                {
+                    if (isset($manager['script'])) {
+                        /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
+                        foreach ($manager['script'] as $script) {
+                            if ($script->getOption('webcomponent') || $script->getOption('importmap')) {
+                                continue; // they are loaded by Joomla in core.js
+                            }
+                            $uri = $script->getUri(true);
+                            $attributes = $script->getAttributes();
+    
+                            echo sprintf('<ktml:script src="%s" %s />', $uri, $this->buildAttributes($attributes));
                         }
-                        $uri = $script->getUri(true);
-                        $attributes = $script->getAttributes();
-
-                        echo sprintf('<ktml:script src="%s" %s />', $uri, $this->buildAttributes($attributes));
                     }
                 }
+                else
+                {
+                    // Joomla 5 provides a script renderer for loading and adding the scripts directly into the content
 
+                    $scripts_renderer = new Joomla\CMS\Document\Renderer\Html\ScriptsRenderer($document);
+                
+                    echo $scripts_renderer->render(null, [], null);
+                }
 
                 if (isset($manager['style'])) {
                     foreach ($manager['style'] as $style)
                     {
                         if ($uri = $style->getUri(true))
                         {
-                            $attributes = $script->getAttributes();
+                            $attributes = $style->getAttributes();
 
                             if (isset($attributes['type']) && $attributes['type'] === 'module') {
                                 unset($attributes['type']);
