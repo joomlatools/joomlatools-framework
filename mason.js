@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 const frameworkFolder = process.cwd();
 const libraryAssetsPath = `${frameworkFolder}/code/libraries/joomlatools/library/resources/assets`;
 const koowaAssetsPath = `${frameworkFolder}/code/libraries/joomlatools/component/koowa/resources/assets`;
-const KUIPath = `${path.resolve(frameworkFolder, '..')}/kodekit-ui/dist`;
+const KUIPath = `${path.resolve(frameworkFolder, '../..')}/tools/kodekit-ui/dist`;
 
 const filesPath = `${frameworkFolder}/code/libraries/joomlatools-components/files/resources/assets`;
 
