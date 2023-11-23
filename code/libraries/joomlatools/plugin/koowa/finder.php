@@ -170,6 +170,11 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         }
     }
 
+    protected function isEnabled()
+    {
+        return JComponentHelper::isEnabled($this->extension) == true;
+    }
+
     /**
      * Main index function run when indexing happens
      *
@@ -179,25 +184,29 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
     protected function index(FinderIndexerResult $item)
     {
         // Check if the extension is enabled
-        if (JComponentHelper::isEnabled($this->extension) == false) {
+        
+        if (!$this->isEnabled()) {
             return;
         }
 
-        //Add the instructions
-        foreach ($this->instructions AS $type => $instructions)
+        if ($item->id)
         {
-            foreach ($instructions AS $instruction) {
-                $item->addInstruction($type, $instruction);
+            //Add the instructions
+            foreach ($this->instructions AS $type => $instructions)
+            {
+                foreach ($instructions AS $instruction) {
+                    $item->addInstruction($type, $instruction);
+                }
             }
+
+            // Add the type taxonomy data.
+            $item->addTaxonomy('Type', $this->type_title);
+
+            FinderIndexerHelper::getContentExtras($item);
+
+            // Index the item.
+            $this->indexer->index($item);
         }
-
-        // Add the type taxonomy data.
-        $item->addTaxonomy('Type', $this->type_title);
-
-        FinderIndexerHelper::getContentExtras($item);
-
-        // Index the item.
-        $this->indexer->index($item);
     }
 
     /**
@@ -261,6 +270,10 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
     {
         $entity = $this->getModel()->id($id)->fetch();
 
+        if ($entity->isNew()) {
+            $this->remove($id);
+        }
+
         return $this->getFinderItem($entity);
     }
 
@@ -309,15 +322,13 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
     }
 
     /**
-     * Turns a KModelEntityInterface object into a finder item
+     * Finder item getter
      *
-     * @param KModelEntityInterface $entity
+     * @param array $data The item data
      * @return object
      */
-    protected function getFinderItem(KModelEntityInterface $entity)
+    protected function _getFinderItem($data = array())
     {
-        $data = $entity->getProperties();
-
         //Get the indexer result item
         if (class_exists('JArrayHelper')) {
             $item = JArrayHelper::toObject($data, 'FinderIndexerResult');
@@ -325,56 +336,73 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
             $item = \Joomla\Utilities\ArrayHelper::toObject($data, 'FinderIndexerResult');
         }
 
-        $item->url = $this->getURL($item->id, $this->extension, $this->layout);
-        $item->route = $this->getLink($entity);
+        return $item;
+    }
 
-        if (method_exists('FinderIndexerHelper', 'getContentPath')) {
-            $item->path = FinderIndexerHelper::getContentPath($item->route);
-        }
-
-        // Trigger the onContentPrepare event.
-        if ($item->description) {
-            $item->summary = FinderIndexerHelper::prepareContent($item->description, $item->params);
-        }
-
-        if ($item->publish_on) {
-            $item->publish_start_date = $item->publish_on;
-        }
-
-        if ($item->unpublish_on) {
-            $item->publish_end_date = $item->unpublish_on;
-        }
-
-        // Finder needs the access field
-        if (!isset($item->access)) {
-            $item->access = 1;
-        }
-
-        $item->state = $item->enabled;
-
-        // Set the item type.
-        $item->type_id = $this->type_id;
-
-        // Set the mime type.
-        $item->mime = $this->mime;
-
-        // Set the item layout.
-        $item->layout = $this->layout;
-
-        // Set the extension if present
-        if (isset($entity->extension)) {
-            $item->extension = $entity->extension;
-        }
-
-        if ($entity->isCreatable())
+    /**
+     * Turns a KModelEntityInterface object into a finder item
+     *
+     * @param KModelEntityInterface $entity
+     * @return object
+     */
+    protected function getFinderItem(KModelEntityInterface $entity)
+    {
+        if ($entity->isNew())
         {
-            // Add the author taxonomy data.
-            $item->addTaxonomy('Author', $entity->getAuthor()->getName());
+            $item = $this->_getFinderItem($entity->getProperties());
 
-            // Add the start date
-            $item->start_date = $entity->created_on;
+            $item->url = $this->getURL($item->id, $this->extension, $this->layout);
+            $item->route = $this->getLink($entity);
+
+            if (method_exists('FinderIndexerHelper', 'getContentPath')) {
+                $item->path = FinderIndexerHelper::getContentPath($item->route);
+            }
+
+            // Trigger the onContentPrepare event.
+            if ($item->description) {
+                $item->summary = FinderIndexerHelper::prepareContent($item->description, $item->params);
+            }
+
+            if ($item->publish_on) {
+                $item->publish_start_date = $item->publish_on;
+            }
+
+            if ($item->unpublish_on) {
+                $item->publish_end_date = $item->unpublish_on;
+            }
+
+            // Finder needs the access field
+            if (!isset($item->access)) {
+                $item->access = 1;
+            }
+
+            $item->state = $item->enabled;
+
+            // Set the item type.
+            $item->type_id = $this->type_id;
+
+            // Set the mime type.
+            $item->mime = $this->mime;
+
+            // Set the item layout.
+            $item->layout = $this->layout;
+
+            // Set the extension if present
+            if (isset($entity->extension)) {
+                $item->extension = $entity->extension;
+            }
+
+            if ($entity->isCreatable())
+            {
+                // Add the author taxonomy data.
+                $item->addTaxonomy('Author', $entity->getAuthor()->getName());
+
+                // Add the start date
+                $item->start_date = $entity->created_on;
+            }
         }
-
+        else $item = $this->_getFinderItem();
+        
         return $item;
     }
 
