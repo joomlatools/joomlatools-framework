@@ -1348,14 +1348,35 @@ details summary ~ * {
  * Iframes
  */
 
- /**
- * Editors
- */
-/*
-
-
-
 /**
  * Editors
  */
+
+ .editor {
+
+  &.mb-2 {
+    margin-bottom: .5rem !important;
+  }
+
+}
+
+.editor-xtd-buttons {
+
+  margin-top: 10px;
+
+  .xtd-button {
+
+    &.btn {
+      margin: 0 4px 4px 0;
+    }
+
+    &.btn-secondary {
+      @extend .k-button--default;
+    }
+
+    [class^="icon-"], [class*=" icon-"] {
+      margin-right: 0 !important;
+    }
+  }
+}
 
