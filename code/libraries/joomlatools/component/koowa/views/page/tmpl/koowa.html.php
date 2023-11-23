@@ -27,6 +27,7 @@ $direction = $doc->direction;
     <ktml:meta>
     <ktml:link>
     <ktml:style>
+    <ktml:importmap>
     <ktml:script>
 </head>
 <body>

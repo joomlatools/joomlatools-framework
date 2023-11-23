@@ -58,6 +58,24 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
     {
         if($this->getTemplate()->decorator() == 'koowa')
         {
+            if (version_compare(JVERSION, '5', '>='))
+            {
+                $document = Joomla\CMS\Factory::getApplication()->getDocument();
+    
+                $scripts_renderer = new Joomla\CMS\Document\Renderer\Html\ScriptsRenderer($document);
+                
+                $assets_manager = $document->getWebAssetManager();
+    
+                $assets = $assets_manager->getAssets('script', true);
+    
+                $get_importmap = Closure::bind(function ($assets) {
+                    return $this->renderImportMap($assets);
+                }, $scripts_renderer, $scripts_renderer);
+    
+                $import_map = $get_importmap($assets);
+            }
+            else $import_map = '';
+
             $head = JFactory::getDocument()->getHeadData();
             $mime = JFactory::getDocument()->getMimeEncoding();
 
@@ -98,9 +116,10 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 echo sprintf('<style type="%s">%s</style>', $type, $content);
             }
 
-            if (version_compare(JVERSION, '3.7.0', '>=')) {
-                $document = JFactory::getDocument();
+            $document = JFactory::getDocument();
 
+            if (version_compare(JVERSION, '3.7.0', '>='))
+            {
                 // Copied from \Joomla\CMS\Document\Renderer\Html\MetasRenderer::render
                 if (version_compare(JVERSION, '4.0', '>=')) {
                     $wa  = $document->getWebAssetManager();
@@ -119,7 +138,6 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                         $document->addScriptOptions('webcomponents', array_unique($wc));
                     }
                 }
-
 
                 $options  = $document->getScriptOptions();
 
@@ -147,15 +165,18 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                 }
             }
 
+            if ($import_map) echo $import_map;
+
             // Generate script file links
 
-            if (isset($head['assetManager']) && isset($head['assetManager']['assets'])) {
+            if (isset($head['assetManager']) && isset($head['assetManager']['assets']))
+            {
                 $manager = $head['assetManager']['assets'];
 
                 if (isset($manager['script'])) {
                     /** @var \Joomla\CMS\WebAsset\WebAssetItemInterface $script */
                     foreach ($manager['script'] as $script) {
-                        if ($script->getOption('webcomponent')) {
+                        if ($script->getOption('webcomponent') || $script->getOption('importmap')) {
                             continue; // they are loaded by Joomla in core.js
                         }
                         $uri = $script->getUri(true);
@@ -164,14 +185,13 @@ class ComKoowaTemplateFilterDocument extends KTemplateFilterAbstract
                         echo sprintf('<ktml:script src="%s" %s />', $uri, $this->buildAttributes($attributes));
                     }
                 }
-
-
+                
                 if (isset($manager['style'])) {
                     foreach ($manager['style'] as $style)
                     {
                         if ($uri = $style->getUri(true))
                         {
-                            $attributes = $script->getAttributes();
+                            $attributes = $style->getAttributes();
 
                             if (isset($attributes['type']) && $attributes['type'] === 'module') {
                                 unset($attributes['type']);

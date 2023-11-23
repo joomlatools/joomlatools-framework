@@ -47,7 +47,7 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
         // Some editors like CKEditor return inline JS. 
         $result = str_replace('<script', '<script data-inline', $result);
 
-        if (version_compare(JVERSION, '4.0', '>='))
+        if (version_compare(JVERSION, '4', '>='))
         {
             $fields = array(
                 'joomla-field-media',

@@ -10,7 +10,7 @@
 //
 // Containing different libraries, variables, mixins and functions
 
-@import "../../../../../../../../../kodekit-ui/src/scss/admin/core/tools";
+@import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin/core/tools";
 
 
 // Needed styling
@@ -18,22 +18,22 @@
 //
 // Load needed styling in here
 
-@import "../../../../../../../../../kodekit-ui/src/scss/admin/molecules/dropdown";
+@import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin/molecules/dropdown";
 
 
 // Modified 3rd party files
 // ==========================================================================
 
-@import "../../../../../../../../../kodekit-ui/src/scss/admin/3rdparty/magnific";
-@import "../../../../../../../../../kodekit-ui/src/scss/admin/3rdparty/select2";
+@import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin/3rdparty/magnific";
+@import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin/3rdparty/select2";
 
 
 // Untouched 3rd party files
 // ==========================================================================
 
 %select2extender {
-  @import "../../../../../../../../../kodekit-ui/src/scss/admin/3rdparty/copied/select2/core";
-  @import "../../../../../../../../../kodekit-ui/src/scss/admin/3rdparty/copied/select2-bootstrap-theme/select2-bootstrap";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin/3rdparty/copied/select2/core";
+  @import "../../../../../../../../../../tools/kodekit-ui/src/scss/admin/3rdparty/copied/select2-bootstrap-theme/select2-bootstrap";
 }
 
 html {
