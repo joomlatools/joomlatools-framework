@@ -439,10 +439,11 @@ class ComFilesAdapterFile extends ComFilesAdapterAbstract
 	public function exists()
 	{
 	    if ($this->isLocal()) {
-            $result = is_file($this->_path);
+            $result = is_file($this->_path); 
         } else {
-            $result = fopen($this->_path, 'r', false, $this->_getFileStreamOptions());
+            $result = @fopen($this->_path, 'r', false, $this->_getFileStreamOptions()) !== false; 
         }
+        
 		return $result;
     }
     
