@@ -33,3 +33,15 @@ section.content {
 .row {
   --gutter-x: 0rem; --gutter-y: 0.5rem;
 }
+
+// Start - Fixes font color on admin views when dark mode is enabled
+
+.k-scopebar__item.k-scopebar__item--filters .k-scopebar-dropdown__button {
+  color: rgb(0,0,0) !important;
+}
+
+.select2-container {
+  color: rgb(33,37,41) !important;
+}
+
+// End
