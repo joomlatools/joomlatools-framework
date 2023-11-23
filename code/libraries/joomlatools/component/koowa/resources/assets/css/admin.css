@@ -14266,7 +14266,7 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j5-administrator .k-scopebar__item.k-scopebar__item--filters .k-scopebar-dropdown__button {
   color: rgb(0, 0, 0) !important;
 }
-.k-ui-j5-administrator .select2-container {
+.k-ui-j5-administrator .select2-container, .k-ui-j5-administrator .datepicker {
   color: rgb(33, 37, 41) !important;
 }
 
