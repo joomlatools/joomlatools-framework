@@ -250,7 +250,7 @@ class ComMigratorMigratorBehaviorImportDatabase extends KControllerBehaviorAbstr
         // Update component IDs
         $sql = /** @lang text */
         "UPDATE #__%1\$s AS m
-        LEFT JOIN j_extensions AS e ON e.element = CONCAT('com_', SUBSTRING_INDEX(SUBSTRING_INDEX(m.link, 'com_', -1), '&', 1)) AND e.type = 'component'
+        LEFT JOIN #__extensions AS e ON e.element = CONCAT('com_', SUBSTRING_INDEX(SUBSTRING_INDEX(m.link, 'com_', -1), '&', 1)) AND e.type = 'component'
         SET m.component_id = e.extension_id
         ";
 
@@ -504,7 +504,19 @@ class ComMigratorMigratorBehaviorImportDatabase extends KControllerBehaviorAbstr
             'source'    => 'migrator_tmp_assets'
         ));
 
-        $sql = /** @lang text */<<<SQL
+        $sql = '';
+
+        $orphaned = /** @lang text */<<<SQL
+        DELETE assets FROM #__%1\$s AS assets
+            LEFT JOIN #__%2\$s AS rels ON rels.asset_id = assets.id
+            WHERE rels.asset_id IS NULL AND assets.name LIKE '%3\$s.%%%%';
+SQL;
+
+        foreach ($job->tables as $table) {
+            $sql .= sprintf($orphaned, $job->source, $table[0], $table[1]);
+        }
+
+        $sql .= /** @lang text */<<<SQL
         SET @parentID := (SELECT id FROM #__%2\$s WHERE name = '%1\$s');
         SET @rgt      := (SELECT rgt FROM #__%2\$s WHERE name = '%1\$s');
         SET @lft      := (SELECT lft FROM #__%2\$s WHERE name = '%1\$s');
