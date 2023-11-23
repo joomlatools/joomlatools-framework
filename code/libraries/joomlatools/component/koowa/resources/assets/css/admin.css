@@ -4864,7 +4864,7 @@
 .k-ui-namespace .k-empty-state p small {
   font-size: 80%;
 }
-.k-ui-namespace .k-form-control, .k-ui-j4-form .k-ui-namespace .form-control, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select, .k-ui-j4-form .k-ui-namespace select {
+.k-ui-namespace .k-form-control, .k-ui-j4-form .k-ui-namespace .form-control, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form select, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace select, .k-ui-j4-form .k-ui-namespace select {
   display: block;
   width: 100%; /* 1 */
   max-width: 100%; /* 1 */
@@ -4893,17 +4893,17 @@
   outline: 0;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(52, 152, 219, 0.6);
 }
-.k-ui-namespace .k-form-control::-moz-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-moz-placeholder, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-moz-placeholder, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-moz-placeholder, .k-ui-j4-form .k-ui-namespace select::-moz-placeholder {
+.k-ui-namespace .k-form-control::-moz-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-moz-placeholder, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-moz-placeholder, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-moz-placeholder, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form select::-moz-placeholder, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace select::-moz-placeholder, .k-ui-j4-form .k-ui-namespace select::-moz-placeholder {
   color: #9a9a9a;
   opacity: 1;
 }
 .k-ui-namespace .k-form-control:-ms-input-placeholder, .k-ui-j4-form .k-ui-namespace .form-control:-ms-input-placeholder, .k-ui-j4-form .k-ui-namespace select:-ms-input-placeholder {
   color: #9a9a9a;
 }
-.k-ui-namespace .k-form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder {
+.k-ui-namespace .k-form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace .form-control::-webkit-input-placeholder, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form select::-webkit-input-placeholder, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder, .k-ui-j4-form .k-ui-namespace select::-webkit-input-placeholder {
   color: #9a9a9a;
 }
-.k-ui-namespace .k-form-control::-ms-expand, .k-ui-j4-form .k-ui-namespace .form-control::-ms-expand, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-ms-expand, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-ms-expand, .k-ui-j4-form .k-ui-namespace select::-ms-expand {
+.k-ui-namespace .k-form-control::-ms-expand, .k-ui-j4-form .k-ui-namespace .form-control::-ms-expand, .k-ui-j4-form .k-ui-j3-form .k-ui-namespace select::-ms-expand, .k-ui-j3-form .k-ui-j4-form .k-ui-namespace select::-ms-expand, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form select::-ms-expand, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace select::-ms-expand, .k-ui-j4-form .k-ui-namespace select::-ms-expand {
   border: 0;
   background-color: transparent;
 }
@@ -11884,7 +11884,7 @@ html .select2-container--bootstrap .select2-selection {
   font-size: 13px;
   outline: 0;
 }
-html .select2-container--bootstrap .select2-selection.form-control, html .select2-container--bootstrap .k-ui-j3-form .k-ui-namespace select.select2-selection, .k-ui-j3-form .k-ui-namespace html .select2-container--bootstrap select.select2-selection, html .select2-container--bootstrap .k-ui-j4-form .k-ui-namespace select.select2-selection, .k-ui-j4-form .k-ui-namespace html .select2-container--bootstrap select.select2-selection {
+html .select2-container--bootstrap .select2-selection.form-control, html .select2-container--bootstrap .k-ui-j3-form .k-ui-namespace select.select2-selection, .k-ui-j3-form .k-ui-namespace html .select2-container--bootstrap select.select2-selection, html .select2-container--bootstrap .k-ui-j5-form select.select2-selection, .k-ui-j5-form html .select2-container--bootstrap select.select2-selection, html .select2-container--bootstrap .k-ui-j4-form .k-ui-namespace select.select2-selection, .k-ui-j4-form .k-ui-namespace html .select2-container--bootstrap select.select2-selection {
   border-radius: 4px;
 }
 html .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
@@ -12348,7 +12348,7 @@ html .select2-bootstrap-prepend .input-group-btn,
 html .select2-bootstrap-prepend .input-group-btn .btn {
   vertical-align: top;
 }
-html .form-control.select2-hidden-accessible, html .k-ui-j3-form .k-ui-namespace select.select2-hidden-accessible, .k-ui-j3-form .k-ui-namespace html select.select2-hidden-accessible, html .k-ui-j4-form .k-ui-namespace select.select2-hidden-accessible, .k-ui-j4-form .k-ui-namespace html select.select2-hidden-accessible {
+html .form-control.select2-hidden-accessible, html .k-ui-j3-form .k-ui-namespace select.select2-hidden-accessible, .k-ui-j3-form .k-ui-namespace html select.select2-hidden-accessible, html .k-ui-j5-form select.select2-hidden-accessible, .k-ui-j5-form html select.select2-hidden-accessible, html .k-ui-j4-form .k-ui-namespace select.select2-hidden-accessible, .k-ui-j4-form .k-ui-namespace html select.select2-hidden-accessible {
   position: absolute !important;
   width: 1px !important;
 }
@@ -14963,6 +14963,14 @@ html .form-inline .select2-container--bootstrap {
   /**
    * Editors
    */
+  /**
+   * Default select is not styled outside Joomla scope (for example in koowa template)
+   */
+  /**
+   * Joomla utilities
+   * ----------------
+   * these are not available outside Joomla scope (for example in koowa template)
+   */
 }
 .k-ui-j5-form {
   --hue: 214;
@@ -16114,6 +16122,41 @@ html .form-inline .select2-container--bootstrap {
 }
 .k-ui-j5-form .modal iframe {
   width: 100%;
+}
+.k-ui-j5-form .btn-toolbar {
+  margin: 1em 0 0;
+}
+.k-ui-j5-form .pull-left {
+  float: left;
+}
+[dir=rtl] .k-ui-j5-form .pull-left {
+  float: right;
+}
+
+.k-ui-j5-form .pull-right {
+  float: right;
+}
+[dir=rtl] .k-ui-j5-form .pull-right {
+  float: left;
+}
+
+.k-ui-j5-form .clearfix:before, .k-ui-j5-form .clearfix:after {
+  display: table;
+  content: " ";
+}
+.k-ui-j5-form .clearfix:after {
+  clear: both;
+}
+.k-ui-j5-form .editor:before, .k-ui-j5-form .editor:after {
+  display: table;
+  content: " ";
+}
+.k-ui-j5-form .editor:after {
+  clear: both;
+}
+.k-ui-j5-form .select2-container--bootstrap .select2-search--dropdown .select2-search__field {
+  margin-bottom: 0;
+  height: auto;
 }
 
 .k-ui-j3-form .k-ui-namespace {
