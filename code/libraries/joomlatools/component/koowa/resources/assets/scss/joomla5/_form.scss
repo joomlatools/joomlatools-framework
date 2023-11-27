@@ -465,10 +465,10 @@
   }
 }
 
-.fade {
-  -webkit-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
-  opacity: 100%;
+.joomla-modal.modal.fade {
+  opacity: unset;
+  transition: unset;
+  -webkit-backface-visibility: unset;
 }
 
 /**

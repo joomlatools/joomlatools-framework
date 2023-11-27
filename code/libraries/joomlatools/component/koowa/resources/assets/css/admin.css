@@ -15384,9 +15384,10 @@ html .form-inline .select2-container--bootstrap {
     overflow-y: auto;
   }
 }
-.k-ui-j5-form .fade {
-  transition: opacity 0.15s linear;
-  opacity: 100%;
+.k-ui-j5-form .joomla-modal.modal.fade {
+  opacity: unset;
+  transition: unset;
+  -webkit-backface-visibility: unset;
 }
 .k-ui-j5-form joomla-dialog dialog {
   width: 96vw;
