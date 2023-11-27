@@ -58,6 +58,10 @@ $k-atom-body: false;
 
 .k-ui-j5-form {
 
+  .fade.show {
+    opacity: 1;
+  }
+
   @import "joomla5/form";
   @import "joomla5/styles";
 

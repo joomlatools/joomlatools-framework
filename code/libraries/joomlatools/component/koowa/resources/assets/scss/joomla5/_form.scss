@@ -466,9 +466,8 @@
 }
 
 .joomla-modal.modal.fade {
-  opacity: unset;
-  transition: unset;
-  -webkit-backface-visibility: unset;
+  -webkit-transition:opacity .15s linear;
+  transition:opacity .15s linear;
 }
 
 /**

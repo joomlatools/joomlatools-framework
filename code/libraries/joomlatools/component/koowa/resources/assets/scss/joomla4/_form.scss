@@ -564,6 +564,11 @@
   line-height: 2.875rem;
 }
 
+.joomla-modal.modal.fade {
+  -webkit-transition:opacity .15s linear;
+  transition:opacity .15s linear;
+}
+
 /**
  * Modals
  */

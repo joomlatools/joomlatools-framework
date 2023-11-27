@@ -14792,6 +14792,9 @@ html .form-inline .select2-container--bootstrap {
   font-weight: 400;
   line-height: 2.875rem;
 }
+.k-ui-j4-form .k-ui-namespace .joomla-modal.modal.fade {
+  transition: opacity 0.15s linear;
+}
 .k-ui-j4-form .k-ui-namespace .btn-close {
   box-sizing: content-box;
   width: 1em;
@@ -14966,6 +14969,9 @@ html .form-inline .select2-container--bootstrap {
    * ----------------
    * these are not available outside Joomla scope (for example in koowa template)
    */
+}
+.k-ui-j5-form .fade.show {
+  opacity: 1;
 }
 .k-ui-j5-form {
   --hue: 214;
@@ -15385,9 +15391,7 @@ html .form-inline .select2-container--bootstrap {
   }
 }
 .k-ui-j5-form .joomla-modal.modal.fade {
-  opacity: unset;
-  transition: unset;
-  -webkit-backface-visibility: unset;
+  transition: opacity 0.15s linear;
 }
 .k-ui-j5-form joomla-dialog dialog {
   width: 96vw;
