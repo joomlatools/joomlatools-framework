@@ -14234,6 +14234,9 @@ html .form-inline .select2-container--bootstrap {
   --gutter-x: 0rem;
   --gutter-y: 0.5rem;
 }
+.k-ui-j4-administrator .k-export-dialog__progress {
+  margin-bottom: 16px;
+}
 
 .k-ui-j5-administrator {
   /* Make content full height */
@@ -14270,6 +14273,9 @@ html .form-inline .select2-container--bootstrap {
 }
 .k-ui-j5-administrator .select2-container, .k-ui-j5-administrator .datepicker {
   color: rgb(33, 37, 41) !important;
+}
+.k-ui-j5-administrator .k-export-dialog__progress {
+  margin-bottom: 16px;
 }
 
 .k-ui-j4-form .k-ui-namespace {
@@ -29079,7 +29085,7 @@ html[dir=rtl] .float-right {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../scss/joomla4/vendor/fontawesome-free/webfonts/fa-regular-400.woff2") format("woff2"), url("../scss/joomla4/vendor/fontawesome-free/webfonts/fa-regular-400.ttf") format("truetype");
+  src: url("../scss/joomla5/vendor/fontawesome-free/webfonts/fa-regular-400.woff2") format("woff2"), url("../scss/joomla5/vendor/fontawesome-free/webfonts/fa-regular-400.ttf") format("truetype");
 }
 .k-ui-j5-form .far,
 .k-ui-j5-form .fa-regular {
@@ -29102,7 +29108,7 @@ html[dir=rtl] .float-right {
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("../scss/joomla4/vendor/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2"), url("../scss/joomla4/vendor/fontawesome-free/webfonts/fa-solid-900.ttf") format("truetype");
+  src: url("../scss/joomla5/vendor/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2"), url("../scss/joomla5/vendor/fontawesome-free/webfonts/fa-solid-900.ttf") format("truetype");
 }
 .k-ui-j5-form .fas, .k-ui-j5-form [class^=icon-],
 .k-ui-j5-form [class*=" icon-"],
@@ -29126,7 +29132,7 @@ html[dir=rtl] .float-right {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../scss/joomla4/vendor/fontawesome-free/webfonts/fa-brands-400.woff2") format("woff2"), url("../scss/joomla4/vendor/fontawesome-free/webfonts/fa-brands-400.ttf") format("truetype");
+  src: url("../scss/joomla5/vendor/fontawesome-free/webfonts/fa-brands-400.woff2") format("woff2"), url("../scss/joomla5/vendor/fontawesome-free/webfonts/fa-brands-400.ttf") format("truetype");
 }
 .k-ui-j5-form .fab, .k-ui-j5-form .icon-joomla,
 .k-ui-j5-form .fa-brands {
