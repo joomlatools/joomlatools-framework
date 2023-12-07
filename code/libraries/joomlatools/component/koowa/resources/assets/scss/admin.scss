@@ -28,12 +28,15 @@ $k-atom-body: false;
 .k-ui-j4-administrator {
 
   @import "joomla4/admin";
+  @import "export";
+
 
 }
 
 .k-ui-j5-administrator {
 
   @import "joomla5/admin";
+  @import "export";
 
 }
 
