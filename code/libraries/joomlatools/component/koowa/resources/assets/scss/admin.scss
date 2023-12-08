@@ -30,7 +30,6 @@ $k-atom-body: false;
   @import "joomla4/admin";
   @import "export";
 
-
 }
 
 .k-ui-j5-administrator {
@@ -97,3 +96,7 @@ $k-atom-body: false;
     content:none;
   }
 }
+
+$k-ui-context: "administrator";
+
+@import "activities";

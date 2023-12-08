@@ -1,0 +1,54 @@
+// Activities stream styles for Joomla 3, 4 and 5
+
+.k-ui-j5-#{$k-ui-context}, .k-ui-j4-#{$k-ui-context}
+{
+
+    .k-ui-namespace
+    {
+
+        .activity-file-preview
+        {
+
+            .btn-toolbar
+            {
+                margin-bottom: 5px;
+                margin-top: 9px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            a[target="_blank"]::before {
+                content: none;
+            }
+
+        }
+
+    }  
+    
+}
+
+.k-ui-j5-#{$k-ui-context}, .k-ui-j4-#{$k-ui-context}, .k-ui-j3-#{$k-ui-context}
+{
+    .k-ui-namespace
+    {
+        .activity-file-preview
+        {
+            
+            text-align: center;
+
+        }
+
+        .activity-file-details
+        {
+
+            td:not(.detail-label)
+            {
+                white-space: normal;
+                word-break: break-all;
+            }
+
+        }
+
+    }
+
+}
