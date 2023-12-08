@@ -34018,3 +34018,21 @@ html[dir=rtl] .float-right {
 .k-ui-namespace a[data-k-tooltip][target=_blank]:before {
   content: none;
 }
+
+.k-ui-j5-administrator .k-ui-namespace .activity-file-preview .btn-toolbar, .k-ui-j4-administrator .k-ui-namespace .activity-file-preview .btn-toolbar {
+  margin-bottom: 5px;
+  margin-top: 9px;
+  align-items: center;
+  justify-content: center;
+}
+.k-ui-j5-administrator .k-ui-namespace .activity-file-preview a[target=_blank]::before, .k-ui-j4-administrator .k-ui-namespace .activity-file-preview a[target=_blank]::before {
+  content: none;
+}
+
+.k-ui-j5-administrator .k-ui-namespace .activity-file-preview, .k-ui-j4-administrator .k-ui-namespace .activity-file-preview, .k-ui-j3-administrator .k-ui-namespace .activity-file-preview {
+  text-align: center;
+}
+.k-ui-j5-administrator .k-ui-namespace .activity-file-details td:not(.detail-label), .k-ui-j4-administrator .k-ui-namespace .activity-file-details td:not(.detail-label), .k-ui-j3-administrator .k-ui-namespace .activity-file-details td:not(.detail-label) {
+  white-space: normal;
+  word-break: break-all;
+}
