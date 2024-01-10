@@ -168,6 +168,7 @@ abstract class KControllerToolbarDecorator extends KObjectDecorator implements K
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->getDelegate()->count();
