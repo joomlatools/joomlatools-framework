@@ -155,6 +155,7 @@ abstract class KControllerToolbarDecorator extends KObjectDecorator implements K
      *
      * @return  \RecursiveArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return $this->getDelegate()->getIterator();
