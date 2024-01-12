@@ -2847,7 +2847,7 @@
   z-index: 3;
 }
 
-.k-ui-namespace .k-show-subcontent-area .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn {
+.k-ui-namespace .k-show-subcontent-area .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn, .k-ui-namespace .k-show-subcontent-area .k-ui-j5-form .k-subcontent-toggle.btn, .k-ui-j5-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-show-subcontent-area .k-subcontent-toggle.btn {
   opacity: 1;
 }
 .k-ui-namespace .k-show-subcontent-area .k-content-area__child {
@@ -2878,7 +2878,7 @@
 .k-ui-namespace .k-is-opened-subcontent .k-content-area {
   z-index: 3;
 }
-.k-ui-namespace .k-is-opened-subcontent .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn {
+.k-ui-namespace .k-is-opened-subcontent .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn, .k-ui-namespace .k-is-opened-subcontent .k-ui-j5-form .k-subcontent-toggle.btn, .k-ui-j5-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-is-opened-subcontent .k-subcontent-toggle.btn {
   visibility: visible;
   z-index: 10;
 }
@@ -3290,7 +3290,7 @@
   }
 }
 @media screen and (min-width: 1024px) {
-  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-namespace .k-ui-j5-form .k-subcontent-toggle.btn, .k-ui-j5-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
     display: none;
   }
 }
@@ -3308,7 +3308,7 @@
 .k-ui-namespace .k-subcontent__child:not(:only-child).k-is-active {
   display: flex;
 }
-.k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+.k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-namespace .k-ui-j5-form .k-subcontent-toggle.btn, .k-ui-j5-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
   position: absolute;
   visibility: hidden;
   opacity: 0;
@@ -3323,11 +3323,11 @@
   -webkit-backface-visibility: hidden;
 }
 @media screen and (min-width: 1024px) {
-  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
+  .k-ui-namespace .k-button.k-subcontent-toggle, .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-namespace .k-ui-j5-form .k-subcontent-toggle.btn, .k-ui-j5-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-subcontent-toggle.xtd-button.btn {
     display: none;
   }
 }
-[dir=rtl] .k-ui-namespace .k-button.k-subcontent-toggle, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn {
+[dir=rtl] .k-ui-namespace .k-button.k-subcontent-toggle, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-subcontent-toggle.btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-subcontent-toggle.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-subcontent-toggle.btn {
   margin: 0;
   right: auto;
   left: 8px;
@@ -3918,7 +3918,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.k-ui-namespace .k-button, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
+.k-ui-namespace .k-button, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-namespace .k-ui-j5-form .btn, .k-ui-j5-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
   display: inline-block;
   margin-bottom: 0; /* 1 */
   font-weight: 400;
@@ -3944,109 +3944,111 @@
   /* Align single icon buttons */
   /* Properly align dropdown button in button */
 }
-.k-ui-namespace .k-button:last-child, .k-ui-j3-form .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:last-child {
+.k-ui-namespace .k-button:last-child, .k-ui-j3-form .k-ui-namespace .btn:last-child, .k-ui-namespace .k-ui-j5-form .btn:last-child, .k-ui-j5-form .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .btn:last-child, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:last-child {
   margin-right: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
+[dir=rtl] .k-ui-namespace .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
   margin-right: 0;
   margin-left: 4px;
 }
-[dir=rtl] .k-ui-namespace .k-button:last-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn:last-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn:last-child {
+[dir=rtl] .k-ui-namespace .k-button:last-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn:last-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn:last-child, [dir=rtl] .k-ui-namespace .k-ui-j5-form .btn:last-child, .k-ui-j5-form [dir=rtl] .k-ui-namespace .btn:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn:last-child {
   margin-left: 0;
 }
 
-.k-ui-namespace .k-button, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-namespace .k-button:hover, .k-ui-namespace .k-button:focus, .k-ui-namespace .k-button:active {
+.k-ui-namespace .k-button, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-namespace .k-ui-j5-form .btn, .k-ui-j5-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn, .k-ui-namespace .k-button:hover, .k-ui-namespace .k-ui-j5-form .btn:hover, .k-ui-j5-form .k-ui-namespace .btn:hover, .k-ui-namespace .k-button:focus, .k-ui-namespace .k-ui-j5-form .btn:focus, .k-ui-j5-form .k-ui-namespace .btn:focus, .k-ui-namespace .k-button:active, .k-ui-namespace .k-ui-j5-form .btn:active, .k-ui-j5-form .k-ui-namespace .btn:active {
   text-decoration: none;
 }
-.k-ui-namespace .k-button:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus, .k-ui-namespace .k-button:active:focus, .k-ui-namespace .k-button.k-is-active:focus {
+.k-ui-namespace .k-button:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-namespace .k-ui-j5-form .btn:focus, .k-ui-j5-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus, .k-ui-namespace .k-button:active:focus, .k-ui-namespace .k-button.k-is-active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.k-ui-namespace .k-button:hover, .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:hover, .k-ui-namespace .k-button:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus {
+.k-ui-namespace .k-button:hover, .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-namespace .k-ui-j5-form .btn:hover, .k-ui-j5-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:hover, .k-ui-namespace .k-button:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-namespace .k-ui-j5-form .btn:focus, .k-ui-j5-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:focus {
   color: #222222;
 }
-.k-ui-namespace .k-button:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:active, .k-ui-namespace .k-button.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn {
+.k-ui-namespace .k-button:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .btn:active, .k-ui-j5-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn:active, .k-ui-namespace .k-button.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .k-is-active.btn, .k-ui-j5-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn {
   outline: 0;
   background-image: none;
 }
-.k-ui-namespace .k-button[disabled], .k-ui-j3-form .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons [disabled].xtd-button.btn, .k-ui-namespace .k-button.k-is-disabled, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-disabled.xtd-button.btn {
+.k-ui-namespace .k-button[disabled], .k-ui-j3-form .k-ui-namespace [disabled].btn, .k-ui-namespace .k-ui-j5-form [disabled].btn, .k-ui-j5-form .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace [disabled].btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons [disabled].xtd-button.btn, .k-ui-namespace .k-button.k-is-disabled, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn, .k-ui-namespace .k-ui-j5-form .k-is-disabled.btn, .k-ui-j5-form .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-disabled.xtd-button.btn {
   cursor: not-allowed;
   opacity: 0.65;
   pointer-events: none;
 }
-.k-ui-namespace .k-button.k-button input[type=checkbox], .k-ui-j3-form .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn input[type=checkbox] {
+.k-ui-namespace .k-button.k-button input[type=checkbox], .k-ui-j3-form .k-ui-namespace .btn input[type=checkbox], .k-ui-namespace .k-ui-j5-form .btn input[type=checkbox], .k-ui-j5-form .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .btn input[type=checkbox], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn input[type=checkbox] {
   margin: 0 -1px;
   vertical-align: top;
 }
-.k-ui-namespace .k-button [class^=k-icon], .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class^=k-icon] {
+.k-ui-namespace .k-button [class^=k-icon], .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon], .k-ui-namespace .k-ui-j5-form .btn [class^=k-icon], .k-ui-j5-form .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn [class^=k-icon] {
   display: inline-block;
 }
-.k-ui-namespace .k-button [class^=k-icon]:first-child, .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:first-child {
+.k-ui-namespace .k-button [class^=k-icon]:first-child, .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-namespace .k-ui-j5-form .btn [class^=k-icon]:first-child, .k-ui-j5-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:first-child {
   margin: 0 0.25em 0 0.1em;
 }
-[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child {
+[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child, [dir=rtl] .k-ui-namespace .k-ui-j5-form .btn [class^=k-icon]:first-child, .k-ui-j5-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:first-child {
   margin: 0 0.1em 0 0.25em;
 }
 
-.k-ui-namespace .k-button [class^=k-icon]:last-child, .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:last-child {
+.k-ui-namespace .k-button [class^=k-icon]:last-child, .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-namespace .k-ui-j5-form .btn [class^=k-icon]:last-child, .k-ui-j5-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:last-child {
   margin: 0 0.1em 0 0.25em;
 }
-[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:last-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child {
+[dir=rtl] .k-ui-namespace .k-button [class^=k-icon]:last-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child, [dir=rtl] .k-ui-namespace .k-ui-j5-form .btn [class^=k-icon]:last-child, .k-ui-j5-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .btn [class^=k-icon]:last-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .btn [class^=k-icon]:last-child {
   margin: 0 0.25em 0 0.1em;
 }
 
-.k-ui-namespace .k-button [class*=icon-]:only-child, .k-ui-j3-form .k-ui-namespace .btn [class*=icon-]:only-child, .k-ui-j4-form .k-ui-namespace .btn [class*=icon-]:only-child,
+.k-ui-namespace .k-button [class*=icon-]:only-child, .k-ui-j3-form .k-ui-namespace .btn [class*=icon-]:only-child, .k-ui-namespace .k-ui-j5-form .btn [class*=icon-]:only-child, .k-ui-j5-form .k-ui-namespace .btn [class*=icon-]:only-child, .k-ui-j4-form .k-ui-namespace .btn [class*=icon-]:only-child,
 .k-ui-namespace .k-button .k-visually-hidden + [class*=icon-],
 .k-ui-j3-form .k-ui-namespace .btn .k-visually-hidden + [class*=icon-],
+.k-ui-namespace .k-ui-j5-form .btn .k-visually-hidden + [class*=icon-],
+.k-ui-j5-form .k-ui-namespace .btn .k-visually-hidden + [class*=icon-],
 .k-ui-j4-form .k-ui-namespace .btn .k-visually-hidden + [class*=icon-] {
   display: inline-block;
   margin: -4px;
   width: 14px;
 }
-.k-ui-namespace .k-button .k-dropdown, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-dropdown {
+.k-ui-namespace .k-button .k-dropdown, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown, .k-ui-namespace .k-ui-j5-form .btn .k-dropdown, .k-ui-j5-form .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-dropdown {
   /* Pullback so whole button becomes clickable */
   /* Pull back to toggle button */
 }
-.k-ui-namespace .k-button .k-dropdown .k-dropdown__toggle, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle {
+.k-ui-namespace .k-button .k-dropdown .k-dropdown__toggle, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle, .k-ui-namespace .k-ui-j5-form .btn .k-dropdown .k-dropdown__toggle, .k-ui-j5-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown .k-dropdown__toggle {
   text-decoration: none;
   margin: -6px -12px;
   padding: 6px 12px;
 }
-.k-ui-namespace .k-button .k-dropdown .k-dropdown__menu, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu {
+.k-ui-namespace .k-button .k-dropdown .k-dropdown__menu, .k-ui-j3-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu, .k-ui-namespace .k-ui-j5-form .btn .k-dropdown .k-dropdown__menu, .k-ui-j5-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .btn .k-dropdown .k-dropdown__menu {
   margin-top: 4px;
   left: -6px;
 }
-.k-ui-namespace .k-button--default, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .btn-secondary {
+.k-ui-namespace .k-button--default, .k-ui-j3-form .k-ui-namespace .btn, .k-ui-namespace .k-ui-j5-form .btn, .k-ui-j5-form .k-ui-namespace .btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .btn-secondary {
   color: #222222;
   background-color: white;
   border-color: #cdcdcd;
 }
-.k-ui-namespace .k-button--default:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-namespace .k-button--default.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary {
+.k-ui-namespace .k-button--default:focus, .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-namespace .k-ui-j5-form .btn:focus, .k-ui-j5-form .k-ui-namespace .btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-namespace .k-button--default.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .k-has-focus.btn, .k-ui-j5-form .k-ui-namespace .k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary {
   color: #222222;
   background-color: #e6e6e6;
   border-color: #8d8d8d;
 }
-.k-ui-namespace .k-button--default:hover, .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:hover {
+.k-ui-namespace .k-button--default:hover, .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-namespace .k-ui-j5-form .btn:hover, .k-ui-j5-form .k-ui-namespace .btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:hover {
   color: #222222;
   background-color: #e6e6e6;
   border-color: #aeaeae;
 }
-.k-ui-namespace .k-button--default:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
+.k-ui-namespace .k-button--default:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .btn:active, .k-ui-j5-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .k-is-active.btn, .k-ui-j5-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .dropdown-toggle.btn, .k-ui-j5-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
   color: #222222;
   background-color: #e6e6e6;
   border-color: #aeaeae;
   box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.125);
 }
-.k-ui-namespace .k-button--default:active:hover, .k-ui-j3-form .k-ui-namespace .btn:active:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active:hover, .k-ui-j4-form .k-ui-namespace .btn:active:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:hover, .k-ui-namespace .k-button--default:active:focus, .k-ui-j3-form .k-ui-namespace .btn:active:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active:focus, .k-ui-j4-form .k-ui-namespace .btn:active:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:focus, .k-ui-namespace .k-button--default:active.k-has-focus, .k-ui-j3-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active.k-has-focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active.k-has-focus, .k-ui-namespace .k-button--default.k-is-active:hover, .k-ui-j3-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-active:focus, .k-ui-j3-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-active.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:hover, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:hover, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:focus, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:focus, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle.k-has-focus, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn-secondary {
+.k-ui-namespace .k-button--default:active:hover, .k-ui-j3-form .k-ui-namespace .btn:active:hover, .k-ui-namespace .k-ui-j5-form .btn:active:hover, .k-ui-j5-form .k-ui-namespace .btn:active:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active:hover, .k-ui-j4-form .k-ui-namespace .btn:active:hover, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:hover, .k-ui-namespace .k-button--default:active:focus, .k-ui-j3-form .k-ui-namespace .btn:active:focus, .k-ui-namespace .k-ui-j5-form .btn:active:focus, .k-ui-j5-form .k-ui-namespace .btn:active:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active:focus, .k-ui-j4-form .k-ui-namespace .btn:active:focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active:focus, .k-ui-namespace .k-button--default:active.k-has-focus, .k-ui-j3-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-namespace .k-ui-j5-form .btn:active.k-has-focus, .k-ui-j5-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active.k-has-focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn:active.k-has-focus, .k-ui-j4-form .k-ui-namespace .btn-secondary:active.k-has-focus, .k-ui-namespace .k-button--default.k-is-active:hover, .k-ui-j3-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-namespace .k-ui-j5-form .k-is-active.btn:hover, .k-ui-j5-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-active:focus, .k-ui-j3-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-namespace .k-ui-j5-form .k-is-active.btn:focus, .k-ui-j5-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-active.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .k-is-active.k-has-focus.btn, .k-ui-j5-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-active.k-has-focus.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:hover, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-is-open > .k-ui-namespace .k-ui-j5-form .dropdown-toggle.btn:hover, .k-ui-j5-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:hover, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:hover, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle:focus, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-is-open > .k-ui-namespace .k-ui-j5-form .dropdown-toggle.btn:focus, .k-ui-j5-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn:focus, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary:focus, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle.k-has-focus, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .dropdown-toggle.k-has-focus.btn, .k-ui-j5-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.k-has-focus.btn-secondary {
   color: #222222;
   background-color: #d4d4d4;
   border-color: #8d8d8d;
 }
-.k-ui-namespace .k-button--default:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
+.k-ui-namespace .k-button--default:active, .k-ui-j3-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .btn:active, .k-ui-j5-form .k-ui-namespace .btn:active, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn:active, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn-secondary:active, .k-ui-j4-form .k-ui-namespace .btn-secondary:active, .k-ui-namespace .k-button--default.k-is-active, .k-ui-j3-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .k-is-active.btn, .k-ui-j5-form .k-ui-namespace .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-is-active.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-active.btn-secondary, .k-is-open > .k-ui-namespace .k-button--default.dropdown-toggle, .k-ui-j3-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .dropdown-toggle.btn, .k-ui-j5-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-is-open > .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-is-open > .k-ui-namespace .dropdown-toggle.xtd-button.btn-secondary, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn, .k-ui-j4-form .k-is-open > .k-ui-namespace .dropdown-toggle.btn-secondary {
   background-image: none;
 }
-.k-ui-namespace .k-button--default.k-is-disabled:hover, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-disabled.xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-disabled.xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-disabled:focus, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-disabled.xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-disabled.xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-disabled.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-disabled.k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-disabled.k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn-secondary, .k-ui-namespace .k-button--default[disabled]:hover, .k-ui-j3-form .k-ui-namespace [disabled].btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons [disabled].xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace [disabled].xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:hover, .k-ui-namespace .k-button--default[disabled]:focus, .k-ui-j3-form .k-ui-namespace [disabled].btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons [disabled].xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace [disabled].xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:focus, .k-ui-namespace .k-button--default[disabled].k-has-focus, .k-ui-j3-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons [disabled].k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace [disabled].k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn-secondary, fieldset[disabled] .k-ui-namespace .k-button--default:hover, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons fieldset[disabled] .k-ui-namespace .xtd-button.btn-secondary:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:hover, fieldset[disabled] .k-ui-namespace .k-button--default:focus, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons fieldset[disabled] .k-ui-namespace .xtd-button.btn-secondary:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:focus, fieldset[disabled] .k-ui-namespace .k-button--default.k-has-focus, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .k-has-focus.btn, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons fieldset[disabled] .k-ui-namespace .k-has-focus.xtd-button.btn-secondary, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn-secondary {
+.k-ui-namespace .k-button--default.k-is-disabled:hover, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-namespace .k-ui-j5-form .k-is-disabled.btn:hover, .k-ui-j5-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-disabled.xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-disabled.xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn:hover, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:hover, .k-ui-namespace .k-button--default.k-is-disabled:focus, .k-ui-j3-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-namespace .k-ui-j5-form .k-is-disabled.btn:focus, .k-ui-j5-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-disabled.xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-disabled.xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn:focus, .k-ui-j4-form .k-ui-namespace .k-is-disabled.btn-secondary:focus, .k-ui-namespace .k-button--default.k-is-disabled.k-has-focus, .k-ui-j3-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .k-is-disabled.k-has-focus.btn, .k-ui-j5-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-is-disabled.k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace .k-is-disabled.k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn, .k-ui-j4-form .k-ui-namespace .k-is-disabled.k-has-focus.btn-secondary, .k-ui-namespace .k-button--default[disabled]:hover, .k-ui-j3-form .k-ui-namespace [disabled].btn:hover, .k-ui-namespace .k-ui-j5-form [disabled].btn:hover, .k-ui-j5-form .k-ui-namespace [disabled].btn:hover, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons [disabled].xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace [disabled].xtd-button.btn-secondary:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn:hover, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:hover, .k-ui-namespace .k-button--default[disabled]:focus, .k-ui-j3-form .k-ui-namespace [disabled].btn:focus, .k-ui-namespace .k-ui-j5-form [disabled].btn:focus, .k-ui-j5-form .k-ui-namespace [disabled].btn:focus, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons [disabled].xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace [disabled].xtd-button.btn-secondary:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn:focus, .k-ui-j4-form .k-ui-namespace [disabled].btn-secondary:focus, .k-ui-namespace .k-button--default[disabled].k-has-focus, .k-ui-j3-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-namespace .k-ui-j5-form [disabled].k-has-focus.btn, .k-ui-j5-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons [disabled].k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons .k-ui-namespace [disabled].k-has-focus.xtd-button.btn-secondary, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn, .k-ui-j4-form .k-ui-namespace [disabled].k-has-focus.btn-secondary, fieldset[disabled] .k-ui-namespace .k-button--default:hover, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .btn:hover, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .btn:hover, .k-ui-j5-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:hover, .k-ui-j5-form .editor-xtd-buttons fieldset[disabled] .k-ui-namespace .xtd-button.btn-secondary:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn:hover, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:hover, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:hover, fieldset[disabled] .k-ui-namespace .k-button--default:focus, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .btn:focus, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .btn:focus, .k-ui-j5-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn-secondary:focus, .k-ui-j5-form .editor-xtd-buttons fieldset[disabled] .k-ui-namespace .xtd-button.btn-secondary:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn:focus, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .btn-secondary:focus, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .btn-secondary:focus, fieldset[disabled] .k-ui-namespace .k-button--default.k-has-focus, fieldset[disabled] .k-ui-j3-form .k-ui-namespace .k-has-focus.btn, .k-ui-j3-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .k-has-focus.btn, .k-ui-j5-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-namespace .k-ui-j5-form .editor-xtd-buttons .k-has-focus.xtd-button.btn-secondary, .k-ui-j5-form .editor-xtd-buttons fieldset[disabled] .k-ui-namespace .k-has-focus.xtd-button.btn-secondary, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn, fieldset[disabled] .k-ui-j4-form .k-ui-namespace .k-has-focus.btn-secondary, .k-ui-j4-form fieldset[disabled] .k-ui-namespace .k-has-focus.btn-secondary {
   background-color: white;
   border-color: #cdcdcd;
 }
@@ -4284,7 +4286,7 @@
    * Prevent double borders when buttons are next to each other
    */
 }
-.k-ui-namespace .k-button-group > .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn {
+.k-ui-namespace .k-button-group > .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn, .k-ui-namespace .k-ui-j5-form .k-button-group > .btn, .k-ui-j5-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-button-group > .xtd-button.btn {
   position: relative;
   float: left;
   margin: 0;
@@ -4292,108 +4294,124 @@
    * Bring the "active" button to the front
    */
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn {
   float: right;
 }
 
-.k-ui-namespace .k-button-group > .k-button:hover, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-namespace .k-button-group > .k-button:focus, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-namespace .k-button-group > .k-button:active, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-namespace .k-button-group > .k-button.k-is-active, .k-ui-j3-form .k-ui-namespace .k-button-group > .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-button-group > .k-is-active.btn {
+.k-ui-namespace .k-button-group > .k-button:hover, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:hover, .k-ui-j5-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:hover, .k-ui-namespace .k-button-group > .k-button:focus, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:focus, .k-ui-j5-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:focus, .k-ui-namespace .k-button-group > .k-button:active, .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:active, .k-ui-j5-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:active, .k-ui-namespace .k-button-group > .k-button.k-is-active, .k-ui-j3-form .k-ui-namespace .k-button-group > .k-is-active.btn, .k-ui-namespace .k-ui-j5-form .k-button-group > .k-is-active.btn, .k-ui-j5-form .k-ui-namespace .k-button-group > .k-is-active.btn, .k-ui-j4-form .k-ui-namespace .k-button-group > .k-is-active.btn {
   z-index: 2;
 }
-.k-ui-namespace .k-button-group .k-button + .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn,
+.k-ui-namespace .k-button-group .k-button + .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button, .k-ui-j5-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-namespace .k-button-group .k-ui-j5-form .k-button + .btn, .k-ui-j5-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .btn, .k-ui-j5-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn,
 .k-ui-namespace .k-button-group .k-button + .k-button-group,
 .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group,
+.k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button-group,
+.k-ui-j5-form .k-ui-namespace .k-button-group .btn + .k-button-group,
 .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group,
 .k-ui-namespace .k-button-group .k-button-group + .k-button,
 .k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn,
+.k-ui-namespace .k-button-group .k-ui-j5-form .k-button-group + .btn,
+.k-ui-j5-form .k-ui-namespace .k-button-group .k-button-group + .btn,
 .k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn,
 .k-ui-namespace .k-button-group .k-button-group + .k-button-group {
   margin-left: -1px;
 }
-.k-ui-namespace .k-button-group .k-button + .k-button:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn:first-child,
+.k-ui-namespace .k-button-group .k-button + .k-button:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button:first-child, .k-ui-j5-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-namespace .k-button-group .k-ui-j5-form .k-button + .btn:first-child, .k-ui-j5-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .btn:first-child, .k-ui-j5-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn:first-child,
 .k-ui-namespace .k-button-group .k-button + .k-button-group:first-child,
 .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+.k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button-group:first-child,
+.k-ui-j5-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 .k-ui-namespace .k-button-group .k-button-group + .k-button:first-child,
 .k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+.k-ui-namespace .k-button-group .k-ui-j5-form .k-button-group + .btn:first-child,
+.k-ui-j5-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 .k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 .k-ui-namespace .k-button-group .k-button-group + .k-button-group:first-child {
   margin-left: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn,
+[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn, [dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .k-button + .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button-group,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group,
+[dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button-group,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn,
+[dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .k-button-group + .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button-group {
   margin-left: 0;
   margin-right: -1px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child,
+[dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child, [dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button:first-child, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .k-button + .btn:first-child, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .btn:first-child, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button + .btn:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button + .btn:first-child, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .btn:first-child, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .btn:first-child,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button + .k-button-group:first-child,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
+[dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .btn + .k-button-group:first-child,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .btn + .k-button-group:first-child,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button:first-child,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
+[dir=rtl] .k-ui-namespace .k-button-group .k-ui-j5-form .k-button-group + .btn:first-child,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .btn:first-child,
 [dir=rtl] .k-ui-namespace .k-button-group .k-button-group + .k-button-group:first-child {
   margin-right: 0;
 }
 
-.k-ui-namespace .k-button-group > .k-button:not(:first-child):not(:last-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child) {
+.k-ui-namespace .k-button-group > .k-button:not(:first-child):not(:last-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child), .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:not(:first-child):not(:last-child), .k-ui-j5-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
-.k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
+.k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:first-child:not(:last-child), .k-ui-j5-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child), [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:first-child:not(:last-child), .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child), .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child) {
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--tiny {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--small {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:first-child:not(:last-child).k-button--large {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
 }
 
-.k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
+.k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:last-child:not(:first-child), .k-ui-j5-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child), [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:last-child:not(:first-child), .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child), .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--tiny {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--small {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large {
+[dir=rtl] .k-ui-namespace .k-button-group > .k-button:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-button-group > .btn:last-child:not(:first-child).k-button--large {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
 }
@@ -5183,17 +5201,17 @@
 .k-ui-namespace .k-input-group .k-form-control:focus, .k-ui-j4-form .k-ui-namespace .k-input-group .form-control:focus, .k-ui-j4-form .k-ui-namespace .k-input-group select:focus {
   z-index: 3; /* 5 */
 }
-.k-ui-namespace .k-input-group .k-input-group__button .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group .k-input-group__button .btn {
+.k-ui-namespace .k-input-group .k-input-group__button .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group .k-input-group__button .btn, .k-ui-namespace .k-input-group .k-input-group__button .k-ui-j5-form .btn, .k-ui-j5-form .k-ui-namespace .k-input-group .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group .k-input-group__button .btn {
   height: 32px;
 }
-.k-ui-namespace .k-input-group--large > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form .k-input-group--large > select, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--large > .k-input-group__addon, .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
+.k-ui-namespace .k-input-group--large > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form .k-input-group--large > select, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--large > .k-input-group__addon, .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-namespace .k-ui-j5-form .k-input-group--large > .k-input-group__button > .btn, .k-ui-j5-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
   height: 40px;
   padding: 8px 16px;
   font-size: 17px;
   line-height: 24px;
   border-radius: 6px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group--large > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > select, [dir=rtl] .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
+[dir=rtl] .k-ui-namespace .k-input-group--large > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > select, [dir=rtl] .k-ui-namespace .k-input-group--large > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group--large > .k-input-group__button > .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--large > .k-input-group__button > .btn {
   border-radius: 6px;
 }
 
@@ -5213,14 +5231,14 @@
 .k-ui-j4-form .k-ui-namespace .k-input-group--large select[multiple] {
   height: auto;
 }
-.k-ui-namespace .k-input-group--small > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form .k-input-group--small > select, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--small > .k-input-group__addon, .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
+.k-ui-namespace .k-input-group--small > .k-form-control, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form .k-ui-namespace .k-ui-j5-form .k-input-group--small > select, .k-ui-j5-form .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, .k-ui-namespace .k-input-group--small > .k-input-group__addon, .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-namespace .k-ui-j5-form .k-input-group--small > .k-input-group__button > .btn, .k-ui-j5-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
   height: 28px;
   padding: 4px 8px;
   font-size: 11px;
   line-height: 20px;
   border-radius: 3px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group--small > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > select, [dir=rtl] .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
+[dir=rtl] .k-ui-namespace .k-input-group--small > .k-form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .form-control, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > select, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .form-control, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > select, [dir=rtl] .k-ui-namespace .k-input-group--small > .select2-container--bootstrap .select2-selection--single, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__addon, [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group--small > .k-input-group__button > .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group--small > .k-input-group__button > .btn {
   border-radius: 3px;
 }
 
@@ -5295,22 +5313,30 @@ html:not([dir=rtl]) .k-input-group__addon:first-child,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button,
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn,
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn,
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:first-child > .btn,
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:first-child > .btn,
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .k-button,
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .btn,
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:first-child > .k-button-group > .btn,
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .btn,
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group > .btn,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-dropdown__toggle,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button:not(:last-child):not(.k-dropdown__toggle),
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn:not(:last-child):not(.k-dropdown__toggle),
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .k-button,
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn {
   border-bottom-right-radius: 0;
@@ -5322,22 +5348,30 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-ch
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:last-child > .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:last-child > .k-button-group > .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-dropdown__toggle,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button:not(:first-child):not(.k-dropdown__toggle),
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child):not(.k-dropdown__toggle),
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn {
   border-bottom-right-radius: 0;
@@ -5357,22 +5391,30 @@ html:not([dir=rtl]) .k-input-group__addon:last-child,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button,
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn,
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn,
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:last-child > .btn,
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:last-child > .btn,
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .btn,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .k-button,
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .btn,
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:last-child > .k-button-group > .btn,
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .btn,
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group > .btn,
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:last-child > .k-button-group > .btn,
 html:not([dir=rtl]) .k-input-group__button:last-child > .k-dropdown__toggle,
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button:not(:first-child),
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child),
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn:not(:first-child),
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:first-child > .btn:not(:first-child),
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:first-child > .btn:not(:first-child),
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn:not(:first-child),
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .btn:not(:first-child),
 html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .k-button,
 html:not([dir=rtl]) .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
 .k-ui-j3-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+html:not([dir=rtl]) .k-ui-j5-form .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
+.k-ui-j5-form html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
 html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn,
 .k-ui-j4-form .k-ui-namespace html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:first-child) > .btn {
   border-bottom-left-radius: 0;
@@ -5384,22 +5426,30 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:first-child > .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:first-child > .k-button-group > .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-dropdown__toggle,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button:not(:last-child),
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:last-child > .btn:not(:last-child),
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn:not(:last-child),
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .k-button,
 [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
 .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+[dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
+.k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
 [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn,
 .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group:not(:last-child) > .btn {
   border-bottom-left-radius: 0;
@@ -5422,38 +5472,38 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
   /* 2 */
   /* 4 */
 }
-.k-ui-namespace .k-input-group__button .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button .xtd-button.btn,
+.k-ui-namespace .k-input-group__button .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button .btn, .k-ui-namespace .k-input-group__button .k-ui-j5-form .btn, .k-ui-j5-form .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button .xtd-button.btn,
 .k-ui-namespace .k-input-group__button .k-dropdown__menu {
   font-size: 13px;
 }
-.k-ui-namespace .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn {
+.k-ui-namespace .k-input-group__button > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .btn, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-input-group__button > .xtd-button.btn {
   position: relative;
   font-size: 13px;
   margin: 0;
   /* 3 */
 }
-.k-ui-namespace .k-input-group__button > .k-button + .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn + .btn {
+.k-ui-namespace .k-input-group__button > .k-button + .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn + .btn, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .btn + .k-button, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .k-button + .btn, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .btn + .btn, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .btn + .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn + .k-button, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .k-button + .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn + .btn {
   margin-left: -1px;
 }
-.k-ui-namespace .k-input-group__button > .k-button:hover, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-namespace .k-input-group__button > .k-button:focus, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-namespace .k-input-group__button > .k-button:active, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:active, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:active {
+.k-ui-namespace .k-input-group__button > .k-button:hover, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .btn:hover, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:hover, .k-ui-namespace .k-input-group__button > .k-button:focus, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .btn:focus, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:focus, .k-ui-namespace .k-input-group__button > .k-button:active, .k-ui-j3-form .k-ui-namespace .k-input-group__button > .btn:active, .k-ui-namespace .k-ui-j5-form .k-input-group__button > .btn:active, .k-ui-j5-form .k-ui-namespace .k-input-group__button > .btn:active, .k-ui-j4-form .k-ui-namespace .k-input-group__button > .btn:active {
   z-index: 2;
 }
-.k-ui-namespace .k-input-group__button:first-child > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
+.k-ui-namespace .k-input-group__button:first-child > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-namespace .k-ui-j5-form .k-input-group__button:first-child > .btn, .k-ui-j5-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn,
 .k-ui-namespace .k-input-group__button:first-child > .k-button-group {
   margin-right: -1px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
+[dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:first-child > .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-child > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:first-child > .k-button-group {
   margin-right: 0;
   margin-left: -1px;
 }
 
-.k-ui-namespace .k-input-group__button:last-child > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
+.k-ui-namespace .k-input-group__button:last-child > .k-button, .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-namespace .k-ui-j5-form .k-input-group__button:last-child > .btn, .k-ui-j5-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn,
 .k-ui-namespace .k-input-group__button:last-child > .k-button-group {
   z-index: 2;
   margin-left: -1px;
 }
-[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
+[dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn, [dir=rtl] .k-ui-namespace .k-ui-j5-form .k-input-group__button:last-child > .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-input-group__button:last-child > .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .btn,
 [dir=rtl] .k-ui-namespace .k-input-group__button:last-child > .k-button-group {
   margin-left: 0;
   margin-right: -1px;
@@ -6575,7 +6625,7 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
   transform: scaleX(-1);
 }
 
-.k-ui-namespace .k-button .k-loader-container, .k-ui-j3-form .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container,
+.k-ui-namespace .k-button .k-loader-container, .k-ui-j3-form .k-ui-namespace .btn .k-loader-container, .k-ui-namespace .k-ui-j5-form .btn .k-loader-container, .k-ui-j5-form .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .btn .k-loader-container, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container,
 .k-ui-namespace .k-tabs .k-loader-container {
   background: inherit; /* 1 */
   color: inherit; /* 1 */
@@ -6585,7 +6635,7 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
   transform: scale(0.001); /* 2 */
   transform-origin: 50% 50%;
 }
-.k-ui-namespace .k-button .k-loader-container:before, .k-ui-j3-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container:before,
+.k-ui-namespace .k-button .k-loader-container:before, .k-ui-j3-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-namespace .k-ui-j5-form .btn .k-loader-container:before, .k-ui-j5-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .btn .k-loader-container:before, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader-container:before,
 .k-ui-namespace .k-tabs .k-loader-container:before {
   position: absolute;
   content: " ";
@@ -6600,28 +6650,28 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
   transform-origin: 50% 50%;
   border-radius: inherit;
 }
-.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-j3-form .k-ui-namespace .btn .k-loader-container .k-loader, .k-ui-j3-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-j4-form .k-ui-namespace .btn .k-loader-container .k-loader, .k-ui-j4-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader,
+.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-j3-form .k-ui-namespace .btn .k-loader-container .k-loader, .k-ui-j3-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-namespace .k-ui-j5-form .btn .k-loader-container .k-loader, .k-ui-j5-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader, .k-cssanimations.k-boxshadow .k-ui-j4-form .k-ui-namespace .btn .k-loader-container .k-loader, .k-ui-j4-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader,
 .k-cssanimations.k-boxshadow .k-ui-namespace .k-tabs .k-loader-container .k-loader {
   color: inherit;
   transform: scale(1000);
   transform-origin: 50% 50%;
   top: -1000em; /* 4 */
 }
-.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-j3-form .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j3-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-j4-form .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j4-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n),
+.k-cssanimations.k-boxshadow .k-ui-namespace .k-button .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-j3-form .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j3-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-namespace .k-ui-j5-form .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j5-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-cssanimations.k-boxshadow .k-ui-j4-form .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n), .k-ui-j4-form .k-cssanimations.k-boxshadow .k-ui-namespace .btn .k-loader-container .k-loader:nth-child(n),
 .k-cssanimations.k-boxshadow .k-ui-namespace .k-tabs .k-loader-container .k-loader:nth-child(n) {
   margin-left: 1.5em;
   margin-right: 1.5em;
 }
 
-.k-ui-namespace .k-button .k-loader:first-child, .k-ui-j3-form .k-ui-namespace .btn .k-loader:first-child, .k-ui-j4-form .k-ui-namespace .btn .k-loader:first-child,
+.k-ui-namespace .k-button .k-loader:first-child, .k-ui-j3-form .k-ui-namespace .btn .k-loader:first-child, .k-ui-namespace .k-ui-j5-form .btn .k-loader:first-child, .k-ui-j5-form .k-ui-namespace .btn .k-loader:first-child, .k-ui-j4-form .k-ui-namespace .btn .k-loader:first-child,
 .k-ui-namespace .k-tabs .k-loader:first-child {
   margin-right: 3em;
 }
-.k-ui-namespace .k-button .k-loader:not(first-child), .k-ui-j3-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader:not(first-child),
+.k-ui-namespace .k-button .k-loader:not(first-child), .k-ui-j3-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-namespace .k-ui-j5-form .btn .k-loader:not(first-child), .k-ui-j5-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .btn .k-loader:not(first-child), .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn .k-loader:not(first-child),
 .k-ui-namespace .k-tabs .k-loader:not(first-child) {
   margin-left: 3em;
 }
-.k-ui-namespace .k-button .k-loader:last-child, .k-ui-j3-form .k-ui-namespace .btn .k-loader:last-child, .k-ui-j4-form .k-ui-namespace .btn .k-loader:last-child,
+.k-ui-namespace .k-button .k-loader:last-child, .k-ui-j3-form .k-ui-namespace .btn .k-loader:last-child, .k-ui-namespace .k-ui-j5-form .btn .k-loader:last-child, .k-ui-j5-form .k-ui-namespace .btn .k-loader:last-child, .k-ui-j4-form .k-ui-namespace .btn .k-loader:last-child,
 .k-ui-namespace .k-tabs .k-loader:last-child {
   margin-right: 1.5em;
   margin-left: 3em;
@@ -8962,7 +9012,7 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
    * Position the icons
    */
 }
-.k-ui-namespace .k-toolbar .k-button, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn {
+.k-ui-namespace .k-toolbar .k-button, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn, .k-ui-namespace .k-toolbar .k-ui-j5-form .btn, .k-ui-j5-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form .k-ui-namespace .k-toolbar .editor-xtd-buttons .xtd-button.btn, .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .k-toolbar .xtd-button.btn {
   margin: 7px 0 0 8px;
   padding: 7px;
   min-width: 32px;
@@ -8977,7 +9027,7 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
    * Properly align dropdown button in button
    */
 }
-.k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) {
+.k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-namespace .k-toolbar .k-ui-j5-form .btn:not(.k-toolbar-fullbutton), .k-ui-j5-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) {
   /**
    * Icon on the toolbar button
    */
@@ -8986,7 +9036,7 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
    */
 }
 @media screen and (min-width: 0) and (max-width: 768px) {
-  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) {
+  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton), .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-namespace .k-toolbar .k-ui-j5-form .btn:not(.k-toolbar-fullbutton), .k-ui-j5-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton), .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) {
     overflow: hidden;
     width: 32px;
     height: 32px;
@@ -8994,7 +9044,7 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
   }
 }
 @media screen and (min-width: 0) and (max-width: 768px) {
-  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon] {
+  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-namespace .k-toolbar .k-ui-j5-form .btn:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j5-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon], .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) [class^=k-icon] {
     display: block;
     margin: 0 0 8px;
     width: 17px;
@@ -9004,13 +9054,13 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
   }
 }
 @media screen and (min-width: 0) and (max-width: 768px) {
-  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text {
+  .k-ui-namespace .k-toolbar .k-button:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-namespace .k-toolbar .k-ui-j5-form .btn:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j5-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn:not(.k-toolbar-fullbutton) .k-toolbar__text {
     position: relative;
     z-index: -1;
     visibility: hidden;
   }
 }
-.k-ui-namespace .k-toolbar .k-button .k-dropdown, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown {
+.k-ui-namespace .k-toolbar .k-button .k-dropdown, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown, .k-ui-namespace .k-toolbar .k-ui-j5-form .btn .k-dropdown, .k-ui-j5-form .k-ui-namespace .k-toolbar .btn .k-dropdown, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown {
   /**
    * Pullback so whole button becomes clickable
    */
@@ -9018,21 +9068,21 @@ html:not([dir=rtl]) .k-ui-j4-form .k-ui-namespace .k-input-group__button:first-c
    * Pull back to toggle button
    */
 }
-.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__toggle, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle {
+.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__toggle, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle, .k-ui-namespace .k-toolbar .k-ui-j5-form .btn .k-dropdown .k-dropdown__toggle, .k-ui-j5-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__toggle {
   text-decoration: none;
   margin: -7px;
   padding: 7px;
 }
-.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
+.k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-namespace .k-toolbar .k-ui-j5-form .btn .k-dropdown .k-dropdown__menu, .k-ui-j5-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
   margin-top: 6px;
   left: -8px;
 }
-[dir=rtl] .k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
+[dir=rtl] .k-ui-namespace .k-toolbar .k-button .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-namespace .k-toolbar .k-ui-j5-form .btn .k-dropdown .k-dropdown__menu, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .btn .k-dropdown .k-dropdown__menu {
   left: auto;
   right: -8px;
 }
 
-[dir=rtl] .k-ui-namespace .k-toolbar .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-toolbar .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-toolbar .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .btn {
+[dir=rtl] .k-ui-namespace .k-toolbar .k-button, [dir=rtl] .k-ui-j3-form .k-ui-namespace .k-toolbar .btn, .k-ui-j3-form [dir=rtl] .k-ui-namespace .k-toolbar .btn, [dir=rtl] .k-ui-namespace .k-toolbar .k-ui-j5-form .btn, .k-ui-j5-form [dir=rtl] .k-ui-namespace .k-toolbar .btn, [dir=rtl] .k-ui-j4-form .k-ui-namespace .k-toolbar .btn, .k-ui-j4-form [dir=rtl] .k-ui-namespace .k-toolbar .btn {
   margin-left: 0;
   margin-right: 8px;
 }
