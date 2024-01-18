@@ -90,9 +90,9 @@ $k-atom-body: false;
     overflow: auto !important;
 
   }
-
-  // Fix Joomla 4 template's automatically appending an icon to external links
-  a[data-k-tooltip][target=_blank]:before {
+  
+  // Fix Joomla 4 and above CSS styles automatically appending an icon to external links
+  a[target=_blank]:before {
     content:none;
   }
 }

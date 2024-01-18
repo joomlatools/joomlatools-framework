@@ -34065,7 +34065,7 @@ html[dir=rtl] .float-right {
 .k-ui-namespace .k-tabs-container__scrollable {
   overflow: auto !important;
 }
-.k-ui-namespace a[data-k-tooltip][target=_blank]:before {
+.k-ui-namespace a[target=_blank]:before {
   content: none;
 }
 
