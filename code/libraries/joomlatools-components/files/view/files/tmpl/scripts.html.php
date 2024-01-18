@@ -35,19 +35,4 @@ defined('KOOWA') or die( 'Restricted access' );
 
 <ktml:script src="assets://files/js/files<?= !empty($debug) ? '' : '.min' ?>.js" />
 
-<script>
-    // Bootstrap tooltips emit a "hide" event on tooltip trigger element and MooTools runs hide() on it
-    // Make sure MooTools doesn't hide the tooltip trigger elements after hiding the tooltip box
-    if (typeof MooTools !== 'undefined') {
-        var mHide = Element.prototype.hide;
-        Element.implement({
-            hide: function() {
-                if ($(this).is('[data-k-tooltip]')) {
-                    return this;
-                }
-                mHide.apply(this, arguments);
-            }
-        });
-    }
-</script>
 <?= helper('icon.icon_map'); ?>
