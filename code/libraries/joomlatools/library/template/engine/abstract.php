@@ -51,6 +51,13 @@ abstract class KTemplateEngineAbstract extends KTemplateAbstract implements KTem
     protected $_cache_path;
 
     /**
+     * Reload cache
+     *
+     * @var bool
+     */
+    protected $_cache_reload;
+
+    /**
      * Constructor
      *
      * @param KObjectConfig $config   An optional ObjectConfig object with configuration options
