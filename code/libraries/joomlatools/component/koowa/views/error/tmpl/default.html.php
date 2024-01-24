@@ -29,7 +29,7 @@ document.body.className = ''; document.documentElement.className = '';
             <span class="page_header__code">[<?= $code ?>]</span>
         </h1>
         <div class="page_message">
-            <div class="page_message__text"><?= $message ?></div>
+            <div class="page_message__text"><?= htmlspecialchars($message) ?></div>
         </div>
         <div id="the_error">
             <div class="error_container">
