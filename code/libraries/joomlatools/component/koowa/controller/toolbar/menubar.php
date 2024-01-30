@@ -75,10 +75,11 @@ class ComKoowaControllerToolbarMenubar extends KControllerToolbarAbstract
             {
                 foreach($xml->administration->submenu->children() as $menu)
                 {
-                    $view = (string)$menu['view'];
+                    $view     = (string) $menu['view'];
+                    $external = (bool) $menu['external'] ?? false;
 
                     $this->addCommand((string)$menu, array(
-                        'href'   => 'option=com_'.$package.'&view='.$view,
+                        'href'   => $external ? $menu['link'] : 'option=com_'.$package.'&view='.$view,
                         'active' => ($name == KStringInflector::singularize($view))
                     ));
                 }
