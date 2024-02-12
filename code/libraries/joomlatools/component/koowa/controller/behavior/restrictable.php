@@ -87,7 +87,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
             } 
             elseif ($this->isRestricted(true))
             {
-                if ($this->_isWihtinGracePeriod($license))
+                if ($this->_isWithinGracePeriod($license))
                 {
                     $message = $this->getObject('translator')->translate('license recent expiry', ['component' => $this->_getComponent()]);
 
@@ -121,7 +121,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         return $result;
     }
 
-    protected function _isWihtinGracePeriod($license)
+    protected function _isWithinGracePeriod($license)
     {
         $result = false;
 
@@ -204,7 +204,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
                 $result = !$license->hasFeature($this->_getComponent(true));
     
                 if ($result && !$strict && $this->_grace_period) {
-                    $result = !$this->_isWihtinGracePeriod($license);
+                    $result = !$this->_isWithinGracePeriod($license);
                 }
             }
             catch(\Exception $e)
