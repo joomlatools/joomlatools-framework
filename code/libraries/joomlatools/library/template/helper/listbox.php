@@ -64,7 +64,7 @@ class KTemplateHelperListbox extends KTemplateHelperSelect
 
             $config->append(array(
                 'select2_options' => array(
-                    'element' => $config->attribs->id ? '#'.$config->attribs->id : 'select[name=\"'.$config->name.'\"]',
+                    'element' => $config->attribs->id ? 'select[id=\"'.$config->attribs->id.'\"]' : 'select[name=\"'.$config->name.'\"]',
                     'options' => array(
                         'allowClear'  => $config->deselect
                     )
