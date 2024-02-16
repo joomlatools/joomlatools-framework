@@ -28,4 +28,11 @@ interface PlgKoowaEditorButtonInterface
      * @return string The editor name
      */
     public function getEditor();
+
+    /**
+     * Button link getter
+     *
+     * @return string The button link
+     */
+    public function getLink($query = '');
 }
