@@ -27,6 +27,29 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         $this->addCommandCallback('before.dispatch', '_enableExceptionHandler');
     }
 
+    public function getRequest()
+    {
+        $request = parent::getRequest();
+
+        $app = \JFactory::getApplication();
+
+        if (!$this->isForwarded() && $app->isClient('site'))
+        {
+            $router = clone $app->getRouter();
+            $uri    = clone \Joomla\CMS\Uri\Uri::getInstance();
+
+            $router->detachRule('parse', array($router, 'parseRawRoute'), \Joomla\CMS\Router\Router::PROCESS_DURING);
+
+            $vars = $router->parse($uri, false);
+
+            if (!isset($vars['Itemid'])) {
+                $request->setQuery($vars); // Itemless request, use this instead of Joomla's parse result
+            }
+        }
+
+        return $request;
+    }
+
     /**
      * Initializes the options for the object
      *
