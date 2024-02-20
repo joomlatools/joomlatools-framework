@@ -29,25 +29,30 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
 
     public function getRequest()
     {
-        $request = parent::getRequest();
-
-        $app = \JFactory::getApplication();
-
-        if (!$this->isForwarded() && $app->isClient('site'))
+        if(!$this->_request instanceof KDispatcherRequestInterface)
         {
-            $router = clone $app->getRouter();
-            $uri    = clone \Joomla\CMS\Uri\Uri::getInstance();
+            $request = parent::getRequest();
 
-            $router->detachRule('parse', array($router, 'parseRawRoute'), \Joomla\CMS\Router\Router::PROCESS_DURING);
+            $app = \JFactory::getApplication();
+    
+            if (!$this->isForwarded() && $app->isClient('site'))
+            {
+                $query = $request->getUrl()->getQuery(true);
 
-            $vars = $router->parse($uri, false);
+                if (!empty($query['itemless']))
+                {
+                    foreach (['option', 'view'] as $parameter) {
+                        if (!isset($query[$parameter])) $query[$parameter] = $request->getQuery()->$parameter;
+                    } 
 
-            if (!isset($vars['Itemid'])) {
-                $request->setQuery($vars); // Itemless request, use this instead of Joomla's parse result
+                    $request->setQuery($query); 
+                }
             }
+
+            $this->_request = $request;
         }
 
-        return $request;
+        return $this->_request;
     }
 
     /**
