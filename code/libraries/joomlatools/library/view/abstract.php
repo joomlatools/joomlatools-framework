@@ -431,8 +431,8 @@ abstract class KViewAbstract extends KObject implements KViewInterface, KCommand
             $parts['format'] = $this->getIdentifier()->name;
         }
 
-        //Add the model state only for routes to the same view
-        if ($parts['component'] == $this->getIdentifier()->package && $parts['view'] == $this->getName())
+        // Add the model state only for routes to the same view and for non-itemless (standalone) requests
+        if (empty($parts['itemless']) && ($parts['component'] == $this->getIdentifier()->package && $parts['view'] == $this->getName()))
         {
             $states = array();
             foreach($this->getModel()->getState() as $name => $state)
