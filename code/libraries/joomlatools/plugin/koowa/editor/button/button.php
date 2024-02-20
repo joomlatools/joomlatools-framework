@@ -35,4 +35,32 @@ abstract class PlgKoowaEditorButton extends JPlugin implements PlgKoowaEditorBut
     {
         return $this->_editor;
     }
+
+    public function getLink($query = '')
+    {
+        $editor = $this->getEditor();
+
+        if ($editor == 'ckeditor')
+        {
+            $request = KObjectManager::getInstance()->getObject('request');
+
+            $url = clone $request->getBaseUrl();
+    
+            $path = $url->getPath(true);
+    
+            if (empty($path)) $path[] = '';
+            
+            $path[] = 'index.php';
+            
+            $url->setPath($path);
+            $url->setQuery($query);
+
+            $url = $url->toString();
+        }
+        else $url = sprintf('index.php?%s', $query);
+        
+        $link = str_replace('&', '&amp;', $url);
+
+        return $link;
+    }
 }

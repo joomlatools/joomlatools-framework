@@ -46,10 +46,10 @@ abstract class KDispatcherAbstract extends KControllerAbstract implements KDispa
      */
     public function __construct(KObjectConfig $config)
     {
-        parent::__construct($config);
-
         //Set the forwarded state
         $this->_forwarded = $config->forwarded;
+
+        parent::__construct($config);
 
         //Set the controller
         $this->_controller = $config->controller;

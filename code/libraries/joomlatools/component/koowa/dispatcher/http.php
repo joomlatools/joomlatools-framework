@@ -27,6 +27,34 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         $this->addCommandCallback('before.dispatch', '_enableExceptionHandler');
     }
 
+    public function getRequest()
+    {
+        if(!$this->_request instanceof KDispatcherRequestInterface)
+        {
+            $request = parent::getRequest();
+
+            $app = \JFactory::getApplication();
+    
+            if (!$this->isForwarded() && $app->isClient('site'))
+            {
+                $query = $request->getUrl()->getQuery(true);
+
+                if (!empty($query['itemless']))
+                {
+                    foreach (['option', 'view'] as $parameter) {
+                        if (!isset($query[$parameter])) $query[$parameter] = $request->getQuery()->$parameter;
+                    } 
+
+                    $request->setQuery($query); 
+                }
+            }
+
+            $this->_request = $request;
+        }
+
+        return $this->_request;
+    }
+
     /**
      * Initializes the options for the object
      *
