@@ -18,6 +18,7 @@ $table     = $query['table'];
 $row       = $query['row'];
 $component = isset($component) ? $component : substr($query['option'], 4);
 $callback  = isset($query['callback']) ? $query['callback'] : null;
+$itemless  = empty($query['itemless']) ? 0 : 1;
 ?>
 
 <?= helper('ui.load', array('wrapper_class' => array('com_files--attachments'))); ?>
@@ -46,7 +47,7 @@ $callback  = isset($query['callback']) ? $query['callback'] : null;
                 options = {
                     cookie: {path: '<?=object('request')->getSiteUrl()?>'},
                     callback: <?= json_encode(isset($callback) ? $callback : '') ?>,
-                    url:  "<?= route('component='. urlencode($component) .'&view=attachments&format=json&table=' . $table . '&row=' . $row, true, false) ?>",
+                    url:  "<?= route('component='. urlencode($component) .'&view=attachments&itemless=1&format=json&table=' . $table . '&row=' . $row, true, false) ?>",
                     root_text: <?= json_encode(translate('Root folder')) ?>,
                     editor: <?= json_encode(parameters()->editor); ?>,
                     types: <?= json_encode(KObjectConfig::unbox(parameters()->types)); ?>,
@@ -95,7 +96,7 @@ $callback  = isset($query['callback']) ? $query['callback'] : null;
 
             Attachments = Attachments.getInstance(
                 {
-                    url: "<?= route('component=' . urlencode($component) . '&view=attachment&format=json&container=' . urlencode($container->slug), true, false) ?>",
+                    url: "<?= route('component=' . urlencode($component) . '&view=attachment&itemless=1&format=json&container=' . urlencode($container->slug), true, false) ?>",
                     selector: '#attachments-container',
                     csrf_token: <?= json_encode(object('user')->getSession()->getToken()) ?>
                 }
@@ -122,7 +123,7 @@ $callback  = isset($query['callback']) ? $query['callback'] : null;
             // After attach logic.
             Attachments.bind('after.attach', function (event, context)
             {
-                var url = "<?= route('component=' . urlencode($component) . '&view=attachments&container=' . urlencode($container->slug) . '&format=json&name={name}&table={table}&row={row}', true, false) ?>";
+                var url = "<?= route('component=' . urlencode($component) . '&view=attachments&itemless=1&container=' . urlencode($container->slug) . '&format=json&name={name}&table={table}&row={row}', true, false) ?>";
 
                 url = Attachments.replace(url, {
                     name: encodeUrlComponent(context.attachment),
@@ -302,7 +303,7 @@ $callback  = isset($query['callback']) ? $query['callback'] : null;
                                     'multi_selection' => true,
                                     'duplicate_mode' => $check_duplicates,
                                     'url' => route('component=' . urlencode($component) . '&view=file&plupload=1&routed=1&format=json&container=' .
-                                                   (isset($container) ? $container->slug : ''), false, false)
+                                                   (isset($container) ? $container->slug : '') . '&itemless=1', false, false)
                                 )
                             )) ?>
                         </div>
