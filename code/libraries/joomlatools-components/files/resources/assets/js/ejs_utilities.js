@@ -661,6 +661,20 @@ Files.urlEncoder = function(value)
     return value;
 };
 
+Files.escape = function(string)
+{
+	let entityMap = {
+		"&": "&amp;",
+		"<": "&lt;",
+		">": "&gt;",
+		'"': '&quot;',
+		"'": '&#39;',
+		"/": '&#x2F;'
+	};
+
+	return String(string).replace(/[&<>"'\/]/g, function (s) {return entityMap[s]});
+};
+
 Files.FileTypes = {};
 Files.FileTypes.map = {
 	'audio': ['aif','aiff','alac','amr','flac','ogg','m3u','m4a','mid','mp3','mpa','wav','wma'],
