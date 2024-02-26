@@ -45,6 +45,8 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
                         if (!isset($query[$parameter])) $query[$parameter] = $request->getQuery()->$parameter;
                     } 
 
+                    if (isset($query['Itemid'])) unset($query['Itemid']);
+
                     $request->setQuery($query); 
                 }
             }
