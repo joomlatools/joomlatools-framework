@@ -90,20 +90,30 @@ class ComKoowaDispatcherRouterRoute extends KDispatcherRouterRoute
     {
         $app = JFactory::getApplication();
 
-        $this->_appendItemid($query);
-
+        if (empty($query['itemless'])) $this->_appendItemid($query);
+       
         $query = 'index.php?'.http_build_query($query, '', '&');
 
         if (class_exists('JRoute'))
         {
             if ($app->getName() !== $this->getApplication()) {
-                $query = JRoute::link($this->getApplication(), $query, $escape);
+                $route = JRoute::link($this->getApplication(), $query, $escape);
             } else {
-                $query = JRoute::_($query, $escape);
+                $route = JRoute::_($query, $escape);
             }
         }
 
-        return $query;
+        $url = $this->getObject('lib:http.url', ['url' => $route]);
+
+        $query = $url->getQuery(true);
+
+        if (!empty($query['itemless']) && !empty($query['Itemid']))
+        {
+            unset($query['Itemid']);
+            $url->setQuery($query);
+        }
+
+        return $url->toString(KHttpUrl::FULL, $escape);;
     }
 
     protected function _appendItemid(&$query)
