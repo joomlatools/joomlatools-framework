@@ -177,7 +177,11 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
                     }
                 }
             }
-            else $conditions[] = '(tbl.' . $this->getTable()->getIdentityColumn() . ' = :search)';
+            else
+            {
+                $conditions[] = '(tbl.' . $this->getTable()->getIdentityColumn() . ' = :search' . $prefix . ')';
+                $binds['search' . $prefix] = $search;
+            }
         }
 
         return [$conditions, $binds];
