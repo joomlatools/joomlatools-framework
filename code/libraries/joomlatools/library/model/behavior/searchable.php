@@ -22,7 +22,9 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
      *
      * @var array
      */
-    protected $_columns;
+    protected $_columns = [];
+
+    protected $_alias_map = [];
 
     /**
      * Constructor.
@@ -33,7 +35,22 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
     {
         parent::__construct($config);
 
-        $this->_columns = (array)KObjectConfig::unbox($config->columns);
+        $columns = (array) KObjectConfig::unbox($config->columns);
+
+        foreach ($columns as $column)
+        {
+            $parts = explode('.', $column);
+
+            if (count($parts) >= 2)
+            {
+                $alias = array_shift($parts);
+                $column = implode(',', $parts);
+
+                $this->_alias_map[$column] = $alias;
+            }
+            
+            $this->_columns[] = $column;
+        }
 
         $this->addCommandCallback('before.fetch', '_buildQuery')
             ->addCommandCallback('before.count', '_buildQuery');
@@ -114,7 +131,6 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
         if ($search)
         {
             $search_column = null;
-            $columns       = array_keys($this->getTable()->getColumns());
     
             // Parse $state->search for possible column prefix
             if (preg_match('#^([a-z0-9\-_]+)\s*:\s*(.+)\s*$#i', $search, $matches))
@@ -130,13 +146,15 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
             {
                 foreach ($this->_columns as $column)
                 {
-                    if (in_array($column, $columns) && (!$search_column || $column === $search_column))
+                    if (!$search_column || $column === $search_column)
                     {
+                        $alias = $this->_alias_map[$column] ?? 'tbl';
+                        
                         switch ($state->search_by)
                         {
                             case 'any':
         
-                                $conditions[] = 'tbl.' . $column . ' RLIKE :search' . $prefix;
+                                $conditions[] = $alias . '.' . $column . ' RLIKE :search' . $prefix;
 
                                 if (empty($binds)) {
                                     $binds['search' . $prefix] = implode('|', explode(' ', $search));
@@ -152,7 +170,7 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
 
                                 foreach (explode(' ', $search) as $keyword)
                                 {
-                                    $subconditions[] = 'tbl.' . $column . " LIKE :search$prefix$i";
+                                    $subconditions[] = $alias . '.' . $column . " LIKE :search$prefix$i";
         
                                     $binds["search$prefix$i"] = '%'.$keyword.'%';
         
@@ -166,7 +184,7 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
                             case 'exact':      
                             default:
         
-                                $conditions[] = 'tbl.' . $column . " LIKE :search" . $prefix;
+                                $conditions[] = $alias . '.'  . $column . " LIKE :search" . $prefix;
 
                                 if (empty($binds)) {
                                     $binds['search' . $prefix] = '%' . $search . '%';
