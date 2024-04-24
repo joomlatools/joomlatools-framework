@@ -144,9 +144,11 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
             // Search in the form of id:NUM
             if ($search_column !== 'id')
             {
+                $ignore = isset($context->_ignore_columns) ? (array) $context->_ignore_columns : []; 
+
                 foreach ($this->_columns as $column)
                 {
-                    if (!$search_column || $column === $search_column)
+                    if ((!$search_column || $column === $search_column) && !in_array($column, $ignore))
                     {
                         $alias = $this->_alias_map[$column] ?? 'tbl';
                         
