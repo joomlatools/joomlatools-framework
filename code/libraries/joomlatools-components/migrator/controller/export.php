@@ -6,7 +6,7 @@
  * @link        http://www.joomlatools.com
  */
 
-
+ #[\AllowDynamicProperties]
 class ComMigratorControllerExport extends ComMigratorControllerMigrator
 {
     protected function _initialize(KObjectConfig $config)

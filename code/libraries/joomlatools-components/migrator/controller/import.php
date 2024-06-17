@@ -9,6 +9,7 @@
 /**
  * Import Controller Class.
  */
+#[\AllowDynamicProperties]
 class ComMigratorControllerImport extends ComMigratorControllerMigrator
 {
     /**

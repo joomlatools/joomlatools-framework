@@ -13,6 +13,7 @@
  * @author  Ercan Ozkaya <https://github.com/ercanozkaya>
  * @package Koowa\Component\Files
  */
+#[\AllowDynamicProperties]
 abstract class ComFilesAdapterAbstract extends KObject
 {
 	/**

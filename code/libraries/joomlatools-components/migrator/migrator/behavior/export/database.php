@@ -153,20 +153,23 @@ class ComMigratorMigratorBehaviorExportDatabase extends KControllerBehaviorAbstr
 
         $config = $this->getConfig();
 
-        if(strpos($value, $config->separator) !== false) { // Separator is present in field
-            return true;
-        }
-
-        if(strpos($value, $config->quote) !== false) { // Quote character is present in field
-            return true;
-        }
-
-        if (strpos($value, "\n") !== false || strpos($value, "\r") !== false ) { // Newline is present in field
-            return true;
-        }
-
-        if(substr($value, 0, 1) == " " || substr($value, -1) == " ") {  // Space found at beginning or end of field value
-            return true;
+        if ($value)
+        {
+            if(strpos($value, $config->separator) !== false) { // Separator is present in field
+                return true;
+            }
+    
+            if(strpos($value, $config->quote) !== false) { // Quote character is present in field
+                return true;
+            }
+    
+            if (strpos($value, "\n") !== false || strpos($value, "\r") !== false ) { // Newline is present in field
+                return true;
+            }
+    
+            if(substr($value, 0, 1) == " " || substr($value, -1) == " ") {  // Space found at beginning or end of field value
+                return true;
+            }
         }
 
         return false;
