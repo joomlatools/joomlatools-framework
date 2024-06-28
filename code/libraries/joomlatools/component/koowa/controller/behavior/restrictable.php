@@ -93,7 +93,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
             } 
             elseif ($this->isRestricted(true))
             {
-                if ($this->_isWithinGracePeriod($license))
+                if ($this->_isWithinGracePeriod($license) && $this->_isAdmin())
                 {
                     $message = $this->getObject('translator')->translate('license recent expiry', ['component' => $this->_getComponent()]);
 
