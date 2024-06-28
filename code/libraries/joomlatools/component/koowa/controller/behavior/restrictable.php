@@ -264,7 +264,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
     }
 
     protected function _isLocal()
-    {return false;
+    {
         static $local_hosts = array('localhost', '127.0.0.1', '::1');
 
         $url  = $this->getObject('request')->getUrl();
