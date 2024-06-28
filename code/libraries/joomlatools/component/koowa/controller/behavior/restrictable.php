@@ -92,8 +92,12 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
 
             if ($license->hasError())
             {
-                $context->_message = $translator->translate('license error', ['component' => $this->_getComponent(), 'error' => $translator->translate($license->getError()), 'url' => 'https://dashboard.joomlatools.com']);
-                
+                if ($this->_isAdmin()) {
+                    $context->_message = $translator->translate('license error', ['component' => $this->_getComponent(), 'error' => $translator->translate($license->getError()), 'url' => 'https://dashboard.joomlatools.com']);
+                } else {
+                    $context->_message = $translator->translate('license expiry site');
+                }
+
                 $result = $this->_notify($context);
             } 
             elseif ($this->isRestricted(true))
@@ -106,7 +110,11 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
                 }
                 else 
                 {
-                    $context->_message = $translator->translate('license expiry', ['component' => $this->_getComponent()]);
+                    if ($this->_isAdmin()) {
+                        $context->_message = $translator->translate('license expiry', ['component' => $this->_getComponent()]);
+                    } else {
+                        $context->_message = $translator->translate('license expiry site');
+                    }
 
                     $result = $this->_notify($context);
                 } 
@@ -256,7 +264,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
     }
 
     protected function _isLocal()
-    {
+    {return false;
         static $local_hosts = array('localhost', '127.0.0.1', '::1');
 
         $url  = $this->getObject('request')->getUrl();
