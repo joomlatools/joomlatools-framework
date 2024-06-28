@@ -75,6 +75,11 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         }
     }
 
+    protected function _isAdmin()
+    {
+        return JFactory::getApplication()->isClient('administrator');
+    }
+
     protected function _beforeRender(KControllerContextInterface $context)
     {
         $result = true;
