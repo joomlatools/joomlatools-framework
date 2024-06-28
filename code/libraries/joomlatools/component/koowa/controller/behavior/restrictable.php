@@ -113,7 +113,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
             }
             elseif ($subscription = $license->getSubscription($this->_getComponent(true)))
             {
-                if (isset($subscription['cancelled']) && $subscription['cancelled'])
+                if (isset($subscription['cancelled']) && $subscription['cancelled'] && $this->_isAdmin())
                 {
                     $remaining = ($subscription['end'] - time())/604800;
 
