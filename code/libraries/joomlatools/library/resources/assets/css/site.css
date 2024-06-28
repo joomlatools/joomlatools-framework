@@ -3417,6 +3417,12 @@ img.mfp-img {
   border-bottom-color: black;
 }
 
+/* Restricted layout styling */
+.k-ui-restricted {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 /* Inside k-ui-namespace scope */
 .k-ui-namespace {
   /* Border-box size everything */

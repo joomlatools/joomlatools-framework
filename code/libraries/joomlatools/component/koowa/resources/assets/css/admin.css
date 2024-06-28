@@ -14192,6 +14192,12 @@ html .form-inline .select2-container--bootstrap {
     align-self: stretch !important;
   }
 }
+/* Restricted layout styling */
+.k-ui-restricted {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .k-ui-joomla {
   min-height: 100%; /* 1 */
   height: 100%; /* 1 */
