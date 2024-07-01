@@ -12,13 +12,17 @@
  */
 class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract implements KObjectMultiton
 {
-    protected $_component_map = ['docman' => 'DOCman'];
+    protected $_component_map = ['docman' => 'DOCman', 'logman' => 'LOGman', 'fileman' => 'FILEman'];
 
     protected $_grace_period;
 
     protected $_actions;
 
     protected $_restricted;
+
+    protected $_redirect_url;
+
+    protected $_notify;
 
     public function __construct(KObjectConfig $config)
     {   
@@ -28,6 +32,10 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
 
         $this->_grace_period = $config->grace_period;
 
+        $this->_redirect_url = $config->redirect_url;
+
+        $this->_notify = $config->notify;
+
         if ($this->isRestricted()) {
             $this->_setRestrictable($config->tables);
         }
@@ -35,7 +43,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
 
     protected function _initialize(KObjectConfig $config)
     {
-        $config->append(['actions' => [], 'grace_period' => 7, 'tables' => []]);
+        $config->append(['actions' => [], 'grace_period' => 7, 'tables' => [], 'notify' => true]);
 
         parent::_initialize($config);
     }
@@ -67,11 +75,16 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         }
     }
 
+    protected function _isAdmin()
+    {
+        return JFactory::getApplication()->isClient('administrator');
+    }
+
     protected function _beforeRender(KControllerContextInterface $context)
     {
         $result = true;
 
-        if (!$this->_isLocal() && JFactory::getApplication()->isClient('administrator') && $context->getRequest()->getFormat() == 'html')
+        if ($this->_notify && !$this->_isLocal() && $context->getRequest()->getFormat() == 'html')
         {
             $license = $this->_getLicense();
 
@@ -79,15 +92,17 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
 
             if ($license->hasError())
             {
-                $context->_message = $translator->translate('license error', ['error' => $translator->translate($license->getError()), 'url' => 'https://dashboard.joomlatools.com']);
-                
-                $this->_redirect($context);
+                if ($this->_isAdmin()) {
+                    $context->_message = $translator->translate('license error', ['component' => $this->_getComponent(), 'error' => $translator->translate($license->getError()), 'url' => 'https://dashboard.joomlatools.com']);
+                } else {
+                    $context->_message = $translator->translate('license expiry site');
+                }
 
-                $result = false;
+                $result = $this->_notify($context);
             } 
             elseif ($this->isRestricted(true))
             {
-                if ($this->_isWithinGracePeriod($license))
+                if ($this->_isWithinGracePeriod($license) && $this->_isAdmin())
                 {
                     $message = $this->getObject('translator')->translate('license recent expiry', ['component' => $this->_getComponent()]);
 
@@ -95,16 +110,18 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
                 }
                 else 
                 {
-                    $context->_message = $translator->translate('license expiry', ['component' => $this->_getComponent()]);
+                    if ($this->_isAdmin()) {
+                        $context->_message = $translator->translate('license expiry', ['component' => $this->_getComponent()]);
+                    } else {
+                        $context->_message = $translator->translate('license expiry site');
+                    }
 
-                    $this->_redirect($context);
-                    
-                    $result = false;
+                    $result = $this->_notify($context);
                 } 
             }
             elseif ($subscription = $license->getSubscription($this->_getComponent(true)))
             {
-                if (isset($subscription['cancelled']) && $subscription['cancelled'])
+                if (isset($subscription['cancelled']) && $subscription['cancelled'] && $this->_isAdmin())
                 {
                     $remaining = ($subscription['end'] - time())/604800;
 
@@ -148,6 +165,29 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
         }
 
         return $component;
+    }
+
+    protected function _notify(KControllerContextInterface $context)
+    {
+        if ($this->_redirect_url)
+        {
+            $this->_redirect($context);
+            $result = false;
+        }
+        else 
+        { 
+            $controller = $this->getMixer();
+
+            if ($controller instanceof KControllerView) {
+                $controller->getView()->getTemplate()->getConfig()->_restricted = true;
+            }
+
+            $context->getResponse()->addMessage($context->_message, KControllerResponseInterface::FLASH_ERROR);
+
+            $result = true;
+        }
+
+        return $result;
     }
 
     protected function _redirect(KControllerContextInterface $context)
@@ -215,7 +255,7 @@ class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract
             }
     
             if ($this->_isLocal()) $result = false;
-//$result = true;
+
             $this->_restricted = $result;
         }
         else $result = $this->_restricted;

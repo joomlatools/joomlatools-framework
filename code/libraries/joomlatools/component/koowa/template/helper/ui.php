@@ -27,7 +27,8 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
         $config->append(array(
             'debug' => JFactory::getConfig()->get('debug'),
             'wrapper_class' => array(
-                JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr'
+                JFactory::getLanguage()->isRtl() ? 'k-ui-rtl' : 'k-ui-ltr',
+                ($this->getTemplate()->getConfig()->_restricted ? 'k-ui-restricted' : '')
             )
         ));
 

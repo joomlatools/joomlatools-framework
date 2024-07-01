@@ -13,6 +13,7 @@
  * @author  Ercan Ozkaya <https://github.com/ercanozkaya>
  * @package Koowa\Component\Files
  */
+
 class ComFilesIteratorDirectory extends DirectoryIterator
 {
     /**
@@ -177,10 +178,10 @@ class ComFilesIteratorDirectory extends DirectoryIterator
         }
 
         if ($sort === 'modified_on') {
-            uasort($results, array('self', '_sortByDate'));
+            uasort($results, array(self::class, '_sortByDate'));
         }
         elseif ($sort === 'name') {
-            uasort($results, array('self', '_sortByName'));
+            uasort($results, array(self::class, '_sortByName'));
         }
 
         if ($config->return_raw === true) {
