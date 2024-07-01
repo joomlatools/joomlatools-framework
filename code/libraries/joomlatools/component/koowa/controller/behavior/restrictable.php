@@ -12,7 +12,7 @@
  */
 class ComKoowaControllerBehaviorRestrictable extends KControllerBehaviorAbstract implements KObjectMultiton
 {
-    protected $_component_map = ['docman' => 'DOCman', 'logman' => 'LOGman'];
+    protected $_component_map = ['docman' => 'DOCman', 'logman' => 'LOGman', 'fileman' => 'FILEman'];
 
     protected $_grace_period;
 
