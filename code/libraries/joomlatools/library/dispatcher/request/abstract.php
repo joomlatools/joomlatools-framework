@@ -208,7 +208,12 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
                     $data = json_decode($content, true);
                 }
 
-                $this->data->add($data);
+                if (is_array($data))
+                {
+                    // Ignore non-parameterizable data. 
+
+                    $this->data->add($data);
+                }
             }
         }
 
