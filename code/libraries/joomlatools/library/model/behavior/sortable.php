@@ -45,7 +45,7 @@ class KModelBehaviorSortable extends KModelBehaviorAbstract
             $state = $context->state;
 
             $sort      = $state->sort;
-            $direction = strtoupper($state->direction);
+            $direction = strtoupper($state->direction ?? '');
             $columns   = array_keys($this->getTable()->getColumns());
 
             if ($sort)
