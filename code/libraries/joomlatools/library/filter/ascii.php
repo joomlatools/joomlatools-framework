@@ -55,7 +55,7 @@ class KFilterAscii extends KFilterAbstract implements KFilterTraversable
 
         if ($result === null)
         {
-            $result = htmlentities(utf8_decode($value), ENT_SUBSTITUTE);
+            $result = htmlentities(mb_convert_encoding($value, 'ISO-8859-1', 'UTF-8'));
             $result = preg_replace(
                 array('/&szlig;/','/&(..)lig;/', '/&([aouAOU])uml;/','/&(.)[^;]*;/'),
                 array('ss',"$1","$1".'e',"$1"),
