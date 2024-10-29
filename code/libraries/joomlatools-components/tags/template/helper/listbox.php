@@ -96,7 +96,7 @@ class ComTagsTemplateHelperListbox extends KTemplateHelperListbox
                 var form = $(element[0].form);
                 
                 form.submit(function() {
-                    if (!element.val()) {
+                    if (element.val().length === 0) {
                         $('<input />')
                             .attr('name', '{$config->name}')
                             .attr('type', 'hidden')
