@@ -27,7 +27,7 @@ class Koowa
      *
      * @var string
      */
-    const VERSION = '5.1.2';
+    const VERSION = '5.1.3';
 
 
     /**
