@@ -44,22 +44,38 @@ class KModelBehaviorSortable extends KModelBehaviorAbstract
         {
             $state = $context->state;
 
-            $sort      = $state->sort;
+            $column    = $state->sort;
             $direction = strtoupper($state->direction ?? '');
-            $columns   = array_keys($this->getTable()->getColumns());
 
-            if ($sort)
-            {
-                $column = $this->getTable()->mapColumns($sort);
+            $this->_sort($column, $direction, $context->query);
+        }
+    }
 
-                //if(in_array($column, $columns)) {
-                $context->query->order($column, $direction);
-                //}
+    protected function _sort($column, $direction, KDatabaseQuerySelect $query)
+    {
+        $columns = array_keys($this->getTable()->getColumns());
+
+        $parts = explode('.', $column ?? '');
+
+        if (isset($parts[1])) {
+            $alias = $parts[0];
+        } else {
+            $alias = false;
+        }
+
+        if ($column)
+        {
+            if (!$alias) {
+                $column = $this->getTable()->mapColumns($column);
             }
 
-            if ($sort != 'ordering' && in_array('ordering', $columns)) {
-                $context->query->order('tbl.ordering', 'ASC');
-            }
+            //if(in_array($column, $columns)) {
+            $query->order($column, $direction);
+            //}
+        }
+
+        if (!$alias && $column != 'ordering' && in_array('ordering', $columns)) {
+            $query->order('tbl.ordering', 'ASC');
         }
     }
 }
