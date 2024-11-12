@@ -53,6 +53,13 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
     protected $instructions = array();
 
     /**
+     * Array of taxonomy terms. These are used to tell the indexer to add taxonomy terms of the entities in the research result
+     *
+     * @var array
+     */
+    protected $taxonomies = array();
+
+    /**
      * Constructor
      *
      * @param   object  &$subject  The object to observe
@@ -189,6 +196,11 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
             foreach ($instructions AS $instruction) {
                 $item->addInstruction($type, $instruction);
             }
+        }
+
+        // Add taxonomies
+        foreach ($this->taxonomies AS $type => $taxonomy) {
+            $item->addTaxonomy($type, $taxonomy);
         }
 
         // Add the type taxonomy data.
@@ -368,9 +380,6 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
 
         if ($entity->isCreatable())
         {
-            // Add the author taxonomy data.
-            $item->addTaxonomy('Author', $entity->getAuthor()->getName());
-
             // Add the start date
             $item->start_date = $entity->created_on;
         }
