@@ -72,6 +72,29 @@ class ComKoowaTemplateHelperEditor extends KTemplateHelperAbstract
 
                 $result .= sprintf('<ktml:style src="%s" />', $url);
             }
+
+            if ($config->editor == 'codemirror')
+            {
+                $result .= "<script>
+                    kQuery(function($)
+                    {
+                        let form = $('.k-js-form-controller');
+                        if (form.length)
+                        {   
+                            form.on('k:submit' , function()
+                            {
+                                let editor = Joomla.editors.instances['" . $config->name . "'];
+                                let textarea = $('#" . $config->name . "');
+
+                                if (editor && textarea.length) {
+                                    textarea.html(editor.getValue());
+                                }  
+                            });
+                        }    
+                    });
+                    </script>
+                ";
+            }
         }
 
         return $result;
