@@ -41,7 +41,7 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
 
                 if (!empty($query['itemless']))
                 {
-                    foreach (['option', 'view'] as $parameter) {
+                    foreach (['option', 'view', 'offset'] as $parameter) {
                         if (!isset($query[$parameter])) $query[$parameter] = $request->getQuery()->$parameter;
                     } 
 
