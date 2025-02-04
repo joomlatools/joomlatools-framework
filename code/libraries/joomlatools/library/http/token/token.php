@@ -444,7 +444,7 @@ class KHttpToken extends KObject implements KHttpTokenInterface
                 $this->setAlgorithm('none');
             }
         }
-        else throw new InvalidArgumentException(sprintf('The token "%s" is an invalid JWT', $token));
+        else throw new InvalidArgumentException('The token is an invalid JWT');
 
         return $this;
     }
