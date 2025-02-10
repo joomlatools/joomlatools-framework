@@ -53,13 +53,6 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
     protected $instructions = array();
 
     /**
-     * Array of taxonomy terms. These are used to tell the indexer to add taxonomy terms of the entities in the research result
-     *
-     * @var array
-     */
-    protected $taxonomies = array();
-
-    /**
      * Constructor
      *
      * @param   object  &$subject  The object to observe
@@ -196,13 +189,6 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
             foreach ($instructions AS $instruction) {
                 $item->addInstruction($type, $instruction);
             }
-        }
-
-        // Add taxonomies
-        foreach ($this->getTaxonomies() as $branch => $data)
-        {
-            extract($data);
-            $item->addTaxonomy($branch, $title, $state, $access, $language);
         }
 
         // Add the type taxonomy data.
@@ -414,36 +400,5 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         }
 
         return $return;
-    }
-
-    /**
-     * Method to add taxonomy map of an item to the queue for later processing
-     * 
-     * @param   string   $branch    The title of the taxonomy branch to add the node to.
-     * @param   string   $title     The title of the taxonomy node.
-     * @param   integer  $state     The published state of the taxonomy node. [optional]
-     * @param   integer  $access    The access level of the taxonomy node. [optional]
-     * @param   string   $language  The language of the taxonomy. [optional]
-     * 
-     * @return void
-     */
-    protected function addTaxonomy($branch, $title, $state = 1, $access = 1, $language = '')
-    {
-        $this->taxonomies[$branch] = array(
-            'title'    => $title,
-            'state'    => $state,
-            'access'   => $access,
-            'language' => $language
-        );
-    }
-
-    /**
-     * Returns the list of taxonomy maps
-     * 
-     * @return array
-     */
-    protected function getTaxonomies()
-    {
-        return $this->taxonomies;
     }
 }
