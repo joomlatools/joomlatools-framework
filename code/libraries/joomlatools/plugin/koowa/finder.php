@@ -368,9 +368,6 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
 
         if ($entity->isCreatable())
         {
-            // Add the author taxonomy data.
-            $item->addTaxonomy('Author', $entity->getAuthor()->getName());
-
             // Add the start date
             $item->start_date = $entity->created_on;
         }
