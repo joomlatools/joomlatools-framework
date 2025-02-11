@@ -69,7 +69,16 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
                         $script = parent::_renderTag($attribs, $content);
                         JFactory::getDocument()->addCustomTag($script);
                     }
-                    else JFactory::getDocument()->addScriptDeclaration($script);
+                    else
+                    {
+                        $type = isset($attribs['type']) ? $attribs['type'] : null;
+
+                        if ($type) {
+                            JFactory::getDocument()->addScriptDeclaration($script, $type);
+                        } else {
+                            JFactory::getDocument()->addScriptDeclaration($script);
+                        }
+                    }
 
                     $this->_loaded[$hash] = true;
                 }
@@ -99,7 +108,6 @@ class ComKoowaTemplateFilterScript extends KTemplateFilterScript
             } else {
                 $result = parent::_renderTag($attribs, $content);
             }
-           
         }
 
         return $result;
