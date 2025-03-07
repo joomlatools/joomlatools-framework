@@ -2,20 +2,24 @@
  * Editor
  */
 
-#editor-xtd-buttons {
-
-    .btn {
-
-      [class^="icon-"], [class*=" icon-"] {
-        margin-right: 4px !important;
-
-        /* Avoid Bootstrap icon overrides */
-
-        background-image: none !important;
-        vertical-align: inherit !important;
-      }
-
-      margin-bottom: 4px !important;
+#editor-xtd-buttons
+{   
+  .btn
+  {
+    [class^="icon-"], [class*=" icon-"] {
       margin-right: 4px !important;
+
+      /* Avoid Bootstrap icon overrides */
+
+      background-image: none !important;
+      vertical-align: inherit !important;
     }
+
+    margin-bottom: 4px !important;
+      margin-right: 4px !important;
+  }
+
+  .hidden {
+    display: none;
+  }
 }
