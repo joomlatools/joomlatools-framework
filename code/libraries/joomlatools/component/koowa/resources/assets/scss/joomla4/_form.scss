@@ -720,6 +720,10 @@ details summary ~ * {
     &.btn {
       @extend .k-button;
       margin-bottom: 4px;
+
+      &.hidden {
+        display: none;
+      }
     }
 
     &.btn-secondary {
