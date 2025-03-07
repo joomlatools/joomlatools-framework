@@ -37,7 +37,8 @@ $icomoon-path: "../../../jui/fonts" !default;
   }
 
   [class^="icon-"]:before,
-  [class*=" icon-"]:before {
+  [class*=" icon-"]:before,
+  .mceDefaultSkin .mce_none[class*="icon-"]:before {
     font-family: 'IcoMoon';
     font-style: normal;
     speak: none;
