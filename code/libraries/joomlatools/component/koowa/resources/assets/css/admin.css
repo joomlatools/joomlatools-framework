@@ -14940,6 +14940,9 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn {
   margin-bottom: 4px;
 }
+.k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button.btn.hidden {
+  display: none;
+}
 .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button [class^=icon-], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button [class*=" icon-"] {
   margin-right: 0 !important;
 }
@@ -16193,6 +16196,9 @@ html .form-inline .select2-container--bootstrap {
 }
 .k-ui-j5-form .editor-xtd-buttons .xtd-button.btn {
   margin: 0 4px 4px 0;
+}
+.k-ui-j5-form .editor-xtd-buttons .xtd-button.btn.hidden {
+  display: none;
 }
 .k-ui-j5-form .editor-xtd-buttons .xtd-button [class^=icon-], .k-ui-j5-form .editor-xtd-buttons .xtd-button [class*=" icon-"] {
   margin-right: 0 !important;
