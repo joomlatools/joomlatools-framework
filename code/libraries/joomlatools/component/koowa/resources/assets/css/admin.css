@@ -16262,6 +16262,9 @@ html .form-inline .select2-container--bootstrap {
   background-image: none !important;
   vertical-align: inherit !important;
 }
+.k-ui-j3-form .k-ui-namespace #editor-xtd-buttons .hidden {
+  display: none;
+}
 .k-ui-j3-form .k-ui-namespace .btn-toolbar {
   margin: 1em 0 0;
 }
@@ -16327,7 +16330,8 @@ html .form-inline .select2-container--bootstrap {
   vertical-align: inherit !important;
 }
 .k-ui-j3-form [class^=icon-]:before,
-.k-ui-j3-form [class*=" icon-"]:before {
+.k-ui-j3-form [class*=" icon-"]:before,
+.k-ui-j3-form .mceDefaultSkin .mce_none[class*=icon-]:before {
   font-family: "IcoMoon";
   font-style: normal;
   speak: none;
