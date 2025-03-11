@@ -54,7 +54,7 @@ jobs:
           allow_override: true
 
       - name: Upload package to release
-        uses: svenstaro/upload-release-action@v1-release
+        uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.tagname.outputs.tag }}
