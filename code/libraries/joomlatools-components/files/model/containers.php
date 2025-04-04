@@ -28,15 +28,29 @@ class ComFilesModelContainers extends KModelDatabase
         }
 	}
 
+    /**
+     * Override fetch method to handle caching of unique result
+     * 
+     * @param KModelContext $context
+     * @return KModelEntityInterface
+     */
     protected function _actionFetch(KModelContext $context)
     {
         $state = $this->getState();
-        $slug = $state->slug;
+        
+        if ($state->isUnique() && $state->has('slug'))
+        {
+            $slug = $state->slug;
 
-        if ($state->isUnique() && $state->has('slug') && !isset(self::$containers[$slug])) {
-            self::$containers[$slug] = parent::_actionFetch(($context));
+            if (!isset(self::$containers[$slug]))
+            {
+                $row = parent::_actionFetch($context);
+                self::$containers[$slug] = $row;
+            }
+            else $row = self::$containers[$slug];
+
+            return $row;
         }
-
-        return self::$containers[$slug];
+        else return parent::_actionFetch($context);
     }
 }
