@@ -44,13 +44,16 @@ class ComFilesModelContainers extends KModelDatabase
 
             if (!isset(self::$containers[$slug]))
             {
-                $row = parent::_actionFetch($context);
-                self::$containers[$slug] = $row;
-            }
-            else $row = self::$containers[$slug];
+                $container = parent::_actionFetch($context);
 
-            return $row;
+                if (!$container->isNew()) {
+                    self::$containers[$slug] = $container;
+                }
+            }
+            else $container = self::$containers[$slug];
         }
-        else return parent::_actionFetch($context);
+        else $container = parent::_actionFetch($context);
+
+        return $container;
     }
 }
