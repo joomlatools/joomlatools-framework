@@ -15,6 +15,8 @@
  */
 class ComFilesModelContainers extends KModelDatabase
 {
+    public static $containers = array();
+
 	protected function _buildQueryWhere(KDatabaseQueryInterface $query)
 	{
 		parent::_buildQueryWhere($query);
@@ -25,4 +27,33 @@ class ComFilesModelContainers extends KModelDatabase
             $query->where('tbl.title LIKE :search')->bind(array('search' =>  '%'.$state->search.'%'));
         }
 	}
+
+    /**
+     * Override fetch method to handle caching of unique result
+     * 
+     * @param KModelContext $context
+     * @return KModelEntityInterface
+     */
+    protected function _actionFetch(KModelContext $context)
+    {
+        $state = $this->getState();
+        
+        if ($state->isUnique() && $state->has('slug'))
+        {
+            $slug = $state->slug;
+
+            if (!isset(self::$containers[$slug]))
+            {
+                $container = parent::_actionFetch($context);
+
+                if (!$container->isNew()) {
+                    self::$containers[$slug] = $container;
+                }
+            }
+            else $container = self::$containers[$slug];
+        }
+        else $container = parent::_actionFetch($context);
+
+        return $container;
+    }
 }
