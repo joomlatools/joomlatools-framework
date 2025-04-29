@@ -27,7 +27,7 @@ if (!function_exists('mb_strlen'))
 {
     function mb_strlen($str)
     {
-        return strlen(utf8_decode($str));
+        return strlen(mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8'));
     }
 }
 
@@ -61,7 +61,7 @@ if (!function_exists('mb_substr'))
         if ($offset < 0) {
 
             // see notes
-            $strlen = strlen(utf8_decode($str));
+            $strlen = strlen(mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8'));
             $offset = $strlen + $offset;
             if ($offset < 0) $offset = 0;
 
@@ -100,7 +100,7 @@ if (!function_exists('mb_substr'))
 
             if (!isset($strlen)) {
                 // see notes
-                $strlen = strlen(utf8_decode($str));
+                $strlen = strlen(mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8'));
             }
 
             // another trivial case
@@ -400,4 +400,26 @@ if (!function_exists('str_contains')) {
         return '' === $needle || false !== strpos($haystack, $needle);
     }
 }
+
+/**
+ * utf8 encoding/decoding compatibility
+ *
+ * @link https://www.php.net/manual/en/function.utf8-decode.php
+ */
+
+ if (!function_exists('utf8_decode'))
+ {
+     function utf8_decode($string)
+     {
+         return mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
+     }
+ }
+
+ if (!function_exists('utf8_encode'))
+ {
+     function utf8_encode($string)
+     {
+         return mb_convert_encoding($string, 'UTF-8', mb_detect_encoding($string));
+     }
+ }
 
