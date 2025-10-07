@@ -302,21 +302,26 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
             {
                 $params = NULL;
 
-                // Introspection on closures or language constructs in a stack trace is impossible
-                if (function_exists($step['function']) || strpos($step['function'], '{closure}') === FALSE)
-                {
-                    if (isset($step['class']))
+                try {  
+                    // Introspection on closures or language constructs in a stack trace is impossible
+                    if (function_exists($step['function']) || strpos($step['function'], '{closure}') === FALSE)
                     {
-                        if (method_exists($step['class'], $step['function'])) {
-                            $reflection = new ReflectionMethod($step['class'], $step['function']);
-                        } else {
-                            $reflection = new ReflectionMethod($step['class'], '__call');
+                        if (isset($step['class']))
+                        {
+                            if (method_exists($step['class'], $step['function'])) {
+                                $reflection = new ReflectionMethod($step['class'], $step['function']);
+                            } else {
+                                $reflection = new ReflectionMethod($step['class'], '__call');
+                            }
                         }
-                    }
-                    else  $reflection = new ReflectionFunction($step['function']);
+                        else  $reflection = new ReflectionFunction($step['function']);
 
-                    // Get the function parameters
-                    $params = $reflection->getParameters();
+                        // Get the function parameters
+                        $params = $reflection->getParameters();
+                    }
+                }
+                catch (ReflectionException $e) {
+                    // Introspection failed
                 }
 
                 $args = array();

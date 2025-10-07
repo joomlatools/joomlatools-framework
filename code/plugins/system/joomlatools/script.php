@@ -143,6 +143,9 @@ class PlgSystemJoomlatoolsInstallerScript
             $db->setQuery($query)->execute();
 
             $installer = new \JInstaller();
+            if (method_exists($installer, 'setDatabase')) {
+                $installer->setDatabase(\JFactory::getDbo());
+            }
             $result = $installer->uninstall('component', $extension_id, 1);
 
             if ($result) {

@@ -62,7 +62,7 @@ abstract class KDatabaseQueryAbstract extends KObject implements KDatabaseQueryI
      * Bind values to a corresponding named placeholders in the query.
      *
      * @param  array $params Associative array of parameters.
-     * @return \KDatabaseQueryInterface
+     * @return $this
      */
     public function bind(array $params)
     {
