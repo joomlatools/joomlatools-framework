@@ -100,6 +100,11 @@ class ComKoowaTemplateHelperUi extends KTemplateHelperUi
 
         $version = explode('.', JVERSION)[0];
 
+        // Handle Joomla 5+ in the same manner
+        if ($version >= 5) {
+            $version = 5;
+        }
+
         $ui         = sprintf('k-ui-j%s', $version);
         $classes    = [$ui, sprintf('%s-%s', $ui, JFactory::getApplication()->getName())];
 
