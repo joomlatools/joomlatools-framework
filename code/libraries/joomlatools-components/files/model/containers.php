@@ -12,6 +12,9 @@
  *
  * @author  Ercan Ozkaya <https://github.com/ercanozkaya>
  * @package Koowa\Component\Files
+ * 
+ * @method $this slug(string $slug)
+ * @method ComFilesModelEntityContainer fetch()
  */
 class ComFilesModelContainers extends KModelDatabase
 {
