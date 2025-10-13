@@ -144,7 +144,7 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
             // Search in the form of id:NUM
             if ($search_column !== 'id')
             {
-                $ignore = isset($context->_ignore_columns) ? (array) $context->_ignore_columns : []; 
+                $ignore = isset($context->_ignore_columns) ? KObjectConfig::unbox($context->_ignore_columns) : []; 
 
                 foreach ($this->_columns as $column)
                 {
