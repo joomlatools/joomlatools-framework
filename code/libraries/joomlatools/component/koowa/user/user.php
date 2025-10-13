@@ -52,7 +52,7 @@ final class ComKoowaUser extends KUser implements ComKoowaUserInterface
                 'email'      => $user->email,
                 'name'       => $user->name,
                 'username'   => $user->username,
-                'password'   => $user->password,
+                'password'   => $user->password ?? '',
                 'salt'       => '',
                 'groups'     => JAccess::getGroupsByUser($user->id),
                 'roles'      => JAccess::getAuthorisedViewLevels($user->id),
