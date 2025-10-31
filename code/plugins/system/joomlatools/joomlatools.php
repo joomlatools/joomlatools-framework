@@ -63,8 +63,9 @@ class PlgSystemJoomlatools extends \Joomla\CMS\Plugin\CMSPlugin
             return true;
         }
 
-        return Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat') ||
-               Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat6');
+        return version_compare(JVERSION, '6.0', '<') ? 
+            Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat') : 
+            Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat6');
     }
 
     /**
