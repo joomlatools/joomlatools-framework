@@ -29,7 +29,7 @@ class PlgSystemJoomlatoolsInstallerScript
         }
         else
         {
-            $dispatcher = JFactory::getApplication()->getDispatcher();
+            $dispatcher = \Joomla\CMS\Factory::getApplication()->getDispatcher();
             $disableLogmanDuringInstallation = Closure::bind(function() {
                 foreach ($this->getListeners() as $event => $listeners)
                 {
@@ -72,7 +72,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
                 if ($version && version_compare($version, '3', '<'))
                 {
-                    $db = JFactory::getDbo();
+                    $db = \Joomla\CMS\Factory::getDbo();
 
                     $query = "UPDATE #__extensions SET enabled = 0 WHERE type='plugin' AND folder='koowa' AND element='logman'";
                     $db->setQuery($query)->execute();
@@ -100,13 +100,13 @@ class PlgSystemJoomlatoolsInstallerScript
             echo implode(',', $errors);
 
             $error = ob_get_clean();
-            JFactory::getApplication()->enqueueMessage($error, 'error');
+            \Joomla\CMS\Factory::getApplication()->enqueueMessage($error, 'error');
 
             return false;
         }
 
         if (!$this->_uninstallExtman()) {
-            JFactory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
+            \Joomla\CMS\Factory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
             Please go to Extension Manager and remove EXTman first in order to upgrade to the latest version'), 'error');
 
             return false;
@@ -118,7 +118,7 @@ class PlgSystemJoomlatoolsInstallerScript
     protected function _uninstallExtman()
     {
         $result = true;
-        $db     = \JFactory::getDbo();
+        $db     = \Joomla\CMS\Factory::getDbo();
         $query  = /** @lang text */"SELECT extension_id FROM #__extensions
             WHERE type = 'component' AND element = 'com_extman'
             LIMIT 1
@@ -130,7 +130,7 @@ class PlgSystemJoomlatoolsInstallerScript
             // Make extensions uninstallable by Joomla extension manager
             $query = /** @lang text */'UPDATE #__extensions SET protected = 0
               WHERE extension_id IN (SELECT joomla_extension_id FROM #__extman_extensions)';
-            \JFactory::getDbo()->setQuery($query)->execute();
+            \Joomla\CMS\Factory::getDbo()->setQuery($query)->execute();
 
             // First we remove the extension list so Extman does not give an error
             $query = /** @lang text */'CREATE TABLE IF NOT EXISTS #__extman_extensions_bkp AS SELECT * FROM #__extman_extensions;';
@@ -144,7 +144,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
             $installer = new \JInstaller();
             if (method_exists($installer, 'setDatabase')) {
-                $installer->setDatabase(\JFactory::getDbo());
+                $installer->setDatabase(\Joomla\CMS\Factory::getDbo());
             }
             $result = $installer->uninstall('component', $extension_id, 1);
 
@@ -185,7 +185,7 @@ class PlgSystemJoomlatoolsInstallerScript
 
             if (!$this->_moveFolder($source.'/libraries/joomlatools', JPATH_LIBRARIES.'/joomlatools')) {
                 $warning = 'Could not create the libraries folder';
-                JFactory::getApplication()->enqueueMessage($warning, 'warning');
+                \Joomla\CMS\Factory::getApplication()->enqueueMessage($warning, 'warning');
 
                 return false;
             }
@@ -283,7 +283,7 @@ class PlgSystemJoomlatoolsInstallerScript
             'plugin', 'joomlatools', 'system'
         );
 
-        JFactory::getDbo()->setQuery($query)->execute();
+        \Joomla\CMS\Factory::getDbo()->setQuery($query)->execute();
 
         $this->bootFramework();
 
@@ -293,13 +293,13 @@ class PlgSystemJoomlatoolsInstallerScript
     protected function _clearCache()
     {
         // Joomla does not clean up its plugins cache for us
-        JCache::getInstance('callback', array(
+        \Joomla\CMS\Cache\Cache::getInstance('callback', array(
             'defaultgroup' => 'com_plugins',
             'cachebase'    => JPATH_ADMINISTRATOR . '/cache'
         ))->clean();
 
-        JFactory::getCache('com_koowa.tables', 'output')->clean();
-        JFactory::getCache('com_koowa.templates', 'output')->clean();
+        \Joomla\CMS\Factory::getCache('com_koowa.tables', 'output')->clean();
+        \Joomla\CMS\Factory::getCache('com_koowa.templates', 'output')->clean();
 
         // Clear APC opcode cache
         if ( extension_loaded('apcu') && apcu_enabled()) {
@@ -356,7 +356,7 @@ class PlgSystemJoomlatoolsInstallerScript
         $results = glob(JPATH_LIBRARIES . '/joomlatools-components/*/resources/install/install.sql');
         $queries = array();
 
-        $db = JFactory::getDbo();
+        $db = \Joomla\CMS\Factory::getDbo();
 
         foreach ($results as $result) {
             if ($q = $db->splitSql(file_get_contents($result))) {
@@ -402,12 +402,12 @@ class PlgSystemJoomlatoolsInstallerScript
 		    contact your host and ask them to enable MySQLi for your server.");
         }
 
-        if(version_compare(JFactory::getDbo()->getVersion(), '5.1', '<')) {
+        if(version_compare(\Joomla\CMS\Factory::getDbo()->getVersion(), '5.1', '<')) {
             $errors[] = sprintf(JText::_('Joomlatools framework requires MySQL 5.1 or later.
-            Please contact your host and ask them to upgrade MySQL to 5.1 or a newer version on your server.'), JFactory::getDbo()->getVersion());
+            Please contact your host and ask them to upgrade MySQL to 5.1 or a newer version on your server.'), \Joomla\CMS\Factory::getDbo()->getVersion());
         }
         else {
-            $result = JFactory::getDbo()->setQuery("SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB'")->loadResult();
+            $result = \Joomla\CMS\Factory::getDbo()->setQuery("SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB'")->loadResult();
             if(!in_array(strtoupper($result), array('YES', 'DEFAULT'))) {
                 $errors[] = JText::_("Joomlatools framework requires MySQL InnoDB support. Please contact your host and ask them to enable InnoDB.");
             }
@@ -462,7 +462,7 @@ class PlgSystemJoomlatoolsInstallerScript
         if (version_compare(JVERSION, '4', '<')) {
             $dispatcher = JEventDispatcher::getInstance();
         } else {
-            $dispatcher = JFactory::getApplication()->getDispatcher();
+            $dispatcher = \Joomla\CMS\Factory::getApplication()->getDispatcher();
         }
 
         $className  = 'PlgSystemJoomlatools';
@@ -470,7 +470,7 @@ class PlgSystemJoomlatoolsInstallerScript
         // Constructor does all the work in the plugin
         if (class_exists($className))
         {
-            $db = JFactory::getDbo();
+            $db = \Joomla\CMS\Factory::getDbo();
             $db->setQuery(/** @lang text */"SELECT folder AS type, element AS name, params
 			 FROM #__extensions
 			 WHERE folder = 'system' AND element = 'joomlatools'"

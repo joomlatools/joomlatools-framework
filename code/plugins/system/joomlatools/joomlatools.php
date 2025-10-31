@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Plugin\System\Joomlatools
  */
-class PlgSystemJoomlatools extends JPlugin
+class PlgSystemJoomlatools extends \Joomla\CMS\Plugin\CMSPlugin
 {
     /**
      * Boots Koowa framework and applies some bug fixes for certain environments
@@ -33,24 +33,38 @@ class PlgSystemJoomlatools extends JPlugin
         }
 
         //Bugfix: Set offset according to user's timezone
-        if (!JFactory::getUser()->guest)
+        if (!\Joomla\CMS\Factory::getUser()->guest)
         {
-            if ($offset = JFactory::getUser()->getParam('timezone')) {
-                JFactory::getConfig()->set('offset', $offset);
+            if ($offset = \Joomla\CMS\Factory::getUser()->getParam('timezone')) {
+                \Joomla\CMS\Factory::getConfig()->set('offset', $offset);
             }
         }
 
         //Bugfix: Set display_errors accordingly
-        if(JFactory::getConfig()->get('error_reporting') == 'none') {
+        if(Joomla\CMS\Factory::getConfig()->get('error_reporting') == 'none') {
             @ini_set('display_errors', 0);
         }
 
-        //Bootstrap the Koowa Framework
-        $this->bootstrap();
+        if (static::hasCompatPlugin()) {
 
-        $this->onAfterKoowaBootstrap();
+            //Bootstrap the Koowa Framework
+            $this->bootstrap();
+
+            $this->onAfterKoowaBootstrap();
+        }
+
 
         parent::__construct($subject, $config);
+    }
+
+    public static function hasCompatPlugin()
+    {
+        if (version_compare(JVERSION, '5.0', '<')) {
+            return true;
+        }
+
+        return Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat') ||
+               Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat6');
     }
 
     /**
@@ -80,7 +94,7 @@ class PlgSystemJoomlatools extends JPlugin
             {
                 require_once $path;
 
-                $application = JFactory::getApplication()->getName();
+                $application = Joomla\CMS\Factory::getApplication()->getName();
 
                 /**
                  * Find Composer Vendor Directory
@@ -102,8 +116,8 @@ class PlgSystemJoomlatools extends JPlugin
                  * Framework Bootstrapping
                  */
                 Koowa::getInstance(array(
-                    'cache'           => false, //JFactory::getConfig()->get('caching')
-                    'cache_namespace' => 'koowa-' . $application . '-' . md5(JFactory::getConfig()->get('secret')),
+                    'cache'           => false, //Joomla\CMS\Factory::getConfig()->get('caching')
+                    'cache_namespace' => 'koowa-' . $application . '-' . md5(Joomla\CMS\Factory::getConfig()->get('secret')),
                     'root_path'       => JPATH_ROOT,
                     'base_path'       => JPATH_BASE,
                     'vendor_path'     => $vendor_path
@@ -114,8 +128,8 @@ class PlgSystemJoomlatools extends JPlugin
                  */
                 $bootstrapper = KObjectManager::getInstance()->getObject('object.bootstrapper')
                     ->registerComponents(JPATH_LIBRARIES . '/joomlatools/component', 'koowa')
-                    ->registerApplication('site', JPATH_SITE . '/components', JFactory::getApplication()->isClient('site'))
-                    ->registerApplication('admin', JPATH_ADMINISTRATOR . '/components', JFactory::getApplication()->isClient('administrator'));
+                    ->registerApplication('site', JPATH_SITE . '/components', Joomla\CMS\Factory::getApplication()->isClient('site'))
+                    ->registerApplication('admin', JPATH_ADMINISTRATOR . '/components', Joomla\CMS\Factory::getApplication()->isClient('administrator'));
 
                 if (is_dir(JPATH_LIBRARIES . '/joomlatools-components')) {
                     $bootstrapper->registerComponents(JPATH_LIBRARIES . '/joomlatools-components', 'koowa');
@@ -158,16 +172,16 @@ class PlgSystemJoomlatools extends JPlugin
             $request = $manager->getObject('request');
 
             // Get the URL from Joomla if live_site is set
-            if (JFactory::getConfig()->get('live_site'))
+            if (Joomla\CMS\Factory::getConfig()->get('live_site'))
             {
-                $request->setBasePath(rtrim(JURI::base(true), '/\\'));
-                $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(JURI::base(), '/\\'))));
+                $request->setBasePath(rtrim(\Joomla\CMS\Uri\Uri::base(true), '/\\'));
+                $request->setBaseUrl($manager->getObject('lib:http.url', array('url' => rtrim(\Joomla\CMS\Uri\Uri::base(), '/\\'))));
             }
 
             /**
              * Plugin Bootstrapping
              */
-            JPluginHelper::importPlugin('koowa', null, true);
+            Joomla\CMS\Plugin\PluginHelper::importPlugin('koowa', null, true);
 
             // Load and bootstrap custom vendor directory if it exists
             $custom_vendor = dirname(dirname($path)).'/vendor';
@@ -265,7 +279,7 @@ class PlgSystemJoomlatools extends JPlugin
             $event->setError($exception);
         }
         
-        if ($exception instanceof \Throwable) {
+        if ($exception instanceof \Throwable && class_exists('Koowa')) {
             Koowa::getObject('exception.handler')->handleException($exception);
         }
     }
@@ -337,7 +351,7 @@ class PlgSystemJoomlatools extends JPlugin
 
         //Publish the event
         if (class_exists('Koowa')) {
-            $result = Koowa::getObject('event.publisher')->publishEvent($event, $args, JFactory::getApplication());
+            $result = Koowa::getObject('event.publisher')->publishEvent($event, $args, Joomla\CMS\Factory::getApplication());
         }
 
         return $result;
