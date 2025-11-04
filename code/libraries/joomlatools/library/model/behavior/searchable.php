@@ -44,7 +44,7 @@ class KModelBehaviorSearchable extends KModelBehaviorAbstract
             if (count($parts) >= 2)
             {
                 $alias = array_shift($parts);
-                $column = implode(',', $parts);
+                $column = implode('.', $parts);
 
                 $this->_alias_map[$column] = $alias;
             }
