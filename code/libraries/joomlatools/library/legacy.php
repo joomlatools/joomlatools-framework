@@ -401,25 +401,3 @@ if (!function_exists('str_contains')) {
     }
 }
 
-/**
- * utf8 encoding/decoding compatibility
- *
- * @link https://www.php.net/manual/en/function.utf8-decode.php
- */
-
- if (!function_exists('utf8_decode'))
- {
-     function utf8_decode($string)
-     {
-         return mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
-     }
- }
-
- if (!function_exists('utf8_encode'))
- {
-     function utf8_encode($string)
-     {
-         return mb_convert_encoding($string, 'UTF-8', mb_detect_encoding($string));
-     }
- }
-
