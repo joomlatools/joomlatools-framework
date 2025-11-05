@@ -27,7 +27,7 @@ if (!function_exists('mb_strlen'))
 {
     function mb_strlen($str)
     {
-        return strlen(utf8_decode($str));
+        return strlen(mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8'));
     }
 }
 
@@ -61,7 +61,7 @@ if (!function_exists('mb_substr'))
         if ($offset < 0) {
 
             // see notes
-            $strlen = strlen(utf8_decode($str));
+            $strlen = strlen(mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8'));
             $offset = $strlen + $offset;
             if ($offset < 0) $offset = 0;
 
@@ -100,7 +100,7 @@ if (!function_exists('mb_substr'))
 
             if (!isset($strlen)) {
                 // see notes
-                $strlen = strlen(utf8_decode($str));
+                $strlen = strlen(mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8'));
             }
 
             // another trivial case

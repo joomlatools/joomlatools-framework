@@ -400,7 +400,7 @@ class KFilterHtml extends KFilterAbstract implements KFilterTraversable
         $ttr       = array();
         $trans_tbl = get_html_translation_table(HTML_ENTITIES);
         foreach($trans_tbl as $k => $v) {
-            $ttr[$v] = utf8_encode($k);
+            $ttr[$v] = mb_convert_encoding($k, 'UTF-8', mb_detect_encoding($k));
         }
         $source = strtr($source, $ttr);
 
