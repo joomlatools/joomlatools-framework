@@ -171,8 +171,8 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
                 $response->setContentType('application/octet-stream');
             }
 
-            //Add Content-Length if not present
-            if(!$response->headers->has('Content-Length')) {
+            //Add Content-Length if not present and not streaming
+            if(!$response->headers->has('Content-Length') && !$request->isStreaming()) {
                 $response->headers->set('Content-Length', $response->getStream()->getSize());
             }
         }
@@ -238,3 +238,4 @@ class KDispatcherResponseTransportHttp extends KDispatcherResponseTransportAbstr
         return parent::send($response);
     }
 }
+
