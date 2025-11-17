@@ -7970,6 +7970,10 @@ html:not([dir=rtl]) .k-input-group__button:first-child > .k-button-group:not(:fi
   list-style: none;
   border-bottom: 1px solid gainsboro;
   font-size: 0;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
   /**
    * 1. Make the list-items overlay the bottom border
    */

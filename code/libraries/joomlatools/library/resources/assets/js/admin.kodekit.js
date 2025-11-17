@@ -1393,6 +1393,31 @@ window.jQuery = window.kQuery;
         , $tip = this.tip()
         , e = $.Event('hide');
 
+
+      // Bootstrap tooltips emit a "hide" event on tooltip trigger element and MooTools runs hide() on it
+      // Make sure MooTools doesn't hide the tooltip trigger elements after hiding the tooltip box
+      if (typeof window.MooTools !== 'undefined' && !this.mootools_compatible)
+      {
+        var mHide = typeof window.Element.prototype.hide === 'function' ? window.Element.prototype.hide : null;
+
+        if (mHide)
+        {
+          window.Element.implement(
+          {
+            hide: function()
+            {
+                if ($(this).data('ktooltip')) {
+                    return this;
+                }
+                
+                mHide.apply(this, arguments);
+            }
+          });
+        }
+
+        this.mootools_compatible = true;
+      }
+
       this.$element.trigger(e)
       if (e.isDefaultPrevented()) return
 

@@ -123,6 +123,7 @@ class ComMigratorMigratorBehaviorImportInsert extends KControllerBehaviorAbstrac
         $rows_per_query = 20;
         $queue_count    = 0;
         $total_count    = 0;
+        $columns        = array();
 
         foreach ($file as $i => $row)
         {
@@ -136,6 +137,15 @@ class ComMigratorMigratorBehaviorImportInsert extends KControllerBehaviorAbstrac
 
                 $query->columns($row);
 
+                $schema = $this->getObject('lib:database.table.default', array('name' => $table))->getSchema();
+
+                foreach ($row as $column)
+                {
+                    if (isset($schema->columns[$column])) {
+                        $columns[] = $schema->columns[$column];
+                    }
+                }
+
                 continue;
             }
 
@@ -146,6 +156,8 @@ class ComMigratorMigratorBehaviorImportInsert extends KControllerBehaviorAbstrac
             $this->_unsetOffsets($row, $unset);
 
             $this->_convertNullDates($row);
+
+            $this->_convertEmptyValues($row, $columns);
 
             $query->values($row);
             $total_count++;
@@ -169,6 +181,25 @@ class ComMigratorMigratorBehaviorImportInsert extends KControllerBehaviorAbstrac
         }
 
         return $total_count;
+    }
+
+    protected function _convertEmptyValues(&$row, $columns)
+    {
+        $types = array('int', 'bigint', 'tinyint', 'mediumint', 'smallint', 'time', 'timestamp', 'year', 'date', 'datetime'); // A list of allowed types for the conversion
+
+        foreach ($row as $key => $value)
+        {
+            if (isset($columns[$key]))
+            {
+                $default  = $columns[$key]->default;
+                $required = $columns[$key]->required;
+                $type     = $columns[$key]->type;
+
+                if ($value === '' && $default === null && !$required && in_array($type, $types)) {
+                    $row[$key] = null;
+                }
+            }
+        }
     }
 
     protected function _convertNullDates(&$row) 

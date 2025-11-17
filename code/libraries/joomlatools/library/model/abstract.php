@@ -353,6 +353,8 @@ abstract class KModelAbstract extends KObject implements KModelInterface, KComma
         parent::__clone();
 
         $this->__state = clone $this->__state;
+
+        $this->__state->setModel($this);
     }
 
     /**

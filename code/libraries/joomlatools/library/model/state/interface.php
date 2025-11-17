@@ -140,4 +140,19 @@ interface KModelStateInterface
      * @return  boolean TRUE if the state is empty, otherwise FALSE.
      */
     public function isEmpty(array $exclude = array());
+
+    /**
+     * Model setter
+     *
+     * @param KModelInterface $model
+     * @return KModelStateInterface
+     */
+    public function setModel(KModelInterface $model);
+
+    /**
+     * Model getter
+     *
+     * @return KModelInterface
+     */
+    public function getModel();
 }

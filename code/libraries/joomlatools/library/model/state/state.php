@@ -53,7 +53,7 @@ class KModelState extends KObjectArray implements KModelStateInterface
             );
         }
 
-        $this->__model = $config->model;
+        $this->setModel($config->model);
     }
 
     /**
@@ -70,6 +70,17 @@ class KModelState extends KObjectArray implements KModelStateInterface
         ));
 
         parent::_initialize($config);
+    }
+
+    public function setModel(KModelInterface $model)
+    {
+        $this->__model = $model;
+        return $this;
+    }
+
+    public function getModel()
+    {
+        return $this->__model;
     }
 
     /**
@@ -140,7 +151,7 @@ class KModelState extends KObjectArray implements KModelStateInterface
             $this->offsetSet($name, $value);
 
             //Reset the model
-            $this->__model->reset(array($name));
+            $this->getModel()->reset(array($name));
         }
 
         return $this;
@@ -192,7 +203,7 @@ class KModelState extends KObjectArray implements KModelStateInterface
     public function count()
     {
         //Reset the model
-        return $this->__model->count();
+        return $this->getModel()->count();
     }
 
     /**
@@ -450,5 +461,12 @@ class KModelState extends KObjectArray implements KModelStateInterface
         }
 
         return true;
+    }
+
+    public function __clone()
+    {
+        foreach($this->_data as $key => $value) {
+            $this->_data[$key] = clone $value;
+        }
     }
 }
