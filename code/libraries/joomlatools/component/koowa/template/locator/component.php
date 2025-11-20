@@ -51,7 +51,7 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
                 ->columns('template')
                 ->where('client_id = :client_id AND home = :home')
                 ->bind(array(
-                    'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
+                    'client_id' => 0, 'home' => 1
                 ));
 
             $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
