@@ -46,12 +46,13 @@ class ComKoowaTemplateLocatorComponent extends KTemplateLocatorComponent
     {
         if(defined('JPATH_THEMES'))
         {
+            $client_id = JFactory::getApplication()->isClient('cli') ? 0 : JFactory::getApplication()->getClientId();
             $query = $this->getObject('database')->getQuery('select')
                 ->table('template_styles')
                 ->columns('template')
                 ->where('client_id = :client_id AND home = :home')
                 ->bind(array(
-                    'client_id' => JFactory::getApplication()->getClientId(), 'home' => 1
+                    'client_id' => $client_id, 'home' => 1
                 ));
 
             $template = $this->getObject('database')->select($query, KDatabase::FETCH_FIELD);
