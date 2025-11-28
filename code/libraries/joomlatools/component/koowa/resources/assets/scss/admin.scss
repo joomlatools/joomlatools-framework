@@ -100,3 +100,9 @@ $k-atom-body: false;
 $k-ui-context: "administrator";
 
 @import "activities";
+
+// ==========================================================================
+// Styling for Joomla custom fields in JT extensions
+// ==========================================================================
+
+@import "custom_fields";
