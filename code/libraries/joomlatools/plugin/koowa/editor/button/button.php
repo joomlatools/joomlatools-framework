@@ -13,7 +13,7 @@
  * @author  Arunas Mazeika <https://github.com/amazeika>
  * @package Koowa\Plugin\Koowa
  */
-abstract class PlgKoowaEditorButton extends JPlugin implements PlgKoowaEditorButtonInterface
+abstract class PlgKoowaEditorButton extends Joomla\CMS\Plugin\CMSPlugin implements PlgKoowaEditorButtonInterface
 {
     protected $_editor = null;
 

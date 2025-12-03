@@ -13,7 +13,7 @@
  * @author  Johan Janssens <https://github.com/johanjanssens>
  * @package Koowa\Plugin\Koowa
  */
-abstract class PlgKoowaAbstract extends JPlugin implements PlgKoowaInterface
+abstract class PlgKoowaAbstract extends Joomla\CMS\Plugin\CMSPlugin implements PlgKoowaInterface
 {
     /**
      * The object identifier
