@@ -60,7 +60,7 @@ final class Transformation implements FilterInterface, ManipulatorInterface
      *
      * @param ImagineInterface $imagine An ImagineInterface instance
      */
-    public function __construct(ImagineInterface $imagine = null)
+    public function __construct(ImagineInterface | null $imagine = null)
     {
         $this->imagine = $imagine;
     }
@@ -193,7 +193,7 @@ final class Transformation implements FilterInterface, ManipulatorInterface
     /**
      * {@inheritdoc}
      */
-    public function rotate($angle, ColorInterface $background = null)
+    public function rotate($angle, ColorInterface | null $background = null)
     {
         return $this->add(new Rotate($angle, $background));
     }

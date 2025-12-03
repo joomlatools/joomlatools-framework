@@ -59,7 +59,7 @@ class CronExpression
      *
      * @return CronExpression
      */
-    public static function factory($expression, FieldFactory $fieldFactory = null)
+    public static function factory($expression, FieldFactory | null $fieldFactory = null)
     {
         $mappings = array(
             '@yearly' => '0 0 1 1 *',

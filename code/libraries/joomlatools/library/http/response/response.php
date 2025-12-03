@@ -356,9 +356,9 @@ class KHttpResponse extends KHttpMessage implements KHttpResponseInterface
      * @param  DateTime $date A \DateTime instance
      * @return KHttpResponse
      */
-    public function setLastModified(DateTime $date = null)
+    public function setLastModified($date = null)
     {
-        if ($date !== null)
+        if ($date !== null && $date instanceof DateTime)
         {
             $date = clone $date;
             $date->setTimezone(new DateTimeZone('UTC'));

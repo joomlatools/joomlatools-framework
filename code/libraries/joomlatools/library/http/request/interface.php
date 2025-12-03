@@ -25,7 +25,7 @@ interface KHttpRequestInterface extends KHttpMessageInterface
      * @param array   $defaults  The default values
      * @return array
      */
-    public function getAccept(array $defaults = NULL);
+    public function getAccept(array $defaults = []);
 
     /**
      * Get the cache control
