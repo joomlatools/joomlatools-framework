@@ -11,8 +11,11 @@ defined('JPATH_BASE') or die;
 
 jimport('joomla.application.component.helper');
 
-// Load the base adapter.
-JLoader::register('FinderIndexerAdapter', JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php');
+if (version_compare(JVERSION, '4.0', '<')) {
+    JLoader::register('FinderIndexerAdapter', JPATH_ADMINISTRATOR . '/components/com_finder/helpers/indexer/adapter.php');
+} else {
+    JLoader::registerAlias('FinderIndexerAdapter', '\\Joomla\\Component\\Finder\\Administrator\\Indexer\\Adapter', '5.0');
+}
 
 /**
  * Finder Plugin
@@ -214,6 +217,17 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
         return true;
     }
 
+    public static function hasCompatPlugin()
+    {
+        if (version_compare(JVERSION, '5.0', '<')) {
+            return true;
+        }
+
+        return version_compare(JVERSION, '6.0', '<') ? 
+            Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat') : 
+            Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat6');
+    }
+
     /**
      * Boots the Koowa framework if the plugin is running in CLI mode
      *
@@ -222,7 +236,7 @@ abstract class PlgKoowaFinder extends FinderIndexerAdapter
     protected function bootFramework()
     {
         // This is useful in CLI mode
-        if (!class_exists('Koowa'))
+        if (static::hasCompatPlugin() && !class_exists('Koowa'))
         {
             if (!defined('JDEBUG')) {
                 define('JDEBUG', 0);
