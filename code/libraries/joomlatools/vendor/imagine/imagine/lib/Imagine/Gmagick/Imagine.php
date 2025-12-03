@@ -58,7 +58,7 @@ class Imagine extends AbstractImagine
     /**
      * {@inheritdoc}
      */
-    public function create(BoxInterface $size, ColorInterface $color = null)
+    public function create(BoxInterface $size, ColorInterface | null $color = null)
     {
         $width = $size->getWidth();
         $height = $size->getHeight();

@@ -90,7 +90,7 @@ class KDatabaseAdapterPdo extends KDatabaseAdapterAbstract
         'json'              => 'json',
     );
 
-    public function __construct(KObjectConfig $config = null)
+    public function __construct($config = null)
     {
         parent::__construct($config);
 

@@ -85,7 +85,7 @@ abstract class KDatabaseAdapterAbstract extends KObject implements KDatabaseAdap
      * Recognized key values include 'command_chain', 'charset', 'table_prefix',
      * (this list is not meant to be comprehensive).
      */
-    public function __construct(KObjectConfig $config = null)
+    public function __construct($config = null)
     {
         parent::__construct($config);
 

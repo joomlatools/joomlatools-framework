@@ -20,7 +20,7 @@ abstract class KControllerToolbarActionbar extends KControllerToolbarAbstract
      *
      * @param   KObjectConfig $config Configuration options
      */
-    public function __construct(KObjectConfig $config = null)
+    public function __construct($config = null)
     {
         parent::__construct($config);
 

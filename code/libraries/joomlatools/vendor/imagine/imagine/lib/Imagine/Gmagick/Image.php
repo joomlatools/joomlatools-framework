@@ -238,7 +238,7 @@ final class Image extends AbstractImage
      *
      * @return ImageInterface
      */
-    public function rotate($angle, ColorInterface $background = null)
+    public function rotate($angle, ColorInterface | null $background = null)
     {
         try {
             $background = $background ?: $this->palette->color('fff');

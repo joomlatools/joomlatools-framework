@@ -111,7 +111,7 @@ abstract class KFilesystemStreamAbstract extends KObject implements KFilesystemS
      *
      * @param KObjectConfig $config An optional ObjectConfig object with configuration options
      */
-    public function __construct(KObjectConfig $config = null)
+    public function __construct($config = null)
     {
         parent::__construct($config);
 

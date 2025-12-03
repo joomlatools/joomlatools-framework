@@ -53,7 +53,7 @@ class Canvas implements FilterInterface
      * @param PointInterface   $placement
      * @param ColorInterface   $background
      */
-    public function __construct(ImagineInterface $imagine, BoxInterface $size, PointInterface $placement = null, ColorInterface $background = null)
+    public function __construct(ImagineInterface $imagine, BoxInterface $size, PointInterface | null $placement = null, ColorInterface | null $background = null)
     {
         $this->imagine = $imagine;
         $this->size = $size;

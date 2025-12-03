@@ -418,8 +418,7 @@ class KUserSessionAbstract extends KObject implements KUserSessionInterface
      */
     public function isActive()
     {
-        $sid = defined('SID') ? constant('SID') : false;
-        if ($sid !== false && session_id()) {
+        if (session_id()) {
             return true;
         }
 
