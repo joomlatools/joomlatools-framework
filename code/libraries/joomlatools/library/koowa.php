@@ -27,7 +27,7 @@ class Koowa
      *
      * @var string
      */
-    const VERSION = '6.0.2';
+    const VERSION = '6.0.3';
 
     /**
      * Debug state
