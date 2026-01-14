@@ -49,7 +49,7 @@ class PlgSystemJoomlatools extends \Joomla\CMS\Plugin\CMSPlugin
             // Load class aliases for Joomla 6+ (workaround for compat6 plugin bug where aliases parameter is disabled by default)
             try {
                 if (version_compare(JVERSION, '6.0', '>=')) {
-                    $classmap = JPATH_PLUGINS . '/behaviour/compat6/classmap/classmap.php';
+                    $classmap = JPATH_PLUGINS . '/behaviour/compat6/src/classmap/classmap.php';
                     if (file_exists($classmap)) {
                         require_once $classmap;
                     }
@@ -60,7 +60,7 @@ class PlgSystemJoomlatools extends \Joomla\CMS\Plugin\CMSPlugin
                         
                     }
                 }
-            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
                 // Silent catch
             }
 
