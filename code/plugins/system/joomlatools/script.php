@@ -9,8 +9,43 @@
 
 class PlgSystemJoomlatoolsInstallerScript
 {
+    public static function hasCompatPlugin()
+    {
+        if (version_compare(JVERSION, '5.0', '<')) {
+            return true;
+        }
+
+        return version_compare(JVERSION, '6.0', '<') ? 
+            Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat') : 
+            Joomla\CMS\Plugin\PluginHelper::isEnabled('behaviour', 'compat6');
+    }
+
+    protected function _handleCompatPlugin() 
+    {
+        if (static::hasCompatPlugin()) {
+            // Load class aliases for Joomla 6+ (workaround for compat6 plugin bug where aliases parameter is disabled by default)
+            try {
+                if (version_compare(JVERSION, '6.0', '>=')) {
+                    $classmap = JPATH_PLUGINS . '/behaviour/compat6/classmap/classmap.php';
+                    if (file_exists($classmap)) {
+                        require_once $classmap;
+                    }
+
+                    $classesPath = JPATH_PLUGINS . '/behaviour/compat6/classes';
+                    if (is_dir($classesPath) && class_exists('JLoader') && method_exists('JLoader', 'registerNamespace')) {
+                            \JLoader::registerNamespace('\\Joomla\\CMS', $classesPath);
+                        
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Silent catch
+            }
+        }
+    }
+
     public function __construct($installer)
     {
+        $this->_handleCompatPlugin();
         $this->_disableLogman1And2Permanently();
 
         if(version_compare(JVERSION, '4', '<')) {
@@ -151,7 +186,7 @@ class PlgSystemJoomlatoolsInstallerScript
             if ($result) {
                 // Delete old Koowa folder
                 if (is_dir(JPATH_LIBRARIES.'/koowa')) {
-                    JFolder::delete(JPATH_LIBRARIES.'/koowa');
+                    \Joomla\CMS\Filesystem\Folder::delete(JPATH_LIBRARIES.'/koowa');
                 }
             }
         }
@@ -193,13 +228,13 @@ class PlgSystemJoomlatoolsInstallerScript
             $components_source = $source.'/libraries/joomlatools-components';
             $components_target = JPATH_LIBRARIES.'/joomlatools-components';
 
-            if (!JFolder::exists($components_target)) {
-                JFolder::create($components_target);
+            if (!\Joomla\CMS\Filesystem\Folder::exists($components_target)) {
+                \Joomla\CMS\Filesystem\Folder::create($components_target);
             }
 
-            if (JFolder::exists($components_source)) {
+            if (\Joomla\CMS\Filesystem\Folder::exists($components_source)) {
                 // Move reusable components
-                $components = JFolder::folders($components_source);
+                $components = \Joomla\CMS\Filesystem\Folder::folders($components_source);
 
                 foreach ($components as $component)
                 {
@@ -222,7 +257,7 @@ class PlgSystemJoomlatoolsInstallerScript
                     $component_path = JPATH_LIBRARIES.'/joomlatools/component/'.$component;
 
                     if (is_dir($component_path)) {
-                        JFolder::delete($component_path);
+                        \Joomla\CMS\Filesystem\Folder::delete($component_path);
                     }
                 }
             }
@@ -230,8 +265,8 @@ class PlgSystemJoomlatoolsInstallerScript
             // Create media folder
             $media = JPATH_ROOT.'/media/koowa';
 
-            if (!JFolder::exists($media)) {
-                JFolder::create($media);
+            if (!\Joomla\CMS\Filesystem\Folder::exists($media)) {
+                \Joomla\CMS\Filesystem\Folder::create($media);
             }
 
             $assets = JPATH_LIBRARIES.'/joomlatools/library/resources/assets';
@@ -317,21 +352,21 @@ class PlgSystemJoomlatoolsInstallerScript
         $temp   = $to.'_tmp';
         $result = false;
 
-        if (JFolder::exists($temp)) {
-            if (!JFolder::delete($temp) || JFolder::exists($temp)) {
+        if (\Joomla\CMS\Filesystem\Folder::exists($temp)) {
+            if (!\Joomla\CMS\Filesystem\Folder::delete($temp) || \Joomla\CMS\Filesystem\Folder::exists($temp)) {
                 return $result;
             }
         }
 
-        if (JFolder::copy($from, $temp))
+        if (\Joomla\CMS\Filesystem\Folder::copy($from, $temp))
         {
-            if (JFolder::exists($to)) {
-                if (!JFolder::delete($to) || JFolder::exists($to)) {
+            if (\Joomla\CMS\Filesystem\Folder::exists($to)) {
+                if (!\Joomla\CMS\Filesystem\Folder::delete($to) || \Joomla\CMS\Filesystem\Folder::exists($to)) {
                     return $result;
                 }
             }
 
-            $result = JFolder::move($temp, $to);
+            $result = \Joomla\CMS\Filesystem\Folder::move($temp, $to);
         }
 
         return $result;
@@ -345,8 +380,8 @@ class PlgSystemJoomlatoolsInstallerScript
         );
 
         foreach ($folders as $folder) {
-            if (JFolder::exists($folder)) {
-                JFolder::delete($folder);
+            if (\Joomla\CMS\Filesystem\Folder::exists($folder)) {
+                \Joomla\CMS\Filesystem\Folder::delete($folder);
             }
         }
     }
