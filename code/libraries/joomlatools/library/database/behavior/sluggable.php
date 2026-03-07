@@ -73,7 +73,7 @@ class KDatabaseBehaviorSluggable extends KDatabaseBehaviorAbstract
      *
      * @param   KObjectConfig $config Configuration options
      */
-    public function __construct( $config = null)
+    public function __construct($config = null)
     {
         parent::__construct($config);
 
