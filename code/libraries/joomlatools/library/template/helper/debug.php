@@ -310,8 +310,10 @@ class KTemplateHelperDebug extends KTemplateHelperBehavior
                         {
                             if (method_exists($step['class'], $step['function'])) {
                                 $reflection = new ReflectionMethod($step['class'], $step['function']);
-                            } else {
+                            } elseif (method_exists($step['class'], '__call')) {
                                 $reflection = new ReflectionMethod($step['class'], '__call');
+                            } else {
+                                continue;
                             }
                         }
                         else  $reflection = new ReflectionFunction($step['function']);

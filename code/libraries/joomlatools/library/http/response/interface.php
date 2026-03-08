@@ -101,7 +101,7 @@ interface KHttpResponseInterface extends KHttpMessageInterface
      * @param  DateTime $date A \DateTime instance
      * @return KHttpResponseInterface
      */
-    public function setLastModified($date = null);
+    public function setLastModified(?DateTime $date = null);
 
     /**
      * Returns the literal value of the ETag HTTP header.

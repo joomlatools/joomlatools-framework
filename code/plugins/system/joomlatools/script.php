@@ -7,6 +7,14 @@
  * @link        https://github.com/joomlatools/joomlatools-framework for the canonical source repository
  */
 
+if (version_compare(JVERSION, '6', '>=') && !class_exists('JFactory', false)) {
+    $__classmapFile = JPATH_PLUGINS . '/behaviour/compat6/src/classmap/classmap.php';
+    if (is_file($__classmapFile)) {
+        require_once $__classmapFile;
+    }
+    unset($__classmapFile);
+}
+
 class PlgSystemJoomlatoolsInstallerScript
 {
     public function __construct($installer)
@@ -104,6 +112,8 @@ class PlgSystemJoomlatoolsInstallerScript
 
             return false;
         }
+
+        $this->_enableCompat6ClassAliases();
 
         if (!$this->_uninstallExtman()) {
             \Joomla\CMS\Factory::getApplication()->enqueueMessage(JText::_('Could not automatically uninstall EXTman.
@@ -277,6 +287,7 @@ class PlgSystemJoomlatoolsInstallerScript
         }
 
         $this->_clearCache();
+        $this->_createPagesShim();
 
         // Enable plugin
         $query = sprintf("UPDATE #__extensions SET enabled = 1 WHERE type = '%s' AND element = '%s' AND folder = '%s'",
@@ -348,6 +359,43 @@ class PlgSystemJoomlatoolsInstallerScript
             if (JFolder::exists($folder)) {
                 JFolder::delete($folder);
             }
+        }
+    }
+
+    protected function _enableCompat6ClassAliases()
+    {
+        if (version_compare(JVERSION, '6', '<')) { return; }
+
+        $db = \Joomla\CMS\Factory::getDbo();
+        $params = $db->setQuery(
+            "SELECT params FROM #__extensions WHERE type='plugin' AND folder='behaviour' AND element='compat6' LIMIT 1"
+        )->loadResult();
+
+        if ($params !== null) {
+            $params = json_decode($params, true) ?: array();
+            $params['classes_aliases'] = '1';
+            $db->setQuery(
+                "UPDATE #__extensions SET params = " . $db->quote(json_encode($params)) .
+                " WHERE type='plugin' AND folder='behaviour' AND element='compat6'"
+            )->execute();
+        }
+    }
+
+    protected function _createPagesShim()
+    {
+        $shimPath = JPATH_ROOT . '/components/com_pages/pages.php';
+
+        if (!file_exists($shimPath))
+        {
+            $dir = dirname($shimPath);
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
+
+            file_put_contents($shimPath, '<?php' . "\n" .
+                '// Joomla 6 shim - delegates to Pages library entry point' . "\n" .
+                'require_once JPATH_LIBRARIES . \'/joomlatools-components/pages/pages.php\';' . "\n"
+            );
         }
     }
 

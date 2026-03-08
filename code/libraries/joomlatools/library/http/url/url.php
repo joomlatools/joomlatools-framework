@@ -611,7 +611,7 @@ class KHttpUrl extends KObject implements KHttpUrlInterface
             }
         }
 
-        if (($parts & self::FRAGMENT) && trim($this->fragment) !== '') {
+        if (($parts & self::FRAGMENT) && trim((string) $this->fragment) !== '') {
             $url .= '#' . urlencode($this->fragment);
         }
 

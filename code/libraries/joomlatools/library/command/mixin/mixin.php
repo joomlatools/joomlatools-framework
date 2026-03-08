@@ -206,7 +206,7 @@ class KCommandMixin extends KCommandCallbackAbstract implements KCommandMixinInt
         if (is_string($method) && !method_exists($this->getMixer(), $method))
         {
             throw new InvalidArgumentException(
-                'Method does not exist '.get_class().'::'.$method
+                'Method does not exist '.get_class($this).'::'.$method
             );
         }
 
