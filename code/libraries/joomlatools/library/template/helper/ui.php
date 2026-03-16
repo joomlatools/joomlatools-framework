@@ -102,8 +102,15 @@ class KTemplateHelperUi extends KTemplateHelperAbstract
             $config->css_file = sprintf('%scss/%s.css', (empty($config->folder) ? '' : $config->folder.'/'), $config->file);
         }
 
-        if ($config->css_file) {
-            $html .= '<ktml:style src="assets://'.$config->css_file.'" />';
+        if ($config->css_file)
+        {
+            $light = $config->css_file;
+            $dark = str_replace('admin.', 'admin-dark.', $config->css_file);
+
+            //$html .= ''
+            $html .= '<ktml:style src="assets://' . $light . '" />';
+            $html .= '<ktml:style src="assets://' . $light . '" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)" />';
+            $html .= '<ktml:style src="assets://' . $dark . '" media="(prefers-color-scheme: dark)" />';
         }
 
         return $html;

@@ -149,6 +149,7 @@ async function css() {
 async function files() {
     await mason.fs.copyFolderContents(`${KUIPath}/css`, `${libraryAssetsPath}/css`);
     await mason.fs.copyFolderContents(`${KUIPath}/fonts`, `${libraryAssetsPath}/fonts`);
+    await mason.fs.copyFolderContents(`${KUIPath}/fonts`,`${koowaAssetsPath}/fonts`);
     await mason.fs.copyFolderContents(`${KUIPath}/js`, `${libraryAssetsPath}/js`);
 }
 
