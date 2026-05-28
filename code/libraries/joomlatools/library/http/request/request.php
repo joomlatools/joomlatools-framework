@@ -144,7 +144,7 @@ class KHttpRequest extends KHttpMessage implements KHttpRequestInterface
      * @param array   $defaults  The default values
      * @return array
      */
-    public function getAccept($defaults = NULL)
+    public function getAccept(array $defaults = [])
     {
         if (!isset($this->_accept))
         {
