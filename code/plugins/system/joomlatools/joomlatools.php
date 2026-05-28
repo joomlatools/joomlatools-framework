@@ -46,6 +46,23 @@ class PlgSystemJoomlatools extends \Joomla\CMS\Plugin\CMSPlugin
         }
 
         if (static::hasCompatPlugin()) {
+            // Load class aliases for Joomla 6+ (workaround for compat6 plugin bug where aliases parameter is disabled by default)
+            try {
+                if (version_compare(JVERSION, '6.0', '>=')) {
+                    $classmap = JPATH_PLUGINS . '/behaviour/compat6/src/classmap/classmap.php';
+                    if (file_exists($classmap)) {
+                        require_once $classmap;
+                    }
+
+                    $classesPath = JPATH_PLUGINS . '/behaviour/compat6/classes';
+                    if (is_dir($classesPath) && class_exists('JLoader') && method_exists('JLoader', 'registerNamespace')) {
+                            \JLoader::registerNamespace('\\Joomla\\CMS', $classesPath);
+                        
+                    }
+                }
+            } catch (\Exception $e) {
+                // Silent catch
+            }
 
             //Bootstrap the Koowa Framework
             $this->bootstrap();
