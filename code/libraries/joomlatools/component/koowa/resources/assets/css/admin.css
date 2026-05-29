@@ -34485,12 +34485,14 @@ html[dir=rtl] .float-right {
 }
 
 .field-media-wrapper .field-media-preview {
-  width: 100%;
+  width: 100% !important;
   max-width: none;
+  justify-content: center;
+  display: flex;
 }
 
 .field-media-wrapper .button-clear {
-  background-color: #a32120;
+  background-color: #c0392b;
 }
 
 .field-media-wrapper .button-clear > .fa-check, .field-media-wrapper .button-select > .fa-times {
@@ -34615,10 +34617,34 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
 }
 
 .k-ui-namespace .controls .input-group > .btn {
+  margin-right: 0 !important;
+  color: #fff !important;
+  background-color: #3498db !important;
+  border-color: #258cd1 !important;
   align-items: center;
   padding-top: 0;
   padding-bottom: 0;
   display: inline-flex;
+}
+
+.k-ui-namespace .controls .input-group > .btn:hover, .k-ui-namespace .controls .input-group > .btn:focus {
+  color: #fff !important;
+  background-color: #217dbb !important;
+  border-color: #1c699d !important;
+}
+
+.k-ui-namespace .controls .input-group > .btn.button-clear {
+  background-color: #c0392b !important;
+  border-color: #ab3326 !important;
+}
+
+.k-ui-namespace .controls .input-group > .btn.button-clear:hover, .k-ui-namespace .controls .input-group > .btn.button-clear:focus {
+  background-color: #962d22 !important;
+  border-color: #79241b !important;
+}
+
+.k-ui-namespace .k-tab.k-overflow:has(.js-calendar.open) {
+  overflow: visible !important;
 }
 
 .btn-group, .btn-group-vertical {
