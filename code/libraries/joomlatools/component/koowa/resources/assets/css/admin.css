@@ -34603,6 +34603,13 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   }
 }
 
+.minicolors.minicolors-theme-bootstrap .minicolors-swatch {
+  top: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
+  transform: translateY(-50%);
+}
+
 .btn-group, .btn-group-vertical {
   vertical-align: middle;
   display: inline-flex;

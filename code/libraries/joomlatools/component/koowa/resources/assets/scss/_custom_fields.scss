@@ -498,3 +498,14 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   display: inline-flex;
   position: relative;
 }
+
+// The "color" custom field is enhanced by jQuery MiniColors. Atum sizes its
+// swatch at a fixed 36x36 with a fixed `top` offset, which overflows the
+// taller .form-control inputs we use for custom fields (the swatch ends up
+// "a tad too big" / off-centre). Centre it vertically and size it to the field.
+.minicolors.minicolors-theme-bootstrap .minicolors-swatch {
+  top: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
+  transform: translateY(-50%);
+}
