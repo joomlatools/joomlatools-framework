@@ -34610,6 +34610,17 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   transform: translateY(-50%);
 }
 
+.k-ui-namespace .controls .input-group {
+  align-items: stretch;
+}
+
+.k-ui-namespace .controls .input-group > .btn {
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+}
+
 .btn-group, .btn-group-vertical {
   vertical-align: middle;
   display: inline-flex;

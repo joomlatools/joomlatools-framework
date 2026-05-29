@@ -509,3 +509,20 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   height: 1.75rem;
   transform: translateY(-50%);
 }
+
+// Calendar and media custom fields render their buttons in a Bootstrap
+// .input-group. Inside the Koowa admin form those .btn elements inherit
+// .k-button metrics (a different height from the input), so the Select/clear
+// and calendar buttons no longer line up with the field. Let the group stretch
+// its children and drop the buttons' own vertical padding so they match the
+// input height exactly.
+.k-ui-namespace .controls .input-group {
+  align-items: stretch;
+
+  > .btn {
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    display: inline-flex;
+  }
+}
