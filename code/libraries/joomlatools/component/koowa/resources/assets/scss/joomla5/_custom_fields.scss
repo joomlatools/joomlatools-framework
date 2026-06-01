@@ -1,0 +1,101 @@
+/**
+ * Joomla 5 / 6 custom-field overrides (Bootstrap 5 markup)
+ *
+ * Imported from admin.scss inside the `.k-ui-j5-form` scope, so every selector
+ * here is implicitly prefixed with that class.
+ */
+
+// Calendar and media custom fields render their buttons in a Bootstrap 5
+// .input-group. Inside the Koowa admin form those .btn elements inherit
+// .k-button metrics (a different height from the input), so the Select/clear
+// and calendar buttons no longer line up with the field. Let the group stretch
+// its children and drop the buttons' own vertical padding so they match the
+// input height exactly.
+.controls .input-group {
+  align-items: stretch;
+
+  > .btn {
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    display: inline-flex;
+
+    // kodekit-ui paints every .btn in the admin form with its neutral
+    // "default" look (white background, grey border) and adds a 4px right
+    // margin, so the calendar toggle and media Select/clear buttons lose their
+    // colour and sit detached from one another. Re-apply the Joomlatools
+    // palette and pull the buttons flush. Colours mirror the kodekit button
+    // modifiers so they stay in sync with the rest of the admin UI:
+    //   primary action -> .k-button--info   (#3498db / #258cd1)
+    //   clear / remove  -> .k-button--danger (#c0392b, == .k-icon--error)
+    // !important is needed to beat kodekit's high-specificity generated
+    // `.k-ui-jX-form .btn` selectors without rebuilding the admin bundle.
+    margin-right: 0 !important;
+    color: #fff !important;
+    background-color: #3498db !important;
+    border-color: #258cd1 !important;
+
+    &:hover,
+    &:focus {
+      color: #fff !important;
+      background-color: #217dbb !important;
+      border-color: #1c699d !important;
+    }
+  }
+
+  // The media field's clear/remove button uses the danger colour (the extra
+  // `.button-clear` class beats the primary `> .btn` rule above on specificity).
+  > .btn.button-clear {
+    background-color: #c0392b !important;
+    border-color: #ab3326 !important;
+
+    &:hover,
+    &:focus {
+      background-color: #962d22 !important;
+      border-color: #79241b !important;
+    }
+  }
+}
+
+// The active tab panel carries `.k-overflow` (overflow: auto) so long field
+// lists scroll inside the card. That also clips the calendar custom field's
+// popup, which Joomla positions absolutely — the user has to scroll the panel
+// to see the whole calendar. While a calendar is open, let the panel overflow
+// so the popup can paint outside it; it reverts to scrolling once closed. The
+// extra `:has()` argument lifts specificity above kodekit's tripled
+// `.k-overflow.k-overflow.k-overflow` rule.
+.k-tab.k-overflow:has(.js-calendar.open) {
+  overflow: visible !important;
+}
+
+// The Joomla 4+ media field renders as <joomla-field-media class="field-media-
+// wrapper"> with a preview thumbnail (.field-media-preview) and Select/Clear
+// buttons. Joomla's media JS stamps an inline width on the preview box (sized to
+// the thumbnail, e.g. 200px); override it so the preview spans the full field
+// width and centre the thumbnail within it.
+.field-media-wrapper {
+  width: 100%;
+  max-width: calc(50vw - 5rem);
+  display: block;
+}
+
+.field-media-wrapper .field-media-preview {
+  width: 100% !important;
+  max-width: none;
+  justify-content: center;
+  display: flex;
+}
+
+.field-media-wrapper .button-clear {
+  background-color: #c0392b;
+}
+
+.field-media-wrapper .button-clear > .fa-check, .field-media-wrapper .button-select > .fa-times {
+  color: #f8f9fa;
+}
+
+@media (width <= 991.98px) {
+  .field-media-wrapper {
+    min-width: 100%;
+  }
+}

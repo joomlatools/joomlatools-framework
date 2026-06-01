@@ -48,6 +48,7 @@ $k-atom-body: false;
     }
 
     @import "joomla4/form";
+    @import "joomla4/custom_fields";
     @import "styles";
 
   }
@@ -65,6 +66,7 @@ $k-atom-body: false;
   }
 
   @import "joomla5/form";
+  @import "joomla5/custom_fields";
   @import "styles";
 
 }
@@ -74,6 +76,7 @@ $k-atom-body: false;
   .k-ui-namespace {
 
     @import "joomla3/form";
+    @import "joomla3/custom_fields";
     @import "styles";
 
   }

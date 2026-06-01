@@ -1,0 +1,333 @@
+/**
+ * Joomla 3 custom-field overrides (Bootstrap 2 markup)
+ *
+ * Imported from admin.scss inside the `.k-ui-j3-form .k-ui-namespace` scope, so
+ * every selector here is implicitly prefixed with those classes.
+ *
+ * Unlike Joomla 4+, Joomla 3 renders the calendar/media fields with Bootstrap 2
+ * markup wrapped in `.input-append` (the media field adds `.input-prepend` too),
+ * and Bootstrap 2's own input/button styling is stripped by kodekit. So the J4/J5
+ * `.input-group` rules never match and the fields fall apart. These rules rebuild
+ * the J4+ look on that older markup.
+ *
+ * The `.input-append` cells differ per field:
+ *   calendar -> [ <input> ][ .btn ]
+ *   media    -> [ .add-on (eye preview) ][ <input> ][ .btn Select ][ .btn clear ]
+ * so the group is laid out generically: a flex row whose cells share equal
+ * height and collapsed 1px borders, with only the outer corners rounded.
+ */
+
+// The Joomla 3 media field ships a Bootstrap 2 modal (.modal.hide.fade) for the
+// image picker as a sibling of the .input-append row. koowa doesn't load
+// Bootstrap 2's modal CSS on the koowa-decorated form, so `.hide` (display:none)
+// is undefined here and the only rule that matches is `.fade` (opacity: 0) —
+// leaving the modal as an invisible but in-flow block that pushes the field row
+// apart. Pin `.hide` back to display:none so the inactive modal takes no space
+// and the row lays out correctly. (A non-!important rule, so if the picker JS
+// ever shows the modal via an inline `display`, that still wins.)
+.controls .field-media-wrapper > .modal.hide {
+  display: none;
+}
+
+// Flex row, equal-height cells.
+.controls .input-append {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+// Reset every cell: drop Bootstrap 2's margins/rounding, then pull adjacent
+// cells together by 1px so their borders collapse into a single seam and the row
+// reads as one control.
+.controls .input-append > * {
+  margin: 0 !important;
+  border-radius: 0;
+}
+
+.controls .input-append > * + * {
+  margin-left: -1px !important;
+}
+
+// Round only the outer corners of the row.
+.controls .input-append > :first-child {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.controls .input-append > :last-child {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+// The text input (calendar value / media path) is a bare or `.input-small`
+// input with no `.form-control` class, so mirror the form-control metrics and
+// let it take the remaining width. The type guards keep it off any
+// checkbox/radio sharing the wrapper.
+.controls .input-append > input:not([type="checkbox"]):not([type="radio"]) {
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  color: var(--body-color);
+  background: var(--form-control-bg);
+  border: var(--form-control-border);
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+// The media field's "eye" preview add-on: a light cell matching the input, with
+// its icon centred.
+.controls .input-append > .add-on {
+  display: inline-flex;
+  align-items: center;
+  color: var(--body-color);
+  background: var(--form-control-bg);
+  border: var(--form-control-border);
+  padding: 0 .75rem;
+}
+
+// Buttons (calendar toggle, media Select/clear). kodekit-ui paints every .btn in
+// the admin form with a neutral default look and a 4px right margin, so re-apply
+// the Joomlatools palette and pull them flush. Colours mirror the kodekit button
+// modifiers (.k-button--info / .k-button--danger); !important beats kodekit's
+// high-specificity generated `.k-ui-jX-form .btn` selectors without rebuilding
+// the admin bundle.
+.controls .input-append > .btn {
+  display: inline-flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #fff !important;
+  background-color: #3498db !important;
+  border: 1px solid #258cd1 !important;
+
+  &:hover,
+  &:focus {
+    color: #fff !important;
+    background-color: #217dbb !important;
+    border-color: #1c699d !important;
+  }
+}
+
+// The media field's clear/remove button uses the danger colour.
+.controls .input-append > .btn.button-clear {
+  background-color: #c0392b !important;
+  border-color: #ab3326 !important;
+
+  &:hover,
+  &:focus {
+    background-color: #962d22 !important;
+    border-color: #79241b !important;
+  }
+}
+
+// The active tab panel carries `.k-overflow` (overflow: auto) so long field
+// lists scroll inside the card. That clips the calendar custom field's popup,
+// which is positioned absolutely — the user can't see the whole calendar
+// (clipped at the panel's bottom edge). While the popup is open, let the panel
+// overflow so it can paint outside; it reverts to scrolling once closed.
+//
+// Unlike the J4+ web component, Joomla 3's `fields/calendar.js` has no `.open`
+// class — it shows/hides the popup purely via inline `style.display`
+// ("block" / "none"). So match the open state on that inline value instead.
+//
+// The media field has the same problem: its hover preview (a Bootstrap popover
+// on the "eye") and the input's path tooltip are inserted next to their trigger,
+// inside the scrolling panel, so they get clipped too. Match on the tip's inline
+// `display: block` rather than its `.in` class: Bootstrap removes `.in` at the
+// start of the fade-out but keeps the tip displayed (and clipped) until it
+// detaches it ~150ms later, so keying off `.in` would let the panel snap back to
+// `overflow: auto` mid-fade and flash a scrollbar. `display: block` persists
+// until the tip is removed, so the panel stays open for the whole transition.
+.k-tab.k-overflow:has(.js-calendar[style*="display: block"]),
+.k-tab.k-overflow:has(.popover[style*="display: block"]),
+.k-tab.k-overflow:has(.tooltip[style*="display: block"]) {
+  overflow: visible !important;
+}
+
+// ---------------------------------------------------------------------------
+// Bootstrap 2 modal / backdrop / popover / tooltip (Joomla 3 media field)
+// ---------------------------------------------------------------------------
+// The J3 media custom field is the jUI `.field-media-wrapper` widget: its Select
+// button calls jQuery.fn.modal() (image-picker modal) and it uses a popover /
+// tooltip for the hover preview. The framework JS is now loaded on the document
+// edit (see document/tmpl/default.html.php), but koowa ships *no* Bootstrap 2
+// modal CSS and only a partial popover, so the modal/popover/tooltip have no
+// styling. Recreate just those components (lifted from jUI bootstrap.css), scoped
+// to `.k-ui-j3-form` so they never touch J4+ (which uses web components) or the
+// `joomla` decorator. `@at-root` drops the `.k-ui-namespace` nesting because the
+// modal backdrop is appended to <body>, outside the namespace wrapper.
+@at-root .k-ui-j3-form {
+
+  // Backdrop (Bootstrap appends this to <body>).
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+  }
+
+  // The transition is essential, not cosmetic: Bootstrap 2's modal.show() reveals
+  // the modal inside the backdrop's `transitionend` callback. Without a
+  // transition on the backdrop, that event never fires and the modal is never
+  // shown — you'd see only the dark overlay.
+  .modal-backdrop.fade {
+    opacity: 0;
+    transition: opacity .15s linear;
+  }
+
+  .modal-backdrop,
+  .modal-backdrop.fade.in {
+    opacity: .8;
+  }
+
+  // Modal shell.
+  div.modal {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    z-index: 1050;
+    width: 560px;
+    margin-left: -280px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 6px;
+    outline: none;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, .3);
+    background-clip: padding-box;
+  }
+
+  div.modal.fade {
+    top: -25%;
+    opacity: 0;
+    transition: opacity .3s linear, top .3s ease-out;
+  }
+
+  div.modal.fade.in {
+    top: 10%;
+    opacity: 1;
+  }
+
+  .modal-header {
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .modal-header .close {
+    float: right;
+    margin-top: 2px;
+    font-size: 20px;
+    line-height: 18px;
+    color: #000;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    opacity: .4;
+  }
+
+  .modal-header .close:hover,
+  .modal-header .close:focus {
+    opacity: .8;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    line-height: 30px;
+  }
+
+  .modal-body {
+    position: relative;
+    max-height: 400px;
+    padding: 15px;
+    overflow-y: auto;
+  }
+
+  // The media-picker modal embeds a full media-manager iframe (data-modal-width
+  // 100%, data-modal-height 645px), so the stock 560px box is too small. Widen it
+  // and let the body grow. Matched by id prefix so it works whether or not
+  // Bootstrap re-parents the modal to <body>.
+  div.modal[id^="imageModal_"] {
+    width: 80%;
+    max-width: 1000px;
+    margin-left: 0;
+    transform: translateX(-50%);
+  }
+
+  div.modal[id^="imageModal_"] .modal-body {
+    max-height: 75vh;
+  }
+
+  // Tooltip (input shows the full image path on hover).
+  .tooltip {
+    position: absolute;
+    z-index: 1030;
+    display: block;
+    font-size: 11px;
+    line-height: 1.4;
+    opacity: 0;
+    visibility: visible;
+  }
+
+  .tooltip.in {
+    opacity: .8;
+  }
+
+  .tooltip.top    { padding: 5px 0; margin-top: -3px; }
+  .tooltip.right  { padding: 0 5px; margin-left: 3px; }
+  .tooltip.bottom { padding: 5px 0; margin-top: 3px; }
+  .tooltip.left   { padding: 0 5px; margin-left: -3px; }
+
+  .tooltip-inner {
+    max-width: 200px;
+    padding: 8px;
+    color: #fff;
+    text-align: center;
+    background-color: #000;
+    border-radius: 4px;
+  }
+
+  // Popover (eye preview shows the selected image / "No image selected.").
+  .popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1010;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    text-align: left;
+    white-space: normal;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    background-clip: padding-box;
+  }
+
+  .popover.top    { margin-top: -10px; }
+  .popover.right  { margin-left: 10px; }
+  .popover.bottom { margin-top: 10px; }
+  .popover.left   { margin-left: -10px; }
+
+  .popover-title {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .popover-title:empty {
+    display: none;
+  }
+
+  .popover-content {
+    padding: 9px 14px;
+  }
+}

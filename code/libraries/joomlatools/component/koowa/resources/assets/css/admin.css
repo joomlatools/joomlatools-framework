@@ -14361,6 +14361,13 @@ html .form-inline .select2-container--bootstrap {
    * Editors
    */
   /**
+   * Joomla 4 custom-field overrides (Bootstrap 5 markup)
+   *
+   * Imported from admin.scss inside the `.k-ui-j4-form .k-ui-namespace` scope, so
+   * every selector here is implicitly prefixed with those classes. The markup is
+   * identical to Joomla 5/6, so the rules mirror joomla5/_custom_fields.scss.
+   */
+  /**
    * Default select is not styled outside Joomla scope (for example in koowa template)
    */
   /**
@@ -14950,6 +14957,57 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button [class^=icon-], .k-ui-j4-form .k-ui-namespace .editor-xtd-buttons .xtd-button [class*=" icon-"] {
   margin-right: 0 !important;
 }
+.k-ui-j4-form .k-ui-namespace .controls .input-group {
+  align-items: stretch;
+}
+.k-ui-j4-form .k-ui-namespace .controls .input-group > .btn {
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  margin-right: 0 !important;
+  color: #fff !important;
+  background-color: #3498db !important;
+  border-color: #258cd1 !important;
+}
+.k-ui-j4-form .k-ui-namespace .controls .input-group > .btn:hover, .k-ui-j4-form .k-ui-namespace .controls .input-group > .btn:focus {
+  color: #fff !important;
+  background-color: #217dbb !important;
+  border-color: #1c699d !important;
+}
+.k-ui-j4-form .k-ui-namespace .controls .input-group > .btn.button-clear {
+  background-color: #c0392b !important;
+  border-color: #ab3326 !important;
+}
+.k-ui-j4-form .k-ui-namespace .controls .input-group > .btn.button-clear:hover, .k-ui-j4-form .k-ui-namespace .controls .input-group > .btn.button-clear:focus {
+  background-color: #962d22 !important;
+  border-color: #79241b !important;
+}
+.k-ui-j4-form .k-ui-namespace .k-tab.k-overflow:has(.js-calendar.open) {
+  overflow: visible !important;
+}
+.k-ui-j4-form .k-ui-namespace .field-media-wrapper {
+  width: 100%;
+  max-width: calc(50vw - 5rem);
+  display: block;
+}
+.k-ui-j4-form .k-ui-namespace .field-media-wrapper .field-media-preview {
+  width: 100% !important;
+  max-width: none;
+  justify-content: center;
+  display: flex;
+}
+.k-ui-j4-form .k-ui-namespace .field-media-wrapper .button-clear {
+  background-color: #c0392b;
+}
+.k-ui-j4-form .k-ui-namespace .field-media-wrapper .button-clear > .fa-check, .k-ui-j4-form .k-ui-namespace .field-media-wrapper .button-select > .fa-times {
+  color: #f8f9fa;
+}
+@media (width <= 991.98px) {
+  .k-ui-j4-form .k-ui-namespace .field-media-wrapper {
+    min-width: 100%;
+  }
+}
 .k-ui-j4-form .k-ui-namespace .btn-toolbar {
   margin: 1em 0 0;
 }
@@ -15029,6 +15087,12 @@ html .form-inline .select2-container--bootstrap {
    */
   /**
    * Editors
+   */
+  /**
+   * Joomla 5 / 6 custom-field overrides (Bootstrap 5 markup)
+   *
+   * Imported from admin.scss inside the `.k-ui-j5-form` scope, so every selector
+   * here is implicitly prefixed with that class.
    */
   /**
    * Default select is not styled outside Joomla scope (for example in koowa template)
@@ -16207,6 +16271,57 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j5-form .editor-xtd-buttons .xtd-button [class^=icon-], .k-ui-j5-form .editor-xtd-buttons .xtd-button [class*=" icon-"] {
   margin-right: 0 !important;
 }
+.k-ui-j5-form .controls .input-group {
+  align-items: stretch;
+}
+.k-ui-j5-form .controls .input-group > .btn {
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  margin-right: 0 !important;
+  color: #fff !important;
+  background-color: #3498db !important;
+  border-color: #258cd1 !important;
+}
+.k-ui-j5-form .controls .input-group > .btn:hover, .k-ui-j5-form .controls .input-group > .btn:focus {
+  color: #fff !important;
+  background-color: #217dbb !important;
+  border-color: #1c699d !important;
+}
+.k-ui-j5-form .controls .input-group > .btn.button-clear {
+  background-color: #c0392b !important;
+  border-color: #ab3326 !important;
+}
+.k-ui-j5-form .controls .input-group > .btn.button-clear:hover, .k-ui-j5-form .controls .input-group > .btn.button-clear:focus {
+  background-color: #962d22 !important;
+  border-color: #79241b !important;
+}
+.k-ui-j5-form .k-tab.k-overflow:has(.js-calendar.open) {
+  overflow: visible !important;
+}
+.k-ui-j5-form .field-media-wrapper {
+  width: 100%;
+  max-width: calc(50vw - 5rem);
+  display: block;
+}
+.k-ui-j5-form .field-media-wrapper .field-media-preview {
+  width: 100% !important;
+  max-width: none;
+  justify-content: center;
+  display: flex;
+}
+.k-ui-j5-form .field-media-wrapper .button-clear {
+  background-color: #c0392b;
+}
+.k-ui-j5-form .field-media-wrapper .button-clear > .fa-check, .k-ui-j5-form .field-media-wrapper .button-select > .fa-times {
+  color: #f8f9fa;
+}
+@media (width <= 991.98px) {
+  .k-ui-j5-form .field-media-wrapper {
+    min-width: 100%;
+  }
+}
 .k-ui-j5-form .btn-toolbar {
   margin: 1em 0 0;
 }
@@ -16248,6 +16363,24 @@ html .form-inline .select2-container--bootstrap {
    * Editor
    */
   /**
+   * Joomla 3 custom-field overrides (Bootstrap 2 markup)
+   *
+   * Imported from admin.scss inside the `.k-ui-j3-form .k-ui-namespace` scope, so
+   * every selector here is implicitly prefixed with those classes.
+   *
+   * Unlike Joomla 4+, Joomla 3 renders the calendar/media fields with Bootstrap 2
+   * markup wrapped in `.input-append` (the media field adds `.input-prepend` too),
+   * and Bootstrap 2's own input/button styling is stripped by kodekit. So the J4/J5
+   * `.input-group` rules never match and the fields fall apart. These rules rebuild
+   * the J4+ look on that older markup.
+   *
+   * The `.input-append` cells differ per field:
+   *   calendar -> [ <input> ][ .btn ]
+   *   media    -> [ .add-on (eye preview) ][ <input> ][ .btn Select ][ .btn clear ]
+   * so the group is laid out generically: a flex row whose cells share equal
+   * height and collapsed 1px borders, with only the outer corners rounded.
+   */
+  /**
    * Default select is not styled outside Joomla scope (for example in koowa template)
    */
   /**
@@ -16269,6 +16402,234 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j3-form .k-ui-namespace #editor-xtd-buttons .hidden {
   display: none;
 }
+.k-ui-j3-form .k-ui-namespace .controls .field-media-wrapper > .modal.hide {
+  display: none;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > * {
+  margin: 0 !important;
+  border-radius: 0;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > * + * {
+  margin-left: -1px !important;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > :first-child {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > :last-child {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > input:not([type=checkbox]):not([type=radio]) {
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  color: var(--body-color);
+  background: var(--form-control-bg);
+  border: var(--form-control-border);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > .add-on {
+  display: inline-flex;
+  align-items: center;
+  color: var(--body-color);
+  background: var(--form-control-bg);
+  border: var(--form-control-border);
+  padding: 0 0.75rem;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > .btn {
+  display: inline-flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #fff !important;
+  background-color: #3498db !important;
+  border: 1px solid #258cd1 !important;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > .btn:hover, .k-ui-j3-form .k-ui-namespace .controls .input-append > .btn:focus {
+  color: #fff !important;
+  background-color: #217dbb !important;
+  border-color: #1c699d !important;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > .btn.button-clear {
+  background-color: #c0392b !important;
+  border-color: #ab3326 !important;
+}
+.k-ui-j3-form .k-ui-namespace .controls .input-append > .btn.button-clear:hover, .k-ui-j3-form .k-ui-namespace .controls .input-append > .btn.button-clear:focus {
+  background-color: #962d22 !important;
+  border-color: #79241b !important;
+}
+.k-ui-j3-form .k-ui-namespace .k-tab.k-overflow:has(.js-calendar[style*="display: block"]),
+.k-ui-j3-form .k-ui-namespace .k-tab.k-overflow:has(.popover[style*="display: block"]),
+.k-ui-j3-form .k-ui-namespace .k-tab.k-overflow:has(.tooltip[style*="display: block"]) {
+  overflow: visible !important;
+}
+.k-ui-j3-form .modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+.k-ui-j3-form .modal-backdrop.fade {
+  opacity: 0;
+  transition: opacity 0.15s linear;
+}
+.k-ui-j3-form .modal-backdrop,
+.k-ui-j3-form .modal-backdrop.fade.in {
+  opacity: 0.8;
+}
+.k-ui-j3-form div.modal {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  z-index: 1050;
+  width: 560px;
+  margin-left: -280px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  background-clip: padding-box;
+}
+.k-ui-j3-form div.modal.fade {
+  top: -25%;
+  opacity: 0;
+  transition: opacity 0.3s linear, top 0.3s ease-out;
+}
+.k-ui-j3-form div.modal.fade.in {
+  top: 10%;
+  opacity: 1;
+}
+.k-ui-j3-form .modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+}
+.k-ui-j3-form .modal-header .close {
+  float: right;
+  margin-top: 2px;
+  font-size: 20px;
+  line-height: 18px;
+  color: #000;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  opacity: 0.4;
+}
+.k-ui-j3-form .modal-header .close:hover,
+.k-ui-j3-form .modal-header .close:focus {
+  opacity: 0.8;
+}
+.k-ui-j3-form .modal-header h3 {
+  margin: 0;
+  line-height: 30px;
+}
+.k-ui-j3-form .modal-body {
+  position: relative;
+  max-height: 400px;
+  padding: 15px;
+  overflow-y: auto;
+}
+.k-ui-j3-form div.modal[id^=imageModal_] {
+  width: 80%;
+  max-width: 1000px;
+  margin-left: 0;
+  transform: translateX(-50%);
+}
+.k-ui-j3-form div.modal[id^=imageModal_] .modal-body {
+  max-height: 75vh;
+}
+.k-ui-j3-form .tooltip {
+  position: absolute;
+  z-index: 1030;
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0;
+  visibility: visible;
+}
+.k-ui-j3-form .tooltip.in {
+  opacity: 0.8;
+}
+.k-ui-j3-form .tooltip.top {
+  padding: 5px 0;
+  margin-top: -3px;
+}
+.k-ui-j3-form .tooltip.right {
+  padding: 0 5px;
+  margin-left: 3px;
+}
+.k-ui-j3-form .tooltip.bottom {
+  padding: 5px 0;
+  margin-top: 3px;
+}
+.k-ui-j3-form .tooltip.left {
+  padding: 0 5px;
+  margin-left: -3px;
+}
+.k-ui-j3-form .tooltip-inner {
+  max-width: 200px;
+  padding: 8px;
+  color: #fff;
+  text-align: center;
+  background-color: #000;
+  border-radius: 4px;
+}
+.k-ui-j3-form .popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1010;
+  display: none;
+  max-width: 276px;
+  padding: 1px;
+  text-align: left;
+  white-space: normal;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+}
+.k-ui-j3-form .popover.top {
+  margin-top: -10px;
+}
+.k-ui-j3-form .popover.right {
+  margin-left: 10px;
+}
+.k-ui-j3-form .popover.bottom {
+  margin-top: 10px;
+}
+.k-ui-j3-form .popover.left {
+  margin-left: -10px;
+}
+.k-ui-j3-form .popover-title {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 18px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+.k-ui-j3-form .popover-title:empty {
+  display: none;
+}
+.k-ui-j3-form .popover-content {
+  padding: 9px 14px;
+}
+
 .k-ui-j3-form .k-ui-namespace .btn-toolbar {
   margin: 1em 0 0;
 }
@@ -34107,9 +34468,8 @@ html[dir=rtl] .float-right {
   word-break: break-all;
 }
 
-
 /**
- * Styling for Joomla custom fields in JT extensions
+ * Styles for Joomla custom field
  */
 :root {
   --hue: 214;
@@ -34137,59 +34497,66 @@ html[dir=rtl] .float-right {
   --focus: #39f;
 }
 
-.form-control {
+.form-control, .k-ui-j4-form .k-ui-namespace select, .k-ui-j5-form select, .k-ui-j3-form .k-ui-namespace select {
   width: 100%;
   color: var(--body-color);
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-color: var(--body-bg);
   border: var(--border-width) solid var(--input-border-color);
   border-radius: var(--border-radius);
   background-clip: padding-box;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   display: block;
 }
 
-.form-control {
+.form-control, .k-ui-j4-form .k-ui-namespace select, .k-ui-j5-form select, .k-ui-j3-form .k-ui-namespace select {
   background: var(--form-control-bg);
   border: var(--form-control-border);
   max-width: 100%;
 }
 
-.form-control:disabled, .form-control[readonly] {
+.form-control:disabled, .k-ui-j4-form .k-ui-namespace select:disabled, .k-ui-j5-form select:disabled, .k-ui-j3-form .k-ui-namespace select:disabled, .form-control[readonly], .k-ui-j4-form .k-ui-namespace select[readonly], .k-ui-j5-form select[readonly], .k-ui-j3-form .k-ui-namespace select[readonly] {
   background-color: var(--form-control-bg-disabled);
   opacity: 1;
 }
 
-.form-control:disabled:hover, .form-control:disabled:active, .form-control:disabled:focus, .form-control[readonly]:hover, .form-control[readonly]:active, .form-control[readonly]:focus {
+.form-control:disabled:hover, .k-ui-j4-form .k-ui-namespace select:disabled:hover, .k-ui-j5-form select:disabled:hover, .k-ui-j3-form .k-ui-namespace select:disabled:hover, .form-control:disabled:active, .k-ui-j4-form .k-ui-namespace select:disabled:active, .k-ui-j5-form select:disabled:active, .k-ui-j3-form .k-ui-namespace select:disabled:active, .form-control:disabled:focus, .k-ui-j4-form .k-ui-namespace select:disabled:focus, .k-ui-j5-form select:disabled:focus, .k-ui-j3-form .k-ui-namespace select:disabled:focus, .form-control[readonly]:hover, .k-ui-j4-form .k-ui-namespace select[readonly]:hover, .k-ui-j5-form select[readonly]:hover, .k-ui-j3-form .k-ui-namespace select[readonly]:hover, .form-control[readonly]:active, .k-ui-j4-form .k-ui-namespace select[readonly]:active, .k-ui-j5-form select[readonly]:active, .k-ui-j3-form .k-ui-namespace select[readonly]:active, .form-control[readonly]:focus, .k-ui-j4-form .k-ui-namespace select[readonly]:focus, .k-ui-j5-form select[readonly]:focus, .k-ui-j3-form .k-ui-namespace select[readonly]:focus {
   cursor: not-allowed;
 }
 
-.form-control:focus:not(:disabled):not([readonly]) {
+.form-control:focus:not(:disabled):not([readonly]), .k-ui-j4-form .k-ui-namespace select:focus:not(:disabled):not([readonly]), .k-ui-j5-form select:focus:not(:disabled):not([readonly]), .k-ui-j3-form .k-ui-namespace select:focus:not(:disabled):not([readonly]) {
   border: 1px solid var(--template-link-color) !important;
 }
 
-.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .k-ui-j4-form .k-ui-namespace select:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .k-ui-j5-form select:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .k-ui-j3-form .k-ui-namespace select:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .form-control:hover:not(:disabled):not([readonly])::file-selector-button, .k-ui-j4-form .k-ui-namespace select:hover:not(:disabled):not([readonly])::file-selector-button, .k-ui-j5-form select:hover:not(:disabled):not([readonly])::file-selector-button, .k-ui-j3-form .k-ui-namespace select:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: var(--file-selector-btn-bg-hvr);
 }
 
-.form-control.invalid {
+.form-control.invalid, .k-ui-j4-form .k-ui-namespace select.invalid, .k-ui-j5-form select.invalid, .k-ui-j3-form .k-ui-namespace select.invalid {
   border-color: var(--danger);
 }
 
-.form-control.valid {
+.form-control.valid, .k-ui-j4-form .k-ui-namespace select.valid, .k-ui-j5-form select.valid, .k-ui-j3-form .k-ui-namespace select.valid {
   border-color: var(--success);
 }
 
-.form-control::placeholder {
-  opacity: .9;
+.form-control::-moz-placeholder, .k-ui-j4-form .k-ui-namespace select::-moz-placeholder, .k-ui-j5-form select::-moz-placeholder, .k-ui-j3-form .k-ui-namespace select::-moz-placeholder {
+  opacity: 0.9;
   font-style: italic;
 }
 
-.form-control::-webkit-file-upload-button, .form-control::file-selector-button {
+.form-control::placeholder, .k-ui-j4-form .k-ui-namespace select::placeholder, .k-ui-j5-form select::placeholder, .k-ui-j3-form .k-ui-namespace select::placeholder {
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.form-control::-webkit-file-upload-button, .k-ui-j4-form .k-ui-namespace select::-webkit-file-upload-button, .k-ui-j5-form select::-webkit-file-upload-button, .k-ui-j3-form .k-ui-namespace select::-webkit-file-upload-button, .form-control::file-selector-button, .k-ui-j4-form .k-ui-namespace select::file-selector-button, .k-ui-j5-form select::file-selector-button, .k-ui-j3-form .k-ui-namespace select::file-selector-button {
   background-color: var(--file-selector-btn-bg);
 }
 
@@ -34212,7 +34579,7 @@ html[dir=rtl] .float-right {
 
 .control-group .control-label {
   width: 240px;
-  padding: .3rem 1rem .3rem 0;
+  padding: 0.3rem 1rem 0.3rem 0;
 }
 
 .control-group .controls {
@@ -34250,7 +34617,9 @@ html[dir=rtl] .float-right {
   --form-select-bg-img: url("../images/select-bg.svg?v=5ebba0");
   width: 100%;
   color: var(--body-color);
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-color: var(--template-bg-light);
   background-image: var(--form-select-bg-img), var(--form-select-bg-icon, none);
   border: var(--border-width) solid var(--input-border-color);
@@ -34258,17 +34627,17 @@ html[dir=rtl] .float-right {
   background-repeat: no-repeat;
   background-size: max(100%, 116rem);
   border-radius: 4px;
-  padding: .5rem 3rem .5rem 1rem;
+  padding: 0.5rem 3rem 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   display: block;
 }
-  
+
 .form-check {
   min-height: 1.5rem;
-  margin-bottom: .125rem;
+  margin-bottom: 0.125rem;
   padding-left: 1.5em;
   display: block;
 }
@@ -34293,25 +34662,28 @@ html[dir=rtl] .float-right {
 .form-check-input {
   --form-check-bg: var(--body-bg);
   vertical-align: top;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   background-color: var(--form-check-bg);
   background-image: var(--form-check-bg-image);
   border: var(--form-check-input-border);
-  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   flex-shrink: 0;
   width: 1em;
   height: 1em;
-  margin-top: .25em;
+  margin-top: 0.25em;
 }
 
-.form-check-input[type="checkbox"] {
-  border-radius: .25em;
+.form-check-input[type=checkbox] {
+  border-radius: 0.25em;
 }
 
-.form-check-input[type="radio"] {
+.form-check-input[type=radio] {
   border-radius: 50%;
 }
 
@@ -34322,7 +34694,7 @@ html[dir=rtl] .float-right {
 .form-check-input:focus {
   border-color: var(--focus);
   outline: 0;
-  box-shadow: 0 0 0 .25rem #2a69b740;
+  box-shadow: 0 0 0 0.25rem rgba(42, 105, 183, 0.2509803922);
 }
 
 .form-check-input:checked {
@@ -34330,15 +34702,15 @@ html[dir=rtl] .float-right {
   border-color: var(--form-check-input-checked-bg-color);
 }
 
-.form-check-input:checked[type="checkbox"] {
+.form-check-input:checked[type=checkbox] {
   --form-check-bg-image: var(--form-check-input-checked-bg-image);
 }
 
-.form-check-input:checked[type="radio"] {
+.form-check-input:checked[type=radio] {
   --form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
 
-.form-check-input[type="checkbox"]:indeterminate {
+.form-check-input[type=checkbox]:indeterminate {
   --form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
   background-color: #2a69b7;
   border-color: #2a69b7;
@@ -34347,12 +34719,12 @@ html[dir=rtl] .float-right {
 .form-check-input:disabled {
   pointer-events: none;
   filter: none;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
   cursor: default;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .form-check-inline {
@@ -34369,7 +34741,7 @@ html[dir=rtl] .float-right {
 }
 
 .was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus {
-  box-shadow: 0 0 0 .2rem rgba(var(--success-rgb), .25);
+  box-shadow: 0 0 0 0.2rem rgba(var(--success-rgb), 0.25);
 }
 
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
@@ -34377,7 +34749,7 @@ html[dir=rtl] .float-right {
 }
 
 .form-check-inline .form-check-input ~ .valid-feedback {
-  margin-left: .5em;
+  margin-left: 0.5em;
 }
 
 .input-group {
@@ -34388,14 +34760,14 @@ html[dir=rtl] .float-right {
   position: relative;
 }
 
-.input-group > .form-control, .input-group > .form-select, .input-group > .custom-select, .input-group > .form-floating {
+.input-group > .form-control, .k-ui-j4-form .k-ui-namespace .input-group > select, .k-ui-j5-form .input-group > select, .k-ui-j3-form .k-ui-namespace .input-group > select, .input-group > .form-select, .input-group > .custom-select, .input-group > .form-floating {
   flex: auto;
   width: 1%;
   min-width: 0;
   position: relative;
 }
 
-.input-group > .form-control:focus, .input-group > .form-select:focus, .input-group > .custom-select:focus, .input-group > .form-floating:focus-within {
+.input-group > .form-control:focus, .k-ui-j4-form .k-ui-namespace .input-group > select:focus, .k-ui-j5-form .input-group > select:focus, .k-ui-j3-form .k-ui-namespace .input-group > select:focus, .input-group > .form-select:focus, .input-group > .custom-select:focus, .input-group > .form-floating:focus-within {
   z-index: 5;
 }
 
@@ -34416,30 +34788,30 @@ html[dir=rtl] .float-right {
   border-radius: var(--border-radius);
   background-color: #132f53;
   align-items: center;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   display: flex;
 }
 
-.input-group-lg > .form-control, .input-group-lg > .form-select, .input-group-lg > .custom-select, .input-group-lg > .input-group-text, .input-group-lg > .btn {
+.input-group-lg > .form-control, .k-ui-j4-form .k-ui-namespace .input-group-lg > select, .k-ui-j5-form .input-group-lg > select, .k-ui-j3-form .k-ui-namespace .input-group-lg > select, .input-group-lg > .form-select, .input-group-lg > .custom-select, .input-group-lg > .input-group-text, .input-group-lg > .btn {
   border-radius: var(--border-radius-lg);
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 1.25rem;
 }
 
-.input-group-sm > .form-control, .input-group-sm > .form-select, .input-group-sm > .custom-select, .input-group-sm > .input-group-text, .input-group-sm > .btn {
+.input-group-sm > .form-control, .k-ui-j4-form .k-ui-namespace .input-group-sm > select, .k-ui-j5-form .input-group-sm > select, .k-ui-j3-form .k-ui-namespace .input-group-sm > select, .input-group-sm > .form-select, .input-group-sm > .custom-select, .input-group-sm > .input-group-text, .input-group-sm > .btn {
   border-radius: var(--border-radius-sm);
-  padding: .25rem .5rem;
-  font-size: .8rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
 }
 
 .input-group-lg > .form-select, .input-group-lg > .custom-select, .input-group-sm > .form-select, .input-group-sm > .custom-select {
   padding-right: 4rem;
 }
 
-.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating), .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .custom-select, .input-group.has-validation > :nth-last-child(n+3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating), .input-group.has-validation > .dropdown-toggle:nth-last-child(n+4), .input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-control, .input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-select, .input-group.has-validation > .form-floating:nth-last-child(n+3) > .custom-select {
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating), .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control, .k-ui-j4-form .k-ui-namespace .input-group:not(.has-validation) > .form-floating:not(:last-child) > select, .k-ui-j5-form .input-group:not(.has-validation) > .form-floating:not(:last-child) > select, .k-ui-j3-form .k-ui-namespace .input-group:not(.has-validation) > .form-floating:not(:last-child) > select, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select, .input-group:not(.has-validation) > .form-floating:not(:last-child) > .custom-select, .input-group.has-validation > :nth-last-child(n+3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating), .input-group.has-validation > .dropdown-toggle:nth-last-child(n+4), .input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-control, .k-ui-j4-form .k-ui-namespace .input-group.has-validation > .form-floating:nth-last-child(n+3) > select, .k-ui-j5-form .input-group.has-validation > .form-floating:nth-last-child(n+3) > select, .k-ui-j3-form .k-ui-namespace .input-group.has-validation > .form-floating:nth-last-child(n+3) > select, .input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-select, .input-group.has-validation > .form-floating:nth-last-child(n+3) > .custom-select {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -34450,7 +34822,7 @@ html[dir=rtl] .float-right {
   border-bottom-left-radius: 0;
 }
 
-.input-group > .form-floating:not(:first-child) > .form-control, .input-group > .form-floating:not(:first-child) > .form-select, .input-group > .form-floating:not(:first-child) > .custom-select {
+.input-group > .form-floating:not(:first-child) > .form-control, .k-ui-j4-form .k-ui-namespace .input-group > .form-floating:not(:first-child) > select, .k-ui-j5-form .input-group > .form-floating:not(:first-child) > select, .k-ui-j3-form .k-ui-namespace .input-group > .form-floating:not(:first-child) > select, .input-group > .form-floating:not(:first-child) > .form-select, .input-group > .form-floating:not(:first-child) > .custom-select {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -34475,39 +34847,12 @@ html[dir=rtl] .float-right {
 }
 
 .calendar-container tr.time:hover, .calendar-container tr.time:focus, .calendar-container tr.time:active {
-  background-color: #0000;
-}
-
-.field-media-wrapper {
-  width: 100%;
-  max-width: calc(50vw - 5rem);
-  display: block;
-}
-
-.field-media-wrapper .field-media-preview {
-  width: 100% !important;
-  max-width: none;
-  justify-content: center;
-  display: flex;
-}
-
-.field-media-wrapper .button-clear {
-  background-color: #c0392b;
-}
-
-.field-media-wrapper .button-clear > .fa-check, .field-media-wrapper .button-select > .fa-times {
-  color: #f8f9fa;
-}
-
-@media (width <= 991.98px) {
-  .field-media-wrapper {
-    min-width: 100%;
-  }
+  background-color: rgba(0, 0, 0, 0);
 }
 
 div.subform-repeatable-group {
   border: var(--border-width) solid var(--input-border-color);
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   margin-top: 20px;
   padding: 32px 32px 16px 28px;
   position: relative;
@@ -34522,19 +34867,19 @@ div.subform-repeatable-group > .btn-toolbar .btn {
 }
 
 div.subform-repeatable-group > .btn-toolbar .btn.group-add {
-  border-radius: .25rem 0;
+  border-radius: 0.25rem 0;
   bottom: -1px;
   right: -1px;
 }
 
 div.subform-repeatable-group > .btn-toolbar .btn.group-remove {
-  border-radius: 0 .25rem;
+  border-radius: 0 0.25rem;
   top: -1px;
   right: -1px;
 }
 
 div.subform-repeatable-group > .btn-toolbar .btn.group-move {
-  border-radius: .25rem 0 0 .25rem;
+  border-radius: 0.25rem 0 0 0.25rem;
   padding: 0;
   top: 50%;
   right: 100%;
@@ -34542,7 +34887,7 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move {
 }
 
 div.subform-repeatable-group > .btn-toolbar .btn.group-move span {
-  padding: 1.5rem .5rem;
+  padding: 1.5rem 0.5rem;
 }
 
 div.subform-repeatable-group > .btn-toolbar .btn.group-move-up {
@@ -34561,7 +34906,7 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   transform: translateY(-50%);
 }
 
-.subform-repeatable-group[draggable="true"], .subform-repeatable-group[draggable="true"] > td {
+.subform-repeatable-group[draggable=true], .subform-repeatable-group[draggable=true] > td {
   background-color: #20c997;
 }
 
@@ -34576,33 +34921,34 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
     overflow-x: auto;
   }
 }
-
 @media (width <= 767.98px) {
   .table-responsive-md {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
   }
 }
-
 @media (width <= 991.98px) {
   .table-responsive-lg {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
   }
 }
-
 @media (width <= 1199.98px) {
   .table-responsive-xl {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
   }
 }
-
 @media (width <= 1399.98px) {
   .table-responsive-xxl {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
   }
+}
+.btn-group, .btn-group-vertical {
+  vertical-align: middle;
+  display: inline-flex;
+  position: relative;
 }
 
 .minicolors.minicolors-theme-bootstrap .minicolors-swatch {
@@ -34612,43 +34958,11 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   transform: translateY(-50%);
 }
 
-.k-ui-namespace .controls .input-group {
-  align-items: stretch;
+.k-ui-namespace .minicolors,
+.k-ui-namespace .minicolors * {
+  box-sizing: content-box;
 }
 
-.k-ui-namespace .controls .input-group > .btn {
-  margin-right: 0 !important;
-  color: #fff !important;
-  background-color: #3498db !important;
-  border-color: #258cd1 !important;
-  align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
-  display: inline-flex;
-}
-
-.k-ui-namespace .controls .input-group > .btn:hover, .k-ui-namespace .controls .input-group > .btn:focus {
-  color: #fff !important;
-  background-color: #217dbb !important;
-  border-color: #1c699d !important;
-}
-
-.k-ui-namespace .controls .input-group > .btn.button-clear {
-  background-color: #c0392b !important;
-  border-color: #ab3326 !important;
-}
-
-.k-ui-namespace .controls .input-group > .btn.button-clear:hover, .k-ui-namespace .controls .input-group > .btn.button-clear:focus {
-  background-color: #962d22 !important;
-  border-color: #79241b !important;
-}
-
-.k-ui-namespace .k-tab.k-overflow:has(.js-calendar.open) {
+.k-tab.k-overflow:has(.minicolors-panel[style*="display: block"]) {
   overflow: visible !important;
-}
-
-.btn-group, .btn-group-vertical {
-  vertical-align: middle;
-  display: inline-flex;
-  position: relative;
 }

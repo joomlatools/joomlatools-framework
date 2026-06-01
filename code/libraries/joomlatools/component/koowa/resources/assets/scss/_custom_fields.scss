@@ -368,35 +368,14 @@
   background-color: #0000;
 }
 
-.field-media-wrapper {
-  width: 100%;
-  max-width: calc(50vw - 5rem);
-  display: block;
-}
-
-.field-media-wrapper .field-media-preview {
-  // Joomla's media JS stamps an inline `width` on the preview box (sized to the
-  // thumbnail, e.g. 200px). Override it with !important so the preview spans the
-  // full field width, then centre the thumbnail within it.
-  width: 100% !important;
-  max-width: none;
-  justify-content: center;
-  display: flex;
-}
-
-.field-media-wrapper .button-clear {
-  background-color: #c0392b;
-}
-
-.field-media-wrapper .button-clear > .fa-check, .field-media-wrapper .button-select > .fa-times {
-  color: #f8f9fa;
-}
-
-@media (width <= 991.98px) {
-  .field-media-wrapper {
-    min-width: 100%;
-  }
-}
+// NOTE: The `.field-media-wrapper` rules moved out of this base file too. The
+// media field's markup is version-specific — J4+ render a
+// `<joomla-field-media class="field-media-wrapper">` with a full-width preview
+// thumbnail (.field-media-preview) and FontAwesome icons, while J3 renders a
+// Bootstrap 2 `.input-prepend.input-append` whose `.field-media-preview` is a
+// small "eye" `.add-on`. The J4+ rules (which force `.field-media-preview` to
+// 100% width) break the J3 row, so each version's media styling now lives in
+// its own partial: joomla{3,4,5}/_custom_fields.scss.
 
 div.subform-repeatable-group {
   border: var(--border-width) solid var(--input-border-color);
@@ -515,65 +494,43 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   transform: translateY(-50%);
 }
 
-// Calendar and media custom fields render their buttons in a Bootstrap
-// .input-group. Inside the Koowa admin form those .btn elements inherit
-// .k-button metrics (a different height from the input), so the Select/clear
-// and calendar buttons no longer line up with the field. Let the group stretch
-// its children and drop the buttons' own vertical padding so they match the
-// input height exactly.
-.k-ui-namespace .controls .input-group {
-  align-items: stretch;
-
-  > .btn {
-    align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    display: inline-flex;
-
-    // kodekit-ui paints every .btn in the admin form with its neutral
-    // "default" look (white background, grey border) and adds a 4px right
-    // margin, so the calendar toggle and media Select/clear buttons lose their
-    // colour and sit detached from one another. Re-apply the Joomlatools
-    // palette and pull the buttons flush. Colours mirror the kodekit button
-    // modifiers so they stay in sync with the rest of the admin UI:
-    //   primary action -> .k-button--info   (#3498db / #258cd1)
-    //   clear / remove  -> .k-button--danger (#c0392b, == .k-icon--error)
-    // !important is needed to beat kodekit's high-specificity generated
-    // `.k-ui-jX-form .btn` selectors without rebuilding the admin bundle.
-    margin-right: 0 !important;
-    color: #fff !important;
-    background-color: #3498db !important;
-    border-color: #258cd1 !important;
-
-    &:hover,
-    &:focus {
-      color: #fff !important;
-      background-color: #217dbb !important;
-      border-color: #1c699d !important;
-    }
-  }
-
-  // The media field's clear/remove button uses the danger colour (the extra
-  // `.button-clear` class beats the primary `> .btn` rule above on specificity).
-  > .btn.button-clear {
-    background-color: #c0392b !important;
-    border-color: #ab3326 !important;
-
-    &:hover,
-    &:focus {
-      background-color: #962d22 !important;
-      border-color: #79241b !important;
-    }
-  }
+// Joomla's minicolors.css lays the whole widget out with fixed-pixel,
+// content-box geometry: the input is `width: 65px` with `padding-left: 30px` to
+// clear the swatch, and the panel is `width: 173px; padding: 5px; border: 1px`
+// with the grid / sliders absolutely positioned to fit it. kodekit forces
+// `box-sizing: border-box` on everything inside `.k-ui-namespace`, which folds
+// each element's padding + border inward and shrinks its content box below what
+// minicolors expects: the input's text area collapses to ~27px (so the colour
+// value is truncated to ~3 chars) and the grid / hue slider spill past the
+// panel's bottom-right edge. Restore content-box across the widget so every box
+// matches the library's design again. The `.k-ui-namespace` prefix lifts
+// specificity above kodekit's `.k-ui-namespace *` rule.
+.k-ui-namespace .minicolors,
+.k-ui-namespace .minicolors * {
+  box-sizing: content-box;
 }
 
-// The active tab panel carries `.k-overflow` (overflow: auto) so long field
-// lists scroll inside the card. That also clips the calendar custom field's
-// popup, which Joomla positions absolutely — the user has to scroll the panel
-// to see the whole calendar. While a calendar is open, let the panel overflow
-// so the popup can paint outside it; it reverts to scrolling once closed. The
-// extra `:has()` argument lifts specificity above kodekit's tripled
+// minicolors reveals its colour-picker panel by toggling the panel's inline
+// `display` (block when open, none when closed). The panel is positioned
+// absolutely inside the tab card, whose `.k-overflow` (overflow: auto) clips it
+// so the picker grid gets cut off at the panel's edge. While the picker is open,
+// let the panel overflow so it can paint outside; it reverts once closed. This
+// is version-agnostic — minicolors is the same library on every Joomla version,
+// unlike the calendar popup whose open-state marker differs per version. Match
+// the open state on the panel's inline `display: block`; the `.k-tab.k-overflow`
+// + `:has()` argument lifts specificity above kodekit's tripled
 // `.k-overflow.k-overflow.k-overflow` rule.
-.k-ui-namespace .k-tab.k-overflow:has(.js-calendar.open) {
+.k-tab.k-overflow:has(.minicolors-panel[style*="display: block"]) {
   overflow: visible !important;
 }
+
+// NOTE: The calendar/media custom-field button + input-group overrides and the
+// calendar-popup overflow fix used to live here, but their markup differs per
+// Joomla version (Bootstrap 5 `.input-group` on J4/J5/J6 vs Bootstrap 2
+// `.input-append` with a class-less <input> on J3). To keep version-specific
+// CSS from mixing, those rules now live in per-version partials that admin.scss
+// imports inside the matching `.k-ui-jX-form` scope:
+//   joomla3/_custom_fields.scss  (Bootstrap 2 .input-append)
+//   joomla4/_custom_fields.scss  (Bootstrap 5 .input-group)
+//   joomla5/_custom_fields.scss  (Bootstrap 5 .input-group; covers J5 + J6)
+// Only the version-agnostic base + the minicolors swatch fix stay in this file.
