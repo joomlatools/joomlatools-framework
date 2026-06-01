@@ -145,6 +145,16 @@
   overflow: visible !important;
 }
 
+// Joomla 3's colour field uses the jUI minicolors bootstrap theme, whose input
+// is a fixed `width: 65px` with `padding-left: 30px` for the swatch. kodekit's
+// border-box folds that padding inward, collapsing the text area to ~27px so the
+// value is truncated to ~3 chars. Restore content-box so the 65px is the text
+// width and the value shows in full. (J4+ size the input to fill the field,
+// where border-box is correct — so this stays J3-only; see _custom_fields.scss.)
+.minicolors-input {
+  box-sizing: content-box;
+}
+
 // ---------------------------------------------------------------------------
 // Bootstrap 2 modal / backdrop / popover / tooltip (Joomla 3 media field)
 // ---------------------------------------------------------------------------

@@ -16471,6 +16471,9 @@ html .form-inline .select2-container--bootstrap {
 .k-ui-j3-form .k-ui-namespace .k-tab.k-overflow:has(.tooltip[style*="display: block"]) {
   overflow: visible !important;
 }
+.k-ui-j3-form .k-ui-namespace .minicolors-input {
+  box-sizing: content-box;
+}
 .k-ui-j3-form .modal-backdrop {
   position: fixed;
   top: 0;
@@ -34958,8 +34961,8 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   transform: translateY(-50%);
 }
 
-.k-ui-namespace .minicolors,
-.k-ui-namespace .minicolors * {
+.k-ui-namespace .minicolors-panel,
+.k-ui-namespace .minicolors-panel * {
   box-sizing: content-box;
 }
 

@@ -494,19 +494,22 @@ div.subform-repeatable-group > .btn-toolbar .btn.group-move-down {
   transform: translateY(-50%);
 }
 
-// Joomla's minicolors.css lays the whole widget out with fixed-pixel,
-// content-box geometry: the input is `width: 65px` with `padding-left: 30px` to
-// clear the swatch, and the panel is `width: 173px; padding: 5px; border: 1px`
-// with the grid / sliders absolutely positioned to fit it. kodekit forces
-// `box-sizing: border-box` on everything inside `.k-ui-namespace`, which folds
-// each element's padding + border inward and shrinks its content box below what
-// minicolors expects: the input's text area collapses to ~27px (so the colour
-// value is truncated to ~3 chars) and the grid / hue slider spill past the
-// panel's bottom-right edge. Restore content-box across the widget so every box
-// matches the library's design again. The `.k-ui-namespace` prefix lifts
+// minicolors lays its panel out with fixed-pixel, content-box geometry (the
+// panel is `width: 173px; padding: 5px; border: 1px` with the grid / sliders
+// absolutely positioned to fit it). kodekit forces `box-sizing: border-box` on
+// everything inside `.k-ui-namespace`, which folds the panel's padding + border
+// inward and shrinks its content box below those contents, so the grid / hue
+// slider spill past the panel's bottom-right edge. Restore content-box for the
+// panel so it matches the library's design. The `.k-ui-namespace` prefix lifts
 // specificity above kodekit's `.k-ui-namespace *` rule.
-.k-ui-namespace .minicolors,
-.k-ui-namespace .minicolors * {
+//
+// NOTE: only the panel is reset here. The colour INPUT's box-sizing is
+// version-specific — J3's jUI theme uses a fixed-width input that needs
+// content-box to avoid truncation, while J4+ size the input to fill the field
+// and must stay border-box or it overflows — so that lives in the per-version
+// partials, not in this shared base.
+.k-ui-namespace .minicolors-panel,
+.k-ui-namespace .minicolors-panel * {
   box-sizing: content-box;
 }
 
