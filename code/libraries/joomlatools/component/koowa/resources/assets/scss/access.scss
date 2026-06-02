@@ -23,6 +23,27 @@
     a[role=tab] {
       outline: 0;
     }
+
+    // Keep the selected/active usergroup readable across Joomla 4, 5 and 6.
+    // Joomla's joomla-tab.css forces light text (color: var(--template-text-light))
+    // on the active/hover/focus vertical tab, which is invisible on the light
+    // background used here. The version wrapper differs per Joomla (k-ui-j4-form on
+    // J4, k-ui-j5-form on J5/J6), so scope under the version-agnostic .access-rules
+    // wrapper and out-specify the core rule with the explicit tablist > button path.
+    joomla-tab[orientation=vertical] > div[role=tablist] > button[role=tab] {
+      color: #000;
+
+      &[aria-selected=true], &[aria-expanded=true] {
+        color: #000;
+        font-weight: 700;
+        background-color: #e6e6e6;
+      }
+
+      &:focus, &:hover {
+        color: #000;
+        background-color: #e6e6e6;
+      }
+    }
   }
 
 

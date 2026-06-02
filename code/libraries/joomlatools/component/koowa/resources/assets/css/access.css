@@ -22,6 +22,18 @@
 .access-rules joomla-tab a[role=tab] {
   outline: 0;
 }
+.access-rules joomla-tab[orientation=vertical] > div[role=tablist] > button[role=tab] {
+  color: #000;
+}
+.access-rules joomla-tab[orientation=vertical] > div[role=tablist] > button[role=tab][aria-selected=true], .access-rules joomla-tab[orientation=vertical] > div[role=tablist] > button[role=tab][aria-expanded=true] {
+  color: #000;
+  font-weight: 700;
+  background-color: #e6e6e6;
+}
+.access-rules joomla-tab[orientation=vertical] > div[role=tablist] > button[role=tab]:focus, .access-rules joomla-tab[orientation=vertical] > div[role=tablist] > button[role=tab]:hover {
+  color: #000;
+  background-color: #e6e6e6;
+}
 .access-rules article,
 .access-rules aside,
 .access-rules details,
