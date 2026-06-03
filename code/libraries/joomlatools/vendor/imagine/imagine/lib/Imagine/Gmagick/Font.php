@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gmagick;
+namespace Joomlatools\Imagine\Gmagick;
 
-use Imagine\Image\AbstractFont;
-use Imagine\Image\Box;
-use Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\AbstractFont;
+use Joomlatools\Imagine\Image\Box;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
 
 /**
  * Font implementation using the Gmagick PHP extension

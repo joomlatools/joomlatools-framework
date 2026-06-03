@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gmagick;
+namespace Joomlatools\Imagine\Gmagick;
 
-use Imagine\Effects\EffectsInterface;
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Exception\NotSupportedException;
+use Joomlatools\Imagine\Effects\EffectsInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Exception\NotSupportedException;
 
 /**
  * Effects implementation using the Gmagick PHP extension

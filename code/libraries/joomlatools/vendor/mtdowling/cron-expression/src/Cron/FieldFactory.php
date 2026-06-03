@@ -1,6 +1,6 @@
 <?php
 
-namespace Cron;
+namespace Joomlatools\Cron;
 
 /**
  * CRON field factory implementing a flyweight factory

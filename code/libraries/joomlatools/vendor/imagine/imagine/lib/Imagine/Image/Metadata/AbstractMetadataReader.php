@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Metadata;
+namespace Joomlatools\Imagine\Image\Metadata;
 
-use Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
 
 abstract class AbstractMetadataReader implements MetadataReaderInterface
 {

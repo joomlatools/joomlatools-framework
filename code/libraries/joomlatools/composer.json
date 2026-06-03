@@ -1,6 +1,40 @@
 {
     "require": {
-        "imagine/imagine": "~0.6",
-        "mtdowling/cron-expression": "~1.0"
+        "imagine/imagine": "0.6.3",
+        "mtdowling/cron-expression": "1.1.0"
+    },
+    "require-dev": {
+        "brianhenryie/strauss": "^0.21",
+        "cweagans/composer-patches": "^1.7"
+    },
+    "config": {
+        "allow-plugins": true
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "patches": {
+            "imagine/imagine": {
+                "PHP 8 compatibility (GdImage objects, nullable parameter types)": "build/patches/imagine-php8.patch"
+            },
+            "mtdowling/cron-expression": {
+                "PHP 8 compatibility (nullable parameter types)": "build/patches/cron-php8.patch"
+            }
+        },
+        "strauss": {
+            "target_directory": "scoped",
+            "namespace_prefix": "Joomlatools\\",
+            "classmap_prefix": "Joomlatools_",
+            "delete_vendor_packages": true,
+            "exclude_from_copy": {
+                "file_patterns": [
+                    "/[Tt]ests?/"
+                ]
+            }
+        }
+    },
+    "scripts": {
+        "scope-vendor": "bash build/scope-vendor.sh",
+        "post-install-cmd": "@scope-vendor",
+        "post-update-cmd": "@scope-vendor"
     }
 }

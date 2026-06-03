@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Palette;
+namespace Joomlatools\Imagine\Image\Palette;
 
-use Imagine\Image\Palette\Color\Gray as GrayColor;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\ProfileInterface;
-use Imagine\Image\Profile;
-use Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Palette\Color\Gray as GrayColor;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\ProfileInterface;
+use Joomlatools\Imagine\Image\Profile;
+use Joomlatools\Imagine\Exception\RuntimeException;
 
 class Grayscale implements PaletteInterface
 {

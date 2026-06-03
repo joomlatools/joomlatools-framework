@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image;
+namespace Joomlatools\Imagine\Image;
 
-use Imagine\Draw\DrawerInterface;
-use Imagine\Effects\EffectsInterface;
-use Imagine\Image\Palette\PaletteInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Exception\RuntimeException;
-use Imagine\Exception\OutOfBoundsException;
+use Joomlatools\Imagine\Draw\DrawerInterface;
+use Joomlatools\Imagine\Effects\EffectsInterface;
+use Joomlatools\Imagine\Image\Palette\PaletteInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Exception\OutOfBoundsException;
 
 /**
  * The image interface

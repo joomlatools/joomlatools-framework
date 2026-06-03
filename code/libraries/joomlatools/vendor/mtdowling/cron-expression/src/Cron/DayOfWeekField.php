@@ -1,6 +1,6 @@
 <?php
 
-namespace Cron;
+namespace Joomlatools\Cron;
 
 /**
  * Day of week field.  Allows: * / , - ? L #

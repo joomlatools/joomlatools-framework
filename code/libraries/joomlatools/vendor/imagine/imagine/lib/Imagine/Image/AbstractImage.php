@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image;
+namespace Joomlatools\Imagine\Image;
 
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Image\Metadata\MetadataBag;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\Metadata\MetadataBag;
 
 abstract class AbstractImage implements ImageInterface
 {

@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter;
+namespace Joomlatools\Imagine\Filter;
 
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Image\ImagineInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\ImagineInterface;
 
 /**
  * ImagineAware base class

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gd;
+namespace Joomlatools\Imagine\Gd;
 
-use Imagine\Image\AbstractLayers;
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\Metadata\MetadataBag;
-use Imagine\Image\Palette\PaletteInterface;
-use Imagine\Exception\NotSupportedException;
+use Joomlatools\Imagine\Image\AbstractLayers;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Metadata\MetadataBag;
+use Joomlatools\Imagine\Image\Palette\PaletteInterface;
+use Joomlatools\Imagine\Exception\NotSupportedException;
 
 class Layers extends AbstractLayers
 {

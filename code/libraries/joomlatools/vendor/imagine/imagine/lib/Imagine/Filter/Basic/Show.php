@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter\Basic;
+namespace Joomlatools\Imagine\Filter\Basic;
 
-use Imagine\Image\ImageInterface;
-use Imagine\Filter\FilterInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Filter\FilterInterface;
 
 /**
  * A show filter

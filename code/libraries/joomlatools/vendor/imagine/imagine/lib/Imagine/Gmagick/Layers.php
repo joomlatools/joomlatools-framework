@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gmagick;
+namespace Joomlatools\Imagine\Gmagick;
 
-use Imagine\Image\AbstractLayers;
-use Imagine\Exception\RuntimeException;
-use Imagine\Exception\NotSupportedException;
-use Imagine\Exception\OutOfBoundsException;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Image\Metadata\MetadataBag;
-use Imagine\Image\Palette\PaletteInterface;
+use Joomlatools\Imagine\Image\AbstractLayers;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Exception\NotSupportedException;
+use Joomlatools\Imagine\Exception\OutOfBoundsException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\Metadata\MetadataBag;
+use Joomlatools\Imagine\Image\Palette\PaletteInterface;
 
 class Layers extends AbstractLayers
 {

@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gd;
+namespace Joomlatools\Imagine\Gd;
 
-use Imagine\Draw\DrawerInterface;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\AbstractFont;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Palette\Color\RGB as RGBColor;
-use Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Draw\DrawerInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractFont;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Palette\Color\RGB as RGBColor;
+use Joomlatools\Imagine\Image\PointInterface;
 
 /**
  * Drawer implementation using the GD library

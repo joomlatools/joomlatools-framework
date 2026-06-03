@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Fill\Gradient;
+namespace Joomlatools\Imagine\Image\Fill\Gradient;
 
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Fill\FillInterface;
-use Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Fill\FillInterface;
+use Joomlatools\Imagine\Image\PointInterface;
 
 /**
  * Linear gradient fill

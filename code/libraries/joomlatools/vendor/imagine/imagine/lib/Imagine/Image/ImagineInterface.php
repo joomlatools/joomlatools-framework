@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image;
+namespace Joomlatools\Imagine\Image;
 
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\RuntimeException;
 
 /**
  * The imagine interface

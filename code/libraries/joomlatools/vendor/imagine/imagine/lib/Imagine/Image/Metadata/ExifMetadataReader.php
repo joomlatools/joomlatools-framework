@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Metadata;
+namespace Joomlatools\Imagine\Image\Metadata;
 
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\NotSupportedException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\NotSupportedException;
 
 /**
  * Metadata driven by Exif information

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Histogram;
+namespace Joomlatools\Imagine\Image\Histogram;
 
-use Imagine\Exception\OutOfBoundsException;
+use Joomlatools\Imagine\Exception\OutOfBoundsException;
 
 /**
  * Range histogram

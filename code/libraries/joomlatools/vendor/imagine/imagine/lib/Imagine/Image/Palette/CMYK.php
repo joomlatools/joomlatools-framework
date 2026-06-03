@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Palette;
+namespace Joomlatools\Imagine\Image\Palette;
 
-use Imagine\Image\Palette\Color\CMYK as CMYKColor;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Exception\RuntimeException;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Image\Profile;
-use Imagine\Image\ProfileInterface;
+use Joomlatools\Imagine\Image\Palette\Color\CMYK as CMYKColor;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\Profile;
+use Joomlatools\Imagine\Image\ProfileInterface;
 
 class CMYK implements PaletteInterface
 {

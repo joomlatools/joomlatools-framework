@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image;
+namespace Joomlatools\Imagine\Image;
 
 abstract class AbstractLayers implements LayersInterface
 {

@@ -9,24 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gd;
+namespace Joomlatools\Imagine\Gd;
 
-use Imagine\Image\AbstractImage;
-use Imagine\Image\ImageInterface;
-use Imagine\Image\Box;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Metadata\MetadataBag;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Fill\FillInterface;
-use Imagine\Image\Point;
-use Imagine\Image\PointInterface;
-use Imagine\Image\Palette\PaletteInterface;
-use Imagine\Image\Palette\Color\RGB as RGBColor;
-use Imagine\Image\ProfileInterface;
-use Imagine\Image\Palette\RGB;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\OutOfBoundsException;
-use Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractImage;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\Box;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Metadata\MetadataBag;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Fill\FillInterface;
+use Joomlatools\Imagine\Image\Point;
+use Joomlatools\Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Image\Palette\PaletteInterface;
+use Joomlatools\Imagine\Image\Palette\Color\RGB as RGBColor;
+use Joomlatools\Imagine\Image\ProfileInterface;
+use Joomlatools\Imagine\Image\Palette\RGB;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\OutOfBoundsException;
+use Joomlatools\Imagine\Exception\RuntimeException;
 
 /**
  * Image implementation using the GD library

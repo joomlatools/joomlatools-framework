@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Metadata;
+namespace Joomlatools\Imagine\Image\Metadata;
 
 /**
  * Default metadata reader

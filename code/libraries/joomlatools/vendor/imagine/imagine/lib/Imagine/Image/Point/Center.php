@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Point;
+namespace Joomlatools\Imagine\Image\Point;
 
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Point as OriginalPoint;
-use Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Point as OriginalPoint;
+use Joomlatools\Imagine\Image\PointInterface;
 
 /**
  * Point center

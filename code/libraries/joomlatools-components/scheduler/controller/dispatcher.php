@@ -349,7 +349,7 @@ class ComSchedulerControllerDispatcher extends KControllerAbstract implements Co
         if ($job->completed_on !== null)
         {
             try {
-                $cron = Cron\CronExpression::factory($job->frequency);
+                $cron = Joomlatools\Cron\CronExpression::factory($job->frequency);
                 $next = $cron->getNextRunDate(new DateTime($job->completed_on, new DateTimeZone('UTC')));
                 $now  = new DateTime('now', new DateTimeZone('UTC'));
                 $result = $next < $now;
@@ -370,7 +370,7 @@ class ComSchedulerControllerDispatcher extends KControllerAbstract implements Co
         $result = false;
 
         try {
-            $cron   = Cron\CronExpression::factory($job->frequency);
+            $cron   = Joomlatools\Cron\CronExpression::factory($job->frequency);
             $result = $cron->getNextRunDate(new DateTime('now', new DateTimeZone('UTC')));
         }
         catch (RuntimeException $e) {

@@ -130,6 +130,57 @@ async function build({ config = {} }) {
         }
     }
 
+    // Guard: the bundled third-party libraries must be scoped under the
+    // Joomlatools\ namespace before they are packed, otherwise they collide with
+    // the host CMS's own copies at runtime (see build/scope-vendor.sh). Runs for
+    // `mason build` here AND every extension `mason bundle` (which delegates to
+    // this task via buildFramework -> frameworkMason.tasks.build).
+    const libDir = `${frameworkCodeFolder}/libraries/joomlatools`;
+    const fix = 'Run "composer scope-vendor" in code/libraries/joomlatools before building.';
+
+    // (1) Correctness: every class in the generated classmap must live under
+    //     Joomlatools\ (Composer\ is composer's own runtime infrastructure).
+    //     Package-agnostic — needs no per-library knowledge.
+    const classmapFile = `${libDir}/vendor/composer/autoload_classmap.php`;
+    let classmap;
+    try {
+        classmap = (await fs.readFile(classmapFile)).toString();
+    } catch (e) {
+        throw new Error(`Scoped vendor autoloader missing (${classmapFile}). ${fix}`);
+    }
+
+    const mappedClasses = [...classmap.matchAll(/^\s*'([^']+)'\s*=>/gm)].map((m) => m[1]);
+    const unscoped = mappedClasses.filter((c) => !c.startsWith('Joomlatools') && !c.startsWith('Composer'));
+
+    if (mappedClasses.length === 0 || unscoped.length > 0) {
+        const detail = mappedClasses.length === 0 ? 'classmap is empty' : `unscoped: ${unscoped.slice(0, 5).join(', ')}`;
+        throw new Error(`Bundled libraries are not scoped under Joomlatools\\ (${detail}). ${fix}`);
+    }
+
+    // (2) Completeness: every library declared in composer.json "require" must
+    //     actually contribute classes to the scoped autoloader. The classmap maps
+    //     each class to a file path that contains the package's directory (e.g.
+    //     ".../imagine/imagine/lib/..."), so we assert the classmap references
+    //     each required package. Combined with (1) — every mapped class is under
+    //     Joomlatools\ — this proves the library was scoped AND bundled, not merely
+    //     that a folder exists (an unscoped or stale folder would fail (1), and a
+    //     not-regenerated classmap fails here). Catches a dependency added to
+    //     "require" without re-running `composer scope-vendor`. Platform
+    //     requirements (php, ext-*) have no "/" and are skipped.
+    let manifest;
+    try {
+        manifest = JSON.parse((await fs.readFile(`${libDir}/composer.json`)).toString());
+    } catch (e) {
+        throw new Error(`Cannot read ${libDir}/composer.json. ${fix}`);
+    }
+
+    const requiredPackages = Object.keys(manifest.require || {}).filter((name) => name.includes('/'));
+    const missing = requiredPackages.filter((name) => !classmap.includes(`/${name}/`));
+
+    if (missing.length > 0) {
+        throw new Error(`Required libraries not present in the scoped autoloader (${missing.join(', ')}). ${fix}`);
+    }
+
     if (buildConfig.compress) {
         await mason.fs.archiveDirectory(frameworkCodeFolder, buildConfig.destination);
     } else {

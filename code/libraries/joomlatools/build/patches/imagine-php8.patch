@@ -1,0 +1,250 @@
+diff --color -ruN a/lib/Imagine/Filter/Advanced/Canvas.php b/lib/Imagine/Filter/Advanced/Canvas.php
+--- a/lib/Imagine/Filter/Advanced/Canvas.php
++++ b/lib/Imagine/Filter/Advanced/Canvas.php
+@@ -53,7 +53,7 @@
+      * @param PointInterface   $placement
+      * @param ColorInterface   $background
+      */
+-    public function __construct(ImagineInterface $imagine, BoxInterface $size, PointInterface $placement = null, ColorInterface $background = null)
++    public function __construct(ImagineInterface $imagine, BoxInterface $size, PointInterface | null $placement = null, ColorInterface | null $background = null)
+     {
+         $this->imagine = $imagine;
+         $this->size = $size;
+diff --color -ruN a/lib/Imagine/Filter/Basic/Rotate.php b/lib/Imagine/Filter/Basic/Rotate.php
+--- a/lib/Imagine/Filter/Basic/Rotate.php
++++ b/lib/Imagine/Filter/Basic/Rotate.php
+@@ -36,7 +36,7 @@
+      * @param integer        $angle
+      * @param ColorInterface $background
+      */
+-    public function __construct($angle, ColorInterface $background = null)
++    public function __construct($angle, ColorInterface | null $background = null)
+     {
+         $this->angle      = $angle;
+         $this->background = $background;
+diff --color -ruN a/lib/Imagine/Filter/Transformation.php b/lib/Imagine/Filter/Transformation.php
+--- a/lib/Imagine/Filter/Transformation.php
++++ b/lib/Imagine/Filter/Transformation.php
+@@ -60,7 +60,7 @@
+      *
+      * @param ImagineInterface $imagine An ImagineInterface instance
+      */
+-    public function __construct(ImagineInterface $imagine = null)
++    public function __construct(ImagineInterface | null $imagine = null)
+     {
+         $this->imagine = $imagine;
+     }
+@@ -193,7 +193,7 @@
+     /**
+      * {@inheritdoc}
+      */
+-    public function rotate($angle, ColorInterface $background = null)
++    public function rotate($angle, ColorInterface | null $background = null)
+     {
+         return $this->add(new Rotate($angle, $background));
+     }
+diff --color -ruN a/lib/Imagine/Gd/Image.php b/lib/Imagine/Gd/Image.php
+--- a/lib/Imagine/Gd/Image.php
++++ b/lib/Imagine/Gd/Image.php
+@@ -193,7 +193,7 @@
+      *
+      * @return ImageInterface
+      */
+-    final public function rotate($angle, ColorInterface $background = null)
++    final public function rotate($angle, ColorInterface | null $background = null)
+     {
+         $color = $background ? $background : $this->palette->color('fff');
+         $resource = imagerotate($this->resource, -1 * $angle, $this->getColor($color));
+diff --color -ruN a/lib/Imagine/Gd/Imagine.php b/lib/Imagine/Gd/Imagine.php
+--- a/lib/Imagine/Gd/Imagine.php
++++ b/lib/Imagine/Gd/Imagine.php
+@@ -43,7 +43,7 @@
+     /**
+      * {@inheritdoc}
+      */
+-    public function create(BoxInterface $size, ColorInterface $color = null)
++    public function create(BoxInterface $size, ColorInterface | null $color = null)
+     {
+         $width  = $size->getWidth();
+         $height = $size->getHeight();
+@@ -92,7 +92,7 @@
+ 
+         $resource = @imagecreatefromstring($data);
+ 
+-        if (!is_resource($resource)) {
++        if (!is_resource($resource) && (!$resource instanceof \GdImage)) {
+             throw new RuntimeException(sprintf('Unable to open image %s', $path));
+         }
+ 
+diff --color -ruN a/lib/Imagine/Gmagick/Image.php b/lib/Imagine/Gmagick/Image.php
+--- a/lib/Imagine/Gmagick/Image.php
++++ b/lib/Imagine/Gmagick/Image.php
+@@ -238,7 +238,7 @@
+      *
+      * @return ImageInterface
+      */
+-    public function rotate($angle, ColorInterface $background = null)
++    public function rotate($angle, ColorInterface | null $background = null)
+     {
+         try {
+             $background = $background ?: $this->palette->color('fff');
+diff --color -ruN a/lib/Imagine/Gmagick/Imagine.php b/lib/Imagine/Gmagick/Imagine.php
+--- a/lib/Imagine/Gmagick/Imagine.php
++++ b/lib/Imagine/Gmagick/Imagine.php
+@@ -58,7 +58,7 @@
+     /**
+      * {@inheritdoc}
+      */
+-    public function create(BoxInterface $size, ColorInterface $color = null)
++    public function create(BoxInterface $size, ColorInterface | null $color = null)
+     {
+         $width = $size->getWidth();
+         $height = $size->getHeight();
+diff --color -ruN a/lib/Imagine/Image/Box.php b/lib/Imagine/Image/Box.php
+--- a/lib/Imagine/Image/Box.php
++++ b/lib/Imagine/Image/Box.php
+@@ -81,7 +81,7 @@
+     /**
+      * {@inheritdoc}
+      */
+-    public function contains(BoxInterface $box, PointInterface $start = null)
++    public function contains(BoxInterface $box, PointInterface | null $start = null)
+     {
+         $start = $start ? $start : new Point(0, 0);
+ 
+diff --color -ruN a/lib/Imagine/Image/BoxInterface.php b/lib/Imagine/Image/BoxInterface.php
+--- a/lib/Imagine/Image/BoxInterface.php
++++ b/lib/Imagine/Image/BoxInterface.php
+@@ -57,7 +57,7 @@
+      *
+      * @return Boolean
+      */
+-    public function contains(BoxInterface $box, PointInterface $start = null);
++    public function contains(BoxInterface $box, PointInterface | null $start = null);
+ 
+     /**
+      * Gets current box square, useful for getting total number of pixels in a
+diff --color -ruN a/lib/Imagine/Image/ImagineInterface.php b/lib/Imagine/Image/ImagineInterface.php
+--- a/lib/Imagine/Image/ImagineInterface.php
++++ b/lib/Imagine/Image/ImagineInterface.php
+@@ -33,7 +33,7 @@
+      *
+      * @return ImageInterface
+      */
+-    public function create(BoxInterface $size, ColorInterface $color = null);
++    public function create(BoxInterface $size, ColorInterface | null $color = null);
+ 
+     /**
+      * Opens an existing image from $path
+diff --color -ruN a/lib/Imagine/Image/ManipulatorInterface.php b/lib/Imagine/Image/ManipulatorInterface.php
+--- a/lib/Imagine/Image/ManipulatorInterface.php
++++ b/lib/Imagine/Image/ManipulatorInterface.php
+@@ -72,7 +72,7 @@
+      *
+      * @return static
+      */
+-    public function rotate($angle, ColorInterface $background = null);
++    public function rotate($angle, ColorInterface | null $background = null);
+ 
+     /**
+      * Pastes an image into a parent image
+diff --color -ruN a/lib/Imagine/Image/Metadata/MetadataBag.php b/lib/Imagine/Image/Metadata/MetadataBag.php
+--- a/lib/Imagine/Image/Metadata/MetadataBag.php
++++ b/lib/Imagine/Image/Metadata/MetadataBag.php
+@@ -40,6 +40,7 @@
+     /**
+      * {@inheritdoc}
+      */
++    #[\ReturnTypeWillChange]
+     public function count()
+     {
+         return count($this->data);
+@@ -48,6 +49,7 @@
+     /**
+      * {@inheritdoc}
+      */
++    #[\ReturnTypeWillChange]
+     public function getIterator()
+     {
+         return new \ArrayIterator($this->data);
+@@ -56,6 +58,7 @@
+     /**
+      * {@inheritdoc}
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetExists($offset)
+     {
+         return array_key_exists($offset, $this->data);
+@@ -64,6 +67,7 @@
+     /**
+      * {@inheritdoc}
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetSet($offset, $value)
+     {
+         $this->data[$offset] = $value;
+@@ -72,6 +76,7 @@
+     /**
+      * {@inheritdoc}
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetUnset($offset)
+     {
+         unset($this->data[$offset]);
+@@ -80,6 +85,7 @@
+     /**
+      * {@inheritdoc}
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetGet($offset)
+     {
+         return $this->get($offset);
+diff --color -ruN a/lib/Imagine/Imagick/Image.php b/lib/Imagine/Imagick/Image.php
+--- a/lib/Imagine/Imagick/Image.php
++++ b/lib/Imagine/Imagick/Image.php
+@@ -238,7 +238,7 @@
+      *
+      * @return ImageInterface
+      */
+-    public function rotate($angle, ColorInterface $background = null)
++    public function rotate($angle, ColorInterface | null $background = null)
+     {
+         $color = $background ? $background : $this->palette->color('fff');
+ 
+diff --color -ruN a/lib/Imagine/Imagick/Imagine.php b/lib/Imagine/Imagick/Imagine.php
+--- a/lib/Imagine/Imagick/Imagine.php
++++ b/lib/Imagine/Imagick/Imagine.php
+@@ -61,7 +61,7 @@
+     /**
+      * {@inheritdoc}
+      */
+-    public function create(BoxInterface $size, ColorInterface $color = null)
++    public function create(BoxInterface $size, ColorInterface | null $color = null)
+     {
+         $width  = $size->getWidth();
+         $height = $size->getHeight();
+Binary files a/lib/Imagine/resources/Adobe/CMYK/CoatedFOGRA27.icc and b/lib/Imagine/resources/Adobe/CMYK/CoatedFOGRA27.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/CoatedFOGRA39.icc and b/lib/Imagine/resources/Adobe/CMYK/CoatedFOGRA39.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/CoatedGRACoL2006.icc and b/lib/Imagine/resources/Adobe/CMYK/CoatedGRACoL2006.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/JapanColor2001Coated.icc and b/lib/Imagine/resources/Adobe/CMYK/JapanColor2001Coated.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/JapanColor2001Uncoated.icc and b/lib/Imagine/resources/Adobe/CMYK/JapanColor2001Uncoated.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/JapanColor2002Newspaper.icc and b/lib/Imagine/resources/Adobe/CMYK/JapanColor2002Newspaper.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/JapanColor2003WebCoated.icc and b/lib/Imagine/resources/Adobe/CMYK/JapanColor2003WebCoated.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/JapanWebCoated.icc and b/lib/Imagine/resources/Adobe/CMYK/JapanWebCoated.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/USWebCoatedSWOP.icc and b/lib/Imagine/resources/Adobe/CMYK/USWebCoatedSWOP.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/USWebUncoated.icc and b/lib/Imagine/resources/Adobe/CMYK/USWebUncoated.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/UncoatedFOGRA29.icc and b/lib/Imagine/resources/Adobe/CMYK/UncoatedFOGRA29.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/WebCoatedFOGRA28.icc and b/lib/Imagine/resources/Adobe/CMYK/WebCoatedFOGRA28.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/WebCoatedSWOP2006Grade3.icc and b/lib/Imagine/resources/Adobe/CMYK/WebCoatedSWOP2006Grade3.icc differ
+Binary files a/lib/Imagine/resources/Adobe/CMYK/WebCoatedSWOP2006Grade5.icc and b/lib/Imagine/resources/Adobe/CMYK/WebCoatedSWOP2006Grade5.icc differ
+Binary files a/lib/Imagine/resources/Adobe/Color Profile Bundling License_10.15.08.pdf and b/lib/Imagine/resources/Adobe/Color Profile Bundling License_10.15.08.pdf differ
+Binary files a/lib/Imagine/resources/Adobe/Profile Information.pdf and b/lib/Imagine/resources/Adobe/Profile Information.pdf differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/AdobeRGB1998.icc and b/lib/Imagine/resources/Adobe/RGB/AdobeRGB1998.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/AppleRGB.icc and b/lib/Imagine/resources/Adobe/RGB/AppleRGB.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/ColorMatchRGB.icc and b/lib/Imagine/resources/Adobe/RGB/ColorMatchRGB.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/PAL_SECAM.icc and b/lib/Imagine/resources/Adobe/RGB/PAL_SECAM.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/SMPTE-C.icc and b/lib/Imagine/resources/Adobe/RGB/SMPTE-C.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/VideoHD.icc and b/lib/Imagine/resources/Adobe/RGB/VideoHD.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/VideoNTSC.icc and b/lib/Imagine/resources/Adobe/RGB/VideoNTSC.icc differ
+Binary files a/lib/Imagine/resources/Adobe/RGB/VideoPAL.icc and b/lib/Imagine/resources/Adobe/RGB/VideoPAL.icc differ
+Binary files a/lib/Imagine/resources/Adobe/Trademark Information.pdf and b/lib/Imagine/resources/Adobe/Trademark Information.pdf differ

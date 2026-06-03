@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter\Advanced;
+namespace Joomlatools\Imagine\Filter\Advanced;
 
-use Imagine\Filter\FilterInterface;
-use Imagine\Image\ImageInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Point;
+use Joomlatools\Imagine\Filter\FilterInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Point;
 
 /**
  * A border filter

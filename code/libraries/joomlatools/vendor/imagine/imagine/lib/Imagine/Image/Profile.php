@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image;
+namespace Joomlatools\Imagine\Image;
 
-use Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
 
 class Profile implements ProfileInterface
 {

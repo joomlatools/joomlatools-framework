@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter\Basic;
+namespace Joomlatools\Imagine\Filter\Basic;
 
-use Imagine\Filter\FilterInterface;
-use Imagine\Image\ImageInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Filter\FilterInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
 
 /**
  * Rotates an image automatically based on exif information.

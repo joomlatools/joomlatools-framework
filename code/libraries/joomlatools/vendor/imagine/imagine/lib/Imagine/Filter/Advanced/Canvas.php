@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter\Advanced;
+namespace Joomlatools\Imagine\Filter\Advanced;
 
-use Imagine\Filter\FilterInterface;
-use Imagine\Image\ImageInterface;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Point;
-use Imagine\Image\PointInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\ImagineInterface;
+use Joomlatools\Imagine\Filter\FilterInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Point;
+use Joomlatools\Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\ImagineInterface;
 
 /**
  * A canvas filter

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Imagick;
+namespace Joomlatools\Imagine\Imagick;
 
-use Imagine\Effects\EffectsInterface;
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Effects\EffectsInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
 
 /**
  * Effects implementation using the Imagick PHP extension

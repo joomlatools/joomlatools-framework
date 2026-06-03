@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Fill;
+namespace Joomlatools\Imagine\Image\Fill;
 
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\PointInterface;
 
 /**
  * Interface for the fill
