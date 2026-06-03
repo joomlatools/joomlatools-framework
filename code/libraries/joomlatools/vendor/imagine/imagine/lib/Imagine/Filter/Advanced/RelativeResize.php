@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter\Advanced;
+namespace Joomlatools\Imagine\Filter\Advanced;
 
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Filter\FilterInterface;
-use Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Filter\FilterInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
 
 /**
  * The RelativeResize filter allows images to be resized relative to their

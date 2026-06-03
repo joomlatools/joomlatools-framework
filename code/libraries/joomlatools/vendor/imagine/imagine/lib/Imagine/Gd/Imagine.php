@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gd;
+namespace Joomlatools\Imagine\Gd;
 
-use Imagine\Image\AbstractImagine;
-use Imagine\Image\Metadata\MetadataBag;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Palette\RGB;
-use Imagine\Image\Palette\PaletteInterface;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Palette\Color\RGB as RGBColor;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractImagine;
+use Joomlatools\Imagine\Image\Metadata\MetadataBag;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Palette\RGB;
+use Joomlatools\Imagine\Image\Palette\PaletteInterface;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Palette\Color\RGB as RGBColor;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\RuntimeException;
 
 /**
  * Imagine implementation using the GD library

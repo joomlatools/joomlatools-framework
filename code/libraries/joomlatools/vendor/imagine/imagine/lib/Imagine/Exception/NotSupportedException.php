@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Exception;
+namespace Joomlatools\Imagine\Exception;
 
 /**
  * Should be used when a driver does not support an operation.

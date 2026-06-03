@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gd;
+namespace Joomlatools\Imagine\Gd;
 
-use Imagine\Effects\EffectsInterface;
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Palette\Color\RGB as RGBColor;
+use Joomlatools\Imagine\Effects\EffectsInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Palette\Color\RGB as RGBColor;
 
 /**
  * Effects implementation using the GD library

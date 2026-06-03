@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Histogram;
+namespace Joomlatools\Imagine\Image\Histogram;
 
 /**
  * Bucket histogram

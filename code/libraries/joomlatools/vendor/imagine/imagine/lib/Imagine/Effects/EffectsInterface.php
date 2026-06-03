@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Effects;
+namespace Joomlatools\Imagine\Effects;
 
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
 
 /**
  * Interface for the effects

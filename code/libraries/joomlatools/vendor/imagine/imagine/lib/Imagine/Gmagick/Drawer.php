@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gmagick;
+namespace Joomlatools\Imagine\Gmagick;
 
-use Imagine\Draw\DrawerInterface;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\NotSupportedException;
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\AbstractFont;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Point;
-use Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Draw\DrawerInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\NotSupportedException;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractFont;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Point;
+use Joomlatools\Imagine\Image\PointInterface;
 
 /**
  * Drawer implementation using the Gmagick PHP extension

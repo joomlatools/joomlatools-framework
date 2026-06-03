@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gmagick;
+namespace Joomlatools\Imagine\Gmagick;
 
-use Imagine\Image\AbstractImagine;
-use Imagine\Exception\NotSupportedException;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Metadata\MetadataBag;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Palette\Grayscale;
-use Imagine\Image\Palette\CMYK;
-use Imagine\Image\Palette\RGB;
-use Imagine\Image\Palette\Color\CMYK as CMYKColor;
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractImagine;
+use Joomlatools\Imagine\Exception\NotSupportedException;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Metadata\MetadataBag;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Palette\Grayscale;
+use Joomlatools\Imagine\Image\Palette\CMYK;
+use Joomlatools\Imagine\Image\Palette\RGB;
+use Joomlatools\Imagine\Image\Palette\Color\CMYK as CMYKColor;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\RuntimeException;
 
 /**
  * Imagine implementation using the Gmagick PHP extension

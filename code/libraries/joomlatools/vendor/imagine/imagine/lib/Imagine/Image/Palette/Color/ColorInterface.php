@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Palette\Color;
+namespace Joomlatools\Imagine\Image\Palette\Color;
 
-use Imagine\Image\Palette\PaletteInterface;
+use Joomlatools\Imagine\Image\Palette\PaletteInterface;
 
 interface ColorInterface
 {

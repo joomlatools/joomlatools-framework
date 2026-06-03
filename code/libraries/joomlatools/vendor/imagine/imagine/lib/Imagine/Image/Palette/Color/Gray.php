@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Palette\Color;
+namespace Joomlatools\Imagine\Image\Palette\Color;
 
-use Imagine\Image\Palette\Grayscale;
-use Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\Palette\Grayscale;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
 
 final class Gray implements ColorInterface
 {

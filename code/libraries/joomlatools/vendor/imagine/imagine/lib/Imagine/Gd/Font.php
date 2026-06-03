@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Gd;
+namespace Joomlatools\Imagine\Gd;
 
-use Imagine\Exception\RuntimeException;
-use Imagine\Image\AbstractFont;
-use Imagine\Image\Box;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractFont;
+use Joomlatools\Imagine\Image\Box;
 
 /**
  * Font implementation using the GD library

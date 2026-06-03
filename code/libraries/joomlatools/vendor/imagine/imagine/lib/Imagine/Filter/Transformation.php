@@ -9,29 +9,29 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter;
+namespace Joomlatools\Imagine\Filter;
 
-use Imagine\Exception\InvalidArgumentException;
-use Imagine\Filter\Basic\ApplyMask;
-use Imagine\Filter\Basic\Copy;
-use Imagine\Filter\Basic\Crop;
-use Imagine\Filter\Basic\Fill;
-use Imagine\Filter\Basic\FlipVertically;
-use Imagine\Filter\Basic\FlipHorizontally;
-use Imagine\Filter\Basic\Paste;
-use Imagine\Filter\Basic\Resize;
-use Imagine\Filter\Basic\Rotate;
-use Imagine\Filter\Basic\Save;
-use Imagine\Filter\Basic\Show;
-use Imagine\Filter\Basic\Strip;
-use Imagine\Filter\Basic\Thumbnail;
-use Imagine\Image\ImageInterface;
-use Imagine\Image\ImagineInterface;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\Fill\FillInterface;
-use Imagine\Image\ManipulatorInterface;
-use Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Filter\Basic\ApplyMask;
+use Joomlatools\Imagine\Filter\Basic\Copy;
+use Joomlatools\Imagine\Filter\Basic\Crop;
+use Joomlatools\Imagine\Filter\Basic\Fill;
+use Joomlatools\Imagine\Filter\Basic\FlipVertically;
+use Joomlatools\Imagine\Filter\Basic\FlipHorizontally;
+use Joomlatools\Imagine\Filter\Basic\Paste;
+use Joomlatools\Imagine\Filter\Basic\Resize;
+use Joomlatools\Imagine\Filter\Basic\Rotate;
+use Joomlatools\Imagine\Filter\Basic\Save;
+use Joomlatools\Imagine\Filter\Basic\Show;
+use Joomlatools\Imagine\Filter\Basic\Strip;
+use Joomlatools\Imagine\Filter\Basic\Thumbnail;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\ImagineInterface;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\Fill\FillInterface;
+use Joomlatools\Imagine\Image\ManipulatorInterface;
+use Joomlatools\Imagine\Image\PointInterface;
 
 /**
  * A transformation filter

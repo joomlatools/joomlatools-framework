@@ -113,13 +113,13 @@ class ComFilesModelEntityThumbnail extends ComFilesModelEntityFile
             {
                 $source = $this->source;
 
-                $imagine = new \Imagine\Gd\Imagine();
+                $imagine = new \Joomlatools\Imagine\Gd\Imagine();
                 $image   = $imagine->open($source->fullpath);
 
                 $dimension = $this->getDimension();
 
                 if ($dimension['width'] && $dimension['height']) {
-                    $size = new \Imagine\Image\Box($dimension['width'], $dimension['height']);
+                    $size = new \Joomlatools\Imagine\Image\Box($dimension['width'], $dimension['height']);
                 }
                 else
                 {
@@ -130,7 +130,7 @@ class ComFilesModelEntityThumbnail extends ComFilesModelEntityFile
                     $size       = $image_size->scale(1/($larger/$scale));
                 }
 
-                $mode = ($this->crop) ? \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND : \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+                $mode = ($this->crop) ? \Joomlatools\Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND : \Joomlatools\Imagine\Image\ImageInterface::THUMBNAIL_INSET;
 
                 if ($in_place) {
                     return $image->thumbnail($size, $mode)->save($this->fullpath);

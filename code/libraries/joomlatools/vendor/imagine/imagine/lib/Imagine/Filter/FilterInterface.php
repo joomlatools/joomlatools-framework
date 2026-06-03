@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter;
+namespace Joomlatools\Imagine\Filter;
 
-use Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
 
 /**
  * Interface for imagine filters

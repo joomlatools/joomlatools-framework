@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Palette\Color;
+namespace Joomlatools\Imagine\Image\Palette\Color;
 
-use Imagine\Image\Palette\CMYK as CMYKPalette;
-use Imagine\Exception\RuntimeException;
-use Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\Palette\CMYK as CMYKPalette;
+use Joomlatools\Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
 
 final class CMYK implements ColorInterface
 {

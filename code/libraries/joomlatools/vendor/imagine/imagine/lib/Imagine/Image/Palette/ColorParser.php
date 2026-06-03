@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image\Palette;
+namespace Joomlatools\Imagine\Image\Palette;
 
-use Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
 
 class ColorParser
 {

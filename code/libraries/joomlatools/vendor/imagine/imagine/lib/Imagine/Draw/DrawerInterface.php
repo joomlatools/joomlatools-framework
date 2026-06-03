@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Draw;
+namespace Joomlatools\Imagine\Draw;
 
-use Imagine\Image\AbstractFont;
-use Imagine\Image\BoxInterface;
-use Imagine\Image\Palette\Color\ColorInterface;
-use Imagine\Image\PointInterface;
-use Imagine\Exception\RuntimeException;
+use Joomlatools\Imagine\Image\AbstractFont;
+use Joomlatools\Imagine\Image\BoxInterface;
+use Joomlatools\Imagine\Image\Palette\Color\ColorInterface;
+use Joomlatools\Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Exception\RuntimeException;
 
 /**
  * Interface for the drawer

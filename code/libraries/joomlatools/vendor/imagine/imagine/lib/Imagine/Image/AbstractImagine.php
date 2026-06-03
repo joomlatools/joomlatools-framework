@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Image;
+namespace Joomlatools\Imagine\Image;
 
-use Imagine\Image\Metadata\DefaultMetadataReader;
-use Imagine\Image\Metadata\ExifMetadataReader;
-use Imagine\Image\Metadata\MetadataReaderInterface;
-use Imagine\Exception\InvalidArgumentException;
+use Joomlatools\Imagine\Image\Metadata\DefaultMetadataReader;
+use Joomlatools\Imagine\Image\Metadata\ExifMetadataReader;
+use Joomlatools\Imagine\Image\Metadata\MetadataReaderInterface;
+use Joomlatools\Imagine\Exception\InvalidArgumentException;
 
 abstract class AbstractImagine implements ImagineInterface
 {

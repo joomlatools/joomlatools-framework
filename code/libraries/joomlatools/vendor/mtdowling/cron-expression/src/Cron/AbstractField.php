@@ -1,6 +1,6 @@
 <?php
 
-namespace Cron;
+namespace Joomlatools\Cron;
 
 /**
  * Abstract CRON expression field

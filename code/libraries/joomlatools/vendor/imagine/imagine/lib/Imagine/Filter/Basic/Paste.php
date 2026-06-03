@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Imagine\Filter\Basic;
+namespace Joomlatools\Imagine\Filter\Basic;
 
-use Imagine\Image\ImageInterface;
-use Imagine\Image\PointInterface;
-use Imagine\Filter\FilterInterface;
+use Joomlatools\Imagine\Image\ImageInterface;
+use Joomlatools\Imagine\Image\PointInterface;
+use Joomlatools\Imagine\Filter\FilterInterface;
 
 /**
  * A paste filter
