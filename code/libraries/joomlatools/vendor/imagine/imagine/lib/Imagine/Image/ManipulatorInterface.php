@@ -72,7 +72,7 @@ interface ManipulatorInterface
      *
      * @return static
      */
-    public function rotate($angle, ColorInterface | null $background = null);
+    public function rotate($angle, ?ColorInterface $background = null);
 
     /**
      * Pastes an image into a parent image
