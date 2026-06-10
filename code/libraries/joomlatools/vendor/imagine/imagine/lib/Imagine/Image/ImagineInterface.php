@@ -33,7 +33,7 @@ interface ImagineInterface
      *
      * @return ImageInterface
      */
-    public function create(BoxInterface $size, ColorInterface | null $color = null);
+    public function create(BoxInterface $size, ?ColorInterface $color = null);
 
     /**
      * Opens an existing image from $path

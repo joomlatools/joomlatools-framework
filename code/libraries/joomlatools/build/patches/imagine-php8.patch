@@ -6,7 +6,7 @@ diff --color -ruN a/lib/Imagine/Filter/Advanced/Canvas.php b/lib/Imagine/Filter/
       * @param ColorInterface   $background
       */
 -    public function __construct(ImagineInterface $imagine, BoxInterface $size, PointInterface $placement = null, ColorInterface $background = null)
-+    public function __construct(ImagineInterface $imagine, BoxInterface $size, PointInterface | null $placement = null, ColorInterface | null $background = null)
++    public function __construct(ImagineInterface $imagine, BoxInterface $size, ?PointInterface $placement = null, ?ColorInterface $background = null)
      {
          $this->imagine = $imagine;
          $this->size = $size;
@@ -18,7 +18,7 @@ diff --color -ruN a/lib/Imagine/Filter/Basic/Rotate.php b/lib/Imagine/Filter/Bas
       * @param ColorInterface $background
       */
 -    public function __construct($angle, ColorInterface $background = null)
-+    public function __construct($angle, ColorInterface | null $background = null)
++    public function __construct($angle, ?ColorInterface $background = null)
      {
          $this->angle      = $angle;
          $this->background = $background;
@@ -30,7 +30,7 @@ diff --color -ruN a/lib/Imagine/Filter/Transformation.php b/lib/Imagine/Filter/T
       * @param ImagineInterface $imagine An ImagineInterface instance
       */
 -    public function __construct(ImagineInterface $imagine = null)
-+    public function __construct(ImagineInterface | null $imagine = null)
++    public function __construct(?ImagineInterface $imagine = null)
      {
          $this->imagine = $imagine;
      }
@@ -39,7 +39,7 @@ diff --color -ruN a/lib/Imagine/Filter/Transformation.php b/lib/Imagine/Filter/T
       * {@inheritdoc}
       */
 -    public function rotate($angle, ColorInterface $background = null)
-+    public function rotate($angle, ColorInterface | null $background = null)
++    public function rotate($angle, ?ColorInterface $background = null)
      {
          return $this->add(new Rotate($angle, $background));
      }
@@ -51,7 +51,7 @@ diff --color -ruN a/lib/Imagine/Gd/Image.php b/lib/Imagine/Gd/Image.php
       * @return ImageInterface
       */
 -    final public function rotate($angle, ColorInterface $background = null)
-+    final public function rotate($angle, ColorInterface | null $background = null)
++    final public function rotate($angle, ?ColorInterface $background = null)
      {
          $color = $background ? $background : $this->palette->color('fff');
          $resource = imagerotate($this->resource, -1 * $angle, $this->getColor($color));
@@ -63,7 +63,7 @@ diff --color -ruN a/lib/Imagine/Gd/Imagine.php b/lib/Imagine/Gd/Imagine.php
       * {@inheritdoc}
       */
 -    public function create(BoxInterface $size, ColorInterface $color = null)
-+    public function create(BoxInterface $size, ColorInterface | null $color = null)
++    public function create(BoxInterface $size, ?ColorInterface $color = null)
      {
          $width  = $size->getWidth();
          $height = $size->getHeight();
@@ -84,7 +84,7 @@ diff --color -ruN a/lib/Imagine/Gmagick/Image.php b/lib/Imagine/Gmagick/Image.ph
       * @return ImageInterface
       */
 -    public function rotate($angle, ColorInterface $background = null)
-+    public function rotate($angle, ColorInterface | null $background = null)
++    public function rotate($angle, ?ColorInterface $background = null)
      {
          try {
              $background = $background ?: $this->palette->color('fff');
@@ -96,7 +96,7 @@ diff --color -ruN a/lib/Imagine/Gmagick/Imagine.php b/lib/Imagine/Gmagick/Imagin
       * {@inheritdoc}
       */
 -    public function create(BoxInterface $size, ColorInterface $color = null)
-+    public function create(BoxInterface $size, ColorInterface | null $color = null)
++    public function create(BoxInterface $size, ?ColorInterface $color = null)
      {
          $width = $size->getWidth();
          $height = $size->getHeight();
@@ -108,7 +108,7 @@ diff --color -ruN a/lib/Imagine/Image/Box.php b/lib/Imagine/Image/Box.php
       * {@inheritdoc}
       */
 -    public function contains(BoxInterface $box, PointInterface $start = null)
-+    public function contains(BoxInterface $box, PointInterface | null $start = null)
++    public function contains(BoxInterface $box, ?PointInterface $start = null)
      {
          $start = $start ? $start : new Point(0, 0);
  
@@ -120,7 +120,7 @@ diff --color -ruN a/lib/Imagine/Image/BoxInterface.php b/lib/Imagine/Image/BoxIn
       * @return Boolean
       */
 -    public function contains(BoxInterface $box, PointInterface $start = null);
-+    public function contains(BoxInterface $box, PointInterface | null $start = null);
++    public function contains(BoxInterface $box, ?PointInterface $start = null);
  
      /**
       * Gets current box square, useful for getting total number of pixels in a
@@ -132,7 +132,7 @@ diff --color -ruN a/lib/Imagine/Image/ImagineInterface.php b/lib/Imagine/Image/I
       * @return ImageInterface
       */
 -    public function create(BoxInterface $size, ColorInterface $color = null);
-+    public function create(BoxInterface $size, ColorInterface | null $color = null);
++    public function create(BoxInterface $size, ?ColorInterface $color = null);
  
      /**
       * Opens an existing image from $path
@@ -144,7 +144,7 @@ diff --color -ruN a/lib/Imagine/Image/ManipulatorInterface.php b/lib/Imagine/Ima
       * @return static
       */
 -    public function rotate($angle, ColorInterface $background = null);
-+    public function rotate($angle, ColorInterface | null $background = null);
++    public function rotate($angle, ?ColorInterface $background = null);
  
      /**
       * Pastes an image into a parent image
@@ -207,7 +207,7 @@ diff --color -ruN a/lib/Imagine/Imagick/Image.php b/lib/Imagine/Imagick/Image.ph
       * @return ImageInterface
       */
 -    public function rotate($angle, ColorInterface $background = null)
-+    public function rotate($angle, ColorInterface | null $background = null)
++    public function rotate($angle, ?ColorInterface $background = null)
      {
          $color = $background ? $background : $this->palette->color('fff');
  
@@ -219,7 +219,7 @@ diff --color -ruN a/lib/Imagine/Imagick/Imagine.php b/lib/Imagine/Imagick/Imagin
       * {@inheritdoc}
       */
 -    public function create(BoxInterface $size, ColorInterface $color = null)
-+    public function create(BoxInterface $size, ColorInterface | null $color = null)
++    public function create(BoxInterface $size, ?ColorInterface $color = null)
      {
          $width  = $size->getWidth();
          $height = $size->getHeight();

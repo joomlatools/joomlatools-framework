@@ -57,7 +57,7 @@ interface BoxInterface
      *
      * @return Boolean
      */
-    public function contains(BoxInterface $box, PointInterface | null $start = null);
+    public function contains(BoxInterface $box, ?PointInterface $start = null);
 
     /**
      * Gets current box square, useful for getting total number of pixels in a
