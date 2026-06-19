@@ -4,4 +4,4 @@ code/libraries/joomlatools/library/resources/assets/styleguide
 .env
 
 # Built extension packages (mason build/bundle output)
-*.zip
+/*.zip
