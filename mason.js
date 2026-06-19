@@ -3,6 +3,11 @@ const path = require('path');
 const fs = require('fs').promises;
 
 const frameworkFolder = process.cwd();
+
+// Read the shared GitHub token from the monorepo-root .env (gitignored, outside the repos).
+if (typeof process.loadEnvFile === 'function') {
+    try { process.loadEnvFile(path.resolve(process.cwd(), '..', '.env')); } catch (e) { /* .env is optional */ }
+}
 const libraryAssetsPath = `${frameworkFolder}/code/libraries/joomlatools/library/resources/assets`;
 const koowaAssetsPath = `${frameworkFolder}/code/libraries/joomlatools/component/koowa/resources/assets`;
 const KUIPath = `${path.resolve(frameworkFolder, '../..')}/tools/kodekit-ui/dist`;
@@ -78,7 +83,7 @@ async function build({ config = {} }) {
             appendVersion: false,
             destination: `${frameworkFolder}/joomlatools-framework.zip`,
             compress: true,
-            githubToken: null,
+            githubToken: process.env.JOOMLATOOLS_GITHUB_TOKEN || null,
             branch: 'master',
             includeComponents: true,
         },
