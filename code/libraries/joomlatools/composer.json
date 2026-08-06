@@ -27,7 +27,8 @@
             "delete_vendor_packages": true,
             "exclude_from_copy": {
                 "file_patterns": [
-                    "/[Tt]ests?/"
+                    "/[Tt]ests?/",
+                    "/\\.icc$/i"
                 ]
             }
         }
