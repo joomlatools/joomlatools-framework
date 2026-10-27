@@ -4,13 +4,6 @@ const fs = require('fs').promises;
 
 const frameworkFolder = process.cwd();
 
-// Read the shared GitHub token from the monorepo-root .env (gitignored, outside the repos).
-try {
-    for (const line of require('fs').readFileSync(path.resolve(process.cwd(), '..', '.env'), 'utf8').split('\n')) {
-        const m = line.match(/^\s*([\w.-]+)\s*=\s*(.*?)\s*$/);
-        if (m && process.env[m[1]] === undefined) { process.env[m[1]] = m[2].replace(/^(['"])([\s\S]*)\1$/, '$2'); }
-    }
-} catch (e) { /* .env is optional */ }
 const libraryAssetsPath = `${frameworkFolder}/code/libraries/joomlatools/library/resources/assets`;
 const koowaAssetsPath = `${frameworkFolder}/code/libraries/joomlatools/component/koowa/resources/assets`;
 const KUIPath = `${path.resolve(frameworkFolder, '../..')}/tools/kodekit-ui/dist`;
