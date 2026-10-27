@@ -24,17 +24,14 @@ class ComFilesModelEntityAttachment extends KModelEntityRow
     {
         $model = $this->getObject('com:files.model.files')->container($this->container_slug);
 
-        // Without a name the model lists the whole folder, return an empty (new) entity instead
-        if (!$this->name) {
-            return $model->create();
+        // Without a name the model lists the whole folder, use an empty (new) entity instead
+        if ($this->name) {
+            $file = $model->name($this->name)->thumbnails(true)->fetch()->getIterator()->current();
+        } else {
+            $file = $model->create();
         }
 
-        return $model
-                    ->name($this->name)
-                    ->thumbnails(true)
-                    ->fetch()
-                    ->getIterator()
-                    ->current();
+        return $file;
     }
 
     public function delete()
