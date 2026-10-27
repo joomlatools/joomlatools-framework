@@ -36,6 +36,29 @@ abstract class ComFilesControllerAbstract extends ComKoowaControllerModel
 		return $request;
 	}
 
+	/**
+	 * Refuses an action that has no node name to act on
+	 *
+	 * The models only filter on name when it is set, so without one the action would apply to every node in the
+	 * folder. Non-local URIs are let through as they point to a single node without setting a name.
+	 *
+	 * @param KControllerContextInterface $context
+	 * @throws KControllerExceptionRequestInvalid
+	 */
+	protected function _requireName(KControllerContextInterface $context)
+	{
+		$state = $this->getModel()->getState();
+
+		if (!$state->name)
+		{
+			$scheme = $state->uri ? parse_url($state->uri, PHP_URL_SCHEME) : null;
+
+			if (!$scheme || $scheme === 'file') {
+				throw new KControllerExceptionRequestInvalid('Name is required');
+			}
+		}
+	}
+
 	protected function _actionCopy(KControllerContextInterface $context)
 	{
 		$entities = $this->getModel()->fetch();

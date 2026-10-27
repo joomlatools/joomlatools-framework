@@ -15,4 +15,12 @@
  */
 class ComFilesControllerFolder extends ComFilesControllerAbstract
 {
+	public function __construct(KObjectConfig $config)
+	{
+		parent::__construct($config);
+
+		foreach (array('delete', 'move', 'copy') as $action) {
+			$this->addCommandCallback('before.'.$action, '_requireName');
+		}
+	}
 }
