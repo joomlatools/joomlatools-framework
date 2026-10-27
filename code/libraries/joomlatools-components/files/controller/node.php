@@ -15,6 +15,16 @@
  */
 class ComFilesControllerNode extends ComFilesControllerAbstract
 {
+	public function __construct(KObjectConfig $config)
+	{
+		parent::__construct($config);
+
+		// Registered after _beforeMove and _beforeCopy, which move the posted names into the query
+		foreach (array('delete', 'move', 'copy') as $action) {
+			$this->addCommandCallback('before.'.$action, '_requireName');
+		}
+	}
+
 	protected function _initialize(KObjectConfig $config)
 	{
 		$config->append(array(

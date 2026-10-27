@@ -21,6 +21,10 @@ class ComFilesControllerFile extends ComFilesControllerAbstract
 
         $this->addCommandCallback('before.add' , '_setFile');
         $this->addCommandCallback('before.edit', '_setFile');
+
+        foreach (array('delete', 'move', 'copy') as $action) {
+            $this->addCommandCallback('before.'.$action, '_requireName');
+        }
 	}
 	
 	protected function _initialize(KObjectConfig $config)

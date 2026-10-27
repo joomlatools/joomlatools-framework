@@ -22,8 +22,14 @@ class ComFilesModelEntityAttachment extends KModelEntityRow
      */
     public function getPropertyFile()
     {
-        return $this->getObject('com:files.model.files')
-                    ->container($this->container_slug)
+        $model = $this->getObject('com:files.model.files')->container($this->container_slug);
+
+        // Without a name the model lists the whole folder, return an empty (new) entity instead
+        if (!$this->name) {
+            return $model->create();
+        }
+
+        return $model
                     ->name($this->name)
                     ->thumbnails(true)
                     ->fetch()
