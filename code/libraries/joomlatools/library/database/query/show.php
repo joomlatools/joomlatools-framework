@@ -110,9 +110,19 @@ class KDatabaseQueryShow extends KDatabaseQueryAbstract
 
         if($this->from)
         {
+            $show = strtoupper(preg_replace('/\s+/', ' ', trim($this->show)));
+
             // These statements read FROM as a database name. It cannot be qualified, so dots belong to the name.
-            if(in_array(strtoupper($this->show), array('TABLES', 'FULL TABLES', 'OPEN TABLES', 'TABLE STATUS', 'EVENTS', 'TRIGGERS'))) {
-                $query .= ' FROM `'.str_replace('`', '``', trim($this->from, '`')).'`';
+            if(in_array($show, array('TABLES', 'FULL TABLES', 'EXTENDED TABLES', 'EXTENDED FULL TABLES', 'OPEN TABLES', 'TABLE STATUS', 'EVENTS', 'TRIGGERS', 'FULL TRIGGERS')))
+            {
+                $database = trim($this->from);
+
+                // A name that is already a quoted identifier is kept as it is
+                if(!preg_match('/^`(?:[^`]|``)+`$/', $database)) {
+                    $database = '`'.str_replace('`', '``', $database).'`';
+                }
+
+                $query .= ' FROM '.$database;
             }
             else
             {
@@ -146,6 +156,19 @@ class KDatabaseQueryShow extends KDatabaseQueryAbstract
         return $query;
     }
     
+    /**
+     * Replace parameters in the query string.
+     *
+     * Quoted identifiers are skipped, a colon inside of one is part of the name and not a placeholder.
+     *
+     * @param  string $query The query string.
+     * @return string The replaced string.
+     */
+    protected function _replaceParams($query)
+    {
+        return preg_replace_callback('/`[^`]*`(*SKIP)(*FAIL)|(?<!\w):\w+/', array($this, '_replaceParamsCallback'), $query);
+    }
+
     /**
      * Callback method for parameter replacement.
      * 
