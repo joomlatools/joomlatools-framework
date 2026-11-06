@@ -157,19 +157,6 @@ class KDatabaseQueryShow extends KDatabaseQueryAbstract
     }
     
     /**
-     * Replace parameters in the query string.
-     *
-     * Quoted identifiers are skipped, a colon inside of one is part of the name and not a placeholder.
-     *
-     * @param  string $query The query string.
-     * @return string The replaced string.
-     */
-    protected function _replaceParams($query)
-    {
-        return preg_replace_callback('/`[^`]*`(*SKIP)(*FAIL)|(?<!\w):\w+/', array($this, '_replaceParamsCallback'), $query);
-    }
-
-    /**
      * Callback method for parameter replacement.
      * 
      * @param  array  $matches Matches of preg_replace_callback.
