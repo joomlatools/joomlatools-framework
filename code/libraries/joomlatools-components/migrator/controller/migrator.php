@@ -9,6 +9,13 @@
 class ComMigratorControllerMigrator extends KControllerView implements KControllerModellable
 {
     /**
+     * The time in seconds before the working folder of an abandoned run gets removed.
+     *
+     * @var int
+     */
+    const FOLDER_LIFETIME = 86400;
+
+    /**
      * Model object or identifier (com://APP/COMPONENT.model.NAME)
      *
      * @var	string|object
@@ -34,25 +41,32 @@ class ComMigratorControllerMigrator extends KControllerView implements KControll
 
         // Set the model identifier
         $this->_model = $config->model;
-
-        $this->setTemporaryFolder($config->folder);
     }
 
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'formats'   => array('json', 'binary'),
-            'model'     => 'model.empty'
+            'formats'       => array('json', 'binary'),
+            'model'         => 'model.empty',
+            'folder_prefix' => 'migrator'
         ));
 
         parent::_initialize($config);
     }
 
     /**
-     * @return string
+     * Returns the working folder of the current run.
+     *
+     * A run spans multiple requests, the session keeps track of its folder in between.
+     *
+     * @return string|null The folder path, null if there's no run going on.
      */
     public function getTemporaryFolder()
     {
+        if (!$this->_temporary_folder) {
+            $this->_temporary_folder = $this->getObject('user')->get($this->_getSessionContainer(), null);
+        }
+
         return $this->_temporary_folder;
     }
 
@@ -65,6 +79,178 @@ class ComMigratorControllerMigrator extends KControllerView implements KControll
         $this->_temporary_folder = $temporary_folder;
 
         return $this;
+    }
+
+    /**
+     * Creates the working folder for a new run.
+     *
+     * Each run gets its own folder so that runs do not interfere with each other. This is also when folders that are
+     * no longer in use get removed.
+     *
+     * @throws RuntimeException If the folder cannot be created.
+     * @return string The folder path.
+     */
+    public function createTemporaryFolder()
+    {
+        $this->deleteTemporaryFolder();
+
+        $root = $this->_getTemporaryRoot();
+
+        $this->_deleteExpiredFolders($root);
+
+        $folder = sprintf('%s/%s_%s', $root, $this->getConfig()->folder_prefix, bin2hex(random_bytes(16)));
+
+        if (!mkdir($folder, 0700, true)) {
+            throw new RuntimeException('The working folder could not be created');
+        }
+
+        $this->getObject('user')->set($this->_getSessionContainer(), $folder);
+        $this->setTemporaryFolder($folder);
+
+        return $folder;
+    }
+
+    /**
+     * Deletes the working folder of the current run.
+     *
+     * @return $this
+     */
+    public function deleteTemporaryFolder()
+    {
+        if ($folder = $this->getTemporaryFolder())
+        {
+            $this->_forgetTemporaryFolder();
+
+            if ($this->_isTemporaryFolder($folder)) {
+                $this->_deleteFolder($folder);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the working folder of a run that must already be going on.
+     *
+     * @throws RuntimeException If the run has lost track of its folder.
+     * @return string The folder path.
+     */
+    protected function _getCurrentTemporaryFolder()
+    {
+        $folder = $this->getTemporaryFolder();
+
+        if (!$folder || !is_dir($folder)) {
+            throw new RuntimeException('The working folder could not be found, please start over');
+        }
+
+        return $folder;
+    }
+
+    /**
+     * Makes the controller lose track of the working folder, leaving the folder itself in place.
+     *
+     * @return $this
+     */
+    protected function _forgetTemporaryFolder()
+    {
+        $this->getObject('user')->set($this->_getSessionContainer(), null);
+        $this->setTemporaryFolder(null);
+
+        return $this;
+    }
+
+    /**
+     * Returns the folder holding the working folders.
+     *
+     * @throws RuntimeException If no writable folder is found.
+     * @return string The folder path.
+     */
+    protected function _getTemporaryRoot()
+    {
+        $candidates = array(JFactory::getConfig()->get('tmp_path'), JPATH_ROOT.'/tmp');
+
+        foreach ($candidates as $folder)
+        {
+            if ($folder && @is_dir($folder) && is_writable($folder)) {
+                return rtrim($folder, '\\/');
+            }
+        }
+
+        throw new RuntimeException('Please make sure your Joomla tmp directory is writable');
+    }
+
+    /**
+     * Tells if a path is a working folder of this controller.
+     *
+     * @param string $folder The folder path.
+     * @return bool
+     */
+    protected function _isTemporaryFolder($folder)
+    {
+        $pattern = sprintf('/^%s_[a-f0-9]{32}$/', preg_quote($this->getConfig()->folder_prefix, '/'));
+
+        return is_dir($folder) && !is_link($folder) && preg_match($pattern, basename($folder));
+    }
+
+    /**
+     * Deletes the working folders of runs that were abandoned.
+     *
+     * @param string $root The folder holding the working folders.
+     * @return $this
+     */
+    protected function _deleteExpiredFolders($root)
+    {
+        $folders = glob(sprintf('%s/%s_*', $root, $this->getConfig()->folder_prefix), GLOB_ONLYDIR | GLOB_NOSORT);
+
+        if ($folders)
+        {
+            foreach ($folders as $folder)
+            {
+                $modified = @filemtime($folder);
+
+                if ($modified && $modified < (time() - self::FOLDER_LIFETIME) && $this->_isTemporaryFolder($folder)) {
+                    $this->_deleteFolder($folder);
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Recursively deletes a directory with all of its contents.
+     *
+     * @param string $folder The folder to delete.
+     *
+     * @return bool True is successful, false otherwise.
+     */
+    protected function _deleteFolder($folder)
+    {
+        $files = array_diff(scandir($folder), array('.', '..'));
+
+        foreach ($files as $file)
+        {
+            $node = sprintf('%s/%s', $folder, $file);
+
+            if (is_dir($node) && !is_link($node)) {
+                $this->_deleteFolder($node);
+            }
+            else unlink($node);
+        }
+
+        return rmdir($folder);
+    }
+
+    /**
+     * Session container getter.
+     *
+     * Provides a session variable for storing the location of the working folder.
+     *
+     * @return string
+     */
+    protected function _getSessionContainer()
+    {
+        return 'session.'.$this->getIdentifier().'.folder';
     }
 
     /**

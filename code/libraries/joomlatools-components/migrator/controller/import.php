@@ -23,9 +23,9 @@ class ComMigratorControllerImport extends ComMigratorControllerMigrator
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'behaviors' => array('com:migrator.controller.behavior.uploadable'),
-            'folder'    => JPATH_ROOT . '/tmp/migrator_import',
-            'importers' => array()
+            'behaviors'     => array('com:migrator.controller.behavior.uploadable'),
+            'folder_prefix' => 'migrator_import',
+            'importers'     => array()
         ));
 
         $config->view = 'com:migrator.view.import.'.$this->getObject('request')->getFormat();
@@ -60,6 +60,18 @@ class ComMigratorControllerImport extends ComMigratorControllerMigrator
         else {
             throw new RuntimeException('Invalid job');
         }
+    }
+
+    /**
+     * Deletes the working folder once the last job has finished.
+     *
+     * @param KControllerContextInterface $context A command context object.
+     */
+    protected function _actionCleanup(KControllerContextInterface $context)
+    {
+        $this->deleteTemporaryFolder();
+
+        $context->response->setContent(json_encode(array('status' => true)));
     }
 
     public function getImporters()
