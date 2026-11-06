@@ -110,8 +110,25 @@ class KDatabaseQueryShow extends KDatabaseQueryAbstract
 
         if($this->from)
         {
-            $table  = (in_array($this->show, array('FULL COLUMNS', 'COLUMNS', 'INDEX', 'INDEXES', 'KEYS')) ? $prefix : '').$this->from;
-            $query .= ' FROM '.$adapter->quoteIdentifier($table);
+            $show = strtoupper(preg_replace('/\s+/', ' ', trim($this->show)));
+
+            // These statements read FROM as a database name. It cannot be qualified, so dots belong to the name.
+            if(in_array($show, array('TABLES', 'FULL TABLES', 'EXTENDED TABLES', 'EXTENDED FULL TABLES', 'OPEN TABLES', 'TABLE STATUS', 'EVENTS', 'TRIGGERS', 'FULL TRIGGERS')))
+            {
+                $database = trim($this->from);
+
+                // A name that is already a quoted identifier is kept as it is
+                if(!preg_match('/^`(?:[^`]|``)+`$/', $database)) {
+                    $database = '`'.str_replace('`', '``', $database).'`';
+                }
+
+                $query .= ' FROM '.$database;
+            }
+            else
+            {
+                $table  = (in_array($this->show, array('FULL COLUMNS', 'COLUMNS', 'INDEX', 'INDEXES', 'KEYS')) ? $prefix : '').$this->from;
+                $query .= ' FROM '.$adapter->quoteIdentifier($table);
+            }
         }
 
         if($this->like) {
