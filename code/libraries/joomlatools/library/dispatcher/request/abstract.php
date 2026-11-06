@@ -251,6 +251,28 @@ abstract class KDispatcherRequestAbstract extends KControllerRequest implements 
     }
 
     /**
+     * Set the query parameters
+     *
+     * A layout in the incoming request can only be a name. Code handling the request can still set a full template
+     * identifier on the query afterwards.
+     *
+     * @param  array $parameters The query parameters
+     * @return KDispatcherRequestAbstract
+     */
+    public function setQuery($parameters)
+    {
+        parent::setQuery($parameters);
+
+        $layout = $this->_query->get('layout', 'cmd');
+
+        if (!is_null($layout)) {
+            $this->_query->set('layout', $layout);
+        }
+
+        return $this;
+    }
+
+    /**
      * Sets a list of trusted proxies.
      *
      * You should only list the reverse proxies that you manage directly.
