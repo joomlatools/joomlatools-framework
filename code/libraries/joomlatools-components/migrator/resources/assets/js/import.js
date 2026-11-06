@@ -190,6 +190,15 @@ $(function() {
                 showStep(3);
 
                 import_in_process = false;
+
+                $.ajax({
+                    url: JoomlatoolsMigrator.base_url,
+                    type: 'post',
+                    data: {
+                        _action: 'cleanup',
+                        csrf_token: JoomlatoolsMigrator.token
+                    }
+                });
             }
         };
 

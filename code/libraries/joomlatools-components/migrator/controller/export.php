@@ -12,8 +12,8 @@ class ComMigratorControllerExport extends ComMigratorControllerMigrator
     protected function _initialize(KObjectConfig $config)
     {
         $config->append(array(
-            'folder'    => JPATH_ROOT . '/tmp/migrator_export',
-            'exporters' => array()
+            'folder_prefix' => 'migrator_export',
+            'exporters'     => array()
         ));
 
         $config->view = 'com:migrator.view.export.'.$this->getObject('request')->getFormat();
@@ -34,12 +34,23 @@ class ComMigratorControllerExport extends ComMigratorControllerMigrator
     {
         if ($this->getRequest()->getFormat() === 'binary')
         {
-            $folder  = $this->getTemporaryFolder();
+            $folder  = $this->_getCurrentTemporaryFolder();
             $package = sprintf('%s/export.zip', $folder);
+
+            if (!is_file($package)) {
+                throw new KControllerExceptionResourceNotFound('Export package not found');
+            }
 
             $this->getResponse()
                 ->attachTransport('stream')
                 ->setContent($package, 'application/octet-stream');
+
+            // The run is over. The response gets sent after this handler returns, so that's when the folder can go.
+            $this->_forgetTemporaryFolder();
+
+            register_shutdown_function(function() use ($folder) {
+                $this->_deleteFolder($folder);
+            });
         }
         else {
             return parent::_actionRender($context);
@@ -56,25 +67,15 @@ class ComMigratorControllerExport extends ComMigratorControllerMigrator
 
     protected function _actionCleanup(KControllerContextInterface $context)
     {
-        $folder = $this->getTemporaryFolder();
-
-        if (file_exists($folder) && !$this->_deleteFolder($folder)) {
-            throw new RuntimeException('Unable to delete the export folder');
-        }
-
-        if (!mkdir($folder, 0755, true)) {
-            throw new RuntimeException('Export folder could not be created');
-        }
-
-        if (!is_writable($folder)) {
-            throw new RuntimeException('The export folder is not writtable');
-        }
+        $this->createTemporaryFolder();
 
         $context->response->setContent(json_encode(array('status' => true)));
     }
 
     protected function _actionRun(KControllerContextInterface $context)
     {
+        $this->_getCurrentTemporaryFolder();
+
         $request = $this->getRequest();
         $job    = $request->getQuery()->job;
 
@@ -95,7 +96,7 @@ class ComMigratorControllerExport extends ComMigratorControllerMigrator
 
     protected function _actionPackage(KControllerContextInterface $context)
     {
-        $folder    = $this->getTemporaryFolder();
+        $folder    = $this->_getCurrentTemporaryFolder();
         $package   = sprintf('%s/export.zip', $folder);
         $extension = $this->getRequest()->getQuery()->extension;
 
@@ -189,29 +190,4 @@ class ComMigratorControllerExport extends ComMigratorControllerMigrator
 
         return $exporter;
     }
-
-    /**
-     * Recursively deletes a directory with all of its contents.
-     *
-     * @param string $folder The folder to delete.
-     *
-     * @return bool True is successful, false otherwise.
-     */
-    protected function _deleteFolder($folder)
-    {
-        $files = array_diff(scandir($folder), array('.', '..'));
-
-        foreach ($files as $file)
-        {
-            $node = sprintf('%s/%s', $folder, $file);
-
-            if (is_dir($node)) {
-                $this->_deleteFolder($node);
-            }
-            else unlink($node);
-        }
-
-        return rmdir($folder);
-    }
-
 }

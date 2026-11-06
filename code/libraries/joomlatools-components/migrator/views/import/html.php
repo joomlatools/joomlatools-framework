@@ -85,8 +85,8 @@ class ComMigratorViewImportHtml extends ComKoowaViewHtml
                 'ZipArchive class is needed for the export process.'
             ),
             'tmp' => array(
-                is_writable(JPATH_ROOT.'/tmp'),
-                'Please make sure tmp directory in your site root is writable'
+                is_writable((string) JFactory::getConfig()->get('tmp_path')) || is_writable(JPATH_ROOT.'/tmp'),
+                'Please make sure your Joomla tmp directory is writable'
             )
         );
 

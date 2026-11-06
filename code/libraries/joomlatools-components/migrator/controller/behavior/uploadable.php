@@ -16,7 +16,7 @@ class ComMigratorControllerBehaviorUploadable extends KControllerBehaviorAbstrac
         $folder = $this->getTemporaryFolder();
         $file   = $folder . '/export.json';
 
-        if (file_exists($file)) {
+        if ($folder && file_exists($file)) {
             $config = json_decode(trim(file_get_contents($file)));
         } else {
             throw new RuntimeException('JSON export file not found');
@@ -44,19 +44,11 @@ class ComMigratorControllerBehaviorUploadable extends KControllerBehaviorAbstrac
 
         $context->file = $context->request->files->file['tmp_name'];
 
-        $folder = $this->getTemporaryFolder();
-
-        if (!is_writable(dirname($folder))) {
-            throw new RuntimeException('Please make sure your Joomla tmp directory in your site root is writable');
-        }
-
         if (empty($context->file)) {
             throw new RuntimeException('Cannot find uploaded file');
         }
 
-        if (file_exists($folder)) {
-            $this->_deleteFolder($folder);
-        }
+        $this->createTemporaryFolder();
     }
 
     /**
@@ -68,17 +60,34 @@ class ComMigratorControllerBehaviorUploadable extends KControllerBehaviorAbstrac
     {
         $zip  = new ZipArchive();
 
-        if ($zip->open($context->file) !== true) {
+        if ($zip->open($context->file) !== true)
+        {
+            $this->deleteTemporaryFolder();
+
             throw new RuntimeException("Cannot open uploaded file");
         }
 
-        if (!$zip->extractTo($this->getTemporaryFolder())) {
+        $files = $this->_getExtractableFiles($zip);
+
+        if (!$files || !$zip->extractTo($this->getTemporaryFolder(), $files))
+        {
+            $zip->close();
+            $this->deleteTemporaryFolder();
+
             throw new RuntimeException('Unable to extract uploaded file');
         }
 
         $zip->close();
 
-        $this->_setConfig($context);
+        try {
+            $this->_setConfig($context);
+        }
+        catch (RuntimeException $e)
+        {
+            $this->deleteTemporaryFolder();
+
+            throw $e;
+        }
 
         // Send a task list back to the client.
         if ($importer = $this->getImporter($this->getMixer()->getConfig()->extension))
@@ -100,26 +109,24 @@ class ComMigratorControllerBehaviorUploadable extends KControllerBehaviorAbstrac
     }
 
     /**
-     * Recursively deletes a directory with all of its contents.
+     * Returns the files of a package that importers read, i.e. the CSV and JSON files at its root.
      *
-     * @param string $folder The folder to delete.
-     *
-     * @return bool True is successful, false otherwise.
+     * @param ZipArchive $zip The package.
+     * @return array The file names.
      */
-    protected function _deleteFolder($folder)
+    protected function _getExtractableFiles(ZipArchive $zip)
     {
-        $files = array_diff(scandir($folder), array('.', '..'));
+        $files = array();
 
-        foreach ($files as $file)
+        for ($i = 0; $i < $zip->numFiles; $i++)
         {
-            $node = sprintf('%s/%s', $folder, $file);
+            $name = $zip->getNameIndex($i);
 
-            if (is_dir($node)) {
-                $this->_deleteFolder($node);
+            if (preg_match('/^[\w\-]+\.(csv|json)$/', $name)) {
+                $files[] = $name;
             }
-            else unlink($node);
         }
 
-        return rmdir($folder);
+        return $files;
     }
 }
